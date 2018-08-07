@@ -1,0 +1,10 @@
+/* the following is not necessary, just showing how a header could be added */
+nav{
+
+    height: 30px;
+    background: rgba(232, 243, 243, 0.925);
+
+    position: absolute;
+    top: 0;
+    
+}

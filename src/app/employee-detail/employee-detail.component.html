@@ -1,0 +1,12 @@
+<h2 align='center'>Employee Detail</h2>
+<br/>
+<br/>
+<br/>
+<div *ngIf="employee">
+  <h2>{{employee.name | uppercase}}</h2>
+  <div><span>id: </span>{{employee.id}}</div>
+  <div><span>email: </span><a href='mailto:{{employee.email}}'>{{employee.email}}</a></div>
+  <div><span>tel: </span><a href='tel:{{employee.tel_outer}}'>{{employee.tel_outer}}</a></div>
+  <div><span>tel_inner: </span><a href='tel:{{employee.tel_inner}}'>{{employee.tel_inner}}</a></div>
+  <button (click)="goBack()">go back</button>
+</div>
