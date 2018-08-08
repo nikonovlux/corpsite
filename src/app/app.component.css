@@ -1,3 +1,15 @@
+.logo{
+  margin-left: 5%;
+  
+}
+
+
+
+@media (max-width : 380px) {
+  .logo {display:block;}
+  .logo {display:none;}
+}
+
 
 .hamburger {
     display: block;
@@ -18,7 +30,7 @@
   .hamburger span {
     display: block;
     position: absolute;
-    top: 44px;
+    top: 32px;
     left: 18px;
     right: 18px;
     height: 8px;
