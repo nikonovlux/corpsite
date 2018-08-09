@@ -31,7 +31,7 @@
     left: 18px;
     right: 18px;
     height: 8px;
-    background: #696fa8;
+    background: #089910;;
   }
    
   .hamburger span::before,
@@ -41,7 +41,7 @@
     left: 0;
     width: 100%;
     height: 8px;
-    background-color: #626796;
+    background-color: #089910;;
     content: "";
   }
    

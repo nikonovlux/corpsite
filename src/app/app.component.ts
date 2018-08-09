@@ -30,5 +30,11 @@ export class AppComponent {
       //alert('hited');
       this.menuState = this.menuState === 'out' ? 'in' : 'out';
   }
+  toggleMenuOut() {
+
+    this.menuState = 'out';
+}
+
+
 
 }

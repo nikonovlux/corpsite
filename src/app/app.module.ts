@@ -19,6 +19,7 @@ import { AppRoutingModule } from './/app-routing.module';
 
 import { MessagesComponent } from './messages/messages.component';
 import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
+import { NewsComponent } from './news/news.component';
 
 
 
@@ -35,7 +36,8 @@ import { EmployeeDetailComponent } from './employee-detail/employee-detail.compo
     DocsComponent,
     MenuComponent,
     MessagesComponent,
-    EmployeeDetailComponent
+    EmployeeDetailComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
