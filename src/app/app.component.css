@@ -1,9 +1,6 @@
 .logo{
-  margin-left: 5%;
-  
+  margin-left: 5%;  
 }
-
-
 
 @media (max-width : 380px) {
   .logo {display:block;}
@@ -34,7 +31,7 @@
     left: 18px;
     right: 18px;
     height: 8px;
-    background: #1a2580;
+    background: #696fa8;
   }
    
   .hamburger span::before,
@@ -44,7 +41,7 @@
     left: 0;
     width: 100%;
     height: 8px;
-    background-color: #1a2580;
+    background-color: #626796;
     content: "";
   }
    
