@@ -1,8 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { TopmenuComponent } from './topmenu/topmenu.component';
@@ -22,6 +21,14 @@ import { EmployeeDetailComponent } from './employee-detail/employee-detail.compo
 import { NewsComponent } from './news/news.component';
 
 
+import { AccordionModule } from 'primeng/primeng';
+import { PanelModule } from 'primeng/primeng';
+import { ButtonModule } from 'primeng/primeng';
+import { RadioButtonModule } from 'primeng/primeng';
+import {GMapModule} from 'primeng/gmap';
+
+
+
 
 @NgModule({
   declarations: [
@@ -37,12 +44,17 @@ import { NewsComponent } from './news/news.component';
     MenuComponent,
     MessagesComponent,
     EmployeeDetailComponent,
-    NewsComponent
+    NewsComponent 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AccordionModule,
+    PanelModule,
+    ButtonModule,
+    RadioButtonModule,
+    GMapModule
   ],
   providers: [],
   bootstrap: [AppComponent]
