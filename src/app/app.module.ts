@@ -28,8 +28,9 @@ import { RadioButtonModule } from 'primeng/primeng';
 import {GMapModule} from 'primeng/gmap';
 
 
-import { Http, HttpModule } from '@angular/http';
-import { Adal4Service, Adal4HTTPService } from 'adal-angular';
+import { MsAdalAngular6Module } from 'microsoft-adal-angular6';
+import { AuthenticationGuard } from 'microsoft-adal-angular6';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -47,7 +48,8 @@ import { Adal4Service, Adal4HTTPService } from 'adal-angular';
     MenuComponent,
     MessagesComponent,
     EmployeeDetailComponent,
-    NewsComponent
+    NewsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -57,16 +59,17 @@ import { Adal4Service, Adal4HTTPService } from 'adal-angular';
     PanelModule,
     ButtonModule,
     RadioButtonModule,
-    GMapModule
+    GMapModule,
+    MsAdalAngular6Module.forRoot({
+      tenant: '435a4f02-f6b2-4248-9a5c-0f355179c0df',
+      clientId: '937a47e8-b6ad-4226-8d28-4940d9662ac9',
+      redirectUri: "http://192.168.220.146:4200/login",
+      endpoints: { },
+      navigateToLoginRequestUrl: false,
+      cacheLocation: '<localStorage / sessionStorage>'
+    })
   ],
-  providers: [
-    Adal4Service,
-    {
-        provide: Adal4HTTPService,
-        useFactory: Adal4HTTPService.factory,
-        deps: [Http, Adal4Service]
-    }
-  ],
+  providers: [AuthenticationGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
