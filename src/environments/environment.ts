@@ -2,9 +2,9 @@
 // `ng build ---prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
-  production: false
-};
+          // export const environment = {
+          //   production: false
+          // };
 
 /*
  * In development mode, to ignore zone related error stack frames such as
@@ -13,3 +13,14 @@ export const environment = {
  * because it will have performance impact when throw error
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+
+
+export const environment = {
+  production: false,
+  adalConfig: {
+    tenant: '435a4f02-f6b2-4248-9a5c-0f355179c0df', 
+    clientId: '937a47e8-b6ad-4226-8d28-4940d9662ac9', 
+    postLogoutRedirectUri: 'http://localhost:4200/logout'
+  },
+};

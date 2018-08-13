@@ -14,7 +14,7 @@ import { EmployeesComponent } from './employees/employees.component';
 import { DocsComponent } from './docs/docs.component';
 import { MenuComponent } from './menu/menu.component';
 
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 
 import { MessagesComponent } from './messages/messages.component';
 import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
@@ -27,6 +27,9 @@ import { ButtonModule } from 'primeng/primeng';
 import { RadioButtonModule } from 'primeng/primeng';
 import {GMapModule} from 'primeng/gmap';
 
+
+import { Http, HttpModule } from '@angular/http';
+import { Adal4Service, Adal4HTTPService } from 'adal-angular';
 
 
 
@@ -44,7 +47,7 @@ import {GMapModule} from 'primeng/gmap';
     MenuComponent,
     MessagesComponent,
     EmployeeDetailComponent,
-    NewsComponent 
+    NewsComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,14 @@ import {GMapModule} from 'primeng/gmap';
     RadioButtonModule,
     GMapModule
   ],
-  providers: [],
+  providers: [
+    Adal4Service,
+    {
+        provide: Adal4HTTPService,
+        useFactory: Adal4HTTPService.factory,
+        deps: [Http, Adal4Service]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
