@@ -10,6 +10,8 @@ import { DocsComponent } from './docs/docs.component';
 import { NewsComponent } from './news/news.component';
 
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
+
 
 import { EmployeeDetailComponent }  from './employee-detail/employee-detail.component';
 
@@ -20,15 +22,16 @@ import { AppComponent } from './app.component';
 const routes: Routes = [
   { path: '', component: AppComponent, pathMatch:'full', canActivate: [AuthenticationGuard] },
 //  { path: '', redirectTo: '/mainpage', pathMatch: 'full' },
-  { path: 'mainpage', component: MainpageComponent },
-  { path: 'employees', component: EmployeesComponent },
-  { path: 'structure', component: StructureComponent },
-  { path: 'feedback', component: FeedbackComponent },
-  { path: 'retail', component: RetailComponent },
-  { path: 'docs', component: DocsComponent },
-  { path: 'news', component: NewsComponent },
-  { path: 'detail/:id', component: EmployeeDetailComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'mainpage', component: MainpageComponent , canActivate: [AuthenticationGuard] },
+  { path: 'employees', component: EmployeesComponent , canActivate: [AuthenticationGuard] },
+  { path: 'structure', component: StructureComponent , canActivate: [AuthenticationGuard] },
+  { path: 'feedback', component: FeedbackComponent , canActivate: [AuthenticationGuard] },
+  { path: 'retail', component: RetailComponent , canActivate: [AuthenticationGuard] },
+  { path: 'docs', component: DocsComponent , canActivate: [AuthenticationGuard] },
+  { path: 'news', component: NewsComponent , canActivate: [AuthenticationGuard] },
+  { path: 'detail/:id', component: EmployeeDetailComponent , canActivate: [AuthenticationGuard] },
+  { path: 'login', component: LoginComponent , canActivate: [AuthenticationGuard] },
+  { path: 'logout', component: LogoutComponent , canActivate: [AuthenticationGuard] },
 ];
 
 

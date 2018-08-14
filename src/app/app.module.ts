@@ -25,12 +25,15 @@ import { AccordionModule } from 'primeng/primeng';
 import { PanelModule } from 'primeng/primeng';
 import { ButtonModule } from 'primeng/primeng';
 import { RadioButtonModule } from 'primeng/primeng';
-import {GMapModule} from 'primeng/gmap';
+import { GMapModule} from 'primeng/gmap';
 
 
 import { MsAdalAngular6Module } from 'microsoft-adal-angular6';
 import { AuthenticationGuard } from 'microsoft-adal-angular6';
+
+
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 
@@ -49,7 +52,8 @@ import { LoginComponent } from './login/login.component';
     MessagesComponent,
     EmployeeDetailComponent,
     NewsComponent,
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

@@ -2,12 +2,7 @@ import { Component } from '@angular/core';
 import { trigger, state, style, transition, animate} from '@angular/animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-//added
-import { OnInit } from '@angular/core';
 
-import { environment } from '../environments/environment';
-
-import { MsAdalAngular6Module } from 'microsoft-adal-angular6';
 
 @Component({
   selector: 'app-root',

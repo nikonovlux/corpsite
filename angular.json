@@ -50,7 +50,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "corpsite:build"
+            "browserTarget": "corpsite:build",
+			"host":"192.168.220.146",
+			"port": 4200
           },
           "configurations": {
             "production": {
