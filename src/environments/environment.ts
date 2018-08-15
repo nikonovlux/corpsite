@@ -21,6 +21,6 @@ export const environment = {
   adalConfig: {
     tenant: '435a4f02-f6b2-4248-9a5c-0f355179c0df', 
     clientId: '937a47e8-b6ad-4226-8d28-4940d9662ac9', 
-    postLogoutRedirectUri: 'http://localhost:4200/logout'
+    postLogoutRedirectUri: 'http://192.168.220.146:4200'
   },
 };

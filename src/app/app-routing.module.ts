@@ -20,8 +20,8 @@ import { AuthenticationGuard } from 'microsoft-adal-angular6';
 import { AppComponent } from './app.component';
 
 const routes: Routes = [
-  { path: '', component: AppComponent, pathMatch:'full', canActivate: [AuthenticationGuard] },
-//  { path: '', redirectTo: '/mainpage', pathMatch: 'full' },
+//  { path: '', component: AppComponent, pathMatch:'full', canActivate: [AuthenticationGuard] },
+  { path: '', redirectTo: '/retail', pathMatch: 'full' , canActivate: [AuthenticationGuard] },
   { path: 'mainpage', component: MainpageComponent , canActivate: [AuthenticationGuard] },
   { path: 'employees', component: EmployeesComponent , canActivate: [AuthenticationGuard] },
   { path: 'structure', component: StructureComponent , canActivate: [AuthenticationGuard] },
