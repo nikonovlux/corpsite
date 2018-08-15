@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+
+
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -35,6 +37,9 @@ import { AuthenticationGuard } from 'microsoft-adal-angular6';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+
 
 
 @NgModule({
@@ -56,6 +61,8 @@ import { LogoutComponent } from './logout/logout.component';
     LogoutComponent
   ],
   imports: [
+    HttpModule,
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -67,7 +74,7 @@ import { LogoutComponent } from './logout/logout.component';
     MsAdalAngular6Module.forRoot({
       tenant: '435a4f02-f6b2-4248-9a5c-0f355179c0df',
       clientId: '937a47e8-b6ad-4226-8d28-4940d9662ac9',
-      redirectUri: "http://192.168.220.146:4200/login",
+      redirectUri: "http://192.168.220.146:4200/news",
       endpoints: { },
       navigateToLoginRequestUrl: false,
       cacheLocation: '<localStorage / sessionStorage>'

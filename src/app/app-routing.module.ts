@@ -8,20 +8,20 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { RetailComponent } from './retail/retail.component';
 import { DocsComponent } from './docs/docs.component';
 import { NewsComponent } from './news/news.component';
+import { EmployeeDetailComponent }  from './employee-detail/employee-detail.component';
+
 
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
 
-import { EmployeeDetailComponent }  from './employee-detail/employee-detail.component';
-
 import { AuthenticationGuard } from 'microsoft-adal-angular6';
 
-import { AppComponent } from './app.component';
+//  import { AppComponent } from './app.component';
 
 const routes: Routes = [
 //  { path: '', component: AppComponent, pathMatch:'full', canActivate: [AuthenticationGuard] },
-  { path: '', redirectTo: '/retail', pathMatch: 'full' , canActivate: [AuthenticationGuard] },
+  { path: '', redirectTo: '/news', pathMatch: 'full' , canActivate: [AuthenticationGuard] },
   { path: 'mainpage', component: MainpageComponent , canActivate: [AuthenticationGuard] },
   { path: 'employees', component: EmployeesComponent , canActivate: [AuthenticationGuard] },
   { path: 'structure', component: StructureComponent , canActivate: [AuthenticationGuard] },
