@@ -3,5 +3,18 @@
 <br/>
 <br/>
 <br/>
-<p><a href="mailto:sd@luxoptica.com.ua">Создание заявок по электронной почте</a></p>
+<form (submit)=onSubmit() >
+<p-dropdown [options]="theme1" [(ngModel)]="selectedTheme1" name="theme" ></p-dropdown>
+<br/>
+<textarea pInputTextarea [(ngModel)]="writtenText1" name="theme2" ></textarea>
+<br/>
+<button type="submit">Submit</button>
+</form>
+
+<br/>
+<a href="mailto:sd@luxoptica.com.ua" >
+<button pButton type="button" label="Создать заявку по электронной почте" class="ui-button-success"></button>
+</a>
+<p hidden><a href="mailto:sd@luxoptica.com.ua">Создание заявок по электронной почте</a></p>
+
 </div>

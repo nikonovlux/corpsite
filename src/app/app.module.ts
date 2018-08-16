@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
+import { FormsModule } from '@angular/forms';
 
 import { NgModule } from '@angular/core';
 
@@ -30,6 +30,9 @@ import { RadioButtonModule } from 'primeng/primeng';
 import { GMapModule} from 'primeng/gmap';
 
 
+import { DropdownModule} from 'primeng/dropdown';
+
+
 import { MsAdalAngular6Module } from 'microsoft-adal-angular6';
 import { AuthenticationGuard } from 'microsoft-adal-angular6';
 
@@ -39,6 +42,8 @@ import { LogoutComponent } from './logout/logout.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+
+
 
 
 
@@ -61,6 +66,8 @@ import { HttpModule } from '@angular/http';
     LogoutComponent
   ],
   imports: [
+    FormsModule,
+    DropdownModule,  
     HttpModule,
     HttpClientModule,
     BrowserModule,
