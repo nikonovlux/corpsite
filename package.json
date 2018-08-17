@@ -26,10 +26,12 @@
     "core-js": "^2.5.4",
     "emailjs": "^2.2.0",
     "expose-loader": "^0.7.5",
+    "gulp-spsave": "^3.1.1",
     "microsoft-adal-angular6": "^1.0.0",
     "primeicons": "^1.0.0-beta.10",
     "primeng": "^6.1.0",
     "rxjs": "^6.0.0",
+    "sp-pnp-js": "^3.0.10",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

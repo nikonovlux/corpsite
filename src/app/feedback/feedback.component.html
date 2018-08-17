@@ -3,18 +3,19 @@
 <br/>
 <br/>
 <br/>
-<form (submit)=onSubmit() >
-<p-dropdown [options]="theme1" [(ngModel)]="selectedTheme1" name="theme" ></p-dropdown>
+<div>
+<p-dropdown [options]="dep1" [(ngModel)]="selectedDep1" name="dep1" (ngModelChange)="onDepChange()" ></p-dropdown>
 <br/>
-<textarea pInputTextarea [(ngModel)]="writtenText1" name="theme2" ></textarea>
+<p-dropdown [options]="topic1" [(ngModel)]="selectedTopic1" name="topic" (ngModelChange)="onTopicChange()" ></p-dropdown>
 <br/>
-<button type="submit">Submit</button>
-</form>
-
+<textarea pInputTextarea [(ngModel)]="writtenText1" name="theme2" id="textb"></textarea>
 <br/>
-<a href="mailto:sd@luxoptica.com.ua" >
-<button pButton type="button" label="Создать заявку по электронной почте" class="ui-button-success"></button>
+<button pButton type="button" type="submit" label="Submit" class="ui-button-success" (click)="onSubmitClick()" ></button>
+</div>
+<br/>
+<br/>
+<a hidden id="mailsending" href="mailto:sd@luxoptica.com.uat" >
+<button name="sendbutton" pButton type="button" label="Создать заявку по электронной почте" class="ui-button-success"></button>
 </a>
 <p hidden><a href="mailto:sd@luxoptica.com.ua">Создание заявок по электронной почте</a></p>
-
 </div>

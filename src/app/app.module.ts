@@ -42,6 +42,7 @@ import { LogoutComponent } from './logout/logout.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { ComplainComponent } from './complain/complain.component';
 
 
 
@@ -63,7 +64,8 @@ import { HttpModule } from '@angular/http';
     EmployeeDetailComponent,
     NewsComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    ComplainComponent
   ],
   imports: [
     FormsModule,
