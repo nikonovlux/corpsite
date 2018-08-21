@@ -4,9 +4,6 @@ import { RestService } from './rest.service';
 import { Util } from "@pnp/common";
 
 
-import pnp from "sp-pnp-js";
-
-
 @Component({
   selector: 'app-complain',
   templateUrl: './complain.component.html',
@@ -14,7 +11,7 @@ import pnp from "sp-pnp-js";
 })
 export class ComplainComponent implements OnInit {
 
-  constructor(public restService: RestService) { }
+  constructor(public restService: RestService) {}
  
   SendComplain() {
 
@@ -34,27 +31,20 @@ export class ComplainComponent implements OnInit {
     console.log("clicked2");   
   }
 
-  getUser() {
-    pnp.setup({
-                sp: {
-                    headers: {
-                        "Accept": "application/json; odata=verbose"
-                    }
-                }
-                      
-            });
-  
-    pnp.sp.web.currentUser.get().then(result => {
-        console.log(result);
-    });
-  
-}
-
-
-  ngOnInit() {
+  getUser() { 
   }
 
+  ngOnInit() {}
+
 }
+
+
+// import pnp from "sp-pnp-js";
+// import { sp } from "@pnp/sp";
+// import { SPFetchClient } from "@pnp/nodejs";
+
+
+
 
 // import { sp } from "@pnp/sp";
 // import { SPFetchClient } from "@pnp/nodejs";
@@ -84,3 +74,20 @@ export class ComplainComponent implements OnInit {
 //   console.log(Util.getRandomString(30));
 //   console.log(Util.getGUID());  
 // })()
+
+
+    
+// sp.setup({
+//   sp: {
+//       headers: {
+//           "Accept": "application/json; odata=verbose"
+//       }
+//   }
+        
+// });
+
+// sp.web.currentUser.get().then(result => {
+// console.log(result);
+// });
+
+

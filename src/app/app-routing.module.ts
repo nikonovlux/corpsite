@@ -17,12 +17,21 @@ import { LogoutComponent } from './logout/logout.component';
 
 import { AuthenticationGuard } from 'microsoft-adal-angular6';
 
+
+
+
+
+
 //  import { AppComponent } from './app.component';
+
+
+
+
 
 const routes: Routes = [
 //  { path: '', component: AppComponent, pathMatch:'full', canActivate: [AuthenticationGuard] },
-  { path: '', redirectTo: '/mainpage', pathMatch: 'full' , canActivate: [AuthenticationGuard] },
-  { path: 'mainpage', component: MainpageComponent , canActivate: [AuthenticationGuard] },
+  { path: '', redirectTo: '/mainpage', pathMatch: 'full'},
+  { path: 'mainpage', component: MainpageComponent  },
   { path: 'employees', component: EmployeesComponent , canActivate: [AuthenticationGuard] },
   { path: 'structure', component: StructureComponent , canActivate: [AuthenticationGuard] },
   { path: 'feedback', component: FeedbackComponent , canActivate: [AuthenticationGuard] },
@@ -32,7 +41,7 @@ const routes: Routes = [
   { path: 'detail/:id', component: EmployeeDetailComponent , canActivate: [AuthenticationGuard] },
   { path: 'login', component: LoginComponent , canActivate: [AuthenticationGuard] },
   { path: 'logout', component: LogoutComponent , canActivate: [AuthenticationGuard] },
-  { path: 'complain', component: ComplainComponent , canActivate: [AuthenticationGuard] },
+  { path: 'complain', component: ComplainComponent },
 ];
 
 

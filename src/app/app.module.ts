@@ -21,6 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MessagesComponent } from './messages/messages.component';
 import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
 import { NewsComponent } from './news/news.component';
+import { ComplainComponent } from './complain/complain.component';
 
 
 import { AccordionModule } from 'primeng/primeng';
@@ -42,10 +43,9 @@ import { LogoutComponent } from './logout/logout.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import { ComplainComponent } from './complain/complain.component';
 
 
-
+import { SPService } from './mainpage/sp.service';
 
 
 @NgModule({
@@ -69,7 +69,7 @@ import { ComplainComponent } from './complain/complain.component';
   ],
   imports: [
     FormsModule,
-    DropdownModule,  
+    DropdownModule,     
     HttpModule,
     HttpClientModule,
     BrowserModule,
@@ -89,7 +89,7 @@ import { ComplainComponent } from './complain/complain.component';
       cacheLocation: '<localStorage / sessionStorage>'
     })
   ],
-  providers: [AuthenticationGuard],
+  providers: [AuthenticationGuard, SPService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
