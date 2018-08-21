@@ -1,9 +1,9 @@
 <div class = 'auth'>
 <img src='' />
-<p class = 'firstname'></p>
-<p class = 'surname'></p>
+<input [ngModel]='fname' readonly='readonly' />
+<button pButton type="button" label="Logout" class="ui-button-logout" (click)="clicked()"></button>
 </div>
-<ul>
+<ul>    
     <li routerLink="/mainpage">Main</li>
     <li routerLink="/news">News</li>    
     <li routerLink="/structure">Structure</li>
@@ -13,5 +13,5 @@
     <li routerLink="/feedback">Feedback</li>
     <li routerLink="/complain">Complain</li>    
 </ul> 
-<button pButton type="button" label="Logout" class="ui-button-logout" (click)="clicked()"></button>
+
 

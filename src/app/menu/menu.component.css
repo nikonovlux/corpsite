@@ -19,3 +19,6 @@
     padding-top: 20px;
     list-style: none;
   }
+  input{
+    width: 75%;
+  }

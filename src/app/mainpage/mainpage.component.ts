@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {SPService} from './sp.service'
+import { SPService } from './sp.service'
+import { MsAdalAngular6Service } from 'microsoft-adal-angular6';
 
 
 @Component({
@@ -10,16 +11,34 @@ import {SPService} from './sp.service'
 export class MainpageComponent implements OnInit {
   title = 'App';
 
-  constructor(private spService: SPService) { }
+  constructor(private spService: SPService,
+              private adalSvc: MsAdalAngular6Service
+            ) { 
+    }
 
-  ngOnInit() {
-   
-  }
+  tokenn
+  ngOnInit(){}
   checkUser(){
-    //console.log('clicked1')
-    //console.log(sessionStorage.getItem('adal.idtoken'))
+      this.adalSvc.acquireToken('<RESOURCE>').subscribe((resToken: string) => {
+                                                                                this.tokenn = resToken
+                                                                                console.log(this.tokenn)
+                                                                              });
+
       this.spService.getWebTitle().subscribe(web => (this.title = web.title));
-      console.log(webkitCancelAnimationFrame.toString);
+  }
+  checkUserInfo(){
+      console.log(this.adalSvc.userInfo);
   }
 
 }
+
+
+// this.adalSvc.acquireToken('<RESOURCE>').subscribe((resToken: string) => {
+//   console.log('-------token--------');
+//   console.log(resToken);
+//   console.log('--------end---------');
+// });
+
+
+//console.log('clicked1')
+//console.log(sessionStorage.getItem('adal.idtoken'))

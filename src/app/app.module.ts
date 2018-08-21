@@ -81,15 +81,38 @@ import { SPService } from './mainpage/sp.service';
     RadioButtonModule,
     GMapModule,
     MsAdalAngular6Module.forRoot({
-      tenant: '435a4f02-f6b2-4248-9a5c-0f355179c0df',
-      clientId: '937a47e8-b6ad-4226-8d28-4940d9662ac9',
-      redirectUri: "http://192.168.220.146:4200/mainpage",
-      endpoints: { },
-      navigateToLoginRequestUrl: false,
-      cacheLocation: '<localStorage / sessionStorage>'
-    })
+                                  tenant: '435a4f02-f6b2-4248-9a5c-0f355179c0df',
+                                  clientId: '937a47e8-b6ad-4226-8d28-4940d9662ac9',
+                                  redirectUri: "http://192.168.220.146:4200/mainpage",
+                                  endpoints: { sharePointUri: "https://interoko.sharepoint.com" },
+                                  navigateToLoginRequestUrl: false,
+                                  postLogoutRedirectUri: 'http://192.168.220.146:4200/mainpage',
+                                  cacheLocation: '<localStorage / sessionStorage>'
+                                })
   ],
   providers: [AuthenticationGuard, SPService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+// MsAdalAngular6Module.forRoot({
+//   tenant: '435a4f02-f6b2-4248-9a5c-0f355179c0df',
+//   clientId: '937a47e8-b6ad-4226-8d28-4940d9662ac9',
+//   redirectUri: "http://192.168.220.146:4200/mainpage",
+//   endpoints: {'http://interoko.sharepoint.com':'b285db3e-07c4-4c6e-953f-6ff7af02a131' },
+//   navigateToLoginRequestUrl: false,
+//   cacheLocation: '<localStorage / sessionStorage>'
+// })
+
+
+// MsAdalAngular6Module.forRoot({
+//   tenant: '435a4f02-f6b2-4248-9a5c-0f355179c0df',
+//   clientId: '937a47e8-b6ad-4226-8d28-4940d9662ac9',
+//   redirectUri: "http://192.168.220.146:4200/mainpage",
+//   endpoints: {'http://192.168.220.146:4200/mainpage':'b285db3e-07c4-4c6e-953f-6ff7af02a131' },
+//   navigateToLoginRequestUrl: false,
+//   cacheLocation: '<localStorage / sessionStorage>'
+// })
+
+// providers: [AuthenticationGuard, SPService],
