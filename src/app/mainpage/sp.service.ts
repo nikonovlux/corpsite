@@ -22,12 +22,14 @@ sp.setup({
         sp: {
             headers: {
                 'Accept': 'application/json; odata=verbose',
+                'Content-Type': 'application/json; odata=verbose',
                 'Authorization': 'Bearer ' + sessionStorage.getItem('adal.idtoken'),
                 'Access-Control-Allow-Origin': 'http://192.168.220.146:4200/mainpage',
                 'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Origin, Authorization, Accept, Client-Security-Token, Access-Control-Allow-Origin'
             }
         }
     });
+
  
 @Injectable()
 export class SPService {

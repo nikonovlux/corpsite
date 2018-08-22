@@ -1,7 +1,10 @@
 <div class = 'auth'>
 <img src='' />
 <input [ngModel]='fname' readonly='readonly' />
-<button pButton type="button" label="Logout" class="ui-button-logout" (click)="clicked()"></button>
+<p>
+<button pButton type="button" label="Login" class="ui-button-login" (click)="userLogin()"></button>
+<button pButton type="button" label="Logout" class="ui-button-logout" (click)="userLogout()"></button>
+</p>
 </div>
 <ul>    
     <li routerLink="/mainpage">Main</li>

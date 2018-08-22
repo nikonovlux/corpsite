@@ -19,12 +19,21 @@ export class MainpageComponent implements OnInit {
   tokenn
   ngOnInit(){}
   checkUser(){
-      this.adalSvc.acquireToken('<RESOURCE>').subscribe((resToken: string) => {
+      this.adalSvc.acquireToken('<RESOURCE>').subscribe(
+                                                          (resToken: string) => {
                                                                                 this.tokenn = resToken
                                                                                 console.log(this.tokenn)
-                                                                              });
+                                                                              }                                                                          
+                                                                            );
 
-      this.spService.getWebTitle().subscribe(web => (this.title = web.title));
+      this.spService.getWebTitle().subscribe(
+                                              web => (this.title = web.title),
+                                              response => {
+                                                console.log('---------------------')
+                                                alert('http status ' + response.status)  
+                                                console.log('---------------------')
+                                              }
+                                          );
   }
   checkUserInfo(){
       console.log(this.adalSvc.userInfo);
