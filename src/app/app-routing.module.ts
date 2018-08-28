@@ -10,6 +10,7 @@ import { DocsComponent } from './docs/docs.component';
 import { NewsComponent } from './news/news.component';
 import { EmployeeDetailComponent }  from './employee-detail/employee-detail.component';
 import { ComplainComponent } from './complain/complain.component';
+import { WikipageComponent } from './wikipage/wikipage.component';
 
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -24,7 +25,7 @@ import { AuthenticationGuard } from 'microsoft-adal-angular6';
 const routes: Routes = [
 
   { path: '', redirectTo: '/mainpage', pathMatch: 'full'},
-  { path: 'mainpage', component: MainpageComponent  },
+  { path: 'mainpage', component: MainpageComponent , canActivate: [AuthenticationGuard] },
   { path: 'employees', component: EmployeesComponent , canActivate: [AuthenticationGuard]  },
   { path: 'structure', component: StructureComponent  , canActivate: [AuthenticationGuard] },
   { path: 'feedback', component: FeedbackComponent , canActivate: [AuthenticationGuard]  },
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent   },
   { path: 'logout', component: LogoutComponent   },
   { path: 'complain', component: ComplainComponent },
+  { path: 'wikipage', component: WikipageComponent },
 ];
 
 

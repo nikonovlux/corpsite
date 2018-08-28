@@ -25,12 +25,15 @@ export class MainpageComponent implements OnInit {
                                                                                 console.log(this.tokenn)
                                                                               }                                                                          
                                                                             );
+                                                                            // console.log('cookie start');
+                                                                            // console.log(document.cookie);
+                                                                            // console.log('cookie end');
 
       this.spService.getWebTitle().subscribe(
                                               web => (this.title = web.title),
                                               response => {
                                                 console.log('---------------------')
-                                                alert('http status ' + response.status)  
+                                                console.log('http status ' + response.status)  
                                                 console.log('---------------------')
                                               }
                                           );

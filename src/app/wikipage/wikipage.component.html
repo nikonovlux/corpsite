@@ -1,0 +1,36 @@
+<p>
+<input [(ngModel)]="server" name="addr" placeholder='server' style='width:1200px;' (dblclick)='onDblClick(event)' />
+</p>
+<p>
+<textarea [ngModel]='post_body' name= 'post_body' placeholder='Post body' style='width:1200px; height:100px;' (dblclick)='onDblClick(event)' ></textarea>
+</p>
+<p>
+<p-dropdown [(ngModel)]="method" [options]="httpmethod" name="topic" placeholder='method' ></p-dropdown>
+</p>
+<p>
+<input [(ngModel)]="params[0].text" name="topic0" placeholder='grant_type' style='width:1200px;' (dblclick)='onDblClick(event)' />
+</p>
+<p>
+<input [(ngModel)]="params[1].text" name="topic1" placeholder='resource' style='width:1200px;' (dblclick)='onDblClick(event)'/>
+</p>
+<p>
+<input [(ngModel)]="params[2].text" name="topic2" placeholder='client_id' style='width:1200px;' (dblclick)='onDblClick(event)' />
+</p>
+<p>
+<input [(ngModel)]="params[3].text" name="topic3" placeholder='client_secret' style='width:1200px;' (dblclick)='onDblClick(event)' />
+</p>
+<p>
+<textarea [(ngModel)]="params[4].text" name="topic4" placeholder='code' style='width:1200px; height:50px;' (dblclick)='onDblClick(event)'></textarea>
+</p>
+<p>
+<input [(ngModel)]="params[5].text" name="topic5"  placeholder='redirect_uri' style='width:1200px;' (dblclick)='onDblClick(event)'/>
+</p>
+<p>
+<button pButton type="button" label="FormBody" class="ui-button-success" (click)="onFormBodyClick()" ></button>
+<button pButton type="button" label="Send" class="ui-button-success" (click)="onSendClick()" ></button>
+</p>
+<p>
+<textarea [ngModel]='esponcearea' placeholder='Responce' style='width:600px; height:200px;'></textarea>
+</p>
+
+

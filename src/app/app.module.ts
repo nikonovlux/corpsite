@@ -46,6 +46,7 @@ import { HttpModule } from '@angular/http';
 
 
 import { SPService } from './mainpage/sp.service';
+import { WikipageComponent } from './wikipage/wikipage.component';
 
 
 
@@ -66,7 +67,8 @@ import { SPService } from './mainpage/sp.service';
     NewsComponent,
     LoginComponent,
     LogoutComponent,
-    ComplainComponent
+    ComplainComponent,
+    WikipageComponent
   ],
   imports: [
     FormsModule,

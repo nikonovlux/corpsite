@@ -1,12 +1,9 @@
-<h2 align='center'>Employee Detail</h2>
-<br/>
-<br/>
-<br/>
-<div *ngIf="employee">
-  <h2>{{employee.name | uppercase}}</h2>
-  <div><span>id: </span>{{employee.id}}</div>
-  <div><span>email: </span><a href='mailto:{{employee.email}}'>{{employee.email}}</a></div>
-  <div><span>tel: </span><a href='tel:{{employee.tel_outer}}'>{{employee.tel_outer}}</a></div>
-  <div><span>tel_inner: </span><a href='tel:{{employee.tel_inner}}'>{{employee.tel_inner}}</a></div>
-  <button (click)="goBack()">go back</button>
+<h2>Employee Detail</h2>
+<button pButton type="button" label="Back" class="ui-button-detail" (click)="goBack()"></button>
+<div class="detail" *ngIf="employee">
+  <h3>{{employee.name | uppercase}}</h3>
+  <!-- <div><span class="badge">id: </span>{{employee.id}}</div> -->
+  <div><span class="badge">email: </span><a href='mailto:{{employee.email}}'>{{employee.email}}</a></div>
+  <div><span class="badge">tel: </span><a href='tel:{{employee.tel_outer}}'>{{employee.tel_outer}}</a></div>
+  <div><span class="badge">tel_inner: </span><a href='tel:{{employee.tel_inner}}'>{{employee.tel_inner}}</a></div>  
 </div>

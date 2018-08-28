@@ -40,6 +40,7 @@
     "primeng": "^6.1.0",
     "rxjs": "^6.0.0",
     "sp-pnp-js": "^3.0.10",
+    "wiki.js": "^1.0.5-rev.1",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
