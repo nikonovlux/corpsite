@@ -1,17 +1,16 @@
 <h2>Complain</h2>
 <br/>
-
-<p-dropdown [options]="topics" [(ngModel)]="topic1" name="ctopic" (ngModelChange)="onTopicChange()" ></p-dropdown>
+<input [(ngModel)]="server2" name="server2" id='server2' placeholder='server2' style='width:800px;' (dblclick)='onDblClick(event)' />
 <br/>
-<textarea pInputTextarea name="theme2" id="textb"></textarea>
-
+<p-dropdown hidden [options]="topics" [(ngModel)]="topic1" name="ctopic" (ngModelChange)="onTopicChange()" placeholder='Responce' ></p-dropdown>
+<br/>
+<textarea pInputTextarea [(ngModel)]="respo1" name="respo1" id="respo1"></textarea>
 <br/>
 <button pButton type="button" label="SendComplain" class="ui-button-Send" (click)="SendComplain()"></button>
 <button pButton type="button" label="GetUser" class="ui-button-Send" (click)="getUser()"></button>
 <br/>
 <br/>
 <br/>
-
 <p>
 <label>
 Server
@@ -73,5 +72,5 @@ redirect_uri
 <button pButton type="button" label="Employees" class="ui-button-success" (click)="onEmpClick()" ></button>
 </p>
 <p>
-<textarea ([ngValue])='responcearea' placeholder='Responce' style='width:600px; height:50px;'></textarea>
+<textarea pInputTextarea [(ngModel)]="respo2" name="respo2" id="respo1"></textarea>
 </p>

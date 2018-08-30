@@ -6,8 +6,12 @@ p-dropdown, button{
     margin-left: 5%;  
   }
 
-#textb {
+#server2{
+  margin-left: 5%;
+}
+
+#respo1, #respo2 {
     margin-left: 5%;
     width: 450px;
-    height: 50px;
+    height: 150px;
   }

@@ -51,6 +51,8 @@ import { WikipageComponent } from './wikipage/wikipage.component';
 
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
+import {AppIntercept} from './intercept.service'
+
 
 
 @NgModule({
@@ -99,7 +101,12 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
   ],
   providers: [
     AuthenticationGuard,
-    SPService
+    SPService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AppIntercept,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

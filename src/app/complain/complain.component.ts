@@ -37,18 +37,18 @@ export class ComplainComponent implements OnInit {
  
   SendComplain() {
 
-    // this.restService.getUser().subscribe(response => this.restdata = response.text() );
-    console.log("clicked1");   
-    this.restService.getList()
-      .subscribe(response =>
-        {
+    console.log("clicked1");  
+
+    this.restService.getJson(this.server2)
+      .subscribe(
+        response => {
           console.log("recieved");
           console.log(response);
-
-          Object.values(response).forEach(element => {
-                            console.log(element);
-                          });
-        }
+          this.respo1 = JSON.stringify(response);
+        },
+        error => {
+          alert(JSON.stringify(error))
+        }        
       );
     console.log("clicked2");   
   }
@@ -56,7 +56,9 @@ export class ComplainComponent implements OnInit {
   getUser() { 
   }
 
-  responcearea: string = 'Waiting...';
+  respo1: string = "waiting..."
+
+  respo2: string = 'Waiting...';
 
   post_body: string = 'Testing';
   
@@ -86,18 +88,17 @@ topics: SelectItem[]  = [
 
 server1: string = this.urls[0].value;
 
+server2: string = 'https://interoko.sharepoint.com/_api/Web/';
+
 method1: string = this.httpmethod[0].value;
 
 onTopicChange(){}
-
 
 onMethodChanged(e){
   e = e || window.event;
   // console.log(e);
   console.log(this.method1);
-
-  this.method1 == this.httpmethod[1].value  ? document.getElementById("body").hidden = false : document.getElementById("body").hidden = true;
-
+  this.method1 == this.httpmethod[1].value ? document.getElementById("body").hidden = false : document.getElementById("body").hidden = true;
 }
 
 onServerChanged(e){
@@ -125,33 +126,33 @@ onEmpClick(){
 
 onSendClick(){
 
-  const headers1 = new HttpHeaders;
-
-  headers1.append('Access-Control-Allow-Origin','https://192.168.220.146:4200');
-  headers1.append('cookie','FedAuth=77u/PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48U1A+VjQsMGguZnxtZW1iZXJzaGlwfDEwMDMwMDAwYWM3MzAwZDNAbGl2ZS5jb20sMCMuZnxtZW1iZXJzaGlwfG5pa29ub3YubUBsdXhvcHRpY2EuY29tLnVhLDEzMTgwMDgyNjE4MDAwMDAwMCwxMzE3NjgwOTk2NTAwMDAwMDAsMTMxODAxNzE4MDYzNjY4NDIwLDAuMC4wLjAsMiw0MzVhNGYwMi1mNmIyLTQyNDgtOWE1Yy0wZjM1NTE3OWMwZGYsLFYyITEwMDMwMDAwQUM3MzAwRDMhMTMxODAwODI2MTgsNTdiYzg5OWUtMDBhNS02MDAwLTJlM2QtMTIzMzAyNTM0ZTY5LDU3YmM4OTllLTAwYTUtNjAwMC0yZTNkLTEyMzMwMjUzNGU2OSwsMCwxMzE4MDA4OTAwNjMyMDAwMTYsMTMxODAzNDQ2MDYzMjAwMDE2LG1RUFJtZmhsaEJqZHVmdVpDVXAzRW5vbXhxNFdSbllxck5BRWoyL0t4NXJrK0haeGlpbUh3VjJpV2JmcFRKQXBKY3V6NlRPb2VxUnFUb2NZc1RsOWZpZDZvUzRwUWtEVlhucjJJM0hHL3FkaXFBMW5lWEVLeGxiN2gwOVcrYjFhZkE5WlllZDhYZDRyMEZDYVJyTEM4eWNWakNPcEVkTzVDc3NJTzFOUDlTOWVHOGVzcjRBNi9WRm1FSyt0bEFLUGJKT29mNFkvQUxWSjJkMlc2MmpmS0E0RU5aOXFFemlqZEJySzVGZGZUVjNocHVqNEFlakdmbHBObHdoMDlUakhQQXdESUdzS3VtWWlKbTBIWDYwU1dXNWRXalRiVG1nU2dEOTJjc3U5YTNHUkdBK0dQYXlIY2x0SXhoNlNqWklIWE5QS0pWa3I4NFB3NUpFK2tVaC9QZz09PC9TUD4=; rtFa=62eufS7sNi/8kWmzFefNKQZ1aqbPWPFolz7HaG2vudcmNDM1QTRGMDItRjZCMi00MjQ4LTlBNUMtMEYzNTUxNzlDMERGAlkOc3CJnUyt16Wjxx50/on0aH4HZHE6KffjXYDiBPgPm9Bo/XWLk8DrZ7FGfsOgzV+VyS72XfBPXJPax9uHFydgbtfdqBQQeLbSrYTsT9xE5ZC3hhlIVoeL7VY7UmrFAE/7+g6usn5iSQxTOkBFUVZi08QtwZW08WklJ6EnjARtXJP70b8fRJ4D1mzPbVO/hBxjg3k9v90HMiFXva5eKhzZ7EVJmUt+OFwcDIy/iLuwnM5NzER/UsgLgIiOqCYZD25rMZpYjhs9nCgngbL9T986lixi0d5GmqF69aONlphBxKZPW46MVqN8aEE9n64s9Ssn+ztSkoKm2PTNYpygG0UAAAA=');
+  const httpOptions = {
+    //withCredentials: true,   // -- add  error  
+    body: this.post_body,           
+    //responseType: 'json',    
+    headers: new HttpHeaders({
+      'Accept':'application/json;odata=verbose',      
+      'Access-Control-Allow-Origin':'https://192.168.220.146:4200',
+      //'Content-Type':'application/json:odata=verbose'      
+     })
+  };
 
   console.log('method-' + this.method1 + ', server-' + this.server1 + ', body-' + this.post_body);
   
-  this.http.request(this.method1, this.server1, 
-              { body: this.post_body, 
-                //withCredentials: true,   // -- add  error
-                headers: headers1, 
-                responseType: 'json'
-              }).subscribe( 
+  this.http.request(this.method1, this.server1, httpOptions
+              ).subscribe( 
                 data =>{ 
                   console.log(data);
-                  //   this.responcearea = data;
-                  this.responcearea = JSON.stringify(data);
+                  //   this.respo2 = data;
+                  this.respo2 = JSON.stringify(data);
                 },
                 error =>{ 
                   console.log('------------');
                   console.log(error);
-                  this.responcearea = JSON.stringify(error);
+                  this.respo2 = JSON.stringify(error);
                 }
               )
 }
-
-
 
   onDblClick(e){
     e = e || window.event;
@@ -178,6 +179,13 @@ onSendClick(){
 
 }
 
+    // this.restService.getUser().subscribe(response => this.restdata = response.text() );
+
+
+          // Object.values(response).forEach(data => {
+          //                                   console.log(data);
+          //                                   this.respo1 = JSON.stringify(data);
+          //                                 });
 
 // import pnp from "sp-pnp-js";
 // import { sp } from "@pnp/sp";
@@ -231,3 +239,7 @@ onSendClick(){
 // });
 
 
+
+  // const headers1 = new HttpHeaders;
+  // headers1.append('Access-Control-Allow-Origin','https://192.168.220.146:4200');
+  // headers1.append('cookie','FedAuth=77u/PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48U1A+VjQsMGguZnxtZW1iZXJzaGlwfDEwMDMwMDAwYWM3MzAwZDNAbGl2ZS5jb20sMCMuZnxtZW1iZXJzaGlwfG5pa29ub3YubUBsdXhvcHRpY2EuY29tLnVhLDEzMTgwMDgyNjE4MDAwMDAwMCwxMzE3NjgwOTk2NTAwMDAwMDAsMTMxODAxNzE4MDYzNjY4NDIwLDAuMC4wLjAsMiw0MzVhNGYwMi1mNmIyLTQyNDgtOWE1Yy0wZjM1NTE3OWMwZGYsLFYyITEwMDMwMDAwQUM3MzAwRDMhMTMxODAwODI2MTgsNTdiYzg5OWUtMDBhNS02MDAwLTJlM2QtMTIzMzAyNTM0ZTY5LDU3YmM4OTllLTAwYTUtNjAwMC0yZTNkLTEyMzMwMjUzNGU2OSwsMCwxMzE4MDA4OTAwNjMyMDAwMTYsMTMxODAzNDQ2MDYzMjAwMDE2LG1RUFJtZmhsaEJqZHVmdVpDVXAzRW5vbXhxNFdSbllxck5BRWoyL0t4NXJrK0haeGlpbUh3VjJpV2JmcFRKQXBKY3V6NlRPb2VxUnFUb2NZc1RsOWZpZDZvUzRwUWtEVlhucjJJM0hHL3FkaXFBMW5lWEVLeGxiN2gwOVcrYjFhZkE5WlllZDhYZDRyMEZDYVJyTEM4eWNWakNPcEVkTzVDc3NJTzFOUDlTOWVHOGVzcjRBNi9WRm1FSyt0bEFLUGJKT29mNFkvQUxWSjJkMlc2MmpmS0E0RU5aOXFFemlqZEJySzVGZGZUVjNocHVqNEFlakdmbHBObHdoMDlUakhQQXdESUdzS3VtWWlKbTBIWDYwU1dXNWRXalRiVG1nU2dEOTJjc3U5YTNHUkdBK0dQYXlIY2x0SXhoNlNqWklIWE5QS0pWa3I4NFB3NUpFK2tVaC9QZz09PC9TUD4=; rtFa=62eufS7sNi/8kWmzFefNKQZ1aqbPWPFolz7HaG2vudcmNDM1QTRGMDItRjZCMi00MjQ4LTlBNUMtMEYzNTUxNzlDMERGAlkOc3CJnUyt16Wjxx50/on0aH4HZHE6KffjXYDiBPgPm9Bo/XWLk8DrZ7FGfsOgzV+VyS72XfBPXJPax9uHFydgbtfdqBQQeLbSrYTsT9xE5ZC3hhlIVoeL7VY7UmrFAE/7+g6usn5iSQxTOkBFUVZi08QtwZW08WklJ6EnjARtXJP70b8fRJ4D1mzPbVO/hBxjg3k9v90HMiFXva5eKhzZ7EVJmUt+OFwcDIy/iLuwnM5NzER/UsgLgIiOqCYZD25rMZpYjhs9nCgngbL9T986lixi0d5GmqF69aONlphBxKZPW46MVqN8aEE9n64s9Ssn+ztSkoKm2PTNYpygG0UAAAA=');

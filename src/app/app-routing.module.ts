@@ -35,7 +35,7 @@ const routes: Routes = [
   { path: 'detail/:id', component: EmployeeDetailComponent  , canActivate: [AuthenticationGuard] },
   { path: 'login', component: LoginComponent   },
   { path: 'logout', component: LogoutComponent   },
-  { path: 'complain', component: ComplainComponent },
+  { path: 'complain', component: ComplainComponent  , canActivate: [AuthenticationGuard] },
   { path: 'wikipage', component: WikipageComponent },
 ];
 
