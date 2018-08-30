@@ -1,8 +1,9 @@
 .logo{
-  margin-left: 5%;  
+  margin-left: 10%; 
+   
 }
 
-@media (max-width : 380px) {
+@media (max-width : 1550px) {
   .logo {display:block;}
   .logo {display:none;}
 }

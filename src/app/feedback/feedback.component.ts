@@ -56,6 +56,7 @@ export class FeedbackComponent implements OnInit {
 
   onDepChange(){
     console.log('dep changed');
+    console.log(this.selectedDep1);
     this.topic1 = this.selectedDep1.topics;
   };
 

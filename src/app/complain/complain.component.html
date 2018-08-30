@@ -1,8 +1,77 @@
 <h2>Complain</h2>
 <br/>
-<br/>
+
+<p-dropdown [options]="topics" [(ngModel)]="topic1" name="ctopic" (ngModelChange)="onTopicChange()" ></p-dropdown>
 <br/>
 <textarea pInputTextarea name="theme2" id="textb"></textarea>
+
 <br/>
 <button pButton type="button" label="SendComplain" class="ui-button-Send" (click)="SendComplain()"></button>
 <button pButton type="button" label="GetUser" class="ui-button-Send" (click)="getUser()"></button>
+<br/>
+<br/>
+<br/>
+
+<p>
+<label>
+Server
+</label>
+<p-dropdown [(ngModel)]="server1" [options]="urls" name="addr" (dblclick)='onDblClick(event)' (ngModelChange)='onServerChanged(event)' > Server</p-dropdown>
+<label>
+Method
+</label>
+<p-dropdown [(ngModel)]="method1" [options]="httpmethod" name="method"  (dblclick)='onDblClick(event)' (ngModelChange)='onMethodChanged(event)' >Method</p-dropdown>
+</p>
+
+
+<div hidden id='body'>
+
+<p >
+<label>Body</label>    
+<textarea [ngModel]='post_body' name= 'post_body' placeholder='Post body' style='width:1200px; height:100px;' (dblclick)='onDblClick(event)' ></textarea>
+</p>
+<p>
+<label>
+grant_type
+</label>
+<input [(ngModel)]="params[0].text" name="topic0" placeholder='grant_type' style='width:1200px;' (dblclick)='onDblClick(event)' />
+</p>
+<p>
+<label>
+resource
+</label>    
+<input [(ngModel)]="params[1].text" name="topic1" placeholder='resource' style='width:1200px;' (dblclick)='onDblClick(event)'/>
+</p>
+<p>
+<label>
+client_id
+</label>
+<input [(ngModel)]="params[2].text" name="topic2" placeholder='client_id' style='width:1200px;' (dblclick)='onDblClick(event)' />
+</p>
+<p>
+<label>
+client_secret
+</label>
+<input [(ngModel)]="params[3].text" name="topic3" placeholder='client_secret' style='width:1200px;' (dblclick)='onDblClick(event)' />
+</p>
+<p>
+<label>
+code
+</label>
+<textarea [(ngModel)]="params[4].text" name="topic4" placeholder='code' style='width:1200px; height:50px;' (dblclick)='onDblClick(event)'></textarea>
+</p>
+<p>
+<label>
+redirect_uri
+</label>
+<input [(ngModel)]="params[5].text" name="topic5"  placeholder='redirect_uri' style='width:1200px;' (dblclick)='onDblClick(event)'/>
+</p>
+<button pButton type="button" label="FormBody" class="ui-button-success" (click)="onFormBodyClick()" ></button>
+</div>
+<p>
+<button pButton type="button" label="Send" class="ui-button-success" (click)="onSendClick()" ></button>
+<button pButton type="button" label="Employees" class="ui-button-success" (click)="onEmpClick()" ></button>
+</p>
+<p>
+<textarea ([ngValue])='responcearea' placeholder='Responce' style='width:600px; height:50px;'></textarea>
+</p>

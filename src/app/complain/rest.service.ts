@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { graph } from "@pnp/graph";
-
-
 
 
 const httpOptions = {
@@ -30,9 +27,6 @@ export class RestService {
   getList() {
     return this.http.get(this.userUrl, httpOptions );
   }
-
-
-
 
 
 }

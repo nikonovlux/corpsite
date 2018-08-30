@@ -49,6 +49,9 @@ import { SPService } from './mainpage/sp.service';
 import { WikipageComponent } from './wikipage/wikipage.component';
 
 
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+
+
 
 @NgModule({
   declarations: [
@@ -94,7 +97,10 @@ import { WikipageComponent } from './wikipage/wikipage.component';
                                   cacheLocation: '<localStorage / sessionStorage>'
                                 })
   ],
-  providers: [AuthenticationGuard, SPService],
+  providers: [
+    AuthenticationGuard,
+    SPService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
