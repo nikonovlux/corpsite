@@ -88,7 +88,8 @@ topics: SelectItem[]  = [
 
 server1: string = this.urls[0].value;
 
-server2: string = 'https://interoko.sharepoint.com/_api/Web/';
+server2: string = "https://interoko.sharepoint.com/teams/hr/_api/lists/getbytitle('complain')/items/";
+//  server2: string = "https://interoko.sharepoint.com/_api/Web/Lists(guid'91e6a90c-8be1-411a-a964-d8ee385eb537')/items";  // works!
 
 method1: string = this.httpmethod[0].value;
 

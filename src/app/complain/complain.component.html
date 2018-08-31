@@ -4,11 +4,11 @@
 <br/>
 <p-dropdown hidden [options]="topics" [(ngModel)]="topic1" name="ctopic" (ngModelChange)="onTopicChange()" placeholder='Responce' ></p-dropdown>
 <br/>
-<textarea pInputTextarea [(ngModel)]="respo1" name="respo1" id="respo1"></textarea>
-<br/>
 <button pButton type="button" label="SendComplain" class="ui-button-Send" (click)="SendComplain()"></button>
-<button pButton type="button" label="GetUser" class="ui-button-Send" (click)="getUser()"></button>
+<!-- <button pButton type="button" label="GetUser" class="ui-button-Send" (click)="getUser()"></button> -->
 <br/>
+<br/>
+<textarea pInputTextarea [(ngModel)]="respo1" name="respo1" id="respo1"></textarea>
 <br/>
 <br/>
 <p>
@@ -21,7 +21,6 @@ Method
 </label>
 <p-dropdown [(ngModel)]="method1" [options]="httpmethod" name="method"  (dblclick)='onDblClick(event)' (ngModelChange)='onMethodChanged(event)' >Method</p-dropdown>
 </p>
-
 
 <div hidden id='body'>
 
