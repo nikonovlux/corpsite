@@ -5,8 +5,9 @@ h2{
   #embedded-feed{
     margin-left: 2%;
     width: auto;
-    max-width: 800px;
+    max-width: 50%;
     height: 800px;
+    min-width: 400px;
   }
 
 

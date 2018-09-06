@@ -4,6 +4,20 @@
 <br/>
 <br/>
 
+<ul class="data" >
+  <li *ngFor="let user of users.d.results">      
+    <a>{{user.displayName}} --- {{user.mail}}</a> 
+  </li>
+</ul>
+
+
+<ul class="data" >
+  <li *ngFor="let group of groups.d.results">      
+    <a>{{group.displayName}} --- {{group.objectId}}</a> 
+  </li>
+</ul>
+
+
 <ul class="employees" >
   <li *ngFor="let employee of employees">
       <a routerLink="/detail/{{employee.id}}">
