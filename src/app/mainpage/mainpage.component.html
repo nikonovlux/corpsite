@@ -1,11 +1,24 @@
 <h2>Main</h2>
 <br/>
-<div class="maintext">
-<p>Инструкции</p>
-<p>Приказы</p>
-<p>Информация</p>
-<p>Безопасность</p>
-</div>
+
+<ul class="items" >
+    <li *ngFor="let item of items">
+      <span class="badge">{{item}}</span> <a></a>
+    </li>
+</ul>
+
+
 <button pButton hidden type="button" label="CheckUser" class="ui-button-Send" (click)="checkUser()"></button>
 <button pButton type="button" label="CheckAdalUserInfo" class="ui-button-Send" (click)="checkUserInfo()"></button>
 
+
+
+
+<!-- 
+<div class="maintext">
+  <p>Инструкции</p>
+  <p>Приказы</p>
+  <p>Информация</p>
+  <p>Безопасность</p>
+</div> 
+-->

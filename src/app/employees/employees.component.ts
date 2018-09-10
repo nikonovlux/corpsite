@@ -5,13 +5,15 @@ import { Employee } from '../employee';
 import { EmployeeService } from '../employee.service';
 
 
-
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.css']
 })
 export class EmployeesComponent implements OnInit {
+
+
+
 
   employees: Employee[];
   groups: {};
@@ -20,8 +22,8 @@ export class EmployeesComponent implements OnInit {
   constructor(private employeeService: EmployeeService) { }
 
   ngOnInit() {
-    this.GetEmployees();
-    this.GetGroups();
+    //  this.GetEmployees();
+    //  this.GetGroups();
     this.GetUsers();
   }
   GetUsers(): void {

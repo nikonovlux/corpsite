@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SPService } from './sp.service'
 import { MsAdalAngular6Service } from 'microsoft-adal-angular6';
+import { of } from 'rxjs';  
 
 
 @Component({
@@ -9,10 +10,17 @@ import { MsAdalAngular6Service } from 'microsoft-adal-angular6';
   styleUrls: ['./mainpage.component.css']
 })
 export class MainpageComponent implements OnInit {
+
   title = 'App';
 
+  items: String[]  = [];
+
+  public itemss = of(["Инструкции", "Приказы", "Документы", "Информация"]).subscribe( data => this.items = data);
+  //  public itemss = of("Инструкции", "Приказы", "Документы", "Информация").subscribe( data => this.items.push(data));
+
+
   constructor(private spService: SPService,
-              private adalSvc: MsAdalAngular6Service
+              private adalSvc: MsAdalAngular6Service              
             ) { 
     }
 
