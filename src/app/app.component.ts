@@ -4,6 +4,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
+
+
+
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -26,14 +31,19 @@ export class AppComponent {
   title = 'site';
 
   menuState:string = 'out';
+  spanclass:string = 'menu-icon';
+
+
 
 
   toggleMenu() {
       //alert('hited');
       this.menuState = this.menuState === 'out' ? 'in' : 'out';
+      this.spanclass = this.spanclass === 'menu-icon' ? 'menu-icon is-active': 'menu-icon';
+
   }
   toggleMenuOut() {
-
+    this.spanclass = 'menu-icon';
     this.menuState = 'out';
 }
 

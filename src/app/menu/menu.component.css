@@ -10,6 +10,7 @@
     min-width: 250px;
     z-index: 9999;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    
   }
    
   ul {
@@ -18,6 +19,7 @@
     font-weight: 400;
     padding-top: 20px;
     list-style: none;
+    cursor: pointer;
   }
   input{
     width: 75%;

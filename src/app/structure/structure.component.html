@@ -1,14 +1,44 @@
-<div>
+
 <h2>Structure</h2>
 <br/>
+<p-toast [style]="{marginTop: '80px'}" position="top-left" ></p-toast>
+<!-- <p-organizationChart [value]="data1" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)" > -->
+
+<p-organizationChart [value]="data1" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)" styleClass="company" >
+        <ng-template let-node pTemplate="person">
+                <div class="node-header ui-corner-top">{{node.label}}</div>
+                <div class="node-content">{{node.data.name}}</div>
+        </ng-template>
+        <ng-template let-node pTemplate="department">{{node.label}}</ng-template>
+</p-organizationChart>
+
 <br/>
 <br/>
-
-<img width = "95%" src = 'http://wp.luxoptica.com.ua/wp-content/uploads/2017/02/struktura_min.jpg' />
-
-<img width = "95%" src = 'http://wp.luxoptica.com.ua/wp-content/uploads/2017/02/Struktura_IT_2017_17_11_17.jpg' />
-
+<!-- <img width = "85%" src = 'http://wp.luxoptica.com.ua/wp-content/uploads/2017/02/struktura_min.jpg' /> -->
+<img width = "85%" src = 'http://wp.luxoptica.com.ua/wp-content/uploads/2017/02/Struktura_IT_2017_17_11_17.jpg' />
+<br/>
 
 
 
+
+<!-- <ng-template let-node pTemplate="person">
+<div class="node-header ui-corner-top">{node.label}</div>
+<div class="node-content">            
+<div>{node.data.name}</div>
 </div>
+</ng-template>
+<ng-template let-node pTemplate="department">
+{node.label}
+</ng-template> -->
+
+<!-- 
+<ng-template let-node pTemplate="person">
+<div class="node-header ui-corner-top">{node.label}</div>
+<div class="node-content">            
+<div>{node.data.name}</div>
+</div>
+</ng-template>
+<ng-template let-node pTemplate="department">
+{node.label}
+</ng-template>
+-->

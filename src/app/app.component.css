@@ -23,6 +23,9 @@
     outline: none;
     background: none;
     border: 0;
+
+    position: fixed;
+    top: 0;
   }
       
   .hamburger span {
@@ -47,16 +50,18 @@
   }
    
   .hamburger span::before {
-    top: -20px;
+    top: -20px;    
   }
    
   .hamburger span::after {
     bottom: -20px;
   }
 
-  .hamburger{
+  .menu-icon.is-active {    
+    animation: rotate 10s infinite linear;
+  }
 
-    position: fixed;
-    top: 0;
-    
+  @keyframes rotate{
+    0%{ transform: rotate(0deg); }
+    100%{ transform: rotate(360deg); }  
   }

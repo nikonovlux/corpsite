@@ -51,7 +51,12 @@ import { WikipageComponent } from './wikipage/wikipage.component';
 
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 
-import {AppIntercept} from './intercept.service'
+import {AppIntercept} from './intercept.service';
+
+import { TreeModule } from 'primeng/primeng';
+import {OrganizationChartModule} from 'primeng/organizationchart';
+
+import {ToastModule} from 'primeng/toast';
 
 
 
@@ -73,9 +78,12 @@ import {AppIntercept} from './intercept.service'
     LoginComponent,
     LogoutComponent,
     ComplainComponent,
-    WikipageComponent
+    WikipageComponent    
   ],
   imports: [
+    ToastModule,
+    OrganizationChartModule,
+    TreeModule,
     FormsModule,
     DropdownModule,     
     HttpModule,
