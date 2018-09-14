@@ -1,0 +1,13 @@
+{
+    "HELLO": "Главная {{value}}",
+    "Main": "Главная",
+    "News": "Новости",
+    "Structure": "Структура",
+    "Documents": "Документы",
+    "Retail": "Розничная сеть",
+    "Employees": "Сотрудники",
+    "Feedback": "Отзывы",
+    "Complain": "Жалобы",
+    "Login": "Вход",
+    "Logout": "Выход"
+}

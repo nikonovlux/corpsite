@@ -3,8 +3,8 @@
   <span class={{spanclass}}>toggle menu</span>
 </button>
 
-<div (click)="toggleMenuOut()">  
-  <a class='logo' id='logo' ><img src="assets/img/logo_name.png"/></a>
+<div >  
+  <a (click)="toggleMenuOut()" class='logo' id='logo' ><img src="assets/img/logo_name.png"/></a>
   <!-- <app-topmenu></app-topmenu> -->
   <app-menu [@slideInOut]="menuState"></app-menu>
   <router-outlet></router-outlet>

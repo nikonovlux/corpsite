@@ -28,5 +28,15 @@
 .active{
   font-size: 22px;
   color: yellow;
-
 }
+p{
+  margin:5px;
+  text-align:justify;  
+}
+button{
+  height:22px;
+}
+.ui-clickable{
+  height:1px;
+}
+

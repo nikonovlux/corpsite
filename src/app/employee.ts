@@ -7,5 +7,7 @@ export class Employee {
     name: string;
     tel_outer: string;
     email: string;
+    dep:string;
+    color: string;
 
   }

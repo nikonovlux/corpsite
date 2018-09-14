@@ -3,6 +3,9 @@ import { SPService } from './sp.service'
 import { MsAdalAngular6Service } from 'microsoft-adal-angular6';
 import { of } from 'rxjs';  
 
+import {globals} from '../environments/environment.prod';
+
+
 
 @Component({
   selector: 'app-mainpage',
@@ -11,6 +14,7 @@ import { of } from 'rxjs';
 })
 export class MainpageComponent implements OnInit {
 
+  
   title = 'App';
 
   items: String[]  = [];
@@ -21,8 +25,7 @@ export class MainpageComponent implements OnInit {
 
   constructor(private spService: SPService,
               private adalSvc: MsAdalAngular6Service              
-            ) { 
-    }
+            ) { localStorage.setItem('token', globals.token); }
 
   tokenn
   ngOnInit(){}

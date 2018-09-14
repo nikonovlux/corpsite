@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { trigger, state, style, transition, animate} from '@angular/animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import {TranslateService} from '@ngx-translate/core';
+
 
 
 
@@ -28,6 +30,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 })
 export class AppComponent {
+
+  constructor(translate: TranslateService) {
+    // this language will be used as a fallback when a translation isn't found in the current language
+    translate.setDefaultLang('en');
+
+     // the lang to use, if the lang isn't available, it will use the current loader to get them
+    //translate.use('ru');
+
+    translate.use(  JSON.parse(localStorage.getItem("lang")).value );
+
+  }
+
   title = 'site';
 
   menuState:string = 'out';
@@ -45,7 +59,7 @@ export class AppComponent {
   toggleMenuOut() {
     this.spanclass = 'menu-icon';
     this.menuState = 'out';
-}
+  }
 
 
 

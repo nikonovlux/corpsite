@@ -1,20 +1,24 @@
 <div class = 'auth'>
 <img src='' />
-<input [ngModel]='fname' readonly='readonly' />
+<a style="text-align:justify;">{{fname}}</a>
+<br/>
 <p>
-<button pButton type="button" label="Login" class="ui-button-login" (click)="userLogin()"></button>
-<button pButton type="button" label="Logout" class="ui-button-logout" (click)="userLogout()"></button>
+<p-dropdown  [options]="langs" [(ngModel)]="selectedlang" name="langs" (ngModelChange)="onLangChange()"  ></p-dropdown>
+<br/>
+<p-button class="ui-button-login" (click)="userLogin()"  translate>Login</p-button>
+<p-button class="ui-button-logout" (click)="userLogout()" translate>Logout</p-button>
 </p>
+
 </div>
 <ul>    
-    <li routerLink="/mainpage" routerLinkActive="active">Main</li>
-    <li routerLink="/news" routerLinkActive="active">News</li>    
-    <li routerLink="/structure" routerLinkActive="active">Structure</li>
-    <li routerLink="/docs" routerLinkActive="active">Documents</li>
-    <li routerLink="/retail" routerLinkActive="active">Retail</li>
-    <li routerLink="/employees" routerLinkActive="active">Employees</li>
-    <li routerLink="/feedback" routerLinkActive="active">Feedback</li>
-    <li routerLink="/complain" routerLinkActive="active">Complain</li>
+    <li routerLink="/mainpage" routerLinkActive="active" translate>Main</li>
+    <li routerLink="/news" routerLinkActive="active" translate>News</li>    
+    <li routerLink="/structure" routerLinkActive="active" translate>Structure</li>
+    <li routerLink="/docs" routerLinkActive="active" translate>Documents</li>
+    <li routerLink="/retail" routerLinkActive="active" translate>Retail</li>
+    <li routerLink="/employees" routerLinkActive="active" translate>Employees</li>
+    <li routerLink="/feedback" routerLinkActive="active" translate>Feedback</li>
+    <li routerLink="/complain" routerLinkActive="active" translate>Complain</li>
 </ul> 
 
 

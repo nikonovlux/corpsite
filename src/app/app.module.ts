@@ -41,7 +41,7 @@ import { AuthenticationGuard } from 'microsoft-adal-angular6';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
 
@@ -57,6 +57,25 @@ import { TreeModule } from 'primeng/primeng';
 import {OrganizationChartModule} from 'primeng/organizationchart';
 
 import {ToastModule} from 'primeng/toast';
+
+import {TableModule} from 'primeng/table';
+
+
+
+
+// import { registerLocaleData } from '@angular/common';
+// import localeRu from '@angular/common/locales/ru';
+// import localeRuExtra from '@angular/common/locales/extra/ru';
+
+
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+//registerLocaleData(localeRu, 'ru-RU', localeRuExtra);
 
 
 
@@ -81,6 +100,14 @@ import {ToastModule} from 'primeng/toast';
     WikipageComponent    
   ],
   imports: [
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+  }),
+    TableModule,
     ToastModule,
     OrganizationChartModule,
     TreeModule,

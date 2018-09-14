@@ -24,8 +24,11 @@ export class StructureComponent implements OnInit {
 
 
   onNodeSelect(event) {
-    this.messageService.add({severity: 'success', summary: event.node.label, detail: event.node.data.name + ' ' + event.node.data.phone + ' ' + event.node.data.email});
-    console.log(event.node.data.name);
+
+    this.messageService.clear();    
+    this.messageService.add({severity: 'success', summary: event.node.label, detail: event.node.data.name || '' + ' ' + event.node.data.phone || '' + ' ' + event.node.data.email || ''});
+    console.log(event.node.label);
+
     }
 
   ngOnInit() {
@@ -99,7 +102,5 @@ export class StructureComponent implements OnInit {
           ]
       }];
 
-
     }
-
 }
