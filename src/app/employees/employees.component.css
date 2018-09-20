@@ -109,3 +109,13 @@ table td{
 table td:last-child{
   width:100%;
 }
+p-button{
+  margin:5px;
+}
+
+.active{
+  display: block;
+}
+.hidden{
+  display: none;
+}

@@ -6,8 +6,6 @@ import { Injectable } from '@angular/core';
 
 import { RestService } from './rest.service';
 
-import { Http, Response } from "@angular/http";
-
 
 
 @Component({
@@ -56,7 +54,7 @@ export class NewsComponent implements OnInit {
         network: 'interoko.onmicrosoft.com',
         //feedType: 'group',
         //feedId: '15108844'
-        // feedId: '',  
+        //feedId: '',  
         //feedType: 'Home'
         
     });

@@ -8,6 +8,7 @@ export class Employee {
     tel_outer: string;
     email: string;
     dep:string;
+    depar:string;
     color: string;
 
   }

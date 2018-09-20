@@ -9,7 +9,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Ещенко Сергей Александрович',
       tel_outer: '067-691-44-11',
       email: 'yeshchenko.s@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 2, tel_inner: '111/8089',
@@ -17,7 +17,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Романенко Максим Павлович',
       tel_outer: '067-559-21-61',
       email: 'romanenko.m@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 3, tel_inner: '545',
@@ -25,7 +25,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Колесов Сергей Владимирович',
       tel_outer: '067-245-79-10',
       email: 'kolesov.s@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 4, tel_inner: '522',
@@ -33,7 +33,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Гринив Евгений Романович',
       tel_outer: '067-209-27-86',
       email: 'griniv.e@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 5, tel_inner: '333',
@@ -41,7 +41,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Володин Сергей Александрович',
       tel_outer: '067-473-69-48',
       email: 'volodin.s@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 6, tel_inner: '8059',
@@ -49,7 +49,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Новиков Дмитрий Иванович',
       tel_outer: '067-342-32-21',
       email: 'novikov.d@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 7, tel_inner: '8052',
@@ -57,7 +57,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Колот Алексей Леонидович',
       tel_outer: '067-362-29-18',
       email: 'kolot.a@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 8, tel_inner: '520',
@@ -65,7 +65,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Москаленко Алексей Фёдорович',
       tel_outer: '067-459-04-09',
       email: 'moskalenko.a@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 9, tel_inner: '8102',
@@ -73,7 +73,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Самчук Роман Михайлович',
       tel_outer: '067-224-38-40',
       email: 'samchuk.r@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 10, tel_inner: '8122',
@@ -81,7 +81,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Баштовой Андрей Анатольевич',
       tel_outer: '?067-249-62-62',
       email: 'bashtovoy.a@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 11, tel_inner: '-',
@@ -89,7 +89,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Кучер Виталий Евгеньевич',
       tel_outer: '067-409-89-22',
       email: 'v.kucher@luxoptica.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 12, tel_inner: '8013',
@@ -97,7 +97,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Гаврилюк Александр Петрович',
       tel_outer: '067-559-04-78',
       email: 'gavrilyuk.a@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 13, tel_inner: '-',
@@ -105,7 +105,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Татарин Максим Сергеевич',
       tel_outer: '097-838-98-00',
       email: 'tatarin.m@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 14, tel_inner: '8126',
@@ -113,7 +113,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Овчаренко Вячеслав Федорович',
       tel_outer: '-',
       email: 'ovcharenko.v@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 15, tel_inner: '550',
@@ -121,7 +121,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Славгородский Юрий Викторович',
       tel_outer: '067-223-88-43',
       email: 'slavgorodsky.y@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 16, tel_inner: '8094',
@@ -129,7 +129,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Головнюк Елена Валерьевна',
       tel_outer: '-',
       email: 'golovnyuk.e@opticalhouse.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 17, tel_inner: '-',
@@ -137,7 +137,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Порицкий Александр Петрович',
       tel_outer: '-',
       email: '—',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 18, tel_inner: '-',
@@ -145,7 +145,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Поляков Сергей Дмитриевич',
       tel_outer: '-',
       email: 'polyakov.s@opticalhouse.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 19, tel_inner: '527',
@@ -153,7 +153,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Шуба Александр Петрович',
       tel_outer: '-',
       email: 'ash@visionlux.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 20, tel_inner: '121',
@@ -161,7 +161,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Семенец Алексей Сергеевич',
       tel_outer: '067-550-27-89',
       email: 'semenec@opticalhouse.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 21, tel_inner: '527',
@@ -169,7 +169,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Серебрий Виктор Васильевич',
       tel_outer: '067-559-96-08',
       email: 'serebriy@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 22, tel_inner: '8058',
@@ -177,7 +177,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Савченко Владимир Валерьевич',
       tel_outer: '067-550-27-88',
       email: 'savchenko.v@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 23, tel_inner: '8088',
@@ -185,7 +185,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Бровец Руслан Павлович',
       tel_outer: '-',
       email: 'brovets.r@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 24, tel_inner: '521',
@@ -193,7 +193,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Диковский Сергей Викторович',
       tel_outer: '-',
       email: 'dikovskiy.s@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 25, tel_inner: '-',
@@ -201,7 +201,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Мирошниченко Игорь',
       tel_outer: '-',
       email: 'miroshnichenko.i@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 26,
@@ -210,7 +210,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Кошутский Юрий Евгеньевич',
       tel_outer: '-',
       email: 'koshutskiy.y@luxoptica.com.ua',
-      dep: 'IT', color: 'White'
+      dep: 'IT', color: 'White', depar: ''
     },
     {
       id: 27,
@@ -219,7 +219,7 @@ export const EMPLOYEES: Employee[] = [
       name: 'Дмитриева Мирослава',
       tel_outer: '067-235-62-00',
       email: 'dmitrieva.m@medtech.com.ua',
-      dep: 'HR', color: 'White'
+      dep: 'HR', color: 'White', depar: ''
     }
 
   ];

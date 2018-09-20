@@ -51,7 +51,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "corpsite:build",
-			"host":"192.168.220.146",
+			"host":"corpsite.opticalhouse.com.ua",
 			"port": 4200
           },
           "configurations": {

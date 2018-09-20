@@ -20,16 +20,14 @@ import { AuthenticationGuard } from 'microsoft-adal-angular6';
 
 
 
-
-
 const routes: Routes = [
 
   { path: '', redirectTo: '/mainpage', pathMatch: 'full'},
-  { path: 'mainpage', component: MainpageComponent , canActivate: [AuthenticationGuard] },
+  { path: 'mainpage', component: MainpageComponent },
   { path: 'employees', component: EmployeesComponent , canActivate: [AuthenticationGuard]  },
   { path: 'structure', component: StructureComponent  , canActivate: [AuthenticationGuard] },
   { path: 'feedback', component: FeedbackComponent , canActivate: [AuthenticationGuard]  },
-  { path: 'retail', component: RetailComponent   },
+  { path: 'retail', component: RetailComponent  },
   { path: 'docs', component: DocsComponent , canActivate: [AuthenticationGuard]  },
   { path: 'news', component: NewsComponent  , canActivate: [AuthenticationGuard] },
   { path: 'detail/:id', component: EmployeeDetailComponent  , canActivate: [AuthenticationGuard] },
@@ -41,10 +39,8 @@ const routes: Routes = [
 
 
 @NgModule({
-
   imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
-  
+  exports: [ RouterModule ]  
 })
 export class AppRoutingModule { }
 
