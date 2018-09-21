@@ -1,54 +1,64 @@
 <h2 translate>Employees</h2>
 
 
-
-<p>
-<p-button icon="pi pi-ban" iconPos="left" label="Back" (click)='onBackClick()' (dblclick)='onDblClick(event)' ></p-button>    
-<p-button icon="pi pi-check" iconPos="right" [(ngClass)]="depclass" label="КОММЕРЧЕСКИЙ ДЕПАРТАМЕНТ" (click)='onCDClick(0)' (dblclick)='onDblClick(event)' ></p-button>
-<p-button icon="pi pi-check" iconPos="right" [(ngClass)]="depclass" label="ФИНАНСОВЫЙ ДЕПАРТАМЕНТ" (click)='onCDClick(1)' (dblclick)='onDblClick(event)' ></p-button>
-<p-button icon="pi pi-check" iconPos="right" [(ngClass)]="depclass" label="ЮРИДИЧЕСКИЙ ДЕПАРТАМЕНТ" (click)='onCDClick(2)' (dblclick)='onDblClick(event)' ></p-button>
-<p-button icon="pi pi-check" iconPos="right" [(ngClass)]="depclass" label="Департамент развития" (click)='onCDClick(3)' (dblclick)='onDblClick(event)' ></p-button>
-<p-button icon="pi pi-check" iconPos="right" [(ngClass)]="depclass" label="Департамент управления персоналом" (click)='onCDClick(4)' (dblclick)='onDblClick(event)' ></p-button>
-<p-button icon="pi pi-check" iconPos="right" [(ngClass)]="depclass" label="Департамент информационных технологий" (click)='onCDClick(5)' (dblclick)='onDblClick(event)' ></p-button>
-</p>
-
+<p-toast [style]="{marginTop: '80px'}" position="top-left" styleClass="company" ></p-toast>
+<!-- <p-contextMenu [global]="true" [model]="items1"></p-contextMenu> -->
+<p-contextMenu [target]="dtt" [model]="items1"></p-contextMenu>
 <br/>
 
-<p>
-<p-dropdown hidden [(ngModel)]="selectedTopDepar" (ngModelChange)='onDeparChanged(event)' [options]="selected_top_deps" id="selected_top_deps" name="selected_top_deps" (dblclick)='onDblClick(event)' (ngModelChange)='onDeparChanged(event)' ></p-dropdown>
-</p>
+
+<p-dialog [(visible)]="display">
+        <p-header>
+            Info
+        </p-header>
+        Walk this way
+        <p-footer>
+            Down here
+        </p-footer>
+</p-dialog>
+<button type="text" (click)="showDialog()" pButton icon="pi pi-info-circle" label="Show"></button>
 
 <!-- 
-<p-button icon="pi pi-check" iconPos="right" label="ФИНАНСОВЫЙ ДЕПАРТАМЕНТ"></p-button>
-<p-button icon="pi pi-check" iconPos="right" label="ЮРИДИЧЕСКИЙ ДЕПАРТАМЕНТ"></p-button>
-<p-button icon="pi pi-check" iconPos="right" label="ОТДЕЛ РАЗВИТИЯ"></p-button>
-<p-button icon="pi pi-check" iconPos="right" label="ДЕПАРТАМЕНТ УПРАВЛЕНИЯ ПЕРСОНАЛОМ"></p-button>
-<p-button icon="pi pi-check" iconPos="right" label="ДЕПАРТАМЕНТ ИНФОРМАЦИОННЫХ ТЕХНОЛОГИЙ"></p-button>
-<p-button icon="pi pi-check" iconPos="right" label="ДЕПАРТАМЕНТ Е-COMMERCE"></p-button>
-<p-button icon="pi pi-check" iconPos="right" label="ДЕПАРТАМЕНТ ДИСТРИБУЦИИ"></p-button>
-<p-button icon="pi pi-check" iconPos="right" label="Оптовый ДЕПАРТАМЕНТ"></p-button>
-<p-button icon="pi pi-check" iconPos="right" label="ДЕПАРТАМЕНТ МАТЕРИАЛЬНО ТЕХНИЧЕСКОГО ОБЕСПЕЧЕНИЯ, СТРОИТЕЛЬСТВА И ЛОГИСТИКИ"></p-button>
-<p-button icon="pi pi-check" iconPos="right" label="СЛУЖБА ВНУТРЕННЕЙ БЕЗОПАСНОСТИ"></p-button>
-<p-button icon="pi pi-check" iconPos="right" label="ФИЛИАЛЫ"></p-button>
-<p-button icon="pi pi-check" iconPos="right" label="РОЗНИЧНЫЕ СЕТИ"></p-button>
-<p-button icon="pi pi-check" iconPos="right" label="Департамент розничных продаж"></p-button>
- -->
+<p>
+<p-button icon="pi pi-ban" iconPos="left" label="Back" (click)='onBackClick()' (dblclick)='onDblClick(event)' ></p-button> 
+</p>
+-->
 
+<table >
+    <tr>    
+        <ng-container *ngIf="top_deps">
+        <span *ngFor="let dep of top_deps; let ind = index" [(ngClass)]="depclass">
+        <span><p-button icon="pi pi-check" iconPos="right" [(ngClass)]="depclass" (click)='onCDClick(ind)' (dblclick)='onDblClick(event)' >{{dep.label}}</p-button></span>
+        </span>
+        </ng-container>    
+    </tr>
+    <tr>    
+        <ng-container *ngIf="selected_top_deps"  >
+        <span *ngFor="let dp of selected_top_deps; let indx = index" [(ngClass)]="depclass">            
+        <span><p-button icon="pi pi-check" id={{dp.label}} iconPos="left"  label={{dp.label}} (click)='onDepClick(indx)'></p-button></span>
+        </span>    
+        </ng-container>    
+    </tr>
+</table>
 
-<p-toast [style]="{marginTop: '80px'}" position="top-left" styleClass="company" ></p-toast>
-<br/>
-<p-dropdown hidden [(ngModel)]="_offselectedDepar" [options]="deps" name="deps" (dblclick)='onDblClick(event)' (ngModelChange)='off_onDeparChanged(event)' label='Department' >Department</p-dropdown>
-
-<p-table hidden id='dtt' #dt [columns]="cols" [value]="users1" [paginator]="true" [rows]="20" [tableStyle]="{'table-layout':'auto'}" >
+<div #dtt>
+    
+<p-table [(ngClass)]="depclass" #dt [columns]="cols" [value]="users1" [paginator]="true" [rows]="20" [tableStyle]="{'table-layout':'auto'}" >   <!--  [tableStyle]="{'table-layout':'auto', 'max-width':'90%'}" -->
     <ng-template pTemplate="caption">
-        <div style="text-align: right">        
-            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-            <input type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        <div style="text-align: justify">
+            <td>
+                    <a style="margin: 5px;" >{{selecteddep}}</a>                
+            </td>
+            <td>
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                
+            </td>
         </div>
     </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
-            <th *ngFor="let col of columns">
+            <th *ngFor="let col of columns" >                
                 {{col.header}}
             </th>
         </tr>
@@ -61,7 +71,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr [pSelectableRow]="rowData">            
+        <tr [pSelectableRow]="rowData">
             <td *ngFor="let col of columns" [ngSwitch]="col.field"  >
                 <a *ngSwitchCase="'mail'" href={{mailto}}{{rowData[col.field]}} >{{rowData[col.field]}}</a>
                 <a *ngSwitchCase="'telephoneNumber'" href={{tel}}{{rowData[col.field]}} >{{rowData[col.field]}}</a>
@@ -71,6 +81,7 @@
     </ng-template>
 </p-table>
 
+</div>
 
 
 
@@ -80,7 +91,7 @@
 <h2>Azure AD Employee List</h2>
 <ul class="users" >
     <li *ngFor="let user of users1">  
-        <span class="badge">{{user.department}}</span> <a> {{user.surname}} {{user.givenName}} - {{user.mail}} </a>
+        <span class="badge">{{user.department}}</span> <a> {{user.surname}} {{user.givenName}} - {{user.mail}} </span>
     </li>
 </ul> -->
 

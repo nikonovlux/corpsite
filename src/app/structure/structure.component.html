@@ -2,15 +2,17 @@
 <h2 translate>Structure</h2>
 <br/>
 <p-toast [style]="{marginTop: '80px'}" position="top-left" styleClass="company" ></p-toast>
+<p-contextMenu [target]="dttt" [model]="menuitems"></p-contextMenu>
 
-
-<p-organizationChart [value]="data1" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)" styleClass="company" >
+<div #dttt>
+<p-organizationChart  [value]="data1" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)" styleClass="company" >
         <ng-template let-node pTemplate="person">
                 <div class="node-header ui-corner-top">{{node.label}}</div>
                 <div class="node-content">{{node.data.name}}</div>
         </ng-template>
         <ng-template let-node pTemplate="department">{{node.label}}</ng-template>
 </p-organizationChart>
+</div>
 
 <br/>
 <br/>

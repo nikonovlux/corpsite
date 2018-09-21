@@ -60,6 +60,10 @@ import {ToastModule} from 'primeng/toast';
 
 import {TableModule} from 'primeng/table';
 
+import {ContextMenuModule} from 'primeng/contextmenu';
+
+import {DialogModule} from 'primeng/dialog';
+
 
 
 
@@ -70,6 +74,7 @@ import {TableModule} from 'primeng/table';
 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -106,7 +111,9 @@ export function HttpLoaderFactory(http: HttpClient) {
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
       }
-  }),
+  }),  
+    DialogModule,
+    ContextMenuModule,
     TableModule,
     ToastModule,
     OrganizationChartModule,
@@ -148,24 +155,3 @@ export function HttpLoaderFactory(http: HttpClient) {
 })
 export class AppModule { }
 
-
-// MsAdalAngular6Module.forRoot({
-//   tenant: '435a4f02-f6b2-4248-9a5c-0f355179c0df',
-//   clientId: '937a47e8-b6ad-4226-8d28-4940d9662ac9',
-//   redirectUri: "http://192.168.220.146:4200/mainpage",
-//   endpoints: {'http://interoko.sharepoint.com':'b285db3e-07c4-4c6e-953f-6ff7af02a131' },
-//   navigateToLoginRequestUrl: false,
-//   cacheLocation: '<localStorage / sessionStorage>'
-// })
-
-
-// MsAdalAngular6Module.forRoot({
-//   tenant: '435a4f02-f6b2-4248-9a5c-0f355179c0df',
-//   clientId: '937a47e8-b6ad-4226-8d28-4940d9662ac9',
-//   redirectUri: "http://192.168.220.146:4200/mainpage",
-//   endpoints: {'http://192.168.220.146:4200/mainpage':'b285db3e-07c4-4c6e-953f-6ff7af02a131' },
-//   navigateToLoginRequestUrl: false,
-//   cacheLocation: '<localStorage / sessionStorage>'
-// })
-
-// providers: [AuthenticationGuard, SPService],

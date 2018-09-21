@@ -8,6 +8,11 @@ import {SelectItem} from 'primeng/api';
 
 import {MessageService} from 'primeng/api';
 
+import {MenuItem} from 'primeng/api';
+
+
+
+
 
 
 
@@ -20,7 +25,6 @@ import {MessageService} from 'primeng/api';
 })
 export class EmployeesComponent implements OnInit {
 
-
   // /users?$select=displayName,givenName,postalCode    --   $select=displayName,givenName,surname,department,city,accountEnabled,jobTitle,mail,mailNickname,onPremisesDistinguishedName,telephoneNumber&$filter=accountEnabled eq true
   // startswith(objectType,'U') and 
 
@@ -32,7 +36,7 @@ export class EmployeesComponent implements OnInit {
   call:string = 'users?';
   api_version:string = 'api-version=1.6';
 
-  
+
   filter:string;
   select:string = '$select=givenName,displayName,jobTitle,city,mail,telephoneNumber,phones,accountEnabled,objectType,id';
   top:string = '$top=100';
@@ -42,9 +46,8 @@ export class EmployeesComponent implements OnInit {
   cols: any[];
   colors: SelectItem[];
 
-
   deps: SelectItem[];
-  top_deps: SelectItem[];
+  top_deps = [];
 
   selectedTopDepar:SelectItem;
   selectedDepar: SelectItem;
@@ -61,88 +64,38 @@ export class EmployeesComponent implements OnInit {
 
   selected_top_deps;
 
-  depclass:string = 'dep hidden';
+  depclass:string = 'dep';
+
+  selecteddep: string;
+
+  items1: MenuItem[];
+
+  display: boolean = false;
 
   constructor(private employeeService: EmployeeService,
               private messageService: MessageService) { }
 
   ngOnInit() {
-//  { label: 'All Deps', value: null },
 
-    this.top_deps = [
-      { value:'Департамент розничных продаж',label:'Департамент розничных продаж'},
-      { value:'КОММЕРЧЕСКИЙ ДЕПАРТАМЕНТ',label:'КОММЕРЧЕСКИЙ ДЕПАРТАМЕНТ'},
-      { value:'ФИНАНСОВЫЙ ДЕПАРТАМЕНТ',label:'ФИНАНСОВЫЙ ДЕПАРТАМЕНТ'},
-      { value:'ЮРИДИЧЕСКИЙ ДЕПАРТАМЕНТ',label:'ЮРИДИЧЕСКИЙ ДЕПАРТАМЕНТ'},
-      { value:'ОТДЕЛ РАЗВИТИЯ',label:'ОТДЕЛ РАЗВИТИЯ'},
-      { value:'ДЕПАРТАМЕНТ УПРАВЛЕНИЯ ПЕРСОНАЛОМ',label:'ДЕПАРТАМЕНТ УПРАВЛЕНИЯ ПЕРСОНАЛОМ'},
-      { value:'ДЕПАРТАМЕНТ ИНФОРМАЦИОННЫХ ТЕХНОЛОГИЙ',label:'ДЕПАРТАМЕНТ ИНФОРМАЦИОННЫХ ТЕХНОЛОГИЙ'},
-      { value:'ДЕПАРТАМЕНТ Е-COMMERCE',label:'ДЕПАРТАМЕНТ Е-COMMERCE'},
-      { value:'ДЕПАРТАМЕНТ ДИСТРИБУЦИИ',label:'ДЕПАРТАМЕНТ ДИСТРИБУЦИИ'},
-      { value:'Оптовый ДЕПАРТАМЕНТ',label:'Оптовый ДЕПАРТАМЕНТ'},
-      { value:'ДЕПАРТАМЕНТ МАТЕРИАЛЬНО ТЕХНИЧЕСКОГО ОБЕСПЕЧЕНИЯ, СТРОИТЕЛЬСТВА И ЛОГИСТИКИ',label:'ДЕПАРТАМЕНТ МАТЕРИАЛЬНО ТЕХНИЧЕСКОГО ОБЕСПЕЧЕНИЯ, СТРОИТЕЛЬСТВА И ЛОГИСТИКИ'},
-      { value:'СЛУЖБА ВНУТРЕННЕЙ БЕЗОПАСНОСТИ',label:'СЛУЖБА ВНУТРЕННЕЙ БЕЗОПАСНОСТИ'},
-      { value:'ФИЛИАЛЫ',label:'ФИЛИАЛЫ'},
-      { value:'РОЗНИЧНЫЕ СЕТИ',label:'РОЗНИЧНЫЕ СЕТИ'}
-      ];
+    JSON.parse(localStorage.getItem('top_deps')).top_deps.forEach((element) => {
+        this.top_deps.push({label: element.label, value: element.label});      
+    });
 
-
-
-
-    this.deps = [
-      { label: 'Отдел', value: 'Отдел' },      
-      { label: 'Отдел учета и отчетности', value: 'Отдел учета и отчетности' },
-      { label: 'Финансово - экономический отдел', value: 'Финансово - экономический отдел' },
-      { label: 'Отдел казначейства', value: 'Отдел казначейства' },
-      { label: 'Планово-экономический отдел', value: 'Планово-экономический отдел' },
-      { label: 'Юридический отдел', value: 'Юридический отдел' },
-      { label: 'Отдел кадров', value: 'Отдел кадров' },
-      { label: 'Отдел учета торговых операций', value: 'Отдел учета торговых операций' },
-      { label: 'Отдел ВЭД', value: 'Отдел ВЭД' },
-      { label: 'Отдел маркетинга', value: 'Отдел маркетинга' },
-      { label: 'Отдел методологии и контроля', value: 'Отдел методологии и контроля' },
-      { label: 'Отдел ПО и СО', value: 'Отдел ПО и СО' },
-      { label: 'Отдел по охране труда', value: 'Отдел по охране труда' },
-      { label: 'Отдел по работе с персоналом', value: 'Отдел по работе с персоналом' },
-      { label: 'Отдел Развития', value: 'Отдел Развития' },
-      { label: 'Отдел рекламы', value: 'Отдел рекламы' },
-      { label: 'Отдел системного администрирования', value: 'Отдел системного администрирования' },
-      { label: 'Бухгалтерия', value: 'Бухгалтерия' },
-      { label: 'Склад', value: 'Склад' },
-      { label: 'Интернет магазин', value: 'Интернет магазин' },
-      { label: 'Управления проектами', value: 'Управления проектами' },
-      { label: 'Коммерческий отдел', value: 'Коммерческий отдел' },
-      { label: 'Таможенно-брокерский отдел', value: 'Таможенно-брокерский отдел' },
-      { label: 'Упаковочный отдел', value: 'Упаковочный отдел' },
-      { label: 'Служба технической поддержки', value: 'Служба технической поддержки' },
-      { label: 'Торговый отдел', value: 'Торговый отдел' },
-      { label: 'Курьерская служба', value: 'Курьерская служба' },
-      { label: 'ФЭО', value: 'ФЭО' },
-      { label: 'ГрандРитейл', value: 'ГрандРитейл' },
-      { label: 'Административно отдел', value: 'Административно отдел' },
-      { label: 'ЛинзЭкспресс', value: 'ЛинзЭкспресс' },
-      { label: 'АХО', value: 'АХО' },
-      { label: 'Закупки', value: 'Закупки' },
-      { label: 'Административный отдел', value: 'Административный отдел' },
-      { label: 'КиРС', value: 'КиРС' },
-      { label: 'Служба Глав Врача', value: 'Служба Глав Врача' },
-      { label: 'Отдел разработки', value: 'Отдел разработки' }
-  ];
-
-  function dynamicSort(property) {
-    var sortOrder = 1;
-    if(property[0] === "-") {
-        sortOrder = -1;
-        property = property.substr(1);
-    }
-    return function (a,b) {
-        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
-        return result * sortOrder;
-    }
-}
-
-  this.deps.sort(dynamicSort("label"));
-  
+    this.items1 = [
+      {
+          label: 'File',
+          items: [{
+                  label: 'New', 
+                  icon: 'pi pi-fw pi-plus',
+                  items: [
+                      {label: 'Project',  command: event => {console.log(event)} },
+                      {label: 'Other'},
+                  ]
+              },
+              {label: 'Open'},
+              {label: 'Quit'}
+          ]
+      }]
   
   this.colors = [
       { label: 'White', value: 'White' },
@@ -150,31 +103,33 @@ export class EmployeesComponent implements OnInit {
   ];
   
   this.cols = [
-    { field: 'displayName', header: 'displayName' },
+    { field: 'displayName', header: 'Name' },
     { field: 'jobTitle', header: 'Title' },    
     { field: 'mail', header: 'Email' },
     { field: 'telephoneNumber', header: 'Phone' }      
   ];
 
-    this.GetAdalToken();
+  this.GetAdalToken();
+  this.GetUsers();
 
     //  this.GetEmployees();
     //  this.GetGroups();
+  
+  }
+  
 
-    this.GetUsers();
-
+  showDialog() {
+      this.display = true;
   }
   onBackClick(){
     this.depclass == 'dep hidden' ?  this.depclass = 'dep active' : this.depclass = 'dep hidden';
-    console.log(this.depclass);
-  }    
-  
+    //  console.log(this.depclass);
+  }  
   onCDClick(num){
-    //console.log(e);
-    document.getElementById('selected_top_deps').hidden = false;
-    document.getElementById('dtt').hidden = false;
-    this.selected_top_deps= JSON.parse(localStorage.getItem('top_deps') ).top_deps[num].value;
 
+    this.selected_top_deps = JSON.parse(localStorage.getItem('top_deps') ).top_deps[num].value;
+
+    this.selecteddep = this.selected_top_deps[0].value; 
 
     this.filter = "$filter=accountEnabled eq true and startswith(department, '" + this.selected_top_deps[0].value + "')";
     this.full_url = '' + this.url + this.call + this.api_version + '&' + this.select + '&' + this.filter + '&' + this.top;
@@ -189,10 +144,26 @@ export class EmployeesComponent implements OnInit {
                           },
                   error=> {
                           this.messageService.add({severity: 'error', summary: 'MS Grath connection failed', detail: 'status: '+ error.status});                            
-                          }
-        );
+                          });
   }
-
+  onDepClick(indx): void {  
+    //this.filter = "$filter=accountEnabled eq true";
+    this.selecteddep = this.selected_top_deps[indx].value;  
+    this.filter = "$filter=accountEnabled eq true and startswith(department, '" + this.selected_top_deps[indx].value + "')";
+    this.full_url = '' + this.url + this.call + this.api_version + '&' + this.select + '&' + this.filter + '&' + this.top;
+    console.log(this.full_url);
+    this.employeeService.getJson(this.full_url)
+      .subscribe(users => 
+                          {
+                          console.log('--------------start-users1-----------');                          
+                          this.users = users;
+                          this.users1 = this.users.d.results;  
+                          console.log(this.users1);
+                          },
+                  error=> {
+                          this.messageService.add({severity: 'error', summary: 'MS Grath connection failed', detail: 'status: '+ error.status});                            
+                          });
+  }
   onDeparChanged(): void {  
     //this.filter = "$filter=accountEnabled eq true";  
     this.filter = "$filter=accountEnabled eq true and startswith(department, '" + this.selectedTopDepar + "')";
@@ -208,14 +179,13 @@ export class EmployeesComponent implements OnInit {
                           },
                   error=> {
                           this.messageService.add({severity: 'error', summary: 'MS Grath connection failed', detail: 'status: '+ error.status});                            
-                          }
-        );
+                          });
   }
   GetAdalToken(): void {
     this.employeeService.getAdalToken();
-    console.log('adalToken - '+localStorage.getItem('adalToken'));
+    //console.log('adalToken - '+localStorage.getItem('adalToken'));
     this.employeeService.getJsonFile();
-    console.log('top_deps - '+localStorage.getItem('top_deps'));
+    //console.log('top_deps - '+localStorage.getItem('top_deps'));
   }
   GetUsers(): void {
     this.employeeService.getJson(this.full_url)
@@ -228,25 +198,24 @@ export class EmployeesComponent implements OnInit {
                           },
                   error=> {
                           this.messageService.add({severity: 'error', summary: 'MS Grath connection failed', detail: 'status: '+ error.status});                            
-                          }
-    );
+                          });
   }
-  GetGroups(): void {
-    this.employeeService.getJson('https://graph.windows.net/interoko.onmicrosoft.com/groups?api-version=1.6')   // /users?$select=displayName,givenName,postalCode
-      .subscribe(groups => 
-                          { 
-                          console.log('--------------start-groups-----------');
-                          console.log(groups);
-                          this.groups = groups;
-                          }
-    );
+
+  // old
+  GetGroups(): void {this.employeeService
+                .getJson('https://graph.windows.net/interoko.onmicrosoft.com/groups?api-version=1.6')   // /users?$select=displayName,givenName,postalCode
+                            .subscribe(groups => { 
+                                                console.log(groups);
+                                                this.groups = groups;
+                                            });
   }
-  GetEmployees(): void {
-    this.employeeService.getEmployees()
-    .subscribe(employees => {
-        console.log(employees);
-        this.employees = employees});
-    }
+  GetEmployees(): void {  this.employeeService
+                  .getEmployees()
+                            .subscribe(employees => {
+                                              console.log(employees);
+                                              this.employees = employees;
+                                            });
+  }
 }
 
 

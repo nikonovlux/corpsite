@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {TreeNode} from 'primeng/api';
+import {TreeNode, MenuItem} from 'primeng/api';
 
 import {MessageService} from 'primeng/api';
 
@@ -21,7 +21,7 @@ export class StructureComponent implements OnInit {
 
   selectedNode: TreeNode;
 
-
+    menuitems: MenuItem[];
 
   onNodeSelect(event) {
 
@@ -32,6 +32,16 @@ export class StructureComponent implements OnInit {
     }
 
   ngOnInit() {
+
+    this.menuitems = [
+        {
+            label: 'Menu',
+            command: event => {console.log(event)},
+            items: [
+                    {label: 'Send Email', command: event => {alert(event)},},
+                    {label: 'Quit'}
+                    ]
+                }]
 
 
     this.data1 = [{

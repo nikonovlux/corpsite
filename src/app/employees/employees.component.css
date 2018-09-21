@@ -100,22 +100,22 @@ h2{
   width: 5%;
 }
 
-table{
-  width:100%;
+.ui table{
+   width:90%; 
 }
 table td{
   white-space: nowrap;  /** added **/
 }
 table td:last-child{
-  width:100%;
+  /** width:100%; **/
 }
 p-button{
   margin:5px;
 }
 
 .active{
-  display: block;
+  visibility: visible;
 }
 .hidden{
-  display: none;
+  visibility: hidden;
 }
