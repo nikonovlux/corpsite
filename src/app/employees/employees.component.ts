@@ -78,7 +78,7 @@ export class EmployeesComponent implements OnInit {
   ngOnInit() {
 
     JSON.parse(localStorage.getItem('top_deps')).top_deps.forEach((element) => {
-        this.top_deps.push({label: element.label, value: element.label});      
+        this.top_deps.push({label: element.label, data: element.label});      
     });
 
     this.items1 = [
@@ -127,11 +127,11 @@ export class EmployeesComponent implements OnInit {
   }  
   onCDClick(num){
 
-    this.selected_top_deps = JSON.parse(localStorage.getItem('top_deps') ).top_deps[num].value;
+    this.selected_top_deps = JSON.parse(localStorage.getItem('top_deps') ).top_deps[num].children;
 
-    this.selecteddep = this.selected_top_deps[0].value; 
+    this.selecteddep = this.selected_top_deps[0].children; 
 
-    this.filter = "$filter=accountEnabled eq true and startswith(department, '" + this.selected_top_deps[0].value + "')";
+    this.filter = "$filter=accountEnabled eq true and startswith(department, '" + this.selected_top_deps[0].label + "')";
     this.full_url = '' + this.url + this.call + this.api_version + '&' + this.select + '&' + this.filter + '&' + this.top;
     console.log(this.full_url);
     this.employeeService.getJson(this.full_url)
@@ -148,8 +148,8 @@ export class EmployeesComponent implements OnInit {
   }
   onDepClick(indx): void {  
     //this.filter = "$filter=accountEnabled eq true";
-    this.selecteddep = this.selected_top_deps[indx].value;  
-    this.filter = "$filter=accountEnabled eq true and startswith(department, '" + this.selected_top_deps[indx].value + "')";
+    this.selecteddep = this.selected_top_deps[indx].children;  
+    this.filter = "$filter=accountEnabled eq true and startswith(department, '" + this.selected_top_deps[indx].label + "')";
     this.full_url = '' + this.url + this.call + this.api_version + '&' + this.select + '&' + this.filter + '&' + this.top;
     console.log(this.full_url);
     this.employeeService.getJson(this.full_url)
