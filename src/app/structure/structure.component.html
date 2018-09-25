@@ -25,12 +25,11 @@
             <ng-template pTemplate="caption">
                 <div style="text-align: justify">
                     <td>
-                            <a style="margin: 5px;" >{{selecteddep}}</a>                
+                        <a style="margin: 5px;" >{{selecteddep}}</a>                
                     </td>
                     <td>
-                            <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                            <input type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.children, 'contains')" style="width:auto">  <!-- value to children -->
-                        
+                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">  <!-- value to children -->
                     </td>
                 </div>
             </ng-template>

@@ -33,8 +33,7 @@ export class StructureComponent implements OnInit {
     data2  = JSON.parse( localStorage.getItem("top_deps")).top_deps;
 
     selectedNode: TreeNode;
-
-    menuitems: MenuItem[];
+    
 
     url:string = 'https://graph.windows.net/interoko.onmicrosoft.com/';
     call:string = 'users?';
@@ -117,15 +116,7 @@ export class StructureComponent implements OnInit {
   }  
   ngOnInit() {
 
-    this.menuitems = [
-        {
-            label: 'Menu',
-            command: event => {console.log(event)},
-            items: [
-                    {label: 'Send Email', command: event => {alert(event)} },
-                    {label: 'Quit'}
-                    ]
-                }]
+
 
     if(localStorage.getItem("top_deps")){       
            //this.data2 = JSON.parse( localStorage.getItem("top_deps")).top_deps;
@@ -139,8 +130,8 @@ export class StructureComponent implements OnInit {
     console.log(this.data1);
 
     this.items = [
-      { label: 'Send email', icon: 'pi pi-search', command: (event) => this.sendEmail(this.selectedUser) },
-      { label: 'View', icon: 'pi pi-times', command: (event) => { alert(this.selectedUser)} }
+      { label: 'Send email', icon: 'pi pi-cloud', command: (event) => this.sendEmail(this.selectedUser) },
+      { label: 'View', icon: 'pi pi-calendar', command: (event) => { alert(this.selectedUser)} }
     ];
 
 

@@ -50,8 +50,22 @@ h2{
 }
 .active{
     visibility: visible;
-  }
-  .hidden{
-    visibility: hidden;
-  }
+}
+.hidden{
+visibility: hidden;
+}
+.ui-organizationchart{
+    width: 1600px;
+}
+.ui-organizationchart .ui-organizationchart-table > tr > td {
+    text-align: center;
+    vertical-align: top;
+    padding: 0;
+    padding: 0 .01em;   
+}
+.ui-organizationchart .ui-organizationchart-node-content {
+    padding: .5em .75em;
+    display: inline-block;
+    position: relative;
+}
 
