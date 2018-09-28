@@ -1,4 +1,5 @@
 {
     "HELLO": "Hello {{value}}",
-    "MAIN": "Main"
+    "MAIN": "Main",
+    "SEARCH": "Search"
 }

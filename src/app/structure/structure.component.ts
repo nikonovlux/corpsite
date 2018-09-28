@@ -30,7 +30,9 @@ export class StructureComponent implements OnInit {
                           "children":[{"label":"Административный департамент"}],
                           "data":{"head":{"title":"Генеральный директор", "label":"Свистун Алексей Николаевич"}}
                           }];
-    data2  = JSON.parse( localStorage.getItem("top_deps")).top_deps;
+    
+    
+    data2
 
     selectedNode: TreeNode;
     
@@ -122,10 +124,13 @@ export class StructureComponent implements OnInit {
   }  
   ngOnInit() {
 
+    this.employeeService.getJsonFile();
+    
 
+    if((localStorage.getItem("top_deps"))){ 
 
-    if(localStorage.getItem("top_deps")){       
-           //this.data2 = JSON.parse( localStorage.getItem("top_deps")).top_deps;
+      //this.data2 = JSON.parse( localStorage.getItem("top_deps")).top_deps;
+      this.data2  = JSON.parse(localStorage.getItem("top_deps")).top_deps;           
       this.data2.forEach(element => {
         this.data1[0].children.push(    element );
       });

@@ -77,6 +77,12 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit() {
 
+    
+    this.GetUsers();
+
+
+    this.GetAdalToken();
+
     JSON.parse(localStorage.getItem('top_deps')).top_deps.forEach((element) => {
         this.top_deps.push({label: element.label, data: element.label});      
     });
@@ -109,8 +115,7 @@ export class EmployeesComponent implements OnInit {
     { field: 'telephoneNumber', header: 'Phone' }      
   ];
 
-  this.GetAdalToken();
-  this.GetUsers();
+
 
     //  this.GetEmployees();
     //  this.GetGroups();
@@ -182,8 +187,8 @@ export class EmployeesComponent implements OnInit {
                           });
   }
   GetAdalToken(): void {
-    this.employeeService.getAdalToken();
     //console.log('adalToken - '+localStorage.getItem('adalToken'));
+    this.employeeService.getAdalToken();    
     this.employeeService.getJsonFile();
     //console.log('top_deps - '+localStorage.getItem('top_deps'));
   }

@@ -99,9 +99,8 @@ h2{
   border-radius: 4px 0 0 4px;
   width: 5%;
 }
-
 .ui table{
-   width:90%; 
+   width:90%;
 }
 table td{
   white-space: nowrap;  /** added **/
@@ -112,7 +111,6 @@ table td:last-child{
 p-button{
   margin:5px;
 }
-
 .active{
   visibility: visible;
 }

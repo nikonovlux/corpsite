@@ -2,7 +2,7 @@
 <h2 translate>Structure</h2>
 <br/>
 <p-toast [style]="{marginTop: '80px'}" position="top-left" styleClass="company" ></p-toast>
-<!-- <p-contextMenu [target]="dttt" [model]="menuitems"></p-contextMenu> -->
+<!-- <p-contextMenu #cm [target]="dttt" [model]="items"></p-contextMenu> -->
 
 
 
@@ -19,7 +19,7 @@
 
 <div #dtt>
     <p-contextMenu #cm [model]="items"></p-contextMenu>
-    <p-table [(ngClass)]="depclass" #dt [columns]="cols" [value]="users1" [paginator]="true" [rows]="20" [tableStyle]="{'table-layout':'auto'}" [(contextMenuSelection)]="selectedUser" [contextMenu]="cm" >   <!--  [tableStyle]="{'table-layout':'auto', 'max-width':'90%'}" -->
+    <p-table [(ngClass)]="depclass" #dt [columns]="cols" [value]="users1" [paginator]="true" [rows]="13" [tableStyle]="{'table-layout':'auto'}" [(contextMenuSelection)]="selectedUser" [contextMenu]="cm" dataKey="displayName" >   <!--  [tableStyle]="{'table-layout':'auto', 'max-width':'90%'}" -->
             <ng-template pTemplate="caption">
                 <div style="text-align: justify">
                     <td>
@@ -27,14 +27,19 @@
                     </td>
                     <td>
                         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                        <input type="text" pInputText size="50" placeholder="Search" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">  <!-- value to children -->
+                        <input type="text" pInputText size="50" placeholder="{{'SEARCH' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">  <!-- value to children -->
+                    </td>
+                    <td style="float:right">
+                        <button type="button" pButton icon="pi pi-file" iconPos="right" label="Export to CSV" (click)="dt.exportCSV()" style="margin: 5px;" ></button>
                     </td>
                 </div>
             </ng-template>
-            <ng-template pTemplate="header" let-columns>
+            <ng-template pTemplate="header" let-columns >
                 <tr>
-                    <th *ngFor="let col of columns" >                
+                    <th style="width: 3em"></th>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field"  >                
                         {{col.header}}
+                        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order" ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
                     </th>
                 </tr>
                 <tr>
@@ -45,12 +50,44 @@
                     </th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-expanded="expanded" >
                 <tr  [pContextMenuRow]="rowData">   <!--  [pSelectableRow]="rowData"   -->
+                    <td>
+                        <a href="#" [pRowToggler]="rowData">
+                            <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                        </a>
+                    </td>
                     <td *ngFor="let col of columns" [ngSwitch]="col.field"  >
                         <a *ngSwitchCase="'mail'" href={{mailto}}{{rowData[col.field]}} >{{rowData[col.field]}}</a>
                         <a *ngSwitchCase="'telephoneNumber'" href={{tel}}{{rowData[col.field]}} >{{rowData[col.field]}}</a>
                         <a *ngSwitchDefault >{{rowData[col.field]}}</a>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+                <tr>
+                    <td [attr.colspan]="columns.length + 1">
+                        <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
+                            <div class="ui-g-12 ui-md-3" style="text-align:center">
+                                <img [attr.alt]="rowData.brand" src="../assets/img/logo_ico.png"    >
+                            </div>
+                            <div class="ui-g-12 ui-md-9">
+                                <div class="ui-g">
+                                    <div class="ui-g-12">
+                                        <b>Name:</b> {{rowData.displayName}}
+                                    </div>
+                                    <div class="ui-g-12">
+                                        <b>Title:</b> {{rowData.jobTitle}}
+                                    </div>
+                                    <div class="ui-g-12">
+                                        <b>Mail:</b> {{rowData.mail}}
+                                    </div>
+                                    <div class="ui-g-12">
+                                        <b>Phone:</b> {{rowData.telephoneNumber}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </ng-template>
