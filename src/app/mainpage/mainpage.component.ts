@@ -3,7 +3,11 @@ import { SPService } from './sp.service'
 import { MsAdalAngular6Service } from 'microsoft-adal-angular6';
 import { of } from 'rxjs';  
 
-import {globals} from '../environments/environment.prod';
+import {graph_params} from '../environments/environment.prod';
+
+import {ActivatedRoute, Router, Params} from '@angular/router';
+
+import { EmployeeService } from '../employee.service';
 
 
 
@@ -14,21 +18,39 @@ import {globals} from '../environments/environment.prod';
 })
 export class MainpageComponent implements OnInit {
 
+  constructor(private employeeService: EmployeeService,
+              private activatedRoute: ActivatedRoute,
+              private spService: SPService,
+              private adalSvc: MsAdalAngular6Service              
+  ) {
+
+      // this.activatedRoute.queryParams.subscribe(params => {
+      //   let value_1 = params['code'];
+      //   console.log(value_1);
+      //   localStorage.setItem('code', value_1);
+      // }); 
+
+      //localStorage.setItem('token', globals.token);
+    }
   
+  tokenn:string;
   title = 'App';
-
   items: String[]  = [];
-
   public itemss = of(["Инструкции", "Приказы", "Документы", "Информация"]).subscribe( data => this.items = data);
   //  public itemss = of("Инструкции", "Приказы", "Документы", "Информация").subscribe( data => this.items.push(data));
 
+  params = graph_params;
+  
+ 
+  ngOnInit(){
 
-  constructor(private spService: SPService,
-              private adalSvc: MsAdalAngular6Service              
-            ) { localStorage.setItem('token', globals.token); }
+      // if(true){
+      //   this.params.code = localStorage.getItem('code'); 
+      //   this.employeeService.getJson('https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/token', 'post', this.params).subscribe(data => localStorage.setItem('oauth2', data))
 
-  tokenn
-  ngOnInit(){}
+      // }
+
+  }
   checkUser(){
       this.adalSvc.acquireToken('<RESOURCE>').subscribe(
                                                           (resToken: string) => {
@@ -36,10 +58,6 @@ export class MainpageComponent implements OnInit {
                                                                                 console.log(this.tokenn)
                                                                               }                                                                          
                                                                             );
-                                                                            // console.log('cookie start');
-                                                                            // console.log(document.cookie);
-                                                                            // console.log('cookie end');
-
       this.spService.getWebTitle().subscribe(
                                               web => (this.title = web.title),
                                               response => {

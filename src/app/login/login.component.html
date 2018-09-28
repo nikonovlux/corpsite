@@ -1,3 +1,20 @@
 <h2 translate>Login</h2>
 
+<form #form action="https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/token/" method="post">
+    resource: <input type="text" name="resource" value="https://graph.windows.net"><br>
+    client_id: <input type="text" name="client_id" value="937a47e8-b6ad-4226-8d28-4940d9662ac9"><br>
+    client_secret: <input type="text" name="client_secret" value="9/o/DYn+yzQsLqheMjWodnqUEBvgk7xykRNYONT/tXs="><br>
+    grant_type: <input type="text" name="grant_type" value="client_credentials"><br>
+    <input type="submit" (click)="form.submit() ">
+</form>
 
+
+
+<textarea pInputTextarea [(ngModel)]="SetLocal" name="respo1" id="respo1"></textarea>
+<button pButton type="button" label="SetLocalCode2" class="ui-button-success" (click)="onSetLocal()" ></button>
+
+<!-- <button pButton type="button" label="GetToken" class="ui-button-success" (click)="onGetTokenClick()" ></button> -->
+  <!-- "resource":"https://graph.windows.net",
+  "client_id":"937a47e8-b6ad-4226-8d28-4940d9662ac9",
+  "client_secret":"9/o/DYn+yzQsLqheMjWodnqUEBvgk7xykRNYONT/tXs=",    // https://login.microsoftonline.com/interoko.onmicrosoft.com
+  "grant_type":"client_credentials" -->

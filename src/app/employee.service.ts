@@ -15,8 +15,6 @@ import {globals} from './environments/environment.prod';
 
 
 
-
-
 @Injectable({ providedIn: 'root' })
 export class EmployeeService {
  
@@ -24,7 +22,18 @@ export class EmployeeService {
               private adalSvc: MsAdalAngular6Service,
               private http: HttpClient) { }
 
-  
+httpOptions_globals = {
+headers: new HttpHeaders({
+  'Accept':'application/json;odata=verbose',
+  'Authorization':'Bearer ' + globals.token
+  //'Authorization':'Bearer ' + localStorage.getItem('code2')  
+})}
+
+httpOptions_code2 = {
+  headers: new HttpHeaders({
+    'Accept':'application/json;odata=verbose',
+    'Authorization':'Bearer ' + localStorage.getItem('code2')  
+  })}   
 
   getJsonFile(){
                 this.http.get('./assets/json/top_deps.json').subscribe(
@@ -44,16 +53,30 @@ export class EmployeeService {
                                                                                         });
                 }
 
-  getJson(userUrl) {
-                let httpOptions = {
-                  headers: new HttpHeaders({
-                    'Accept':'application/json;odata=verbose',
-                    'Authorization':'Bearer ' + globals.token
-                    //'Authorization':'Bearer ' + localStorage.getItem('adalToken')  
-                  })}
-                let answer = this.http.get(userUrl, httpOptions );
-                    //console.log(answer);
-                    return answer;
+  getJson(userUrl, method='get', body='', httpOptions=this.httpOptions_globals ) {
+
+    if ((localStorage.getItem('code2'))) {
+
+      console.log(JSON.parse(localStorage.getItem('code2')).access_token);
+
+      httpOptions = {
+        headers: new HttpHeaders({
+          'Accept':'application/json;odata=verbose',
+          'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code2')).access_token
+        })}}
+        
+                let answer;
+
+                if(method == 'post'){
+                  
+                  answer = this.http.post(userUrl, body, httpOptions );
+
+                }else if(method == 'get'){
+
+                  answer = this.http.get(userUrl, httpOptions );
+
+                }
+                return answer;
               }
  
   getEmployees(): Observable<Employee[]> {
@@ -67,7 +90,6 @@ export class EmployeeService {
     this.messageService.add(`EmployeeService: fetched employee id=${id}`);
     return of(EMPLOYEES.find(employee => employee.id === id));
   }
-
 
 }
 

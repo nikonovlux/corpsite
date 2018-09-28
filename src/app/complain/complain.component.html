@@ -1,5 +1,28 @@
 <h2 translate>Complain</h2>
 <br/>
+
+<table>
+    <tr>
+    <td>
+        <form #form action="https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/token/" method="post">
+            resource: <input type="text" name="resource" value="https://graph.windows.net"><br>
+            client_id: <input type="text" name="client_id" value="937a47e8-b6ad-4226-8d28-4940d9662ac9"><br>
+            client_secret: <input type="text" name="client_secret" value="9/o/DYn+yzQsLqheMjWodnqUEBvgk7xykRNYONT/tXs="><br>
+            grant_type: <input type="text" name="grant_type" value="client_credentials"><br>
+            <input type="submit" (click)="form.submit() ">
+        </form>
+    </td>
+    <td>
+        <button pButton type="button" label="SetLocalCode2" class="ui-button-success" (click)="onSetLocalCode2()" ></button>
+        <textarea pInputTextarea [(ngModel)]="SetLocalCode2" name="code2" id="code2"></textarea>
+    </td>
+    </tr>
+    </table>
+    
+    <br/>
+
+
+<br/>
 <input [(ngModel)]="server2" name="server2" id='server2' placeholder='server2' style='width:800px;' (dblclick)='onDblClick(event)' />
 <br/>
 <p-dropdown hidden [options]="topics" [(ngModel)]="topic1" name="ctopic" (ngModelChange)="onTopicChange()" placeholder='Responce' ></p-dropdown>
@@ -73,3 +96,9 @@ redirect_uri
 <p>
 <textarea pInputTextarea [(ngModel)]="respo2" name="respo2" id="respo1"></textarea>
 </p>
+
+<br/>
+
+
+<br/>
+<br/>

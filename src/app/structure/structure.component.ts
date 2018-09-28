@@ -104,9 +104,15 @@ export class StructureComponent implements OnInit {
                           this.users1 = this.users.d.results;
                           console.log(this.users1);
                           this.users1.length > 0 ? this.depclass = 'dep active' : this.depclass = 'dep hidden';
+                          this.messageService.add({severity: 'Ok', summary: 'MS Grath connection ok'});
                           },
                   error=> {
-                          this.messageService.add({severity: 'error', summary: 'MS Grath connection failed', detail: 'status: '+ error.status});                            
+                          this.messageService.add({severity: 'Error', summary: 'MS Grath connection failed', detail: 'status: '+ error.status});
+
+                          if(error.status == 401){
+                            localStorage.removeItem('code2');
+                          }    
+
                           });
                           
       

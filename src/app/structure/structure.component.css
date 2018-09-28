@@ -1,11 +1,11 @@
 h2{
     margin-left: 25%;
   }
-
 .company.ui-organizationchart .ui-organizationchart-node-content.ui-person {
     padding: 0;
     border: 0 none;
     max-width: 90%;
+    
 }
 
 .node-header,.node-content {
@@ -67,5 +67,8 @@ visibility: hidden;
     padding: .5em .75em;
     display: inline-block;
     position: relative;
+}
+.ng{
+    
 }
 

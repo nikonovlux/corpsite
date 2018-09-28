@@ -93,6 +93,14 @@ server2: string = "https://interoko.sharepoint.com/teams/hr/_api/lists/getbytitl
 
 method1: string = this.httpmethod[0].value;
 
+SetLocalCode2:string;
+
+onSetLocalCode2(){
+  localStorage.setItem('code2',this.SetLocalCode2);
+  console.log('Code2 set');
+  alert('Code2 set - '+ JSON.parse(localStorage.getItem('code2')).access_token);
+}
+
 onTopicChange(){}
 
 onMethodChanged(e){

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import {ButtonModule} from 'primeng/button';
 
-import { MsAdalAngular6Service } from 'microsoft-adal-angular6';
+import {MsAdalAngular6Service} from 'microsoft-adal-angular6';
 
 import {SelectItem} from 'primeng/api';
 
@@ -16,10 +16,6 @@ import {TranslateService} from '@ngx-translate/core';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-
-
-
-
 export class MenuComponent implements OnInit {
 
   constructor(
@@ -79,7 +75,8 @@ export class MenuComponent implements OnInit {
 
     if (this.loggedin){
       //  this.fname = this.adalSvc.userInfo.userName
-      this.fname = 'Добрый день, '+ this.adalSvc.userInfo.profile['family_name']
+      this.fname = 'Добрый день, '+ this.adalSvc.userInfo.profile['family_name'];
+      console.log(this.adalSvc.userInfo);
     }
   }
 }

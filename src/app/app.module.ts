@@ -132,11 +132,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     GMapModule,
     MsAdalAngular6Module.forRoot({
                                   //tenant: '435a4f02-f6b2-4248-9a5c-0f355179c0df', // interoko.onmicrosoft.com
-                                  tenant: 'interoko.onmicrosoft.com',
-                                  clientId: '937a47e8-b6ad-4226-8d28-4940d9662ac9',
                                   // clientId: '8557d00c-fd93-4abc-b48a-66eea1f08ed7',
+                                  //redirectUri: "https://corpsite.opticalhouse.com.ua:4200/mainpage",
+                                  tenant: 'interoko.onmicrosoft.com',
+                                  clientId: '937a47e8-b6ad-4226-8d28-4940d9662ac9',                                  
                                   redirectUri: "https://corpsite.opticalhouse.com.ua:4200/mainpage",
-                                  endpoints: { sharePointUri: "https://interoko.sharepoint.com/teams/IT/_api/" },
+                                  endpoints: {
+                                              "sharePointUri": "https://interoko.sharepoint.com/teams/IT/_api/",
+                                              "graphwindows": "https://graph.windows.net/interoko.onmicrosoft.com/",
+                                              "graphms": "https://graph.microsoft.com/v1.0",
+                                              },
                                   navigateToLoginRequestUrl: false,
                                   postLogoutRedirectUri: 'https://corpsite.opticalhouse.com.ua:4200/retail',
                                   cacheLocation: '<localStorage / sessionStorage>'
