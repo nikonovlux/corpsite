@@ -1,11 +1,19 @@
 <h2 translate>Main</h2>
 <br/>
 
-<ul class="items" >
+<p-megaMenu [model]="top_menu">
+  <input type="text" pInputText placeholder="{{'SEARCH' | translate}}">
+  <!-- <button pButton label="{{'LOGOUT' | translate}}" icon="fa fa-sign-out"></button> -->
+</p-megaMenu>
+
+<!-- <p-tabMenu [model]="top_menu"  ></p-tabMenu> -->
+
+
+<!-- <ul class="items" >
     <li *ngFor="let item of items">
       <span class="badge">{{item}}</span> <a></a>
     </li>
-</ul>
+</ul> -->
 
 
 <!-- 

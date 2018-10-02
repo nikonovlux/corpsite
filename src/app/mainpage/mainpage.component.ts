@@ -9,6 +9,8 @@ import {ActivatedRoute, Router, Params} from '@angular/router';
 
 import { EmployeeService } from '../employee.service';
 
+import {MenuItem} from 'primeng/api';
+
 
 
 @Component({
@@ -33,24 +35,67 @@ export class MainpageComponent implements OnInit {
       //localStorage.setItem('token', globals.token);
     }
   
+  top_menu: MenuItem[];
+  activeItem: MenuItem;
+
+
+
+
   tokenn:string;
   title = 'App';
-  items: String[]  = [];
-  public itemss = of(["Инструкции", "Приказы", "Документы", "Информация"]).subscribe( data => this.items = data);
+  //items: String[]  = [];
+  //public itemss = of(["Инструкции", "Приказы", "Документы", "Информация"]).subscribe( data => this.items = data);
   //  public itemss = of("Инструкции", "Приказы", "Документы", "Информация").subscribe( data => this.items.push(data));
 
   params = graph_params;
+
+
   
  
   ngOnInit(){
 
-      // if(true){
-      //   this.params.code = localStorage.getItem('code'); 
-      //   this.employeeService.getJson('https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/token', 'post', this.params).subscribe(data => localStorage.setItem('oauth2', data))
+    this.top_menu = [
+      { label: 'Информация',  icon: ' pi pi-bar-chart'},
+      { label: 'Инструкции', command: event => console.log(event), icon: 'pi pi-calendar', items: [
+      [
+        {
+          label: "Безопасность рабочего места",
+          items: [
+            { label: "Инструкция №1" },
+            { label: "Инструкция №2" }
+          ]
+        }
+      ],
+      [
+        {
+          label: "Информационная безопасность",
+          items: [
+            { label: "Инструкция №1", command: event => alert(event) },
+            { label: "Инструкция №2", command: event => console.log(event) }
+          ]
+        }
+      ]
+    ]
+      },
+      {label: 'Приказы', icon: 'pi pi-book'},
+      {label: 'Поддержка', icon: 'pi pi-support'}
+    ];
+    //this.activeItem = this.top_menu[2];
 
-      // }
+    // if(true){
+    //   this.params.code = localStorage.getItem('code'); 
+    //   this.employeeService.getJson('https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/token', 'post', this.params).subscribe(data => localStorage.setItem('oauth2', data))
+    // }
 
+  this.GetData();
   }
+  GetData(): void {
+    //console.log('adalToken - '+localStorage.getItem('adalToken'));
+    this.employeeService.getAdalToken();    
+    this.employeeService.getJsonFile();
+    //console.log('top_deps - '+localStorage.getItem('top_deps'));
+  }
+
   checkUser(){
       this.adalSvc.acquireToken('<RESOURCE>').subscribe(
                                                           (resToken: string) => {

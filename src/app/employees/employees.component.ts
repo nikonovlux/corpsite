@@ -14,9 +14,6 @@ import {MenuItem} from 'primeng/api';
 
 
 
-
-
-
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',  
@@ -36,7 +33,6 @@ export class EmployeesComponent implements OnInit {
   call:string = 'users?';
   api_version:string = 'api-version=1.6';
 
-
   filter:string;
   select:string = '$select=givenName,displayName,jobTitle,city,mail,telephoneNumber,phones,accountEnabled,objectType,id';
   top:string = '$top=100';
@@ -54,8 +50,7 @@ export class EmployeesComponent implements OnInit {
 
   mailto: string = 'mailto:';
   tel: string = 'tel:';
-      
-
+  
   employees: Employee[];
   groups: {};
 
@@ -77,16 +72,21 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit() {
 
-    
-    this.GetUsers();
+    if(localStorage.getItem("top_deps")){
 
+      JSON.parse(localStorage.getItem('top_deps')).top_deps.forEach((element) => {
+        this.top_deps.push({label: element.label, data: element.label});
+      });
 
-    this.GetAdalToken();
+    }
 
-    JSON.parse(localStorage.getItem('top_deps')).top_deps.forEach((element) => {
-        this.top_deps.push({label: element.label, data: element.label});      
-    });
-
+    this.cols = [
+      { field: 'displayName', header: 'Name' },
+      { field: 'jobTitle', header: 'Title' },    
+      { field: 'mail', header: 'Email' },
+      { field: 'telephoneNumber', header: 'Phone' }      
+    ];
+    // context menu items
     this.items1 = [
       {
           label: 'File',
@@ -103,26 +103,18 @@ export class EmployeesComponent implements OnInit {
           ]
       }]
   
+  // to remove
   this.colors = [
       { label: 'White', value: 'White' },
       { label: 'Black', value: 'Black' }
   ];
-  
-  this.cols = [
-    { field: 'displayName', header: 'Name' },
-    { field: 'jobTitle', header: 'Title' },    
-    { field: 'mail', header: 'Email' },
-    { field: 'telephoneNumber', header: 'Phone' }      
-  ];
 
-
-
-    //  this.GetEmployees();
-    //  this.GetGroups();
+  //  this.GetEmployees();
+  //  this.GetGroups();
   
   }
   
-
+  // ?
   showDialog() {
       this.display = true;
   }
@@ -186,12 +178,6 @@ export class EmployeesComponent implements OnInit {
                           this.messageService.add({severity: 'error', summary: 'MS Grath connection failed', detail: 'status: '+ error.status});                            
                           });
   }
-  GetAdalToken(): void {
-    //console.log('adalToken - '+localStorage.getItem('adalToken'));
-    this.employeeService.getAdalToken();    
-    this.employeeService.getJsonFile();
-    //console.log('top_deps - '+localStorage.getItem('top_deps'));
-  }
   GetUsers(): void {
     this.employeeService.getJson(this.full_url)
       .subscribe(users => 
@@ -225,7 +211,6 @@ export class EmployeesComponent implements OnInit {
 
 
 
-
 // -----------------origin
 
 // ngOnInit() {
@@ -235,3 +220,5 @@ export class EmployeesComponent implements OnInit {
 //   this.employeeService.getEmployees()
 //   .subscribe(employees => this.employees = employees);
 // }
+
+

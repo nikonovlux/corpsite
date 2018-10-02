@@ -64,6 +64,10 @@ import {ContextMenuModule} from 'primeng/contextmenu';
 
 import {DialogModule} from 'primeng/dialog';
 
+import {TabMenuModule} from 'primeng/tabmenu';
+
+import {MegaMenuModule} from 'primeng/megamenu';
+
 
 
 
@@ -111,7 +115,9 @@ export function HttpLoaderFactory(http: HttpClient) {
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
       }
-  }),  
+  }),
+    MegaMenuModule,
+    TabMenuModule,
     DialogModule,
     ContextMenuModule,
     TableModule,

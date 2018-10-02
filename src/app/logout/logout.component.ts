@@ -5,11 +5,30 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './logout.component.html',
   styleUrls: ['./logout.component.css']
 })
+
+
 export class LogoutComponent implements OnInit {
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  soap() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open('GET', 'https://192.168.220.35/itilium/ws/IT_Mobile?wsdl', false);
+  
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4) {
+            if (xmlhttp.status == 200) {
+                alert(xmlhttp.responseText);
+            }
+        }
+    }
+    // Send the POST request
+    
+    xmlhttp.send();
   }
+
+
 
 }
