@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
+import { NgxSoapService, Client, ISoapMethodResponse } from 'ngx-soap';
+
+import {Http} from '@angular/http';
+
+
 @Component({
   selector: 'app-logout',
   templateUrl: './logout.component.html',
@@ -9,26 +14,24 @@ import { Component, OnInit } from '@angular/core';
 
 export class LogoutComponent implements OnInit {
 
-  constructor() {}
 
-  ngOnInit() {}
+  constructor(      
+                ) {               
 
-  soap() {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open('GET', 'https://192.168.220.35/itilium/ws/IT_Mobile?wsdl', false);
-  
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4) {
-            if (xmlhttp.status == 200) {
-                alert(xmlhttp.responseText);
-            }
-        }
-    }
-    // Send the POST request
-    
-    xmlhttp.send();
+
+
+    //  client: Client; 
+    // this.soap.createClient('assets/soap/HelloService.wsdl').catch(prom => {
+    //     this.client = prom;
+    //     console.log(this.client.error);
+    // })
+    //this.soap.createClient('assets/soap/HelloService.wsdl').subscribe(client => this.client = client);
   }
 
+  ngOnInit() {
 
+  }
 
 }
+
+

@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'docs', component: DocsComponent , canActivate: [AuthenticationGuard]  },
   { path: 'news', component: NewsComponent  , canActivate: [AuthenticationGuard] },
   { path: 'detail/:id', component: EmployeeDetailComponent  , canActivate: [AuthenticationGuard] },
-  { path: 'login', component: LoginComponent, canActivate: [AuthenticationGuard]   },
+  { path: 'login', component: LoginComponent  },
   { path: 'logout', component: LogoutComponent   },
   { path: 'complain', component: ComplainComponent  , canActivate: [AuthenticationGuard] },
   { path: 'wikipage', component: WikipageComponent },

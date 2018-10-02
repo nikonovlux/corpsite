@@ -68,6 +68,8 @@ import {TabMenuModule} from 'primeng/tabmenu';
 
 import {MegaMenuModule} from 'primeng/megamenu';
 
+import { NgxSoapModule } from 'ngx-soap';
+
 
 
 
@@ -109,6 +111,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     WikipageComponent    
   ],
   imports: [
+    NgxSoapModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
