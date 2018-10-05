@@ -1,10 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit  } from '@angular/core';
 
-import { TreeNode } from 'primeng/primeng';
+import { TreeNode, MenuItem } from 'primeng/primeng';
 
-
-// var coinImage = new Image();
-// coinImage.src = "assets/img/logo_name.png";
 
 
 @Component({
@@ -17,15 +14,27 @@ export class DocsComponent implements OnInit  {
   @ViewChild('myCanvas') canvasRef: ElementRef;
   @ViewChild('myImg') myImg: ElementRef; 
 
-  files: TreeNode[];
-  
+  files_tree: TreeNode[];
+  files_menu: MenuItem[];
 
+  activeItem: MenuItem;
+  
   ctx: CanvasRenderingContext2D;
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+
+    this.files_menu = [
+      {label: 'ИТ отдел'},
+      {label: 'Безопасность'},
+      {label: 'Коммерческий отдел'},
+      {label: 'Финансовый отдел'},       
+      {label: 'Бухгалтерия'},
+      {label: 'Склад'}      
+    ];
+    
 
 
-    this.files = [
+    this.files_tree = [
       {
         label: 'Дайджесты',
         collapsedIcon: 'fa-folder',

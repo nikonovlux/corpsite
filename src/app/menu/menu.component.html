@@ -1,15 +1,20 @@
-<div class = 'auth'>
-<img id='photo' />
-<a style="text-align:justify;">{{fname}}</a>
-<br/>
-<p>
-<p-dropdown  [options]="langs" [(ngModel)]="selectedlang" name="langs" (ngModelChange)="onLangChange()"  ></p-dropdown>
-<br/>
-<p-button class="ui-button-login" (click)="userLogin()"  translate>Login</p-button>
-<p-button class="ui-button-logout" (click)="userLogout()" translate>Logout</p-button>
-</p>
+<table>
+<tr>
+<td>
+<img id="photo" [src]="user_photo_src" />
+</td>
+<td>
+<a > {{fname}} </a>
+</td>
+<td>
+<a hidden="{{isLoggedin}}" ><p-button *ngIf ="is2Loggedin"  class="butOut" (click)="userLogout()" label="{{'LOGOUT' | translate}}" icon="pi pi-sign-out"></p-button></a>
+</td>
+<td>
+<p-dropdown   [options]="langs" [(ngModel)]="selectedlang" name="langs" (ngModelChange)="onLangChange()"  ></p-dropdown> 
+</td>
+</tr>
+</table>
 
-</div>
 <ul>    
     <li routerLink="/mainpage" routerLinkActive="active" translate>Main</li>
     <li routerLink="/news" routerLinkActive="active" translate>News</li>
@@ -19,6 +24,27 @@
     <li routerLink="/employees" routerLinkActive="active" translate>Employees</li>
     <li routerLink="/feedback" routerLinkActive="active" translate>Feedback</li>
     <li routerLink="/complain" routerLinkActive="active" translate>Complain</li>
+    <li routerLink="/circulation" routerLinkActive="active" translate>Circulation</li>
 </ul> 
+
+
+<table>
+<tr>
+<td>
+<a style="margin-left: 3em;" >
+ 
+</a>
+</td>
+<td>
+
+</td>
+</tr>
+</table>
+
+<!-- <div class = "auth">
+<p style="margin-left: 50px; align-content: center" >
+<p-button [hidden]="true"  class="ui-button-login" (click)="userLogin()"  translate></p-button>
+</p>
+</div> -->
 
 

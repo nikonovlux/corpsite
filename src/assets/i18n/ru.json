@@ -8,7 +8,7 @@
     "Employees": "Сотрудники",
     "Feedback": "Отзывы",
     "Complain": "Жалобы",
-    "Login": "Вход",
-    "Logout": "Выход",
+    "LOGIN": "Вход",
+    "LOGOUT": "Выход",
     "SEARCH": "Поиск"
 }

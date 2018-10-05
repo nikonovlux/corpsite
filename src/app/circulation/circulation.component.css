@@ -6,12 +6,14 @@ p-dropdown, button{
     margin-left: 5%;  
   }
 
-#server2{
-  margin-left: 5%;
-}
-
-#respo1, #respo2 {
+#respo_area {
     margin-left: 5%;
     width: 450px;
     height: 80px;
+  }
+
+  #server_input {
+
+    margin-left: 5%;
+
   }

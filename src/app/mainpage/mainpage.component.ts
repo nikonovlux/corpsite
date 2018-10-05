@@ -1,12 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { SPService } from './sp.service'
+import { Component, OnInit, ViewChild } from '@angular/core';
+//import { SPService } from './sp.service'
 import { MsAdalAngular6Service } from 'microsoft-adal-angular6';
-import { of } from 'rxjs';  
-
-import {graph_params} from '../environments/environment.prod';
-
-import {ActivatedRoute, Router, Params} from '@angular/router';
-
+//  import { of } from 'rxjs'; 
 import { EmployeeService } from '../employee.service';
 
 import {MenuItem} from 'primeng/api';
@@ -20,40 +15,48 @@ import {MenuItem} from 'primeng/api';
 })
 export class MainpageComponent implements OnInit {
 
-  constructor(private employeeService: EmployeeService,
-              private activatedRoute: ActivatedRoute,
-              private spService: SPService,
+  constructor(private employeeService: EmployeeService,              
+              //  private spService: SPService,
               private adalSvc: MsAdalAngular6Service              
-  ) {
-
-      // this.activatedRoute.queryParams.subscribe(params => {
-      //   let value_1 = params['code'];
-      //   console.log(value_1);
-      //   localStorage.setItem('code', value_1);
-      // }); 
-
-      //localStorage.setItem('token', globals.token);
-    }
+  ) {}
   
-  top_menu: MenuItem[];
-  activeItem: MenuItem;
-
-
-
+ 
+ 
+  digests;
+  orders;
 
   tokenn:string;
   title = 'App';
-  //items: String[]  = [];
-  //public itemss = of(["Инструкции", "Приказы", "Документы", "Информация"]).subscribe( data => this.items = data);
-  //  public itemss = of("Инструкции", "Приказы", "Документы", "Информация").subscribe( data => this.items.push(data));
 
-  params = graph_params;
+  top_menu: MenuItem[];
 
-
-  
+  files_menu: MenuItem[];
+  activeItem: MenuItem;
  
+ 
+  @ViewChild('menuItems') menu: MenuItem[];
+  
+  activateMenu(){
+    this.activeItem = this.menu['activeItem'];
+    // console.log(this.activeItem);
+    // console.log(this.menu['activeItem']);
+  }
+
   ngOnInit(){
 
+    this.employeeService.getAdalToken();  
+    
+
+    this.files_menu = [
+      {label: 'Дайджесты'},
+      {label: 'Инструкции'},       
+      {label: 'Приказы'},
+      {label: 'Бланки'}
+    ];
+
+    this.activeItem = this.files_menu[0];
+
+    
     this.top_menu = [
       { label: 'Информация',  icon: ' pi pi-bar-chart'},
       { label: 'Инструкции', command: event => console.log(event), icon: 'pi pi-calendar', items: [
@@ -80,6 +83,57 @@ export class MainpageComponent implements OnInit {
       {label: 'Приказы', icon: 'pi pi-book'},
       {label: 'Поддержка', icon: 'pi pi-support'}
     ];
+ 
+  }
+
+
+  checkUser(){
+      this.adalSvc.acquireToken('<RESOURCE>')
+        .subscribe(
+                      (resToken: string) => {
+                                            this.tokenn = resToken
+                                            console.log(this.tokenn)
+                                          }                                                                          
+                                        );
+              }
+}
+
+
+
+
+  // checkPnP(){
+  //   this.spService.getWebTitle()
+  //     .subscribe(
+  //                 web => (this.title = web.title),
+  //                 response => {
+  //                   console.log('---------------------')
+  //                   console.log('http status ' + response.status)  
+  //                   console.log('---------------------')
+  //                 }
+  //               );
+  //             }
+
+
+//  import {ActivatedRoute, Router, Params} from '@angular/router';
+
+//  private activatedRoute: ActivatedRoute,
+
+      //    params = graph_params;
+      //  this.activatedRoute.queryParams.subscribe(params => {
+      //   let value_1 = params['code'];
+      //   console.log(value_1);
+      //   localStorage.setItem('code', value_1);
+      // }); 
+
+      //localStorage.setItem('token', globals.token);
+
+
+
+  //items: String[]  = [];
+  //public itemss = of(["Инструкции", "Приказы", "Документы", "Информация"]).subscribe( data => this.items = data);
+  //  public itemss = of("Инструкции", "Приказы", "Документы", "Информация").subscribe( data => this.items.push(data));
+
+
     //this.activeItem = this.top_menu[2];
 
     // if(true){
@@ -87,36 +141,10 @@ export class MainpageComponent implements OnInit {
     //   this.employeeService.getJson('https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/token', 'post', this.params).subscribe(data => localStorage.setItem('oauth2', data))
     // }
 
-  this.GetData();
-  }
-  GetData(): void {
-    //console.log('adalToken - '+localStorage.getItem('adalToken'));
-    this.employeeService.getAdalToken();    
-    this.employeeService.getJsonFile();
-    //console.log('top_deps - '+localStorage.getItem('top_deps'));
-  }
 
-  checkUser(){
-      this.adalSvc.acquireToken('<RESOURCE>').subscribe(
-                                                          (resToken: string) => {
-                                                                                this.tokenn = resToken
-                                                                                console.log(this.tokenn)
-                                                                              }                                                                          
-                                                                            );
-      this.spService.getWebTitle().subscribe(
-                                              web => (this.title = web.title),
-                                              response => {
-                                                console.log('---------------------')
-                                                console.log('http status ' + response.status)  
-                                                console.log('---------------------')
-                                              }
-                                          );
-  }
-  checkUserInfo(){
-      console.log(this.adalSvc.userInfo);
-  }
-
-}
+  // checkUserInfo(){
+  //     console.log(this.adalSvc.userInfo);
+  // }
 
 
 // this.adalSvc.acquireToken('<RESOURCE>').subscribe((resToken: string) => {

@@ -1,0 +1,2767 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap12bind="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapbind="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.mobile.itilium.org" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsd1="http://www.mobile.itilium.org" xmlns:xsd2="http://v8.1c.ru/8.3/data/ext" xmlns:xsd3="http://v8.1c.ru/8.1/data/core" name="IT_Mobile" targetNamespace="http://www.mobile.itilium.org">
+<types>
+<xs:schema xmlns:ns1="http://v8.1c.ru/8.1/data/core" xmlns:tns="http://v8.1c.ru/8.3/data/ext" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://v8.1c.ru/8.3/data/ext" attributeFormDefault="unqualified" elementFormDefault="qualified">
+<xs:import namespace="http://v8.1c.ru/8.1/data/core"/>
+<xs:complexType name="AddressData">
+<xs:sequence>
+<xs:element name="rowData" type="ns1:Map" minOccurs="0"/>
+<xs:element name="presentation" type="xs:string" minOccurs="0"/>
+<xs:element name="street" type="xs:string" minOccurs="0"/>
+<xs:element name="house" type="xs:string" minOccurs="0"/>
+<xs:element name="city" type="xs:string" minOccurs="0"/>
+<xs:element name="country" type="xs:string" minOccurs="0"/>
+<xs:element name="zipCode" type="xs:string" minOccurs="0"/>
+<xs:element name="state" type="xs:string" minOccurs="0"/>
+<xs:element name="primaryAddress" type="xs:string" minOccurs="0"/>
+<xs:element name="additionalAddress" type="xs:string" minOccurs="0"/>
+<xs:element name="addressString" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="DeliverableNotificationSubscriberID">
+<xs:sequence>
+<xs:element name="subscriberType" type="tns:DeliverableNotificationSubscriberType"/>
+<xs:element name="deviceID" type="xs:string"/>
+<xs:element name="applicationID" type="xs:string"/>
+<xs:element name="databaseID" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:simpleType name="DeliverableNotificationSubscriberType">
+<xs:restriction base="xs:string">
+<xs:enumeration value="APNS"/>
+<xs:enumeration value="GCM"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:complexType name="GeographicCoordinates">
+<xs:attribute name="latitude" type="xs:double" use="required"/>
+<xs:attribute name="longitude" type="xs:double" use="required"/>
+<xs:attribute name="altitude" type="xs:double" default="0"/>
+</xs:complexType>
+<xs:complexType name="InAppPurchaseReceipt">
+<xs:sequence>
+<xs:element name="service" type="tns:InAppPurchaseService" minOccurs="0"/>
+<xs:element name="data" type="xs:base64Binary" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:simpleType name="InAppPurchaseService">
+<xs:restriction base="xs:string">
+<xs:enumeration value="GooglePlayInAppBilling"/>
+<xs:enumeration value="AppleInAppPurchase"/>
+<xs:enumeration value="WindowsInAppPurchase"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:complexType name="LocationData">
+<xs:sequence>
+<xs:element name="coordinates" type="tns:GeographicCoordinates"/>
+<xs:element name="heading" type="xs:double"/>
+<xs:element name="speed" type="xs:double"/>
+<xs:element name="horizontalAccuracy" type="xs:double"/>
+<xs:element name="verticalAccurcy" type="xs:double"/>
+</xs:sequence>
+<xs:attribute name="date" type="xs:dateTime"/>
+</xs:complexType>
+<xs:simpleType name="SoundAlert">
+<xs:restriction base="xs:string">
+<xs:enumeration value="None"/>
+<xs:enumeration value="Default"/>
+</xs:restriction>
+</xs:simpleType>
+</xs:schema>
+<xs:schema xmlns:tns="http://v8.1c.ru/8.1/data/core" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://v8.1c.ru/8.1/data/core" attributeFormDefault="unqualified" elementFormDefault="qualified">
+<xs:simpleType name="AllowedLength">
+<xs:restriction base="xs:string">
+<xs:enumeration value="Fixed"/>
+<xs:enumeration value="Variable"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="AllowedSign">
+<xs:restriction base="xs:string">
+<xs:enumeration value="Any"/>
+<xs:enumeration value="Nonnegative"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:complexType name="Array">
+<xs:sequence>
+<xs:element name="Value" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="BinaryDataQualifiers">
+<xs:sequence>
+<xs:element name="Length" type="xs:decimal"/>
+<xs:element name="AllowedLength" type="tns:AllowedLength"/>
+</xs:sequence>
+</xs:complexType>
+<xs:simpleType name="CompositeID">
+<xs:restriction base="xs:string">
+<xs:pattern value="-?[0-9]+(:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})?"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:complexType name="DataFillError">
+<xs:sequence>
+<xs:element name="Data" type="xs:string"/>
+<xs:element name="DataDescr" type="xs:string"/>
+<xs:element name="Text" type="xs:string"/>
+<xs:element name="Status" type="tns:FillCheckErrorStatus"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="DataFillErrors">
+<xs:sequence>
+<xs:element name="item" type="tns:DataFillError" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+<xs:simpleType name="DateFractions">
+<xs:restriction base="xs:string">
+<xs:enumeration value="Date"/>
+<xs:enumeration value="Time"/>
+<xs:enumeration value="DateTime"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:complexType name="DateQualifiers">
+<xs:sequence>
+<xs:element name="DateFractions" type="tns:DateFractions"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Exception">
+<xs:complexContent>
+<xs:extension base="tns:GenericException">
+<xs:sequence>
+<xs:element name="data" type="xs:base64Binary" minOccurs="0"/>
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+<xs:simpleType name="FillCheckErrorStatus">
+<xs:restriction base="xs:string">
+<xs:enumeration value="Error"/>
+<xs:enumeration value="Warning"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:simpleType name="FillChecking">
+<xs:restriction base="xs:string">
+<xs:enumeration value="DontCheck"/>
+<xs:enumeration value="ShowError"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:complexType name="FixedArray">
+<xs:sequence>
+<xs:element name="Value" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="FixedMap">
+<xs:sequence>
+<xs:element name="pair" type="tns:KeyAndValue" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="FixedStructure">
+<xs:sequence>
+<xs:element name="Property" minOccurs="0" maxOccurs="unbounded">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Value" nillable="true"/>
+</xs:sequence>
+<xs:attribute name="name" type="xs:NMTOKEN" use="required"/>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="GenericException" abstract="true">
+<xs:sequence>
+<xs:element name="descr" type="xs:string"/>
+<xs:element name="inner" type="tns:GenericException" minOccurs="0"/>
+</xs:sequence>
+<xs:attribute name="clsid" type="tns:UUID" use="required"/>
+<xs:attribute name="encoded" type="xs:boolean" default="false"/>
+</xs:complexType>
+<xs:complexType name="KeyAndValue">
+<xs:sequence>
+<xs:element name="Key"/>
+<xs:element name="Value" nillable="true"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="LocalStringItemType">
+<xs:sequence>
+<xs:element name="lang" type="xs:NMTOKEN"/>
+<xs:element name="content" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="LocalStringType">
+<xs:sequence>
+<xs:element name="item" type="tns:LocalStringItemType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+<xs:simpleType name="MainClientApplicationWindowMode">
+<xs:restriction base="xs:string">
+<xs:enumeration value="Normal"/>
+<xs:enumeration value="Workplace"/>
+<xs:enumeration value="FullscreenWorkplace"/>
+<xs:enumeration value="Kiosk"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:complexType name="Map">
+<xs:sequence>
+<xs:element name="pair" type="tns:KeyAndValue" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+<xs:simpleType name="Null">
+<xs:restriction base="xs:string">
+<xs:length value="0"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:complexType name="NumberQualifiers">
+<xs:sequence>
+<xs:element name="Digits" type="xs:decimal"/>
+<xs:element name="FractionDigits" type="xs:decimal"/>
+<xs:element name="AllowedSign" type="tns:AllowedSign"/>
+</xs:sequence>
+</xs:complexType>
+<xs:simpleType name="ObjectVersion">
+<xs:restriction base="xs:string">
+<xs:pattern value="[0-9a-fA-F]{40}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:complexType name="StandardBeginningDate">
+<xs:sequence>
+<xs:element name="variant"/>
+<xs:element name="date" type="xs:dateTime" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:simpleType name="StandardBeginningDateVariant">
+<xs:restriction base="xs:string">
+<xs:enumeration value="Custom"/>
+<xs:enumeration value="BeginningOfThisDay"/>
+<xs:enumeration value="BeginningOfThisWeek"/>
+<xs:enumeration value="BeginningOfThisTenDays"/>
+<xs:enumeration value="BeginningOfThisMonth"/>
+<xs:enumeration value="BeginningOfThisQuarter"/>
+<xs:enumeration value="BeginningOfThisHalfYear"/>
+<xs:enumeration value="BeginningOfThisYear"/>
+<xs:enumeration value="BeginningOfLastDay"/>
+<xs:enumeration value="BeginningOfLastWeek"/>
+<xs:enumeration value="BeginningOfLastTenDays"/>
+<xs:enumeration value="BeginningOfLastMonth"/>
+<xs:enumeration value="BeginningOfLastQuarter"/>
+<xs:enumeration value="BeginningOfLastHalfYear"/>
+<xs:enumeration value="BeginningOfLastYear"/>
+<xs:enumeration value="BeginningOfNextDay"/>
+<xs:enumeration value="BeginningOfNextWeek"/>
+<xs:enumeration value="BeginningOfNextTenDays"/>
+<xs:enumeration value="BeginningOfNextMonth"/>
+<xs:enumeration value="BeginningOfNextQuarter"/>
+<xs:enumeration value="BeginningOfNextHalfYear"/>
+<xs:enumeration value="BeginningOfNextYear"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:complexType name="StandardPeriod">
+<xs:sequence>
+<xs:element name="variant"/>
+<xs:element name="startDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="endDate" type="xs:dateTime" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:simpleType name="StandardPeriodVariant">
+<xs:restriction base="xs:string">
+<xs:enumeration value="Custom"/>
+<xs:enumeration value="Today"/>
+<xs:enumeration value="ThisWeek"/>
+<xs:enumeration value="ThisTenDays"/>
+<xs:enumeration value="ThisMonth"/>
+<xs:enumeration value="ThisQuarter"/>
+<xs:enumeration value="ThisHalfYear"/>
+<xs:enumeration value="ThisYear"/>
+<xs:enumeration value="FromBeginningOfThisWeek"/>
+<xs:enumeration value="FromBeginningOfThisTenDays"/>
+<xs:enumeration value="FromBeginningOfThisMonth"/>
+<xs:enumeration value="FromBeginningOfThisQuarter"/>
+<xs:enumeration value="FromBeginningOfThisHalfYear"/>
+<xs:enumeration value="FromBeginningOfThisYear"/>
+<xs:enumeration value="Yesterday"/>
+<xs:enumeration value="LastWeek"/>
+<xs:enumeration value="LastTenDays"/>
+<xs:enumeration value="LastMonth"/>
+<xs:enumeration value="LastQuarter"/>
+<xs:enumeration value="LastHalfYear"/>
+<xs:enumeration value="LastYear"/>
+<xs:enumeration value="LastWeekTillSameWeekDay"/>
+<xs:enumeration value="LastTenDaysTillSameDayNumber"/>
+<xs:enumeration value="LastMonthTillSameDate"/>
+<xs:enumeration value="LastQuarterTillSameDate"/>
+<xs:enumeration value="LastHalfYearTillSameDate"/>
+<xs:enumeration value="LastYearTillSameDate"/>
+<xs:enumeration value="Tomorrow"/>
+<xs:enumeration value="NextWeek"/>
+<xs:enumeration value="NextTenDays"/>
+<xs:enumeration value="NextMonth"/>
+<xs:enumeration value="NextQuarter"/>
+<xs:enumeration value="NextHalfYear"/>
+<xs:enumeration value="NextYear"/>
+<xs:enumeration value="NextWeekTillSameWeekDay"/>
+<xs:enumeration value="NextTenDaysTillSameDayNumber"/>
+<xs:enumeration value="NextMonthTillSameDate"/>
+<xs:enumeration value="NextQuarterTillSameDate"/>
+<xs:enumeration value="NextHalfYearTillSameDate"/>
+<xs:enumeration value="NextYearTillSameDate"/>
+<xs:enumeration value="TillEndOfThisWeek"/>
+<xs:enumeration value="TillEndOfThisTenDays"/>
+<xs:enumeration value="TillEndOfThisMonth"/>
+<xs:enumeration value="TillEndOfThisQuarter"/>
+<xs:enumeration value="TillEndOfThisHalfYear"/>
+<xs:enumeration value="TillEndOfThisYear"/>
+<xs:enumeration value="Last7Days"/>
+<xs:enumeration value="Next7Days"/>
+<xs:enumeration value="Month"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:complexType name="StringQualifiers">
+<xs:sequence>
+<xs:element name="Length" type="xs:decimal"/>
+<xs:element name="AllowedLength" type="tns:AllowedLength"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Structure">
+<xs:sequence>
+<xs:element name="Property" minOccurs="0" maxOccurs="unbounded">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Value" nillable="true"/>
+</xs:sequence>
+<xs:attribute name="name" type="xs:NMTOKEN" use="required"/>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+<xs:simpleType name="Type">
+<xs:restriction base="xs:QName"/>
+</xs:simpleType>
+<xs:complexType name="TypeDescription">
+<xs:sequence>
+<xs:element name="Type" type="xs:QName" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="TypeSet" type="xs:QName" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="TypeId" type="tns:UUID" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="NumberQualifiers" type="tns:NumberQualifiers" minOccurs="0"/>
+<xs:element name="StringQualifiers" type="tns:StringQualifiers" minOccurs="0"/>
+<xs:element name="DateQualifiers" type="tns:DateQualifiers" minOccurs="0"/>
+<xs:element name="BinaryDataQualifiers" type="tns:BinaryDataQualifiers" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:simpleType name="UUID">
+<xs:restriction base="xs:string">
+<xs:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"/>
+</xs:restriction>
+</xs:simpleType>
+<xs:complexType name="ValueListItemType">
+<xs:sequence>
+<xs:element name="value" nillable="true"/>
+<xs:element name="presentation" type="xs:string" minOccurs="0"/>
+<xs:element name="checkState" type="xs:decimal" minOccurs="0"/>
+<xs:element name="picture" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="formatPresentationSpecified" type="xs:boolean" minOccurs="0"/>
+<xs:element name="formatPresentation" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ValueListType">
+<xs:choice>
+<xs:element name="valueType" type="tns:TypeDescription"/>
+<xs:element name="availableValues" type="tns:ValueListType" minOccurs="0"/>
+<xs:element name="lastId" type="xs:long" minOccurs="0"/>
+<xs:element name="item" type="tns:ValueListItemType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:choice>
+</xs:complexType>
+<xs:simpleType name="ValueStorage">
+<xs:restriction base="xs:base64Binary"/>
+</xs:simpleType>
+<xs:complexType name="ValueTable">
+<xs:sequence>
+<xs:element name="column" type="tns:ValueTableColumn" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="index" type="tns:ValueTableIndex" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="row" type="tns:ValueTableRow" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ValueTableColumn">
+<xs:sequence>
+<xs:element name="Name" type="xs:NMTOKEN" minOccurs="0"/>
+<xs:element name="ValueType" type="tns:TypeDescription" minOccurs="0"/>
+<xs:element name="Title" type="xs:string" minOccurs="0"/>
+<xs:element name="Width" type="xs:nonNegativeInteger" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ValueTableIndex">
+<xs:sequence>
+<xs:element name="column" type="xs:NMTOKEN" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ValueTableRow">
+<xs:sequence>
+<xs:element name="Value" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ValueTree">
+<xs:sequence>
+<xs:element name="column" type="tns:ValueTreeColumn" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="row" type="tns:ValueTreeRow" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ValueTreeColumn">
+<xs:sequence>
+<xs:element name="Name" type="xs:NMTOKEN" minOccurs="0"/>
+<xs:element name="ValueType" type="tns:TypeDescription" minOccurs="0"/>
+<xs:element name="Title" type="xs:string" minOccurs="0"/>
+<xs:element name="Width" type="xs:nonNegativeInteger" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ValueTreeRow">
+<xs:sequence>
+<xs:element name="row" type="tns:ValueTreeRow" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="Value" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xs1="http://v8.1c.ru/8.3/data/ext" xmlns:xs2="http://v8.1c.ru/8.1/data/core" xmlns:xs3="http://www.mobile.itilium.org" targetNamespace="http://www.mobile.itilium.org" attributeFormDefault="unqualified" elementFormDefault="qualified">
+<xs:import namespace="http://v8.1c.ru/8.3/data/ext"/>
+<xs:import namespace="http://v8.1c.ru/8.1/data/core"/>
+<xs:complexType name="AllNews">
+<xs:sequence>
+<xs:element name="ListOfAssignedDocsIncidents" type="tns:ListOfAssignedDocs" minOccurs="0"/>
+<xs:element name="ListOfAssignedDocsTasks" type="tns:ListOfAssignedDocs" minOccurs="0"/>
+<xs:element name="Messages" type="tns:Messages" minOccurs="0"/>
+<xs:element name="AuthorizationTasks" type="tns:ListOfAssignedDocs" minOccurs="0"/>
+<xs:element name="DemandAssessment" type="tns:ListOfAssignedDocs" minOccurs="0"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="AssignedDoc">
+<xs:sequence>
+<xs:element name="DocDefinition" type="tns:DocDefinition"/>
+<xs:element name="Status" type="xs:int"/>
+<xs:element name="Date" type="xs:dateTime"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="AssociatedTask">
+<xs:sequence>
+<xs:element name="senior" type="xs:boolean" nillable="true" minOccurs="0"/>
+<xs:element name="Task" type="tns:DocDefinition"/>
+<xs:element name="Type" type="xs:int"/>
+<xs:element name="Status" type="xs:string"/>
+<xs:element name="Responsible" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="AuthorizationTask">
+<xs:sequence>
+<xs:element name="UUID" type="xs:string" minOccurs="0"/>
+<xs:element name="Type" type="xs:int" minOccurs="0"/>
+<xs:element name="Version" type="xs:string" minOccurs="0"/>
+<xs:element name="Description" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="DescriptionLastLevel" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="Incident" type="tns:DocDefinition" nillable="true" minOccurs="0"/>
+<xs:element name="Files" type="tns:FileDefinition" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="CountCommunications" type="xs:int" minOccurs="0"/>
+<xs:element name="CountDescriptionLastLevel" type="xs:int" minOccurs="0"/>
+<xs:element name="Comments" type="xs:string" minOccurs="0"/>
+<xs:element name="Duration" type="xs:int" minOccurs="0"/>
+<xs:element name="View" type="xs:string" minOccurs="0"/>
+<xs:element name="Result" type="xs:int" minOccurs="0"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="COAStructure">
+<xs:sequence>
+<xs:element name="LinkList" type="tns:Link" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="Started" type="xs:boolean"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Communication">
+<xs:sequence>
+<xs:element name="TableCommunications" type="tns:SingleCommunication" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="ListDocs" type="tns:ListOfDocs" minOccurs="0"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ConfirmationDeviationScore">
+<xs:sequence>
+<xs:element name="Confirmation" type="xs:boolean"/>
+<xs:element name="Cancel" type="xs:boolean"/>
+<xs:element name="Score" type="xs:int"/>
+<xs:element name="Comment" type="xs:string" nillable="true"/>
+<xs:element name="UUID"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ContactInfo">
+<xs:sequence>
+<xs:element name="Type" type="xs:int"/>
+<xs:element name="View" type="xs:string"/>
+<xs:element name="Default" type="xs:boolean" nillable="true" minOccurs="0"/>
+<xs:element name="Perception" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="DocCommunicationsOnThree">
+<xs:sequence>
+<xs:element name="Doc" type="tns:DocDefinition"/>
+<xs:element name="SeniorDoc" type="tns:DocDefinition" nillable="true"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="DocDefinition">
+<xs:sequence>
+<xs:element name="View" type="xs:string" minOccurs="0"/>
+<xs:element name="UUID" type="xs:string" minOccurs="0"/>
+<xs:element name="Type" type="xs:int" minOccurs="0"/>
+<xs:element name="Version" type="xs:string" minOccurs="0"/>
+<xs:element name="Description" type="xs:string" minOccurs="0"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="EssenceWithContact">
+<xs:sequence>
+<xs:element name="Name" type="xs:string"/>
+<xs:element name="FullName" type="xs:string"/>
+<xs:element name="ContactInfos" type="tns:ContactInfo" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="UUID" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="Type" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="File">
+<xs:sequence>
+<xs:element name="Name" type="xs:string" minOccurs="0"/>
+<xs:element name="DataBinary" type="xs:base64Binary" nillable="true" minOccurs="0"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="FileDefinition">
+<xs:sequence>
+<xs:element name="Name" type="xs:string"/>
+<xs:element name="Date" type="xs:dateTime"/>
+<xs:element name="Description" type="xs:string" nillable="true"/>
+<xs:element name="Type" type="xs:int"/>
+<xs:element name="UUID" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="FiltrDoc">
+<xs:sequence>
+<xs:element name="Type" type="xs:int"/>
+<xs:element name="Value" type="xs:int" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="DateBegin" type="xs:dateTime"/>
+<xs:element name="DateEnd" type="xs:dateTime"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Incident">
+<xs:sequence>
+<xs:element name="UUID" type="xs:string" minOccurs="0"/>
+<xs:element name="Version" type="xs:string" minOccurs="0"/>
+<xs:element name="Number" type="xs:string" minOccurs="0"/>
+<xs:element name="Date" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="Solution" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="Service" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="CompositionServices" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="Description" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="Status" type="tns:Status" nillable="true" minOccurs="0"/>
+<xs:element name="Priority" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="Type" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="Theme" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="ClosureCategory" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="Deadline" type="xs:dateTime" nillable="true" minOccurs="0"/>
+<xs:element name="Client" type="tns:EssenceWithContact" nillable="true" minOccurs="0"/>
+<xs:element name="Initiator" type="tns:EssenceWithContact" nillable="true" minOccurs="0"/>
+<xs:element name="Responsible" type="tns:EssenceWithContact" nillable="true" minOccurs="0"/>
+<xs:element name="Tasks" type="tns:AssociatedTask" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="Files" type="tns:FileDefinition" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="CountCommunications" type="xs:int" minOccurs="0"/>
+<xs:element name="IsClosed" type="xs:boolean" minOccurs="0"/>
+<xs:element name="WorkingGroup" type="xs:string" minOccurs="0"/>
+<xs:element name="WorkingPlace" type="xs:string" minOccurs="0"/>
+<xs:element name="Assessment" type="xs:string" minOccurs="0"/>
+<xs:element name="operator" type="tns:EssenceWithContact" nillable="true" minOccurs="0"/>
+<xs:element name="CommentaryOnAssessment" type="xs:string" minOccurs="0"/>
+<xs:element name="Source" type="xs:string" minOccurs="0"/>
+<xs:element name="Category" type="xs:string" minOccurs="0"/>
+<xs:element name="DynamicPriority" type="xs:int" minOccurs="0"/>
+<xs:element name="ConfigurationUnit" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="RequiresСonfirmation" type="xs:boolean" minOccurs="0"/>
+<xs:element name="RequiresEvaluation" type="xs:boolean" minOccurs="0"/>
+<xs:element name="RequiresAComment" type="xs:int" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="ListNextStatus" type="tns:Status" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Link">
+<xs:sequence>
+<xs:element name="Name" type="xs:string"/>
+<xs:element name="UUID" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ListFileDefifnition">
+<xs:sequence>
+<xs:element name="File" type="tns:File" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ListNotifications">
+<xs:sequence>
+<xs:element name="Notifications" type="tns:Notification" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ListOfAssignedDocs">
+<xs:sequence>
+<xs:element name="Document" type="tns:AssignedDoc" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="Errors" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ListOfDocs">
+<xs:sequence>
+<xs:element name="Document" type="tns:DocDefinition" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="Errors" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ListResponsibleWorkgroups">
+<xs:sequence>
+<xs:element name="Status" type="tns:Result" minOccurs="0"/>
+<xs:element name="Responsible" type="tns:ResponsibleWithWorkGroup" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ListSingleValue">
+<xs:sequence>
+<xs:element name="SingleValue" type="tns:SingleValue" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ListStrings">
+<xs:sequence>
+<xs:element name="Strings" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ListTimeZones">
+<xs:sequence>
+<xs:element name="TimeZone" type="tns:TimeZone" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Messages">
+<xs:sequence>
+<xs:element name="SingleCommunications" type="tns:SingleCommunication" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="NewTask">
+<xs:sequence>
+<xs:element name="Incident" type="tns:DocDefinition"/>
+<xs:element name="AddDescription" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="Responsible" type="tns:SingleValue"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Notification">
+<xs:sequence>
+<xs:element name="Doc" type="tns:DocDefinition"/>
+<xs:element name="Description" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ParametrsForAllNews">
+<xs:sequence>
+<xs:element name="DateBegin" type="xs:dateTime"/>
+<xs:element name="DateEnd" type="xs:dateTime"/>
+<xs:element name="Incidents" type="xs:boolean"/>
+<xs:element name="Tasks" type="xs:boolean"/>
+<xs:element name="Communication"/>
+<xs:element name="AuthorizationTasks" type="xs:boolean"/>
+<xs:element name="DemandAssessment" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="ResponsibleWithWorkGroup">
+<xs:sequence>
+<xs:element name="EssenceWithContact" type="tns:EssenceWithContact" nillable="true" minOccurs="0"/>
+<xs:element name="WorkGroups" type="tns:SingleValue" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Result">
+<xs:sequence>
+<xs:element name="Status" type="xs:boolean" minOccurs="0"/>
+<xs:element name="Description" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="SingleCommunication">
+<xs:sequence>
+<xs:element name="UUID" type="xs:string"/>
+<xs:element name="Author" type="tns:EssenceWithContact" nillable="true" minOccurs="0"/>
+<xs:element name="Text" type="xs:string"/>
+<xs:element name="Date" type="xs:dateTime"/>
+<xs:element name="IsDescription" type="xs:boolean" nillable="true" minOccurs="0"/>
+<xs:element name="UUIDDoc" type="xs:string" nillable="true"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="SinglePropertyValue">
+<xs:sequence>
+<xs:element name="Property" type="xs:string"/>
+<xs:element name="Value" type="tns:SingleValue"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="SingleValue">
+<xs:sequence>
+<xs:element name="Type" type="xs:int"/>
+<xs:element name="UUID" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="View" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="StatParametrs">
+<xs:sequence>
+<xs:element name="CountOpen" type="xs:int" minOccurs="0"/>
+<xs:element name="CountClosed" type="xs:int" minOccurs="0"/>
+<xs:element name="CountExpired" type="xs:int" minOccurs="0"/>
+<xs:element name="CountExactly" type="xs:int" minOccurs="0"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Status">
+<xs:sequence>
+<xs:element name="Name" type="xs:string"/>
+<xs:element name="UUID" type="xs:string"/>
+<xs:element name="Type" type="xs:int"/>
+<xs:element name="AgreementRequired" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="SubscriberIDMessage">
+<xs:sequence>
+<xs:element name="SubscriberID" type="xs1:DeliverableNotificationSubscriberID" nillable="true"/>
+<xs:element name="Enabled" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Task">
+<xs:sequence>
+<xs:element name="Version" type="xs:string" minOccurs="0"/>
+<xs:element name="UUID" type="xs:string" minOccurs="0"/>
+<xs:element name="Status" type="tns:Status" nillable="true" minOccurs="0"/>
+<xs:element name="PossibleStates" type="tns:Status" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="StatusStart" type="tns:Status" nillable="true" minOccurs="0"/>
+<xs:element name="StatusStop" type="tns:Status" nillable="true" minOccurs="0"/>
+<xs:element name="Responsible" type="tns:EssenceWithContact" nillable="true" minOccurs="0"/>
+<xs:element name="Solution" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="Priority" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="Description" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="Service" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="CompositionServices" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="Files" type="tns:FileDefinition" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="PlannedStartDate" type="xs:dateTime" nillable="true" minOccurs="0"/>
+<xs:element name="PlannedFinishDate" type="xs:dateTime" nillable="true" minOccurs="0"/>
+<xs:element name="ActualStartDate" type="xs:dateTime" nillable="true" minOccurs="0"/>
+<xs:element name="ActualFinishDate" type="xs:dateTime" nillable="true" minOccurs="0"/>
+<xs:element name="Number" type="xs:string" minOccurs="0"/>
+<xs:element name="Date" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="Initiator" type="tns:EssenceWithContact" minOccurs="0"/>
+<xs:element name="Client" type="tns:EssenceWithContact" minOccurs="0"/>
+<xs:element name="Incident" type="tns:DocDefinition" minOccurs="0"/>
+<xs:element name="WorkingGroup" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="WorkingTime" type="xs:double" minOccurs="0"/>
+<xs:element name="CountConversations" type="xs:int" minOccurs="0"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="TimeZone">
+<xs:sequence>
+<xs:element name="Name" type="xs:string"/>
+<xs:element name="UUID" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="UpdateAuthorizationTask">
+<xs:sequence>
+<xs:element name="Type" type="xs:int"/>
+<xs:element name="Description" type="xs:string"/>
+<xs:element name="UUID" type="xs:string"/>
+<xs:element name="TypeTask" type="xs:int"/>
+<xs:element name="Version" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="UpdateDoc">
+<xs:sequence>
+<xs:element name="UUID" type="xs:string"/>
+<xs:element name="Version" type="xs:string"/>
+<xs:element name="Type" type="xs:int"/>
+<xs:element name="UpdateValueList" type="tns:SinglePropertyValue" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="Communications" type="tns:SingleCommunication" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="UsersData">
+<xs:sequence>
+<xs:element name="Rols" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="Name" type="xs:string" nillable="true" minOccurs="0"/>
+<xs:element name="WorkGroups" type="tns:WorkgroupStatus" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="IsUser" type="xs:boolean" minOccurs="0"/>
+<xs:element name="IsWorker" type="xs:boolean" minOccurs="0"/>
+<xs:element name="TimeZone" type="xs:string" minOccurs="0"/>
+<xs:element name="TextLicense" type="xs:string" nillable="true" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="WorkgroupStatus">
+<xs:sequence>
+<xs:element name="Senior" type="xs:boolean"/>
+<xs:element name="Group" type="tns:SingleValue"/>
+</xs:sequence>
+</xs:complexType>
+<xs:element name="GetIncidentDefinitions">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="FiltrDoc" type="tns:FiltrDoc"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetIncidentDefinitionsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListOfDocs"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetIncidentDefinitionsByWorkGroup">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="WorkGroup" type="tns:SingleValue" nillable="true"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetIncidentDefinitionsByWorkGroupResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListOfDocs"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetDataOfUser">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetDataOfUserResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:UsersData"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetTaskDefinitions">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Type" type="xs:int"/>
+<xs:element name="WorkGroup" type="tns:SingleValue" nillable="true"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetTaskDefinitionsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListOfDocs"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetIncident">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Doc" type="tns:DocDefinition"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetIncidentResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:Incident"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetTask">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Doc" type="tns:DocDefinition"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetTaskResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:Task"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetCommunication">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Doc" type="tns:DocDefinition"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetCommunicationResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:Communication"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetFile">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="FileDefinition" type="tns:FileDefinition"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetFileResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:File"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="AddNewTask">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="NewTask" type="tns:NewTask"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="AddNewTaskResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:Result"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="UpdateDoc">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="UpdateDoc" type="tns:UpdateDoc"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="UpdateDocResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:Result"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="UpdateAuthorizationTask">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Update" type="tns:UpdateAuthorizationTask"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="UpdateAuthorizationTaskResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:Result"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetAuthorizationTaskDefinitions">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Filtr" type="tns:FiltrDoc"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetAuthorizationTaskDefinitionsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListOfDocs"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GrabTask">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Doc" type="tns:DocDefinition"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GrabTaskResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:Result"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetStatIncidents">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Filtr" type="tns:FiltrDoc"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetStatIncidentsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:StatParametrs"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetStatIncidentsTranscripts">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Type" type="xs:int"/>
+<xs:element name="DateBegin" type="xs:dateTime"/>
+<xs:element name="DateEnd" type="xs:dateTime"/>
+<xs:element name="MaxCount" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetStatIncidentsTranscriptsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListOfDocs"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetIncidentByNumber">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Number" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetIncidentByNumberResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:Incident"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetTaskByNumber">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Number" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetTaskByNumberResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:Task"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetDescriptionWebService">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetDescriptionWebServiceResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetAssignedIncidents">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="DateBegin" type="xs:dateTime"/>
+<xs:element name="DateEnd" type="xs:dateTime"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetAssignedIncidentsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListOfAssignedDocs"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetAssignedTasks">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="DateBegin" type="xs:dateTime"/>
+<xs:element name="DateEnd" type="xs:dateTime"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetAssignedTasksResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListOfAssignedDocs"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetNewCommunication">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="DateBegin" type="xs:dateTime"/>
+<xs:element name="DateEnd" type="xs:dateTime"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetNewCommunicationResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:Communication"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetNewNotifications">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="DateBegin" type="xs:dateTime"/>
+<xs:element name="DateEnd" type="xs:dateTime"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetNewNotificationsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListNotifications"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetAllNews">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Parametr" type="tns:ParametrsForAllNews"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetAllNewsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:AllNews"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetListSingleValueList">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Type" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetListSingleValueListResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListSingleValue"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetIncidentsByType">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Type" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetIncidentsByTypeResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListOfDocs"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetIncidentsOnStateFlag">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="StateFlag" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetIncidentsOnStateFlagResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListOfDocs"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetIncidentsOnStateSLA">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="StateFlag" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetIncidentsOnStateSLAResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListOfDocs"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetIncidentOnSettings">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Type" type="xs:int"/>
+<xs:element name="Resp" type="xs:int"/>
+<xs:element name="State" type="xs:int"/>
+<xs:element name="Sla" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetIncidentOnSettingsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListOfDocs"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetTasksOnSettings">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Resp" type="xs:int"/>
+<xs:element name="Time" type="xs:int"/>
+<xs:element name="Status" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetTasksOnSettingsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListOfDocs"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="SetConfirmationScore">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Params" type="tns:ConfirmationDeviationScore"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="SetConfirmationScoreResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:Result"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetResponsibleUnAllocatedIncidents">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="UUID" type="xs:string"/>
+<xs:element name="Version" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetResponsibleUnAllocatedIncidentsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListResponsibleWorkgroups"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="AddFileToDoc">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="UUID" type="xs:string"/>
+<xs:element name="Type" type="xs:int"/>
+<xs:element name="Name" type="xs:string"/>
+<xs:element name="Data" type="xs:base64Binary"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="AddFileToDocResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:Result"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetListTemplates">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetListTemplatesResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListSingleValue"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="NewIncOnTemplate">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="UUID" type="xs:string"/>
+<xs:element name="Theme" type="xs:string"/>
+<xs:element name="Description" type="xs:string"/>
+<xs:element name="ListFileDefinition" type="tns:ListFileDefifnition"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="NewIncOnTemplateResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:DocDefinition"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetAutorizationTask">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="UUID" type="xs:string"/>
+<xs:element name="Type" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetAutorizationTaskResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:AuthorizationTask"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetNumberDocuments">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Type" type="xs:int"/>
+<xs:element name="Number" type="xs:string"/>
+<xs:element name="MaxCount" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetNumberDocumentsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListStrings"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetResponsibleNewTask">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetResponsibleNewTaskResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListResponsibleWorkgroups"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="NewTaskOnIncident">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="UUIDInc" type="xs:string"/>
+<xs:element name="UUIDResp" type="xs:string"/>
+<xs:element name="UUIDWorkJobResp" type="xs:string"/>
+<xs:element name="Description" type="xs:string"/>
+<xs:element name="ListFileDefinition" type="tns:ListFileDefifnition"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="NewTaskOnIncidentResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:DocDefinition"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetListPriority">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetListPriorityResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListSingleValue"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetTimeZones">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetTimeZonesResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListTimeZones"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="ChangeTimeZone">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="UUID" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="ChangeTimeZoneResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:Result"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetState">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetStateResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetCOA">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="UUID" type="xs:string"/>
+<xs:element name="ComUUID" type="xs:string" nillable="true"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetCOAResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="xs:string" nillable="true"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="SendSubscriberIDMessage">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="IDMessage" type="tns:SubscriberIDMessage"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="SendSubscriberIDMessageResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:Result"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="NewIncWithoutTemplate">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="Theme" type="xs:string"/>
+<xs:element name="Description" type="xs:string"/>
+<xs:element name="ListFileDefinition" type="tns:ListFileDefifnition"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="NewIncWithoutTemplateResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetAllDocs">
+<xs:complexType>
+<xs:sequence/>
+</xs:complexType>
+</xs:element>
+<xs:element name="GetAllDocsResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="return" type="tns:ListOfDocs"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+</types>
+<message name="GetIncidentDefinitionsRequestMessage">
+<part name="parameters" element="tns:GetIncidentDefinitions"/>
+</message>
+<message name="GetIncidentDefinitionsResponseMessage">
+<part name="parameters" element="tns:GetIncidentDefinitionsResponse"/>
+</message>
+<message name="GetIncidentDefinitionsByWorkGroupRequestMessage">
+<part name="parameters" element="tns:GetIncidentDefinitionsByWorkGroup"/>
+</message>
+<message name="GetIncidentDefinitionsByWorkGroupResponseMessage">
+<part name="parameters" element="tns:GetIncidentDefinitionsByWorkGroupResponse"/>
+</message>
+<message name="GetDataOfUserRequestMessage">
+<part name="parameters" element="tns:GetDataOfUser"/>
+</message>
+<message name="GetDataOfUserResponseMessage">
+<part name="parameters" element="tns:GetDataOfUserResponse"/>
+</message>
+<message name="GetTaskDefinitionsRequestMessage">
+<part name="parameters" element="tns:GetTaskDefinitions"/>
+</message>
+<message name="GetTaskDefinitionsResponseMessage">
+<part name="parameters" element="tns:GetTaskDefinitionsResponse"/>
+</message>
+<message name="GetIncidentRequestMessage">
+<part name="parameters" element="tns:GetIncident"/>
+</message>
+<message name="GetIncidentResponseMessage">
+<part name="parameters" element="tns:GetIncidentResponse"/>
+</message>
+<message name="GetTaskRequestMessage">
+<part name="parameters" element="tns:GetTask"/>
+</message>
+<message name="GetTaskResponseMessage">
+<part name="parameters" element="tns:GetTaskResponse"/>
+</message>
+<message name="GetCommunicationRequestMessage">
+<part name="parameters" element="tns:GetCommunication"/>
+</message>
+<message name="GetCommunicationResponseMessage">
+<part name="parameters" element="tns:GetCommunicationResponse"/>
+</message>
+<message name="GetFileRequestMessage">
+<part name="parameters" element="tns:GetFile"/>
+</message>
+<message name="GetFileResponseMessage">
+<part name="parameters" element="tns:GetFileResponse"/>
+</message>
+<message name="AddNewTaskRequestMessage">
+<part name="parameters" element="tns:AddNewTask"/>
+</message>
+<message name="AddNewTaskResponseMessage">
+<part name="parameters" element="tns:AddNewTaskResponse"/>
+</message>
+<message name="UpdateDocRequestMessage">
+<part name="parameters" element="tns:UpdateDoc"/>
+</message>
+<message name="UpdateDocResponseMessage">
+<part name="parameters" element="tns:UpdateDocResponse"/>
+</message>
+<message name="UpdateAuthorizationTaskRequestMessage">
+<part name="parameters" element="tns:UpdateAuthorizationTask"/>
+</message>
+<message name="UpdateAuthorizationTaskResponseMessage">
+<part name="parameters" element="tns:UpdateAuthorizationTaskResponse"/>
+</message>
+<message name="GetAuthorizationTaskDefinitionsRequestMessage">
+<part name="parameters" element="tns:GetAuthorizationTaskDefinitions"/>
+</message>
+<message name="GetAuthorizationTaskDefinitionsResponseMessage">
+<part name="parameters" element="tns:GetAuthorizationTaskDefinitionsResponse"/>
+</message>
+<message name="GrabTaskRequestMessage">
+<part name="parameters" element="tns:GrabTask"/>
+</message>
+<message name="GrabTaskResponseMessage">
+<part name="parameters" element="tns:GrabTaskResponse"/>
+</message>
+<message name="GetStatIncidentsRequestMessage">
+<part name="parameters" element="tns:GetStatIncidents"/>
+</message>
+<message name="GetStatIncidentsResponseMessage">
+<part name="parameters" element="tns:GetStatIncidentsResponse"/>
+</message>
+<message name="GetStatIncidentsTranscriptsRequestMessage">
+<part name="parameters" element="tns:GetStatIncidentsTranscripts"/>
+</message>
+<message name="GetStatIncidentsTranscriptsResponseMessage">
+<part name="parameters" element="tns:GetStatIncidentsTranscriptsResponse"/>
+</message>
+<message name="GetIncidentByNumberRequestMessage">
+<part name="parameters" element="tns:GetIncidentByNumber"/>
+</message>
+<message name="GetIncidentByNumberResponseMessage">
+<part name="parameters" element="tns:GetIncidentByNumberResponse"/>
+</message>
+<message name="GetTaskByNumberRequestMessage">
+<part name="parameters" element="tns:GetTaskByNumber"/>
+</message>
+<message name="GetTaskByNumberResponseMessage">
+<part name="parameters" element="tns:GetTaskByNumberResponse"/>
+</message>
+<message name="GetDescriptionWebServiceRequestMessage">
+<part name="parameters" element="tns:GetDescriptionWebService"/>
+</message>
+<message name="GetDescriptionWebServiceResponseMessage">
+<part name="parameters" element="tns:GetDescriptionWebServiceResponse"/>
+</message>
+<message name="GetAssignedIncidentsRequestMessage">
+<part name="parameters" element="tns:GetAssignedIncidents"/>
+</message>
+<message name="GetAssignedIncidentsResponseMessage">
+<part name="parameters" element="tns:GetAssignedIncidentsResponse"/>
+</message>
+<message name="GetAssignedTasksRequestMessage">
+<part name="parameters" element="tns:GetAssignedTasks"/>
+</message>
+<message name="GetAssignedTasksResponseMessage">
+<part name="parameters" element="tns:GetAssignedTasksResponse"/>
+</message>
+<message name="GetNewCommunicationRequestMessage">
+<part name="parameters" element="tns:GetNewCommunication"/>
+</message>
+<message name="GetNewCommunicationResponseMessage">
+<part name="parameters" element="tns:GetNewCommunicationResponse"/>
+</message>
+<message name="GetNewNotificationsRequestMessage">
+<part name="parameters" element="tns:GetNewNotifications"/>
+</message>
+<message name="GetNewNotificationsResponseMessage">
+<part name="parameters" element="tns:GetNewNotificationsResponse"/>
+</message>
+<message name="GetAllNewsRequestMessage">
+<part name="parameters" element="tns:GetAllNews"/>
+</message>
+<message name="GetAllNewsResponseMessage">
+<part name="parameters" element="tns:GetAllNewsResponse"/>
+</message>
+<message name="GetListSingleValueListRequestMessage">
+<part name="parameters" element="tns:GetListSingleValueList"/>
+</message>
+<message name="GetListSingleValueListResponseMessage">
+<part name="parameters" element="tns:GetListSingleValueListResponse"/>
+</message>
+<message name="GetIncidentsByTypeRequestMessage">
+<part name="parameters" element="tns:GetIncidentsByType"/>
+</message>
+<message name="GetIncidentsByTypeResponseMessage">
+<part name="parameters" element="tns:GetIncidentsByTypeResponse"/>
+</message>
+<message name="GetIncidentsOnStateFlagRequestMessage">
+<part name="parameters" element="tns:GetIncidentsOnStateFlag"/>
+</message>
+<message name="GetIncidentsOnStateFlagResponseMessage">
+<part name="parameters" element="tns:GetIncidentsOnStateFlagResponse"/>
+</message>
+<message name="GetIncidentsOnStateSLARequestMessage">
+<part name="parameters" element="tns:GetIncidentsOnStateSLA"/>
+</message>
+<message name="GetIncidentsOnStateSLAResponseMessage">
+<part name="parameters" element="tns:GetIncidentsOnStateSLAResponse"/>
+</message>
+<message name="GetIncidentOnSettingsRequestMessage">
+<part name="parameters" element="tns:GetIncidentOnSettings"/>
+</message>
+<message name="GetIncidentOnSettingsResponseMessage">
+<part name="parameters" element="tns:GetIncidentOnSettingsResponse"/>
+</message>
+<message name="GetTasksOnSettingsRequestMessage">
+<part name="parameters" element="tns:GetTasksOnSettings"/>
+</message>
+<message name="GetTasksOnSettingsResponseMessage">
+<part name="parameters" element="tns:GetTasksOnSettingsResponse"/>
+</message>
+<message name="SetConfirmationScoreRequestMessage">
+<part name="parameters" element="tns:SetConfirmationScore"/>
+</message>
+<message name="SetConfirmationScoreResponseMessage">
+<part name="parameters" element="tns:SetConfirmationScoreResponse"/>
+</message>
+<message name="GetResponsibleUnAllocatedIncidentsRequestMessage">
+<part name="parameters" element="tns:GetResponsibleUnAllocatedIncidents"/>
+</message>
+<message name="GetResponsibleUnAllocatedIncidentsResponseMessage">
+<part name="parameters" element="tns:GetResponsibleUnAllocatedIncidentsResponse"/>
+</message>
+<message name="AddFileToDocRequestMessage">
+<part name="parameters" element="tns:AddFileToDoc"/>
+</message>
+<message name="AddFileToDocResponseMessage">
+<part name="parameters" element="tns:AddFileToDocResponse"/>
+</message>
+<message name="GetListTemplatesRequestMessage">
+<part name="parameters" element="tns:GetListTemplates"/>
+</message>
+<message name="GetListTemplatesResponseMessage">
+<part name="parameters" element="tns:GetListTemplatesResponse"/>
+</message>
+<message name="NewIncOnTemplateRequestMessage">
+<part name="parameters" element="tns:NewIncOnTemplate"/>
+</message>
+<message name="NewIncOnTemplateResponseMessage">
+<part name="parameters" element="tns:NewIncOnTemplateResponse"/>
+</message>
+<message name="GetAutorizationTaskRequestMessage">
+<part name="parameters" element="tns:GetAutorizationTask"/>
+</message>
+<message name="GetAutorizationTaskResponseMessage">
+<part name="parameters" element="tns:GetAutorizationTaskResponse"/>
+</message>
+<message name="GetNumberDocumentsRequestMessage">
+<part name="parameters" element="tns:GetNumberDocuments"/>
+</message>
+<message name="GetNumberDocumentsResponseMessage">
+<part name="parameters" element="tns:GetNumberDocumentsResponse"/>
+</message>
+<message name="GetResponsibleNewTaskRequestMessage">
+<part name="parameters" element="tns:GetResponsibleNewTask"/>
+</message>
+<message name="GetResponsibleNewTaskResponseMessage">
+<part name="parameters" element="tns:GetResponsibleNewTaskResponse"/>
+</message>
+<message name="NewTaskOnIncidentRequestMessage">
+<part name="parameters" element="tns:NewTaskOnIncident"/>
+</message>
+<message name="NewTaskOnIncidentResponseMessage">
+<part name="parameters" element="tns:NewTaskOnIncidentResponse"/>
+</message>
+<message name="GetListPriorityRequestMessage">
+<part name="parameters" element="tns:GetListPriority"/>
+</message>
+<message name="GetListPriorityResponseMessage">
+<part name="parameters" element="tns:GetListPriorityResponse"/>
+</message>
+<message name="GetTimeZonesRequestMessage">
+<part name="parameters" element="tns:GetTimeZones"/>
+</message>
+<message name="GetTimeZonesResponseMessage">
+<part name="parameters" element="tns:GetTimeZonesResponse"/>
+</message>
+<message name="ChangeTimeZoneRequestMessage">
+<part name="parameters" element="tns:ChangeTimeZone"/>
+</message>
+<message name="ChangeTimeZoneResponseMessage">
+<part name="parameters" element="tns:ChangeTimeZoneResponse"/>
+</message>
+<message name="GetStateRequestMessage">
+<part name="parameters" element="tns:GetState"/>
+</message>
+<message name="GetStateResponseMessage">
+<part name="parameters" element="tns:GetStateResponse"/>
+</message>
+<message name="GetCOARequestMessage">
+<part name="parameters" element="tns:GetCOA"/>
+</message>
+<message name="GetCOAResponseMessage">
+<part name="parameters" element="tns:GetCOAResponse"/>
+</message>
+<message name="SendSubscriberIDMessageRequestMessage">
+<part name="parameters" element="tns:SendSubscriberIDMessage"/>
+</message>
+<message name="SendSubscriberIDMessageResponseMessage">
+<part name="parameters" element="tns:SendSubscriberIDMessageResponse"/>
+</message>
+<message name="NewIncWithoutTemplateRequestMessage">
+<part name="parameters" element="tns:NewIncWithoutTemplate"/>
+</message>
+<message name="NewIncWithoutTemplateResponseMessage">
+<part name="parameters" element="tns:NewIncWithoutTemplateResponse"/>
+</message>
+<message name="GetAllDocsRequestMessage">
+<part name="parameters" element="tns:GetAllDocs"/>
+</message>
+<message name="GetAllDocsResponseMessage">
+<part name="parameters" element="tns:GetAllDocsResponse"/>
+</message>
+<portType name="IT_MobilePortType">
+<operation name="GetIncidentDefinitions">
+<input message="tns:GetIncidentDefinitionsRequestMessage"/>
+<output message="tns:GetIncidentDefinitionsResponseMessage"/>
+</operation>
+<operation name="GetIncidentDefinitionsByWorkGroup">
+<input message="tns:GetIncidentDefinitionsByWorkGroupRequestMessage"/>
+<output message="tns:GetIncidentDefinitionsByWorkGroupResponseMessage"/>
+</operation>
+<operation name="GetDataOfUser">
+<input message="tns:GetDataOfUserRequestMessage"/>
+<output message="tns:GetDataOfUserResponseMessage"/>
+</operation>
+<operation name="GetTaskDefinitions">
+<input message="tns:GetTaskDefinitionsRequestMessage"/>
+<output message="tns:GetTaskDefinitionsResponseMessage"/>
+</operation>
+<operation name="GetIncident">
+<input message="tns:GetIncidentRequestMessage"/>
+<output message="tns:GetIncidentResponseMessage"/>
+</operation>
+<operation name="GetTask">
+<input message="tns:GetTaskRequestMessage"/>
+<output message="tns:GetTaskResponseMessage"/>
+</operation>
+<operation name="GetCommunication">
+<input message="tns:GetCommunicationRequestMessage"/>
+<output message="tns:GetCommunicationResponseMessage"/>
+</operation>
+<operation name="GetFile">
+<input message="tns:GetFileRequestMessage"/>
+<output message="tns:GetFileResponseMessage"/>
+</operation>
+<operation name="AddNewTask">
+<input message="tns:AddNewTaskRequestMessage"/>
+<output message="tns:AddNewTaskResponseMessage"/>
+</operation>
+<operation name="UpdateDoc">
+<input message="tns:UpdateDocRequestMessage"/>
+<output message="tns:UpdateDocResponseMessage"/>
+</operation>
+<operation name="UpdateAuthorizationTask">
+<input message="tns:UpdateAuthorizationTaskRequestMessage"/>
+<output message="tns:UpdateAuthorizationTaskResponseMessage"/>
+</operation>
+<operation name="GetAuthorizationTaskDefinitions">
+<input message="tns:GetAuthorizationTaskDefinitionsRequestMessage"/>
+<output message="tns:GetAuthorizationTaskDefinitionsResponseMessage"/>
+</operation>
+<operation name="GrabTask">
+<input message="tns:GrabTaskRequestMessage"/>
+<output message="tns:GrabTaskResponseMessage"/>
+</operation>
+<operation name="GetStatIncidents">
+<input message="tns:GetStatIncidentsRequestMessage"/>
+<output message="tns:GetStatIncidentsResponseMessage"/>
+</operation>
+<operation name="GetStatIncidentsTranscripts">
+<input message="tns:GetStatIncidentsTranscriptsRequestMessage"/>
+<output message="tns:GetStatIncidentsTranscriptsResponseMessage"/>
+</operation>
+<operation name="GetIncidentByNumber">
+<input message="tns:GetIncidentByNumberRequestMessage"/>
+<output message="tns:GetIncidentByNumberResponseMessage"/>
+</operation>
+<operation name="GetTaskByNumber">
+<input message="tns:GetTaskByNumberRequestMessage"/>
+<output message="tns:GetTaskByNumberResponseMessage"/>
+</operation>
+<operation name="GetDescriptionWebService">
+<input message="tns:GetDescriptionWebServiceRequestMessage"/>
+<output message="tns:GetDescriptionWebServiceResponseMessage"/>
+</operation>
+<operation name="GetAssignedIncidents">
+<input message="tns:GetAssignedIncidentsRequestMessage"/>
+<output message="tns:GetAssignedIncidentsResponseMessage"/>
+</operation>
+<operation name="GetAssignedTasks">
+<input message="tns:GetAssignedTasksRequestMessage"/>
+<output message="tns:GetAssignedTasksResponseMessage"/>
+</operation>
+<operation name="GetNewCommunication">
+<input message="tns:GetNewCommunicationRequestMessage"/>
+<output message="tns:GetNewCommunicationResponseMessage"/>
+</operation>
+<operation name="GetNewNotifications">
+<input message="tns:GetNewNotificationsRequestMessage"/>
+<output message="tns:GetNewNotificationsResponseMessage"/>
+</operation>
+<operation name="GetAllNews">
+<input message="tns:GetAllNewsRequestMessage"/>
+<output message="tns:GetAllNewsResponseMessage"/>
+</operation>
+<operation name="GetListSingleValueList">
+<input message="tns:GetListSingleValueListRequestMessage"/>
+<output message="tns:GetListSingleValueListResponseMessage"/>
+</operation>
+<operation name="GetIncidentsByType">
+<input message="tns:GetIncidentsByTypeRequestMessage"/>
+<output message="tns:GetIncidentsByTypeResponseMessage"/>
+</operation>
+<operation name="GetIncidentsOnStateFlag">
+<input message="tns:GetIncidentsOnStateFlagRequestMessage"/>
+<output message="tns:GetIncidentsOnStateFlagResponseMessage"/>
+</operation>
+<operation name="GetIncidentsOnStateSLA">
+<input message="tns:GetIncidentsOnStateSLARequestMessage"/>
+<output message="tns:GetIncidentsOnStateSLAResponseMessage"/>
+</operation>
+<operation name="GetIncidentOnSettings">
+<input message="tns:GetIncidentOnSettingsRequestMessage"/>
+<output message="tns:GetIncidentOnSettingsResponseMessage"/>
+</operation>
+<operation name="GetTasksOnSettings">
+<input message="tns:GetTasksOnSettingsRequestMessage"/>
+<output message="tns:GetTasksOnSettingsResponseMessage"/>
+</operation>
+<operation name="SetConfirmationScore">
+<input message="tns:SetConfirmationScoreRequestMessage"/>
+<output message="tns:SetConfirmationScoreResponseMessage"/>
+</operation>
+<operation name="GetResponsibleUnAllocatedIncidents">
+<input message="tns:GetResponsibleUnAllocatedIncidentsRequestMessage"/>
+<output message="tns:GetResponsibleUnAllocatedIncidentsResponseMessage"/>
+</operation>
+<operation name="AddFileToDoc">
+<input message="tns:AddFileToDocRequestMessage"/>
+<output message="tns:AddFileToDocResponseMessage"/>
+</operation>
+<operation name="GetListTemplates">
+<input message="tns:GetListTemplatesRequestMessage"/>
+<output message="tns:GetListTemplatesResponseMessage"/>
+</operation>
+<operation name="NewIncOnTemplate">
+<input message="tns:NewIncOnTemplateRequestMessage"/>
+<output message="tns:NewIncOnTemplateResponseMessage"/>
+</operation>
+<operation name="GetAutorizationTask">
+<input message="tns:GetAutorizationTaskRequestMessage"/>
+<output message="tns:GetAutorizationTaskResponseMessage"/>
+</operation>
+<operation name="GetNumberDocuments">
+<input message="tns:GetNumberDocumentsRequestMessage"/>
+<output message="tns:GetNumberDocumentsResponseMessage"/>
+</operation>
+<operation name="GetResponsibleNewTask">
+<input message="tns:GetResponsibleNewTaskRequestMessage"/>
+<output message="tns:GetResponsibleNewTaskResponseMessage"/>
+</operation>
+<operation name="NewTaskOnIncident">
+<input message="tns:NewTaskOnIncidentRequestMessage"/>
+<output message="tns:NewTaskOnIncidentResponseMessage"/>
+</operation>
+<operation name="GetListPriority">
+<input message="tns:GetListPriorityRequestMessage"/>
+<output message="tns:GetListPriorityResponseMessage"/>
+</operation>
+<operation name="GetTimeZones">
+<input message="tns:GetTimeZonesRequestMessage"/>
+<output message="tns:GetTimeZonesResponseMessage"/>
+</operation>
+<operation name="ChangeTimeZone">
+<input message="tns:ChangeTimeZoneRequestMessage"/>
+<output message="tns:ChangeTimeZoneResponseMessage"/>
+</operation>
+<operation name="GetState">
+<input message="tns:GetStateRequestMessage"/>
+<output message="tns:GetStateResponseMessage"/>
+</operation>
+<operation name="GetCOA">
+<input message="tns:GetCOARequestMessage"/>
+<output message="tns:GetCOAResponseMessage"/>
+</operation>
+<operation name="SendSubscriberIDMessage">
+<input message="tns:SendSubscriberIDMessageRequestMessage"/>
+<output message="tns:SendSubscriberIDMessageResponseMessage"/>
+</operation>
+<operation name="NewIncWithoutTemplate">
+<input message="tns:NewIncWithoutTemplateRequestMessage"/>
+<output message="tns:NewIncWithoutTemplateResponseMessage"/>
+</operation>
+<operation name="GetAllDocs">
+<input message="tns:GetAllDocsRequestMessage"/>
+<output message="tns:GetAllDocsResponseMessage"/>
+</operation>
+</portType>
+<binding name="IT_MobileSoapBinding" type="tns:IT_MobilePortType">
+<soapbind:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<operation name="GetIncidentDefinitions">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetIncidentDefinitions"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetIncidentDefinitionsByWorkGroup">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetIncidentDefinitionsByWorkGroup"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetDataOfUser">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetDataOfUser"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetTaskDefinitions">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetTaskDefinitions"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetIncident">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetIncident"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetTask">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetTask"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetCommunication">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetCommunication"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetFile">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetFile"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="AddNewTask">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:AddNewTask"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="UpdateDoc">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:UpdateDoc"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="UpdateAuthorizationTask">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:UpdateAuthorizationTask"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetAuthorizationTaskDefinitions">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetAuthorizationTaskDefinitions"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GrabTask">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GrabTask"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetStatIncidents">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetStatIncidents"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetStatIncidentsTranscripts">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetStatIncidentsTranscripts"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetIncidentByNumber">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetIncidentByNumber"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetTaskByNumber">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetTaskByNumber"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetDescriptionWebService">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetDescriptionWebService"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetAssignedIncidents">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetAssignedIncidents"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetAssignedTasks">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetAssignedTasks"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetNewCommunication">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetNewCommunication"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetNewNotifications">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetNewNotifications"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetAllNews">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetAllNews"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetListSingleValueList">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetListSingleValueList"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetIncidentsByType">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetIncidentsByType"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetIncidentsOnStateFlag">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetIncidentsOnStateFlag"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetIncidentsOnStateSLA">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetIncidentsOnStateSLA"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetIncidentOnSettings">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetIncidentOnSettings"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetTasksOnSettings">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetTasksOnSettings"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="SetConfirmationScore">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:SetConfirmationScore"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetResponsibleUnAllocatedIncidents">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetResponsibleUnAllocatedIncidents"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="AddFileToDoc">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:AddFileToDoc"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetListTemplates">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetListTemplates"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="NewIncOnTemplate">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:NewIncOnTemplate"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetAutorizationTask">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetAutorizationTask"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetNumberDocuments">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetNumberDocuments"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetResponsibleNewTask">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetResponsibleNewTask"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="NewTaskOnIncident">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:NewTaskOnIncident"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetListPriority">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetListPriority"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetTimeZones">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetTimeZones"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="ChangeTimeZone">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:ChangeTimeZone"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetState">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetState"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetCOA">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetCOA"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="SendSubscriberIDMessage">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:SendSubscriberIDMessage"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="NewIncWithoutTemplate">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:NewIncWithoutTemplate"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetAllDocs">
+<soapbind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetAllDocs"/>
+<input>
+<soapbind:body use="literal"/>
+</input>
+<output>
+<soapbind:body use="literal"/>
+</output>
+</operation>
+</binding>
+<binding name="IT_MobileSoap12Binding" type="tns:IT_MobilePortType">
+<soap12bind:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<operation name="GetIncidentDefinitions">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetIncidentDefinitions"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetIncidentDefinitionsByWorkGroup">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetIncidentDefinitionsByWorkGroup"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetDataOfUser">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetDataOfUser"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetTaskDefinitions">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetTaskDefinitions"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetIncident">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetIncident"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetTask">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetTask"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetCommunication">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetCommunication"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetFile">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetFile"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="AddNewTask">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:AddNewTask"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="UpdateDoc">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:UpdateDoc"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="UpdateAuthorizationTask">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:UpdateAuthorizationTask"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetAuthorizationTaskDefinitions">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetAuthorizationTaskDefinitions"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GrabTask">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GrabTask"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetStatIncidents">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetStatIncidents"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetStatIncidentsTranscripts">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetStatIncidentsTranscripts"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetIncidentByNumber">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetIncidentByNumber"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetTaskByNumber">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetTaskByNumber"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetDescriptionWebService">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetDescriptionWebService"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetAssignedIncidents">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetAssignedIncidents"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetAssignedTasks">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetAssignedTasks"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetNewCommunication">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetNewCommunication"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetNewNotifications">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetNewNotifications"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetAllNews">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetAllNews"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetListSingleValueList">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetListSingleValueList"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetIncidentsByType">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetIncidentsByType"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetIncidentsOnStateFlag">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetIncidentsOnStateFlag"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetIncidentsOnStateSLA">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetIncidentsOnStateSLA"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetIncidentOnSettings">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetIncidentOnSettings"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetTasksOnSettings">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetTasksOnSettings"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="SetConfirmationScore">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:SetConfirmationScore"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetResponsibleUnAllocatedIncidents">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetResponsibleUnAllocatedIncidents"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="AddFileToDoc">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:AddFileToDoc"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetListTemplates">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetListTemplates"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="NewIncOnTemplate">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:NewIncOnTemplate"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetAutorizationTask">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetAutorizationTask"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetNumberDocuments">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetNumberDocuments"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetResponsibleNewTask">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetResponsibleNewTask"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="NewTaskOnIncident">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:NewTaskOnIncident"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetListPriority">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetListPriority"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetTimeZones">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetTimeZones"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="ChangeTimeZone">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:ChangeTimeZone"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetState">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetState"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetCOA">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetCOA"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="SendSubscriberIDMessage">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:SendSubscriberIDMessage"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="NewIncWithoutTemplate">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:NewIncWithoutTemplate"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+<operation name="GetAllDocs">
+<soap12bind:operation style="document" soapAction="http://www.mobile.itilium.org#IT_Mobile:GetAllDocs"/>
+<input>
+<soap12bind:body use="literal"/>
+</input>
+<output>
+<soap12bind:body use="literal"/>
+</output>
+</operation>
+</binding>
+<service name="IT_Mobile">
+<port name="IT_MobileSoap" binding="tns:IT_MobileSoapBinding">
+<documentation>
+<wsi:Claim xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/" conformsTo="http://ws-i.org/profiles/basic/1.1"/>
+</documentation>
+<soapbind:address location="http://192.168.220.35/itilium/ws/IT_Mobile?wsdl"/>
+</port>
+<port name="IT_MobileSoap12" binding="tns:IT_MobileSoap12Binding">
+<soap12bind:address location="http://192.168.220.35/itilium/ws/IT_Mobile"/>
+</port>
+</service>
+</definitions>

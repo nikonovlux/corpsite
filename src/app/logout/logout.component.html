@@ -4,3 +4,8 @@
 
 <input type="button" value="Soap" (click)="soap2()" />
 
+<form #form action="http://192.168.220.35/itilium/ws/IT_Mobile?wsdl:GetIncidentByNumber" method="post">
+    body: <input type="text" name="body" value="{{body}}"><br>
+    <input type="submit" (click)="form.submit() ">
+</form>
+

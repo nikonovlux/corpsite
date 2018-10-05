@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 
 import {TreeNode, MenuItem} from 'primeng/api';
 
 import {MessageService} from 'primeng/api';
 
-import { EmployeeService } from '../employee.service';
+import {EmployeeService} from '../employee.service';
 
 import {SelectItem} from 'primeng/api';
 
@@ -124,7 +124,7 @@ export class StructureComponent implements OnInit {
   }  
   ngOnInit() {
 
-    this.employeeService.getJsonFile();
+    this.employeeService.getTopDepsData();
     
 
     if((localStorage.getItem("top_deps"))){ 

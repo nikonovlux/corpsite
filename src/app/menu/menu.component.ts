@@ -1,17 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 
-import {ButtonModule} from 'primeng/button';
-
 import {MsAdalAngular6Service} from 'microsoft-adal-angular6';
 
 import {SelectItem} from 'primeng/api';
 
 import {TranslateService} from '@ngx-translate/core';
 
+import {EmployeeService} from '../employee.service';
+
+import {graph_url} from '../environments/environment.prod';
+
+import {MessageService} from 'primeng/api';
+
 
 
 
 @Component({
+  providers: [MessageService],
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
@@ -19,6 +24,8 @@ import {TranslateService} from '@ngx-translate/core';
 export class MenuComponent implements OnInit {
 
   constructor(
+    private messageService: MessageService,
+    private employeeService: EmployeeService,
     private adalSvc: MsAdalAngular6Service,
     public translate: TranslateService
     ) {  }
@@ -38,7 +45,6 @@ export class MenuComponent implements OnInit {
 
     localStorage.setItem("lang",JSON.stringify(this.selectedlang)); 
    
-
     this.translate.use( JSON.parse(localStorage.getItem("lang")).value );
 
   }
@@ -51,32 +57,49 @@ export class MenuComponent implements OnInit {
 
   userLogout() {
     console.log("Logout initiated");
-    window.location.href= "https://login.microsoftonline.com/435a4f02-f6b2-4248-9a5c-0f355179c0df/oauth2/logout?post_logout_redirect_uri=http://192.168.220.146:4200/mainpage"
+    window.location.href= "https://login.microsoftonline.com/435a4f02-f6b2-4248-9a5c-0f355179c0df/oauth2/logout?post_logout_redirect_uri=https://192.168.220.146:4200/mainpage"
   //
   }
 
-
   fname;
-  loggedin:boolean = false;
-  hidden;
 
+  is2Loggedin:boolean = false;
 
-  ngOnInit() { 
-   
-    this.fname = "Зарегистрируйтесь"; 
+  user_photo_src= '../assets/img/logo_ico.png';
+  //user_photo_src  = graph_url + 'me/photo/$value' + '?api-version=1.6';
 
-    if (this.adalSvc.userInfo != null){
-      this.loggedin = true;
-      this.hidden = 1;
-    }else{
-      this.loggedin = false;
-      this.hidden = 0;
-    }
+  getPhoto(){
+    let photo_url = graph_url + 'me/photo/$value' + '?api-version=1.6';
+    this.employeeService.getJson(photo_url)
+        .subscribe( photo => {
 
-    if (this.loggedin){
+                              this.messageService.add({severity: 'success', summary: 'MS Grath connection ok'});
+                              },
+                    error=> {
+                              this.messageService.add({severity: 'Error', summary: 'MS Grath connection failed', detail: 'status: '+ error.status});
+
+                              if(error.status == 401){
+                                localStorage.removeItem('code2');
+                              }    
+
+                            });
+  }
+
+  ngOnInit() {  
+    
+    if (this.adalSvc.userInfo){
+
       //  this.fname = this.adalSvc.userInfo.userName
-      this.fname = 'Добрый день, '+ this.adalSvc.userInfo.profile['family_name'];
+      //this.fname = 'Добрый день, '+ this.adalSvc.userInfo.profile['family_name'];
+      this.fname = this.adalSvc.userInfo.profile['family_name'];
+      console.log('adalUser-----------------');
       console.log(this.adalSvc.userInfo);
+      this.is2Loggedin = true;
+    
+    } else {
+      this.fname = "Зарегистрируйтесь"; 
+      this.is2Loggedin = false;      
+
     }
   }
 }

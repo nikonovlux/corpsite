@@ -80,6 +80,8 @@ import { NgxSoapModule } from 'ngx-soap';
 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { SptestComponent } from './sptest/sptest.component';
+import { CirculationComponent } from './circulation/circulation.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -108,7 +110,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     LogoutComponent,
     ComplainComponent,
-    WikipageComponent    
+    WikipageComponent,
+    SptestComponent,
+    CirculationComponent    
   ],
   imports: [
     NgxSoapModule,

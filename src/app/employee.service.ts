@@ -10,9 +10,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { MsAdalAngular6Service } from 'microsoft-adal-angular6';
 
-import {globals} from './environments/environment.prod';
+import {token_graph_ms, globals, token_adal} from './environments/environment.prod';
 
-
+const httpOptions_env = {
+  headers: new HttpHeaders({
+    //'Accept':'application/json;odata=context',
+    'Authorization':'Bearer ' + token_graph_ms.access_token      
+  })};
 
 
 @Injectable({ providedIn: 'root' })
@@ -22,20 +26,7 @@ export class EmployeeService {
               private adalSvc: MsAdalAngular6Service,
               private http: HttpClient) { }
 
-httpOptions_globals = {
-headers: new HttpHeaders({
-  'Accept':'application/json;odata=verbose',
-  'Authorization':'Bearer ' + globals.token
-  //'Authorization':'Bearer ' + localStorage.getItem('code2')  
-})}
-
-httpOptions_code2 = {
-  headers: new HttpHeaders({
-    'Accept':'application/json;odata=verbose',
-    'Authorization':'Bearer ' + localStorage.getItem('code2')  
-  })}   
-
-  getJsonFile(){
+  getTopDepsData(){
                 this.http.get('./assets/json/top_deps.json').subscribe(
                                                                         data => {
                                                                           //  console.log(data);
@@ -47,35 +38,29 @@ httpOptions_code2 = {
   getAdalToken(){
                 this.adalSvc.acquireToken('<RESOURCE>').subscribe(
                                                                     (resToken: string) => {
-                                                                                          //  this.adalToken = resToken
-                                                                                          //  console.log('adalToken - '+this.adalToken)
-                                                                                          localStorage.setItem('adalToken', resToken);
-                                                                                        });
+                                                                                            //localStorage.setItem('adalToken', resToken); 
+                                                                                            console.log('adalToken------------------------------');
+                                                                                            console.log(resToken);
+                                                                                          });
                 }
 
-  getJson(userUrl, method='get', body='', httpOptions=this.httpOptions_globals ) {
+  getJson(userUrl, method='get', body='', httpOptions=httpOptions_env ) {
 
-    if ((localStorage.getItem('code2'))) {
+                            // if ((localStorage.getItem('code2'))) {
+                            //                                       httpOptions = {
+                            //                                                       headers: new HttpHeaders({
+                            //                                                         'Accept':'application/json;odata=verbose',
+                            //                                                         'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code2')).access_token
+                            //                                                       })}
+                            //                                         };
+                                                                    
+                            let answer;
 
-      console.log(JSON.parse(localStorage.getItem('code2')).access_token);
-
-      httpOptions = {
-        headers: new HttpHeaders({
-          'Accept':'application/json;odata=verbose',
-          'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code2')).access_token
-        })}}
-        
-                let answer;
-
-                if(method == 'post'){
-                  
-                  answer = this.http.post(userUrl, body, httpOptions );
-
-                }else if(method == 'get'){
-
-                  answer = this.http.get(userUrl, httpOptions );
-
-                }
+                            if(method == 'post'){                                            
+                                                answer = this.http.post(userUrl, body, httpOptions );
+                                          }else if(method == 'get'){
+                                                answer = this.http.get(userUrl, httpOptions );
+                                          }
                 return answer;
               }
  

@@ -1,7 +1,8 @@
 <div>
 <h2 translate>Documents</h2>
 <br/>
-<p-tree [value]="files"></p-tree>
+<p-tabMenu [model]="files_menu" [activeItem]="files_menu[0]" ></p-tabMenu>
+<!-- <p-tree [value]="files"></p-tree> -->
 <!-- <p-tree [value]="files" layout="horizontal" selectionMode="single"  ></p-tree> -->
 <br/>
 <p>

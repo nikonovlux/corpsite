@@ -1,28 +1,37 @@
 import {Injectable} from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders } from '@angular/common/http';
 import {Observable} from 'rxjs'
 
 
-
-//'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjdfWnVmMXR2a3dMeFlhSFMzcTZsVWpVWUlHdyIsImtpZCI6IjdfWnVmMXR2a3dMeFlhSFMzcTZsVWpVWUlHdyJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvaW50ZXJva28uc2hhcmVwb2ludC5jb21ANDM1YTRmMDItZjZiMi00MjQ4LTlhNWMtMGYzNTUxNzljMGRmIiwiaXNzIjoiMDAwMDAwMDEtMDAwMC0wMDAwLWMwMDAtMDAwMDAwMDAwMDAwQDQzNWE0ZjAyLWY2YjItNDI0OC05YTVjLTBmMzU1MTc5YzBkZiIsImlhdCI6MTUzNTYyMDkxNiwibmJmIjoxNTM1NjIwOTE2LCJleHAiOjE1MzU2NTAwMTYsImFjdG9yIjoiYWFlZjQ4NjgtY2M0OS00NDUxLWI1MGItODYzYjhiNjZjZWZhQDQzNWE0ZjAyLWY2YjItNDI0OC05YTVjLTBmMzU1MTc5YzBkZiIsImlkZW50aXR5cHJvdmlkZXIiOiJ1cm46ZmVkZXJhdGlvbjptaWNyb3NvZnRvbmxpbmUiLCJuYW1laWQiOiIxMDAzMDAwMEFDNzMwMEQzIn0.K_RHAk6y2sWxzt57miVOY2GBdCS3hnmHj1YtwRxXhs1Frs5bnsJ5LURNWnBku1d7BV5qctj7zpajsja1d4KurylAaa4FgeqIe8jlERUzlqPmfDilVN1dYFuJC5GeHd417u6IazKLO8EPpywKN1PaAo1XL88oY1EzmgTZFQFM-prmXQVHeoG3BOpnSEHTg2QP-wXPNVdAMCjmtcl1iFXLuyyq-0A9J6CbPVdpkoBeoW7fqsk7NsD0fRQeIwwzaoZbmb9IHFA_FQ8iFqQ5PkRQQ3-wu9VbIPTVXmbufvEuyDHGZHXoRj8lB1U9K3sY_-0L9SLcHxGHSBPvYfl8KUjt0A'
 
 
 @Injectable()
 export class AppIntercept implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    
-    //const access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjdfWnVmMXR2a3dMeFlhSFMzcTZsVWpVWUlHdyIsImtpZCI6IjdfWnVmMXR2a3dMeFlhSFMzcTZsVWpVWUlHdyJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvaW50ZXJva28uc2hhcmVwb2ludC5jb21ANDM1YTRmMDItZjZiMi00MjQ4LTlhNWMtMGYzNTUxNzljMGRmIiwiaXNzIjoiMDAwMDAwMDEtMDAwMC0wMDAwLWMwMDAtMDAwMDAwMDAwMDAwQDQzNWE0ZjAyLWY2YjItNDI0OC05YTVjLTBmMzU1MTc5YzBkZiIsImlhdCI6MTUzNTQ0OTgwOCwibmJmIjoxNTM1NDQ5ODA4LCJleHAiOjE1MzU0Nzg5MDgsImFjdG9yIjoiYWFlZjQ4NjgtY2M0OS00NDUxLWI1MGItODYzYjhiNjZjZWZhQDQzNWE0ZjAyLWY2YjItNDI0OC05YTVjLTBmMzU1MTc5YzBkZiIsImlkZW50aXR5cHJvdmlkZXIiOiJ1cm46ZmVkZXJhdGlvbjptaWNyb3NvZnRvbmxpbmUiLCJuYW1laWQiOiIxMDAzMDAwMEFDNzMwMEQzIn0.n3JZju_xUhuq5ISWaXcwMOITXi5NSCgpR-ChrxgBWhCtLjCFwXMn5B6mneX3Lvv43R9AvHbk71b455YMuRxctd3vnPYkHzu5RQNhxdWX-_calFaCxItjzGiJEggJmGtudZcTatTupD2kCt5tecC6xsYPfuQtqt2EmcxQ4cPD69oAaSlJrjua9x0c5cR4IYvL9Ig03D7mMHOWf3IEG_teMpEzBmgMpXAxFUvy1x4Yiute7otQf-svytxxQP_NNTGgxvG7iR3LXfR0jghVzT3moPrksxDRQ4pMfawoe0t2MW6_XrG4-CyLCTlEyuf8I3-siN9G6XW3l46bfxUGttlfrw'
-    //const access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjdfWnVmMXR2a3dMeFlhSFMzcTZsVWpVWUlHdyIsImtpZCI6IjdfWnVmMXR2a3dMeFlhSFMzcTZsVWpVWUlHdyJ9.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvaW50ZXJva28uc2hhcmVwb2ludC5jb21ANDM1YTRmMDItZjZiMi00MjQ4LTlhNWMtMGYzNTUxNzljMGRmIiwiaXNzIjoiMDAwMDAwMDEtMDAwMC0wMDAwLWMwMDAtMDAwMDAwMDAwMDAwQDQzNWE0ZjAyLWY2YjItNDI0OC05YTVjLTBmMzU1MTc5YzBkZiIsImlhdCI6MTUzNTYyMDkxNiwibmJmIjoxNTM1NjIwOTE2LCJleHAiOjE1MzU2NTAwMTYsImFjdG9yIjoiYWFlZjQ4NjgtY2M0OS00NDUxLWI1MGItODYzYjhiNjZjZWZhQDQzNWE0ZjAyLWY2YjItNDI0OC05YTVjLTBmMzU1MTc5YzBkZiIsImlkZW50aXR5cHJvdmlkZXIiOiJ1cm46ZmVkZXJhdGlvbjptaWNyb3NvZnRvbmxpbmUiLCJuYW1laWQiOiIxMDAzMDAwMEFDNzMwMEQzIn0.K_RHAk6y2sWxzt57miVOY2GBdCS3hnmHj1YtwRxXhs1Frs5bnsJ5LURNWnBku1d7BV5qctj7zpajsja1d4KurylAaa4FgeqIe8jlERUzlqPmfDilVN1dYFuJC5GeHd417u6IazKLO8EPpywKN1PaAo1XL88oY1EzmgTZFQFM-prmXQVHeoG3BOpnSEHTg2QP-wXPNVdAMCjmtcl1iFXLuyyq-0A9J6CbPVdpkoBeoW7fqsk7NsD0fRQeIwwzaoZbmb9IHFA_FQ8iFqQ5PkRQQ3-wu9VbIPTVXmbufvEuyDHGZHXoRj8lB1U9K3sY_-0L9SLcHxGHSBPvYfl8KUjt0A'
 
+
+    if (req.url == 'https://graph.windows.net/interoko.onmicrosoft.com/me/photo/$value?api-version=1.6'){
+
+        var headers = new HttpHeaders({
+          'Accept':'application/json;odata=verbose',
+          'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code2')).access_token
+        })
+
+    }
     
     const authReq = req.clone({
-      setHeaders: {
-        //'Content-Type': 'application/json:odata=verbose',
-        //'User-Agent': 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)',
-        //'Authorization':'Bearer ' + access_token   
-      },
-      responseType: 'json'
-    });          
+
+      //headers
+      
+          // setHeaders: {
+          //               //'Content-Type': 'application/json:odata=verbose',
+          //               //'User-Agent': 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)',
+          //               //'Authorization':'Bearer ' + access_token   
+          //             },
+          // responseType: 'json'
+
+        });
+    
     console.log('intercept detected');
     return next.handle(authReq);
   }

@@ -11,6 +11,7 @@ import { NewsComponent } from './news/news.component';
 import { EmployeeDetailComponent }  from './employee-detail/employee-detail.component';
 import { ComplainComponent } from './complain/complain.component';
 import { WikipageComponent } from './wikipage/wikipage.component';
+import { CirculationComponent} from './circulation/circulation.component';
 
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent   },
   { path: 'complain', component: ComplainComponent  , canActivate: [AuthenticationGuard] },
   { path: 'wikipage', component: WikipageComponent },
+  { path: 'circulation', component: CirculationComponent }
 ];
 
 

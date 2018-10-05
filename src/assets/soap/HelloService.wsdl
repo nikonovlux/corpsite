@@ -157,7 +157,7 @@
 	 -->
 	<wsdl:service name="BookService">
 		<wsdl:port binding="tns:BookServiceSOAP" name="BookServiceSOAP">
-			<soap:address location="http://www.example.org/BookService" />
+			<soap:address location="https://www.example.org/BookService" />
 		</wsdl:port>
 	</wsdl:service>
 </wsdl:definitions>
