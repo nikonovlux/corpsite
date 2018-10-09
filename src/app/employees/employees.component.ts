@@ -136,7 +136,7 @@ export class EmployeesComponent implements OnInit {
                           {
                           console.log('--------------start-users1-----------');                          
                           this.users = users;
-                          this.users1 = this.users.d.results;  
+                          this.users1 = this.users.value;  
                           console.log(this.users1);
                           },
                   error=> {
@@ -154,7 +154,7 @@ export class EmployeesComponent implements OnInit {
                           {
                           console.log('--------------start-users1-----------');                          
                           this.users = users;
-                          this.users1 = this.users.d.results;  
+                          this.users1 = this.users.value;  
                           console.log(this.users1);
                           },
                   error=> {
@@ -171,7 +171,7 @@ export class EmployeesComponent implements OnInit {
                           {
                           console.log('--------------start-users1-----------');                          
                           this.users = users;
-                          this.users1 = this.users.d.results;  
+                          this.users1 = this.users.value;  
                           console.log(this.users1);
                           },
                   error=> {
@@ -184,7 +184,7 @@ export class EmployeesComponent implements OnInit {
                           {
                           console.log('--------------start-users1-----------');                          
                           this.users = users;
-                          this.users1 = this.users.d.results;  
+                          this.users1 = this.users.value;  
                           console.log(this.users1);
                           },
                   error=> {

@@ -4,7 +4,7 @@
 <img id="photo" [src]="user_photo_src" />
 </td>
 <td>
-<a > {{fname}} </a>
+<a id="fname" > {{fname}} </a>
 </td>
 <td>
 <a hidden="{{isLoggedin}}" ><p-button *ngIf ="is2Loggedin"  class="butOut" (click)="userLogout()" label="{{'LOGOUT' | translate}}" icon="pi pi-sign-out"></p-button></a>

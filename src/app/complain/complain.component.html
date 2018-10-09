@@ -14,9 +14,17 @@
         </form>
     </td>
     <td>
-        <button pButton type="button" label="SetLocalCode2" class="ui-button-success" (click)="onSetLocalCode2()" ></button>
-        <textarea pInputTextarea [(ngModel)]="SetLocalCode2" name="code2" id="code2"></textarea>
+        <button pButton type="button" label="SetLocalCode_ag" class="ui-button-success" (click)="onSetLocalCode_ag()" ></button>
+        <textarea pInputTextarea [(ngModel)]="SetLocalCode_ag" name="code_ag" id="code_ag"></textarea>
     </td>
+    <td>
+        <button pButton type="button" label="SetLocalCode_ms" class="ui-button-success" (click)="onSetLocalCode_ms()" ></button>
+        <textarea pInputTextarea [(ngModel)]="SetLocalCode_ms" name="code_ms" id="code_ms"></textarea>
+    </td>  
+    <td>
+        <button pButton type="button" label="SetLocalCode_spo" class="ui-button-success" (click)="onSetLocalCode_spo()" ></button>
+        <textarea pInputTextarea [(ngModel)]="SetLocalCode_spo" name="code_ms" id="code_spo"></textarea>
+    </td>         
     </tr>
 </table>
 </div>
@@ -94,8 +102,7 @@
 
 <div id='third'>
     <p>
-        <button pButton type="button" label="Send" class="ui-button-success" (click)="onSendClick()" ></button>
-        <button pButton type="button" label="SetLocalCode_spo" class="ui-button-success" (click)="onSetLocalCode_spo()" ></button>
+        <button pButton type="button" label="Send" class="ui-button-success" (click)="onSendClick()" ></button>        
         </p>
         <p>
         <textarea pInputTextarea [(ngModel)]="respo2" name="respo2" id="respo1"></textarea>

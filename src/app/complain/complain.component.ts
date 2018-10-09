@@ -114,16 +114,22 @@ server2: string = "https://interoko.sharepoint.com/teams/hr/_api/lists/getbytitl
 
 method1: string = this.httpmethod[0].value;
 
-SetLocalCode2:string;
+SetLocalCode_ag:string;
+SetLocalCode_ms:string;
 
-onSetLocalCode2(){
-  localStorage.setItem('code2',this.SetLocalCode2);
-  console.log('Code2 set');
-  alert('Code2 set - '+ JSON.parse(localStorage.getItem('code2')).access_token);
+onSetLocalCode_ag(){
+  localStorage.setItem('code_ag',this.SetLocalCode_ag);
+  console.log('Code_ag set');
+  alert('Code_ag set - '+ JSON.parse(localStorage.getItem('code_ag')).access_token);
 }
 
+onSetLocalCode_ms(){
+  localStorage.setItem('code_ms', this.SetLocalCode_ms);
+  console.log('Code_ms set');
+  alert('Code_ms set - '+ JSON.parse(localStorage.getItem('code_ms')).access_token);
+}
 onSetLocalCode_spo(){
-  localStorage.setItem('code_spo', this.respo2);
+  localStorage.setItem('code_spo', this.SetLocalCode_ms);
   console.log('Code_spo set');
   alert('Code_spo set - '+ JSON.parse(localStorage.getItem('code_spo')).access_token);
 }
@@ -176,13 +182,13 @@ onSendClick(){
 
   console.log('method-' + this.method1 + ', server-' + this.server1 + ', body-' + this.post_body);
   
-  this.http.request(this.method1, this.server1, httpOptions
-              ).subscribe( 
+  this.http.request(this.method1, this.server1, httpOptions)
+          .subscribe( 
                 data =>{ 
                   console.log(data);
                   //   this.respo2 = data;
                   this.respo2 = JSON.stringify(data);
-                  localStorage.setItem('code_spo',JSON.stringify(data));
+                  //localStorage.setItem('code_spo',JSON.stringify(data));
                 },
                 error =>{ 
                   console.log('------------');

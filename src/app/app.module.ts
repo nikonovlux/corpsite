@@ -49,12 +49,12 @@ import { SPService } from './mainpage/sp.service';
 import { WikipageComponent } from './wikipage/wikipage.component';
 
 
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HTTP_INTERCEPTORS} from '@angular/common/http';
 
-import {AppIntercept} from './intercept.service';
+import { AppIntercept} from './intercept.service';
 
 import { TreeModule } from 'primeng/primeng';
-import {OrganizationChartModule} from 'primeng/organizationchart';
+import { OrganizationChartModule} from 'primeng/organizationchart';
 
 import {ToastModule} from 'primeng/toast';
 

@@ -8,7 +8,7 @@ import {TranslateService} from '@ngx-translate/core';
 
 import {EmployeeService} from '../employee.service';
 
-import {graph_url} from '../environments/environment.prod';
+import {ms_graph_url} from '../environments/environment.prod';
 
 import {MessageService} from 'primeng/api';
 
@@ -65,41 +65,48 @@ export class MenuComponent implements OnInit {
 
   is2Loggedin:boolean = false;
 
-  user_photo_src= '../assets/img/logo_ico.png';
-  //user_photo_src  = graph_url + 'me/photo/$value' + '?api-version=1.6';
+  user_photo_src  = '../assets/img/logo_ico.png';
+  //user_photo_src  = ms_graph_url + 'me/photo/$value' + '?api-version=1.6';
+  //user_photo_src  = ms_graph_url + 'me/photo/$value';
+
+
+ 
 
   getPhoto(){
-    let photo_url = graph_url + 'me/photo/$value' + '?api-version=1.6';
-    this.employeeService.getJson(photo_url)
+    let photo_url = ms_graph_url + 'me/photo/$value';
+    this.employeeService.getJson(photo_url, 'ms')
         .subscribe( photo => {
-
-                              this.messageService.add({severity: 'success', summary: 'MS Grath connection ok'});
+                              //this.messageService.add({severity: 'success', summary: 'MS Grath connection ok'});                    
+                              localStorage.setItem('img_avatar', btoa(photo));
+                              
                               },
                     error=> {
-                              this.messageService.add({severity: 'Error', summary: 'MS Grath connection failed', detail: 'status: '+ error.status});
+                              //this.messageService.add({severity: 'Error', summary: 'MS Grath connection failed', detail: 'status: '+ error.status});
 
                               if(error.status == 401){
                                 localStorage.removeItem('code2');
-                              }    
-
+                              }  
+                              //  alert (error); 
+                              console.log('getPhoto func Error ------------------') ;
+                              console.log(error);
+                              //localStorage.setItem('img_avatar', btoa(error.text));
                             });
   }
 
-  ngOnInit() {  
+  ngOnInit() {
+    
+    this.employeeService.httpRequestPhoto();
     
     if (this.adalSvc.userInfo){
-
-      //  this.fname = this.adalSvc.userInfo.userName
-      //this.fname = 'Добрый день, '+ this.adalSvc.userInfo.profile['family_name'];
       this.fname = this.adalSvc.userInfo.profile['family_name'];
       console.log('adalUser-----------------');
       console.log(this.adalSvc.userInfo);
       this.is2Loggedin = true;
-    
+      document.getElementById('fname').removeAttribute('href');    
     } else {
       this.fname = "Зарегистрируйтесь"; 
-      this.is2Loggedin = false;      
-
+      this.is2Loggedin = false;
+      document.getElementById('fname').setAttribute('href','https://login.microsoftonline.com/435a4f02-f6b2-4248-9a5c-0f355179c0df/oauth2/authorize?response_type=id_token&client_id=937a47e8-b6ad-4226-8d28-4940d9662ac9&redirect_uri=https%3A%2F%2Fcorpsite.opticalhouse.com.ua%3A4200%2Fmainpage');
     }
   }
 }

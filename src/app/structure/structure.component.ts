@@ -99,11 +99,13 @@ export class StructureComponent implements OnInit {
     this.full_url = '' + this.url + this.call + this.api_version + '&' + this.select + '&' + this.filter + '&' + this.top;
     console.log(this.full_url);
     this.employeeService.getJson(this.full_url)
-      .subscribe(users => 
+        .subscribe(users => 
                           {
-                          console.log('--------------start-users1-----------');                          
+                          console.log('--------------start-users1------structure.comp.ts-----');                          
                           this.users = users;
-                          this.users1 = this.users.d.results;
+                          console.log(this.users);
+                          this.users1 = this.users.value;
+                          //this.users1 = this.users.d.results;
                           console.log(this.users1);
                           this.users1.length > 0 ? this.depclass = 'dep active' : this.depclass = 'dep hidden';
                           this.messageService.add({severity: 'Ok', summary: 'MS Grath connection ok'});
@@ -112,7 +114,7 @@ export class StructureComponent implements OnInit {
                           this.messageService.add({severity: 'Error', summary: 'MS Grath connection failed', detail: 'status: '+ error.status});
 
                           if(error.status == 401){
-                            localStorage.removeItem('code2');
+                            localStorage.removeItem('code_ag');
                           }    
 
                           });
