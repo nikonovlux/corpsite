@@ -151,13 +151,13 @@ export function HttpLoaderFactory(http: HttpClient) {
                                   clientId: '937a47e8-b6ad-4226-8d28-4940d9662ac9',                                  
                                   redirectUri: "https://corpsite.opticalhouse.com.ua:4200/mainpage",
                                   endpoints: {
-                                              "sharePointUri": "https://interoko.sharepoint.com/teams/IT/_api/",
-                                              "graphwindows": "https://graph.windows.net/interoko.onmicrosoft.com/",
-                                              "graphms": "https://graph.microsoft.com/v1.0",
+                                              "sharepoint": "https://interoko.sharepoint.com/",
+                                              "graph_azure": "https://graph.windows.net/interoko.onmicrosoft.com/",
+                                              "graph_ms": "https://graph.microsoft.com/beta",
                                               },
                                   navigateToLoginRequestUrl: false,
-                                  postLogoutRedirectUri: 'https://corpsite.opticalhouse.com.ua:4200/retail',
-                                  cacheLocation: '<localStorage / sessionStorage>'
+                                  postLogoutRedirectUri: 'https://corpsite.opticalhouse.com.ua:4200/mainpage',
+                                  cacheLocation: 'localStorage' //'<localStorage / sessionStorage>'
                                 })
   ],
   providers: [

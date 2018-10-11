@@ -1,18 +1,44 @@
 <h2 translate>Complain</h2>
 <br/>
 
-<div id='first'>    
-<table>
+<div id='first'>
+<table valign="top"	>
+    <tr>
+        <td> 
+            <a>Get Azure Graph Refresh token</a>           
+        </td>
+        <td>                 
+            <a [href]="form_graph_ms_tmp.url_auth_code">Get MS Graph Auth code1</a>
+        </td>
+        <td> 
+            <a>Get Azure Graph Refresh token</a>           
+        </td>        
+    </tr>
     <tr>
     <td>
-        <form #form action="https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/token/" method="post">
-            resource: <input type="text" name="resource" value="https://graph.windows.net"><br>
-            client_id: <input type="text" name="client_id" value="937a47e8-b6ad-4226-8d28-4940d9662ac9"><br>
-            client_secret: <input type="text" name="client_secret" value="9/o/DYn+yzQsLqheMjWodnqUEBvgk7xykRNYONT/tXs="><br>
-            grant_type: <input type="text" name="grant_type" value="client_credentials"><br>
-            <input type="submit" (click)="form.submit() ">
+        <form #form1 [action]="form_graph_azure_tmp.url" method="post">            
+            client_id: <input type="text" name="client_id" [value]="form_graph_azure_tmp.client_id" readonly ><br>
+            client_secret: <input type="text" name="client_secret" [value]="form_graph_azure_tmp.client_secret" readonly ><br>
+            grant_type: <input type="text" name="grant_type" [value]="form_graph_azure_tmp.grant_type" readonly ><br>
+            resource: <input type="text" name="resource" [value]="form_graph_azure_tmp.resource" readonly ><br>            
+            <input type="submit" (click)="form1.submit() ">
         </form>
     </td>
+    <td>
+        <form #form2 [action]="form_graph_ms_tmp.url" method="post">
+            client_id: <input type="text" name="client_id" [value]="form_graph_ms_tmp.client_id" readonly ><br>
+            client_secret: <input type="text" name="client_secret" [value]="form_graph_ms_tmp.client_secret" readonly ><br>
+            grant_type: <input type="text" name="grant_type" [value]="form_graph_ms_tmp.grant_type" readonly ><br>
+            redirect_uri: <input type="text" name="redirect_uri" [value]="form_graph_ms_tmp.redirect_uri" readonly ><br>
+            scope: <input type="text" name="scope" [value]="form_graph_ms_tmp.scope" readonly ><br>
+            code: <input type="text" name="code" value="" placeholder="input code HERE!" ><br>
+            <input type="submit" (click)="form2.submit() ">
+            <button pButton type="button" label="GetAuthCode" class="ui-button" (click)="getAuthCode()" ></button>
+        </form>    
+    </td>
+    <td>
+    </td>
+    <tr>
     <td>
         <button pButton type="button" label="SetLocalCode_ag" class="ui-button-success" (click)="onSetLocalCode_ag()" ></button>
         <textarea pInputTextarea [(ngModel)]="SetLocalCode_ag" name="code_ag" id="code_ag"></textarea>
@@ -32,6 +58,7 @@
 <br/>
 
 <div id='second'>
+    <h3>Query</h3>
     <input [(ngModel)]="server2" name="server2" id='server2' placeholder='server2' style='width:800px;' (dblclick)='onDblClick(event)' />
     <br/>
     <p-dropdown hidden [options]="topics" [(ngModel)]="topic1" name="ctopic" (ngModelChange)="onTopicChange()" placeholder='Responce' ></p-dropdown>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from './rest.service';
 
 //import { Util } from "@pnp/common";
 
@@ -9,20 +8,19 @@ import {EmployeeService } from '../employee.service';
 
 import {SelectItem} from 'primeng/api';
 
+import {form_graph_ms, form_graph_azure} from '../environments/environment.prod'
+
+
 
 // import { sp } from "@pnp/sp";
 // import { SPFetchClient } from "@pnp/nodejs";
 // import { AdalFetchClient } from "@pnp/nodejs";
-//import { graph } from "@pnp/graph";
-//import { config } from 'rxjs';
+//  import { graph } from "@pnp/graph";
+//  import { config } from 'rxjs';
 //  import {  NodeFetchClient } from 'node-pnp-js';
-// import * as pnp from 'sp-pnp-js';
-
-//import pnp from "@pnp/pnpjs";
-
-//import { getGUID } from "@pnp/common";
-
-
+//  import * as pnp from 'sp-pnp-js';
+//  import pnp from "@pnp/pnpjs";
+//  import { getGUID } from "@pnp/common";
 
 
 interface method {
@@ -44,8 +42,7 @@ interface param {
 })
 export class ComplainComponent implements OnInit {
 
-  constructor(
-              public restService: RestService,
+  constructor(  
               private http: HttpClient,
               private employeeService: EmployeeService   
               ) {  }
@@ -54,7 +51,7 @@ export class ComplainComponent implements OnInit {
 
     console.log("clicked1");  
 
-    this.restService.getJson(this.server2)
+    this.employeeService.getJsonSPO(this.server2)
       .subscribe(
         response => {
           console.log("recieved");
@@ -119,19 +116,22 @@ SetLocalCode_ms:string;
 
 onSetLocalCode_ag(){
   localStorage.setItem('code_ag',this.SetLocalCode_ag);
-  console.log('Code_ag set');
-  alert('Code_ag set - '+ JSON.parse(localStorage.getItem('code_ag')).access_token);
+  console.log('Code_ag set -------------------');
+  console.log(JSON.parse(localStorage.getItem('code_ag')).access_token);
+  window.location.href =  window.location.toString();
 }
 
 onSetLocalCode_ms(){
   localStorage.setItem('code_ms', this.SetLocalCode_ms);
-  console.log('Code_ms set');
-  alert('Code_ms set - '+ JSON.parse(localStorage.getItem('code_ms')).access_token);
+  console.log('Code_ms set --------------------');
+  console.log(JSON.parse(localStorage.getItem('code_ms')).access_token);
+  window.location.href =  window.location.toString();
 }
 onSetLocalCode_spo(){
   localStorage.setItem('code_spo', this.SetLocalCode_ms);
-  console.log('Code_spo set');
-  alert('Code_spo set - '+ JSON.parse(localStorage.getItem('code_spo')).access_token);
+  console.log('Code_spo set --------------------');
+  console.log(JSON.parse(localStorage.getItem('code_spo')).access_token);
+  window.location.href =  window.location.toString();
 }
 
 onTopicChange(){}
@@ -221,7 +221,27 @@ onSendClick(){
 
   onSpClick(){ }
 
-  ngOnInit(){ }
+  getAuthCode(){
+                this.http.get(form_graph_ms.url_auth_code).subscribe( data => console.log(data),
+                                                                      error => console.log(error),
+                                                                      () => console.log('completed!')  )
+  }
+
+  form_graph_ms_tmp = {};
+  form_graph_azure_tmp = {};
+
+  ngOnInit(){      
+    
+    Object.entries(form_graph_ms).forEach((key) => {                                                    
+                                                    this.form_graph_ms_tmp[key[0]] = key[1];
+                                                  });
+
+    Object.entries(form_graph_azure).forEach((key) => {                                                    
+                                                    this.form_graph_azure_tmp[key[0]] = key[1];
+                                                  });
+                                                    
+
+   }
 
 }
 
@@ -245,13 +265,7 @@ onSendClick(){
 
 
 
-// this.restService.getUser().subscribe(response => this.restdata = response.text() );
 
-
-          // Object.values(response).forEach(data => {
-          //                                   console.log(data);
-          //                                   this.respo1 = JSON.stringify(data);
-          //                                 });
 
 // import pnp from "sp-pnp-js";
 // import { sp } from "@pnp/sp";

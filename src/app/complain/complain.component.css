@@ -15,3 +15,7 @@ p-dropdown, button{
     width: 450px;
     height: 80px;
   }
+
+td {
+  vertical-align:top;	
+  }

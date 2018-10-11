@@ -8,6 +8,10 @@ import {EmployeeService} from '../employee.service';
 
 import {SelectItem} from 'primeng/api';
 
+import {Observable} from "rxjs";
+
+import {url_graph_ms} from '../environments/environment.prod'
+
 
 
 @Component({
@@ -99,28 +103,63 @@ export class StructureComponent implements OnInit {
     this.full_url = '' + this.url + this.call + this.api_version + '&' + this.select + '&' + this.filter + '&' + this.top;
     console.log(this.full_url);
     this.employeeService.getJson(this.full_url)
-        .subscribe(users => 
-                          {
-                          console.log('--------------start-users1------structure.comp.ts-----');                          
-                          this.users = users;
-                          console.log(this.users);
-                          this.users1 = this.users.value;
-                          //this.users1 = this.users.d.results;
-                          console.log(this.users1);
-                          this.users1.length > 0 ? this.depclass = 'dep active' : this.depclass = 'dep hidden';
-                          this.messageService.add({severity: 'Ok', summary: 'MS Grath connection ok'});
-                          },
-                  error=> {
-                          this.messageService.add({severity: 'Error', summary: 'MS Grath connection failed', detail: 'status: '+ error.status});
+          .subscribe(users => 
+                            {
+                            console.log('--------------start-users1------structure.comp.ts-----');                          
+                            this.users = users;
+                            console.log(this.users);
+                            this.users1 = this.users.value;
+                            //this.users1 = this.users.d.results;
+                            console.log(this.users1);
+                            this.users1.length > 0 ? this.depclass = 'dep active' : this.depclass = 'dep hidden';
+                            this.messageService.add({severity: 'Ok', summary: 'MS Grath connection ok'});
 
-                          if(error.status == 401){
-                            localStorage.removeItem('code_ag');
-                          }    
 
-                          });
-                          
-      
+                            // this.users1.forEach(element => {
+                            //   console.log('user mail - ')
+                            //   console.log(element.mail);
+                            //   this.employeeService.httpRequestPhoto(element.mail, element.givenName);
+                            // }); 
+
+                            },
+                    error=> {
+                            this.messageService.add({severity: 'Error', summary: 'MS Grath connection failed', detail: 'status: '+ error.status});
+
+                            if(error.status == 401){
+                              localStorage.removeItem('code_ag');
+                            } 
+                            }
+                    );
   }
+
+count = 1;
+
+getAvatar(email){
+  console.log('getAvatar email - ' + email);
+
+  let answer
+
+  if(email == 'polyakov.s@opticalhouse.com.ua'){
+
+        if(this.count < 2){
+              this.count = this.count + 1;          
+              answer = this.employeeService.httpRequestPhotoBlob(email);
+              console.log('if email - ' + answer)
+        }
+
+    //answer = 'https://graph.microsoft.com/beta/users/polyakov.s@opticalhouse.com.ua/Photos/48X48/$value'
+
+  }
+
+  if(answer == null){  answer = '../assets/img/logo_ico.png' }
+  
+  return answer;
+}
+
+  getImage(email){
+    return this.employeeService.getAvatar(email).subscribe(photo => {return photo});
+  }
+
   sendEmail(suser) {
     this.messageService.add({ severity: 'info', summary: 'Email send to user', detail: suser.displayName + ' - ' + suser.mail });
   }  

@@ -1,38 +1,34 @@
 import {Injectable} from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders } from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {token_graph_ms, ms_graph_url} from './environments/environment.prod'
+import {token_graph_ms, url_graph_ms} from './environments/environment.prod'
 
 
 
 
 @Injectable()
-export class AppIntercept implements HttpInterceptor {
+export class AppIntercept implements HttpInterceptor {  
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+   
+    var headers
 
-      //  'Accept':'application/json;odata=verbose',
-      //  if (req.url == 'https://graph.windows.net/interoko.onmicrosoft.com/me/photo/$value'){
-      //  if (req.url == 'https://graph.microsoft.com/v1.0/me/photo/$value'){
-      //   var headers = new HttpHeaders({          
-      //     'Authorization':'Bearer ' + token_graph_ms.access_token
-      //   })
-      //   console.log('graph intercepted')
-      // } 
-    
-    const authReq = req.clone({
+    //if (req.url == 'https://graph.microsoft.com/beta/users/savchenko.v@opticalhouse.com.ua/Photos/48X48/$value'){
+      if (req.url == 'https://graph.microsoft.com/beta/users/polyakov.s@opticalhouse.com.ua/Photos/48X48/$value'){
+      headers = new HttpHeaders({          
+                                  'Authorization':'Bearer ' + token_graph_ms.access_token
+                                })
+    }
 
-        //  headers      // 1 needed
-          // setHeaders: {
-          //               //'Content-Type': 'application/json:odata=verbose',
-          //               //'User-Agent': 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)',
-          //               //'Authorization':'Bearer ' + access_token   
-          //             },
-          // responseType: 'json'
+    let authReq = req.clone({
+
+      headers
 
         });
     
     console.log('intercept detected - ' + req.url);
     return next.handle(authReq);
+      
+    
   }
 }
 
@@ -90,3 +86,32 @@ export class AppIntercept implements HttpInterceptor {
 //       console.log(event.total, event.loaded);
 //     }
 //   });
+
+
+
+    //  if (req.url == 'https://graph.microsoft.com/beta/users/nikonov.m@luxoptica.com.ua/Photos/48X48/$value'){
+      //  'Accept':'application/json;odata=verbose',
+      //  if (req.url == 'https://graph.windows.net/interoko.onmicrosoft.com/users'){
+      //  if (req.url == 'https://graph.microsoft.com/v1.0/me/photo/$value'){
+        // var headers = new HttpHeaders({          
+        //   'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ag')).access_token
+        // })
+      //   console.log('graph intercepted')
+      //  } else if (req.url == 'https://graph.microsoft.com/beta/users/nikonov.m@luxoptica.com.ua/Photos/48X48/$value'){
+      //   var headers = new HttpHeaders({          
+      //     'Authorization':'Bearer ' + token_graph_ms.access_token
+      //   })
+      //  } else {
+      //   var headers = new HttpHeaders({          
+      //     'Authorization':'Bearer ' + '125'
+      //   })
+      //  }
+
+
+          //  headers     // 1 needed
+          //  setHeaders: {
+          //               //'Content-Type': 'application/json:odata=verbose',
+          //               //'User-Agent': 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0)',
+          //               'Authorization':'Bearer ' + token_graph_ms.access_token
+          //             },
+          // responseType: 'blob'
