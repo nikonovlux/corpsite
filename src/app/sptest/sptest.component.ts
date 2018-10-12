@@ -1,10 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
  import { Router, ActivatedRoute } from '@angular/router';
  
- import { AppSettings } from './app.settings';
+ import { AppSettings } from 'src/environments/environment.prod';
  import { IEmployee } from './app.interfaces';
- import { IEmployeeEntity } from './app.entities';
- import { AppLoadingComponent } from './app.loading';
+ import { IEmployeeEntity } from './app.entities'; 
  
  import * as sp from "sp-pnp-js";
  

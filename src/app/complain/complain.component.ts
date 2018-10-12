@@ -8,19 +8,11 @@ import {EmployeeService } from '../employee.service';
 
 import {SelectItem} from 'primeng/api';
 
-import {form_graph_ms, form_graph_azure} from '../environments/environment.prod'
+import {form_graph_ms, form_graph_azure, form_graph_azure_interface, form_graph_ms_interface} from 'src/environments/environment.prod'
 
 
 
-// import { sp } from "@pnp/sp";
-// import { SPFetchClient } from "@pnp/nodejs";
-// import { AdalFetchClient } from "@pnp/nodejs";
-//  import { graph } from "@pnp/graph";
-//  import { config } from 'rxjs';
-//  import {  NodeFetchClient } from 'node-pnp-js';
-//  import * as pnp from 'sp-pnp-js';
-//  import pnp from "@pnp/pnpjs";
-//  import { getGUID } from "@pnp/common";
+
 
 
 interface method {
@@ -227,153 +219,20 @@ onSendClick(){
                                                                       () => console.log('completed!')  )
   }
 
-  form_graph_ms_tmp = {};
-  form_graph_azure_tmp = {};
+  SetLocalCode_spo
+  topic1
+  event
+  
+  
+  form_graph_azure_tmp: form_graph_azure_interface;
+  form_graph_ms_tmp: form_graph_ms_interface;
 
   ngOnInit(){      
-    
-    Object.entries(form_graph_ms).forEach((key) => {                                                    
-                                                    this.form_graph_ms_tmp[key[0]] = key[1];
-                                                  });
-
-    Object.entries(form_graph_azure).forEach((key) => {                                                    
-                                                    this.form_graph_azure_tmp[key[0]] = key[1];
-                                                  });
+        
+    this.form_graph_azure_tmp = form_graph_azure;
+    this.form_graph_ms_tmp = form_graph_ms;                                                                                                 
                                                     
 
    }
 
 }
-
-
-// executor.executeAsync({
-//   url: "<app web url>/_api/SP.AppContextSite(@target)/web
-//     /lists(guid'a290086b-2d43-4151-add4-893474a930a9')/items
-//     ?@target='<host web url>'",
-//   method: "POST",
-//   body: "{ '__metadata': { 'type': 'SP.Data.Team_x0020_tasksListItem' },
-//     'Title': 'Teams incorporate feedback', 'AssignedToId': {"results":[1]},
-//     'StartDate':'2014-01-29T08:00:00Z', 'DueDate':'2014-01-31T08:00:00Z',
-//     'PredecessorsId': {"results":[4]} }",
-//   headers: { 
-//     "accept": "application/json;odata=verbose",
-//     "content-type": "application/json;odata=verbose"
-//   },
-//   success: successHandler,
-//   error: errorHandler
-// });
-
-
-
-
-
-// import pnp from "sp-pnp-js";
-// import { sp } from "@pnp/sp";
-// import { SPFetchClient } from "@pnp/nodejs";
-
-
-
-
-// import { sp } from "@pnp/sp";
-// import { SPFetchClient } from "@pnp/nodejs";
-
-// //import {Observable} from "rxjs/Observable";
-
-
-// sp.setup({
-//   sp: {
-//       fetchClientFactory: () => {
-//           return new SPFetchClient("interoko.sharepoint.com/teams/test", "4b93c3b2-f01b-4469-80b2-0e4784711b35", "qOcEZQtn9h5G/J43j325QtTMCsHxmSJYqKpF3DlmKUg=");
-//       },
-//   },
-// });
-
-// (function main() {
-    
-//   sp.web.lists.getByTitle("complains").items.get().then((items: any[]) => {
-//     console.log(items);
-
-// });
-// })()
-
-
-// (function() {
-//   // get and log a random string
-//   console.log(Util.getRandomString(30));
-//   console.log(Util.getGUID());  
-// })()
-
-
-    
-// sp.setup({
-//   sp: {
-//       headers: {
-//           "Accept": "application/json; odata=verbose"
-//       }
-//   }
-        
-// });
-
-// sp.web.currentUser.get().then(result => {
-// console.log(result);
-// });
-
-
-
-  // const headers1 = new HttpHeaders;
-  // headers1.append('Access-Control-Allow-Origin','https://192.168.220.146:4200');
-  // headers1.append('cookie','FedAuth=77u/PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48U1A+VjQsMGguZnxtZW1iZXJzaGlwfDEwMDMwMDAwYWM3MzAwZDNAbGl2ZS5jb20sMCMuZnxtZW1iZXJzaGlwfG5pa29ub3YubUBsdXhvcHRpY2EuY29tLnVhLDEzMTgwMDgyNjE4MDAwMDAwMCwxMzE3NjgwOTk2NTAwMDAwMDAsMTMxODAxNzE4MDYzNjY4NDIwLDAuMC4wLjAsMiw0MzVhNGYwMi1mNmIyLTQyNDgtOWE1Yy0wZjM1NTE3OWMwZGYsLFYyITEwMDMwMDAwQUM3MzAwRDMhMTMxODAwODI2MTgsNTdiYzg5OWUtMDBhNS02MDAwLTJlM2QtMTIzMzAyNTM0ZTY5LDU3YmM4OTllLTAwYTUtNjAwMC0yZTNkLTEyMzMwMjUzNGU2OSwsMCwxMzE4MDA4OTAwNjMyMDAwMTYsMTMxODAzNDQ2MDYzMjAwMDE2LG1RUFJtZmhsaEJqZHVmdVpDVXAzRW5vbXhxNFdSbllxck5BRWoyL0t4NXJrK0haeGlpbUh3VjJpV2JmcFRKQXBKY3V6NlRPb2VxUnFUb2NZc1RsOWZpZDZvUzRwUWtEVlhucjJJM0hHL3FkaXFBMW5lWEVLeGxiN2gwOVcrYjFhZkE5WlllZDhYZDRyMEZDYVJyTEM4eWNWakNPcEVkTzVDc3NJTzFOUDlTOWVHOGVzcjRBNi9WRm1FSyt0bEFLUGJKT29mNFkvQUxWSjJkMlc2MmpmS0E0RU5aOXFFemlqZEJySzVGZGZUVjNocHVqNEFlakdmbHBObHdoMDlUakhQQXdESUdzS3VtWWlKbTBIWDYwU1dXNWRXalRiVG1nU2dEOTJjc3U5YTNHUkdBK0dQYXlIY2x0SXhoNlNqWklIWE5QS0pWa3I4NFB3NUpFK2tVaC9QZz09PC9TUD4=; rtFa=62eufS7sNi/8kWmzFefNKQZ1aqbPWPFolz7HaG2vudcmNDM1QTRGMDItRjZCMi00MjQ4LTlBNUMtMEYzNTUxNzlDMERGAlkOc3CJnUyt16Wjxx50/on0aH4HZHE6KffjXYDiBPgPm9Bo/XWLk8DrZ7FGfsOgzV+VyS72XfBPXJPax9uHFydgbtfdqBQQeLbSrYTsT9xE5ZC3hhlIVoeL7VY7UmrFAE/7+g6usn5iSQxTOkBFUVZi08QtwZW08WklJ6EnjARtXJP70b8fRJ4D1mzPbVO/hBxjg3k9v90HMiFXva5eKhzZ7EVJmUt+OFwcDIy/iLuwnM5NzER/UsgLgIiOqCYZD25rMZpYjhs9nCgngbL9T986lixi0d5GmqF69aONlphBxKZPW46MVqN8aEE9n64s9Ssn+ztSkoKm2PTNYpygG0UAAAA=');
-
- // let settings = {
-  //     sp: {
-  //         id: "4b93c3b2-f01b-4469-80b2-0e4784711b35",
-  //         secret: "qOcEZQtn9h5G/J43j325QtTMCsHxmSJYqKpF3DlmKUg=",
-  //         url: "https://interoko.sharepoint.com/teams/test",
-  //         }
-  //       }
-
-  //   sp.setup({
-  //       sp: {
-  //             fetchClientFactory: () => {
-  //               return new SPFetchClient(settings.sp.url, settings.sp.id, settings.sp.secret);
-  //             },
-  //           },
-  //     });
-
-  //     let list1 = sp.web.lists.getByTitle("complains");
-  // console.log(JSON.stringify(list1, null, 4));
-
-
-  // graph.setup({
-  //   graph: {
-  //       fetchClientFactory: () => {
-  //           return new AdalFetchClient("interoko.sharepoint.com/teams/test", "4b93c3b2-f01b-4469-80b2-0e4784711b35", "qOcEZQtn9h5G/J43j325QtTMCsHxmSJYqKpF3DlmKUg=");
-  //       },
-  //   },
-  // });
-
-  // // execute a library request as normal
-  // graph.groups.get().then(g => {
-
-  //     console.log(JSON.stringify(g, null, 4));
-
-  // }).catch(e => {
-  //     console.error(e);
-  // });
-
-
-    // sp.setup({
-    //       sp: {
-    //           fetchClientFactory: () => {
-    //             return new SPFetchClient("interoko.sharepoint.com/teams/test", "4b93c3b2-f01b-4469-80b2-0e4784711b35", "qOcEZQtn9h5G/J43j325QtTMCsHxmSJYqKpF3DlmKUg=");
-    //           },
-    //       },
-    //   });
-
-    // now make any calls you need using the configured client
-    // sp.web.select("Title").get().then(w => {
-
-    //     console.log(`Web Title: ${w.Title}`);
-
-    // });
-

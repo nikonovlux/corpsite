@@ -1,3 +1,23 @@
+export interface form_graph_azure_interface {
+  url:string,
+  resource:string,
+  client_id:string,
+  client_secret:string,  
+  redirect_uri:string,
+  grant_type:string 
+};
+
+export interface form_graph_ms_interface {
+  url_auth_code:string,
+  url:string,
+  redirect_uri:string,
+  client_id:string,
+  client_secret:string,  
+  grant_type:string,
+  code:string, 
+  scope:string
+};
+
 
 export const form_graph_azure = {
   "url":"https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/token",
@@ -18,6 +38,24 @@ export const form_graph_ms = {
   "grant_type":"authorization_code",
   "scope":"User.Read"
 }
+
+
+export const adal_config =
+{
+
+  tenant: 'interoko.onmicrosoft.com',
+  clientId: '937a47e8-b6ad-4226-8d28-4940d9662ac9',                                  
+  redirectUri: "https://corpsite.opticalhouse.com.ua:4200/mainpage",
+  endpoints: {
+              "sharepoint": "https://interoko.sharepoint.com/",
+              "graph_azure": "https://graph.windows.net/interoko.onmicrosoft.com/",
+              "graph_ms": "https://graph.microsoft.com/beta",
+              },
+  navigateToLoginRequestUrl: false,
+  postLogoutRedirectUri: 'https://corpsite.opticalhouse.com.ua:4200/mainpage',
+  cacheLocation: 'localStorage' //'<localStorage / sessionStorage>'
+}
+
 
 export const token_graph_ms = 
 {

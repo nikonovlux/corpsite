@@ -22,12 +22,7 @@ import {MenuItem} from 'primeng/api';
 })
 export class EmployeesComponent implements OnInit {
 
-  // /users?$select=displayName,givenName,postalCode    --   $select=displayName,givenName,surname,department,city,accountEnabled,jobTitle,mail,mailNickname,onPremisesDistinguishedName,telephoneNumber&$filter=accountEnabled eq true
-  // startswith(objectType,'U') and 
 
-  //filter:string = "";
-  //filter:string = "$filter=accountEnabled eq true and startswith(givenName,'Никонов')";
-  //filter:string = "$filter=accountEnabled eq true and startswith(jobTitle,'Прог') and department eq 'Отдел разработки'";
 
   url:string = 'https://graph.windows.net/interoko.onmicrosoft.com/';
   call:string = 'users?';
@@ -210,15 +205,5 @@ export class EmployeesComponent implements OnInit {
 }
 
 
-
-// -----------------origin
-
-// ngOnInit() {
-//   this.GetEmployees();
-// }
-// GetEmployees(): void {
-//   this.employeeService.getEmployees()
-//   .subscribe(employees => this.employees = employees);
-// }
 
 

@@ -10,7 +10,7 @@ import {SelectItem} from 'primeng/api';
 
 import {Observable} from "rxjs";
 
-import {url_graph_ms} from '../environments/environment.prod'
+import {url_graph_ms} from 'src/environments/environment.prod'
 
 
 
@@ -195,73 +195,7 @@ getAvatar(email){
       { field: 'telephoneNumber', header: 'Phone' }      
     ];
 
-    // this.data1 = [{
-    //     label: 'Директор департамента ЦИТ',
-    //     type: 'person',
-    //     styleClass: 'ui-person',
-    //     expanded: true,
-    //     data: {name:'Ещенко Сергей Александрович', 'avatar': 'walter.jpg', phone:'8053', email: 'yeshchenko.s@luxoptica.com.ua'},
-    //     children: [
-    //         {
-    //             label: 'Руководитель службы ТП и обеспечения',
-    //             type: 'person',
-    //             styleClass: 'ui-person',
-    //             expanded: true,
-    //             data: {name:'Романенко Максим', 'avatar': 'saul.jpg'},
-    //             children:[{
-    //                 label: 'КиРС',
-    //                 styleClass: 'department-cfo'
-    //             },
-    //             {
-    //                 label: 'ОдРС',
-    //                 styleClass: 'department-cfo'
-    //             },
-    //             {
-    //                 label: 'ХаРС',
-    //                 styleClass: 'department-cfo'
-    //             }],
-    //         },
-    //         {
-    //             label: 'Технический директор',
-    //             type: 'person',
-    //             styleClass: 'ui-person',
-    //             expanded: true,
-    //             data: {name:'Кучер Виталий', 'avatar': 'mike.jpg'},
-    //             children:[{
-    //                 label: 'Отдел системного администрирования',
-    //                 styleClass: 'department-coo'
-    //             }]
-    //         },
-    //         {
-    //             label: 'Директор по разработке ПО',
-    //             type: 'person',
-    //             styleClass: 'ui-person',
-    //             expanded: true,
-    //             data: {name:'Порицкий Александр', 'avatar': 'jesse.jpg'},
-    //             children:[{
-    //                 label: 'Отдел разработки ПО',
-    //                 styleClass: 'department-cto',
-    //                 expanded: true                  
-    //             },
-    //             {
-    //                 label: 'Отдел поддержки ПО',
-    //                 styleClass: 'department-cto'
-    //             }]
-    //         },
-    //         {
-    //             label: 'Директор по проектам',
-    //             type: 'person',
-    //             styleClass: 'ui-person',
-    //             expanded: true,
-    //             data: {name:'Славгородский Юрий', 'avatar': 'jesse.jpg'},
-    //             children:[{
-    //                 label: 'Офис управления проектами',
-    //                 styleClass: 'department-cto',
-    //                 expanded: true                  
-    //             }]
-    //         }
-    //       ]
-    //   }];
+    
 
     }
 }

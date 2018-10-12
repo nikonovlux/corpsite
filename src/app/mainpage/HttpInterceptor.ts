@@ -10,7 +10,7 @@
 // } from '@angular/http';
 // import { Observable } from 'rxjs/Observable';
 // import 'rxjs/Rx';
-// import { environment } from '../../environments/environment';
+// import { environment } from 'src/environments/environment.prod';
 
 // // Shows Progress bar and notifications
 // import { NotifyService } from "./loader";

@@ -1,11 +1,12 @@
 import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import {EmployeeService } from '../employee.service';
-import {url_graph_ms} from '../environments/environment.prod';
+import {url_graph_ms, base64_img} from 'src/environments/environment.prod';
 import {MessageService} from 'primeng/api';
 
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
-import {base64_img} from '../environments/environment.prod'
+
+
 
 @Component({
   providers: [MessageService],
@@ -15,13 +16,10 @@ import {base64_img} from '../environments/environment.prod'
 })
 export class CirculationComponent implements OnInit {
 
-  // old server2: string = "https://interoko.sharepoint.com/teams/hr/_api/lists/getbytitle('complains')/items/";
-  
-  //  server2: string = "https://graph.microsoft.com/v1.0/sites/interoko.sharepoint.com:/teams/hr:/lists/complains/items";
+
 
   server2: string = "https://graph.microsoft.com/beta/me";
 
-  //@ViewChild('imgid') img:ElementRef;
 
   constructor(
       //private el: ElementRef,
@@ -35,6 +33,9 @@ export class CirculationComponent implements OnInit {
   base64;
   avatarImg:string = '../assets/img/logo_ico.png'
   //data:image/png;base64,
+  topics
+  topic1
+  onTopicChange(){}
   
 
   getPhoto_fail(photo_url){
@@ -81,34 +82,6 @@ export class CirculationComponent implements OnInit {
 
   ngOnInit() {
   
-  //  this.getPhoto(ms_graph_url + 'me/photo/$value');
-  // this.employeeService.userPhoto().subscribe(next => {
-
-  //                                             console.log('userPhoto ok ---------------------------');              
-  //                                             //console.log(next);
-
-  //                                             this.avatarImg = "data:image/png;base64," + next;
-  //                                             this.base64 = this.domSanitizer.bypassSecurityTrustUrl(this.avatarImg);
-
-  //                                           },
-  //                                           error => {
-
-  //                                             console.log('userPhoto error ---------------------------');
-  //                                             //console.log(error.error.text);
-
-  //                                             //  this.avatarImg = "data:image/jpeg;base64," + this.base64_img;
-  //                                             this.base64 = this.domSanitizer.bypassSecurityTrustUrl(this.avatarImg);
-                                                                                                              
-  //                                           },
-  //                                           () => {
-
-  //                                             console.log('userPhoto complete ---------------------------');              
-  //                                             //console.log();
-
-  //                                             this.avatarImg = "data:image/jpeg;base64,";
-  //                                             this.base64 = this.domSanitizer.bypassSecurityTrustUrl(this.avatarImg);
-                                                                                                                                                           
-  //                                           }
-  //                                         );
+  
   }
 }

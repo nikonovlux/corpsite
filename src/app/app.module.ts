@@ -24,6 +24,7 @@ import { NewsComponent } from './news/news.component';
 import { ComplainComponent } from './complain/complain.component';
 
 
+
 import { AccordionModule } from 'primeng/primeng';
 import { PanelModule } from 'primeng/primeng';
 import { ButtonModule } from 'primeng/primeng';
@@ -72,6 +73,7 @@ import { NgxSoapModule } from 'ngx-soap';
 
 
 
+import {adal_config} from './environments/environment.prod'
 
 // import { registerLocaleData } from '@angular/common';
 // import localeRu from '@angular/common/locales/ru';
@@ -143,22 +145,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ButtonModule,
     RadioButtonModule,
     GMapModule,
-    MsAdalAngular6Module.forRoot({
-                                  //tenant: '435a4f02-f6b2-4248-9a5c-0f355179c0df', // interoko.onmicrosoft.com
-                                  // clientId: '8557d00c-fd93-4abc-b48a-66eea1f08ed7',
-                                  //redirectUri: "https://corpsite.opticalhouse.com.ua:4200/mainpage",
-                                  tenant: 'interoko.onmicrosoft.com',
-                                  clientId: '937a47e8-b6ad-4226-8d28-4940d9662ac9',                                  
-                                  redirectUri: "https://corpsite.opticalhouse.com.ua:4200/mainpage",
-                                  endpoints: {
-                                              "sharepoint": "https://interoko.sharepoint.com/",
-                                              "graph_azure": "https://graph.windows.net/interoko.onmicrosoft.com/",
-                                              "graph_ms": "https://graph.microsoft.com/beta",
-                                              },
-                                  navigateToLoginRequestUrl: false,
-                                  postLogoutRedirectUri: 'https://corpsite.opticalhouse.com.ua:4200/mainpage',
-                                  cacheLocation: 'localStorage' //'<localStorage / sessionStorage>'
-                                })
+    MsAdalAngular6Module.forRoot(adal_config)
   ],
   providers: [
     AuthenticationGuard,

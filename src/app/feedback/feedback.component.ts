@@ -115,23 +115,7 @@ export class FeedbackComponent implements OnInit {
                       }
                 ];
 
-// this.dep1 = [
-//               {label:'Select Department', value:null},
-//               {label:'ИТ', value:{id:1, name: 'ИТ', code: 'NY'}},
-//               {label:'МТО', value:{id:2, name: 'МТО', code: 'RM'}},
-//               {label:'Бухгалтерия', value:{id:3, name: 'Бухгалтерия', code: 'LDN'}},
-//               {label:'Склад', value:{id:4, name: 'Склад', code: 'IST'}},
-//               {label:'Производство', value:{id:5, name: 'Производство', code: 'PRS'}}
-//             ];
 
-// this.topic1 = [
-//     {label:'Select Topic', value:null},
-//     {label:'1С не загружается', value:{id:1, name: '1С не загружается', code: 'NY'}},
-//     {label:'Отчет не работает', value:{id:2, name: 'Отчет не работает', code: 'RM'}},
-//     {label:'Бухгалтерия накосячила', value:{id:3, name: 'Бухгалтерия накосячила', code: 'LDN'}},
-//     {label:'Склад не отгружает', value:{id:4, name: 'Склад не отгружает', code: 'IST'}},
-//     {label:'Windows глючит', value:{id:5, name: 'Windows глючит', code: 'PRS'}}
-//   ];  
 
   }
 

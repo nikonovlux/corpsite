@@ -25,17 +25,8 @@ export class LogoutComponent implements OnInit {
   '</soapenv:Body>'+
 '</soapenv:Envelope>'
  
-  constructor(private soap: NgxSoapService) {
+  constructor(private soap: NgxSoapService) {}
 
-    // this.soap.createClient('assets/soap/itilium_local.wsdl')
-    // .then(client => {
-    //   console.log('Client created', client);
-    //   this.client = client;
-    //   this.client.call('GetAllNews', {}).subscribe(res => { console.log('method response', res); }, err => console.log(err));      
-    // })
-    // .catch(err => console.log('Error --------------------', err));
-
-    }
     soap2(){
 
     let soap = new XMLHttpRequest();
@@ -47,26 +38,10 @@ export class LogoutComponent implements OnInit {
     soap.open('post', 'http://192.168.220.35/itilium/ws/IT_Mobile?wsdl');
     soap.send(this.body);
 
-}
+    }
 
-  ngOnInit() {
+      ngOnInit() {}
 
-
-    
-    // this.soap.createClient('assets/soap/HelloService.wsdl').catch(prom => {
-    //                                                                         this.client = prom;
-    //                                                                         this.client.call('GetBook', {}).subscribe(res => { console.log('method response', res); }, err => console.log(err));
-                                                                            
-    //                                                                       //  this.client.call('GetAll', 'Get').subscribe(client => this.soapresponse = client.result)
-    //                                                                       }
-    //   );
-                                                                            
-    //  this.soap.createClient('assets/soap/HelloService.wsdl').subscribe(client => this.client = client);
-
-
-
-  }
-
-}
+    }
 
 
