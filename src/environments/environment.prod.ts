@@ -1,3 +1,8 @@
+export const environment = {
+  production: true
+};
+
+
 export interface form_graph_azure_interface {
     url:string,
     resource:string,

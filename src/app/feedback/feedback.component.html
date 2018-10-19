@@ -1,8 +1,6 @@
 <div>
 <h2 translate>Feedback</h2>
 <br/>
-<br/>
-<br/>
 <div>
 <p-dropdown [options]="dep1" [(ngModel)]="selectedDep1" name="dep1" (ngModelChange)="onDepChange()" ></p-dropdown>
 <br/>
@@ -10,12 +8,22 @@
 <br/>
 <textarea pInputTextarea [(ngModel)]="writtenText1" name="theme2" id="textb"></textarea>
 <br/>
-<button pButton type="button" type="submit" label="Submit" class="ui-button-success" (click)="onSubmitClick()" ></button>
-</div>
-<br/>
-<br/>
-<a hidden id="mailsending" href="mailto:sd@luxoptica.com.uat" >
-<button name="sendbutton" pButton type="button" label="Создать заявку по электронной почте" class="ui-button-success"></button>
+<a href="mailto:nikonov.m@luxoptica.com.ua?subject={{selectedTopic1.label}}&body={{writtenText1}}" >
+    <button name="sendbutton" pButton type="button" label="Создать заявку по электронной почте" class="ui-button-success"></button>
 </a>
-<p hidden><a href="mailto:sd@luxoptica.com.ua">Создание заявок по электронной почте</a></p>
 </div>
+</div>
+
+
+<!-- <button hidden pButton type="button" type="submit" label="Submit" class="ui-button-success" (click)="onSubmitClick()" ></button> -->
+<!-- <p hidden><a href="">Отправка сообщения</a></p> -->
+
+<!-- <a hidden id="mailsending" href="mailto:sd@luxoptica.com.uat" >
+    <button name="sendbutton" pButton type="button" label="Создать заявку по электронной почте" class="ui-button-success"></button>
+    </a>
+    <p><a href="mailto:nikonov.m@luxoptica.com.ua?subject={{selectedTopic1}}&body={{writtenText1}}">Отправка сообщения</a></p>
+    </div> -->
+<!-- 
+    <a href="mailto:nikonov.m@luxoptica.com.ua?subject={{selectedTopic1.label}}&body={{writtenText1}}" >
+        <button name="sendbutton" pButton type="button" label="Создать заявку по электронной почте" class="ui-button-success"></button>
+        </a> -->

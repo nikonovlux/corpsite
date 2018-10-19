@@ -1,11 +1,26 @@
 {"top_deps":[
-			{"label":"Коммерческий департамент",			
+			{"label":"Розничный департамент",			
 			"type": "department",
 			"styleClass": "department-cfo",
-			"head":{"title":"Коммерческий директор", "type": "person", "styleClass": "ui-person", "label":"Масалаб Оксана Борисовна"},
+			"head":{"title":"Коммерческий директор", "type": "person", "styleClass": "ui-person", "label":"Короленко О.В."},
 			"children":[
-					{ "label":"Коммерческий отдел", "children":[]	},
-					{ "label":"Отдел учета торговых операций", "children":[]	}
+				{ "label":"Коммерческий департамент",
+					"type": "department",
+					"styleClass": "department-cfo",
+					"head":{"title":"Коммерческий директор", "type": "person", "styleClass": "ui-person", "label":"Масалаб В.Б."},
+					"children":[
+							{ "label":"Коммерческий отдел", "children":[]	}
+							]
+						},
+					{ "label":"Отдел учета торговых операций", "children":[]	},
+					{ "label":"Департамент развития",
+						"type": "department",
+						"styleClass": "department-cfo",
+						"head":{"title":"Ведущий специалист отдела развития", "type": "person", "styleClass": "ui-person", "label":"Овчаренко Дмитрий Викторович"},
+						"children":[
+								{ "label":"Отдел Развития", "children":[]	}
+								]
+							}
 					]
 				},
 			{"label":"Финансовый департамент",
@@ -26,14 +41,6 @@
 			"head":{"title":"Директор юридического департамента", "type": "person", "styleClass": "ui-person", "label":"Олиферчук Сергей Алексеевич"},
 			"children":[
 					{ "label":"Юридический отдел", "children":[]	}
-					]
-				},
-			{"label":"Департамент развития",
-			"type": "department",
-			"styleClass": "department-cfo",
-			"head":{"title":"Ведущий специалист отдела развития", "type": "person", "styleClass": "ui-person", "label":"Овчаренко Дмитрий Викторович"},
-			"children":[
-					{ "label":"Отдел Развития", "children":[]	}
 					]
 				},
 			{"label":"Департамент управления персоналом",

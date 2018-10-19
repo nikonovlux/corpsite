@@ -2,7 +2,88 @@
 <br/>
 
 <div id='first'>
-<table valign="top"	>
+<!-- ----------------------- -->
+
+<table valign="top">
+        <tr>
+                <td hidden> 
+                    <h3>Get Azure Graph Refresh token</h3>           
+                </td>
+                <td>                 
+                    <a [href]="form_graph_ms_tmp.url_auth_code"><h3>Get MS Graph Auth code1</h3></a>
+                </td>
+                <td hidden> 
+                    <h3>Get Azure Graph Refresh token</h3>           
+                </td>        
+            </tr>
+        <tr>
+    <td hidden>
+        <div>
+            <!-- hidden="hidden" -->
+            <form #form_azure [action]="form_graph_azure_tmp.url" method="post"  target="my_iframe_azure">            
+                client_id: <input type="text" name="client_id" [value]="form_graph_azure_tmp.client_id" readonly ><br>
+                client_secret: <input type="text" name="client_secret" [value]="form_graph_azure_tmp.client_secret" readonly ><br>
+                grant_type: <input type="text" name="grant_type" [value]="form_graph_azure_tmp.grant_type" readonly ><br>
+                resource: <input type="text" name="resource" [value]="form_graph_azure_tmp.resource" readonly ><br>            
+                
+            </form>
+        </div>
+    </td>
+    <td>
+        <div>
+    
+            <form #form_ms [action]="form_graph_ms_tmp.url" method="POST" target="my_iframe_ms">
+                client_id: <input type="text" name="client_id" [value]="form_graph_ms_tmp.client_id" readonly ><br>
+                client_secret: <input type="text" name="client_secret" [value]="form_graph_ms_tmp.client_secret" readonly ><br>
+                grant_type: <input type="text" name="grant_type" [value]="form_graph_ms_tmp.grant_type" readonly ><br>
+                redirect_uri: <input type="text" name="redirect_uri" [value]="form_graph_ms_tmp.redirect_uri" readonly ><br>
+                scope: <input type="text" name="scope" [value]="form_graph_ms_tmp.scope" readonly ><br>
+                code: <input type="text" name="code" [value]="auth_code" placeholder="input code HERE!" readonly ><br>
+            </form>  
+    
+    </div>
+    </td>
+        </tr>
+    
+        <tr>    
+            <td hidden>
+                <iframe #my_iframe_azure name="my_iframe_azure" id="my_iframe_azure" src="assets/html/response.html"></iframe>
+            </td>
+            <td>
+                <iframe #my_iframe_ms name="my_iframe_ms" id="my_iframe_ms" src="assets/html/response.html"></iframe>
+            </td>
+        </tr>
+
+        <tr>
+                <td hidden>
+                    <button pButton type="button" label="SetLocalCode_ag" class="ui-button-success" (click)="onSetLocalCode_ag()" ></button>
+                    <textarea pInputTextarea [(ngModel)]="SetLocalCode_ag" name="code_ag" id="code_ag"></textarea>
+                </td>
+                <td>
+                    <button pButton type="button" label="SetLocalCode_ms" class="ui-button-success" (click)="onSetLocalCode_ms()" ></button>
+                    <textarea pInputTextarea [(ngModel)]="SetLocalCode_ms" name="code_ms" id="code_ms"></textarea>
+                </td>  
+                <td hidden>
+                    <button pButton type="button" label="SetLocalCode_spo" class="ui-button-success" (click)="onSetLocalCode_spo()" ></button>
+                    <textarea pInputTextarea [(ngModel)]="SetLocalCode_spo" name="code_ms" id="code_spo"></textarea>
+                </td>         
+                </tr>
+                <br/>
+                <tr>    
+                        <td hidden>
+                            
+                        </td>
+                        <td>
+                            <button pButton label="onAgClick" (click)="onAgClick()"></button>
+                            <button pButton label="onMsClick" (click)="onMsClick()"></button>
+                        </td>
+                    </tr>
+    
+    </table>
+
+<!-- -------------------- -->
+<!-- 
+<table valign="top" 	>
     <tr>
         <td> 
             <a>Get Azure Graph Refresh token</a>           
@@ -21,7 +102,7 @@
             client_secret: <input type="text" name="client_secret" [value]="form_graph_azure_tmp.client_secret" readonly ><br>
             grant_type: <input type="text" name="grant_type" [value]="form_graph_azure_tmp.grant_type" readonly ><br>
             resource: <input type="text" name="resource" [value]="form_graph_azure_tmp.resource" readonly ><br>            
-            <input type="submit" (click)="form1.submit() ">
+            
         </form>
     </td>
     <td>
@@ -31,13 +112,19 @@
             grant_type: <input type="text" name="grant_type" [value]="form_graph_ms_tmp.grant_type" readonly ><br>
             redirect_uri: <input type="text" name="redirect_uri" [value]="form_graph_ms_tmp.redirect_uri" readonly ><br>
             scope: <input type="text" name="scope" [value]="form_graph_ms_tmp.scope" readonly ><br>
-            code: <input type="text" name="code" value="" placeholder="input code HERE!" ><br>
-            <input type="submit" (click)="form2.submit() ">
-            <button pButton type="button" label="GetAuthCode" class="ui-button" (click)="getAuthCode()" ></button>
+            code: <input type="text" name="code" [value]="auth_code" placeholder="input code HERE!" readonly ><br>          
+            
         </form>    
     </td>
-    <td>
+    <td  >
+        <button pButton type="button" label="getAccessToken" class="ui-button" (click)="getAccessToken()" ></button>
     </td>
+    </tr>
+    <tr>
+        <td><input type="submit" (click)="form1.submit() "></td>
+        <td><input type="submit" (click)="form2.submit() "></td>
+        <td></td>
+    </tr>
     <tr>
     <td>
         <button pButton type="button" label="SetLocalCode_ag" class="ui-button-success" (click)="onSetLocalCode_ag()" ></button>
@@ -52,13 +139,16 @@
         <textarea pInputTextarea [(ngModel)]="SetLocalCode_spo" name="code_ms" id="code_spo"></textarea>
     </td>         
     </tr>
-</table>
+</table> -->
+
+
+
 </div>
 
 <br/>
 
-<div id='second'>
-    <h3>Query</h3>
+<div hidden id='second'>
+    <h3>Query SPO</h3>
     <input [(ngModel)]="server2" name="server2" id='server2' placeholder='server2' style='width:800px;' (dblclick)='onDblClick(event)' />
     <br/>
     <p-dropdown hidden [options]="topics" [(ngModel)]="topic1" name="ctopic" (ngModelChange)="onTopicChange()" placeholder='Responce' ></p-dropdown>
@@ -70,20 +160,23 @@
     <textarea pInputTextarea [(ngModel)]="respo1" name="respo1" id="respo1"></textarea>
     <br/>
     <br/>
-    <p>
-    <label>
-    Server
-    </label>
-    <p-dropdown [(ngModel)]="server1" [options]="urls" name="addr" (dblclick)='onDblClick(event)' (ngModelChange)='onServerChanged(event)' > Server</p-dropdown>
-    <label>
-    Method
-    </label>
-    <p-dropdown [(ngModel)]="method1" [options]="httpmethod" name="method"  (dblclick)='onDblClick(event)' (ngModelChange)='onMethodChanged(event)' >Method</p-dropdown>
-    </p>
+
 </div>
 
 
 <div hidden id='body'>
+
+        <p>
+                <label>
+                Server
+                </label>
+                <p-dropdown [(ngModel)]="server1" [options]="urls" name="addr" (dblclick)='onDblClick(event)' (ngModelChange)='onServerChanged(event)' > Server</p-dropdown>
+                <label>
+                Method
+                </label>
+                <p-dropdown [(ngModel)]="method1" [options]="httpmethod" name="method"  (dblclick)='onDblClick(event)' (ngModelChange)='onMethodChanged(event)' >Method</p-dropdown>
+                </p>
+
     <p>
     <label>Body</label>    
     <textarea [ngModel]='post_body' name= 'post_body' placeholder='Post body' style='width:1200px; height:100px;' (dblclick)='onDblClick(event)' ></textarea>
@@ -127,7 +220,7 @@
     <button pButton type="button" label="FormBody" class="ui-button-success" (click)="onFormBodyClick()" ></button>
 </div>
 
-<div id='third'>
+<div hidden id='third'>
     <p>
         <button pButton type="button" label="Send" class="ui-button-success" (click)="onSendClick()" ></button>        
         </p>
@@ -136,7 +229,7 @@
     </p>
 </div>
 
-<div id = 'fourth'>
+<div hidden id = 'fourth'>
     <br/>
     <a href='https://interoko.sharepoint.com/teams/hr/_layouts/15/AppRegNew.aspx'>https://interoko.sharepoint.com/teams/hr/_layouts/15/AppRegNew.aspx</a>
     <br/>

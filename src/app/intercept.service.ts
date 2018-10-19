@@ -13,9 +13,10 @@ export class AppIntercept implements HttpInterceptor {
     var headers
 
     //if (req.url == 'https://graph.microsoft.com/beta/users/savchenko.v@opticalhouse.com.ua/Photos/48X48/$value'){
-      if (req.url == 'https://graph.microsoft.com/beta/users/polyakov.s@opticalhouse.com.ua/Photos/48X48/$value'){
+    if (req.url == 'https://graph.microsoft.com/beta/users/polyakov.s@opticalhouse.com.ua/Photos/48X48/$value'){
+      if(localStorage.getItem('code_ms'))
       headers = new HttpHeaders({          
-                                  'Authorization':'Bearer ' + token_graph_ms.access_token
+                                  'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
                                 })
     }
 

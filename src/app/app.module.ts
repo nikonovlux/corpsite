@@ -35,9 +35,13 @@ import { GMapModule} from 'primeng/gmap';
 import { DropdownModule} from 'primeng/dropdown';
 
 
-import { MsAdalAngular6Module } from 'microsoft-adal-angular6';
-import { AuthenticationGuard } from 'microsoft-adal-angular6';
+import { MsAdalAngular6Module, AuthenticationGuard } from 'microsoft-adal-angular6';
 
+//import {MsalModule, MsalGuard, MsalInterceptor} from '@azure/msal-angular';
+
+// import * as MicrosoftGraph from '@microsoft/microsoft-graph-client'
+// const MicrosoftGraph = require("@microsoft/microsoft-graph-client");
+// MicrosoftGraph.Client.init();
 
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -46,7 +50,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
 
-import { SPService } from './mainpage/sp.service';
+//import { SPService } from './mainpage/sp.service';
 import { WikipageComponent } from './wikipage/wikipage.component';
 
 
@@ -145,14 +149,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     ButtonModule,
     RadioButtonModule,
     GMapModule,
+    //MsalModule.forRoot(adal_config)
     MsAdalAngular6Module.forRoot(adal_config)
   ],
   providers: [
-    AuthenticationGuard,
-    SPService,
+    //MsalGuard,
+    AuthenticationGuard,    
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AppIntercept,
+      //useClass: MsalInterceptor,
       multi: true,
     }
   ],

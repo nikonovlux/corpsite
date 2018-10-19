@@ -45,8 +45,7 @@ export class CirculationComponent implements OnInit {
                               this.messageService.add({severity: 'success', summary: 'MS Grath connection ok'});                    
                               //localStorage.setItem('img_avatar', photo);
                               console.log('getPhoto func Photo ------------------') ;
-                              console.log(photo.arrayBuffer());
-                              
+                              //console.log(photo.arrayBuffer());                              
                               
                               },
                     error=> {
@@ -64,7 +63,7 @@ export class CirculationComponent implements OnInit {
 
   SendQ() {
 
-    console.log("clicked1");  
+    console.log("clicked_SendQ");  
 
     this.employeeService.getJson(this.server2, 'ms')   //  + '&api-version=1.6'
       .subscribe(
@@ -77,7 +76,7 @@ export class CirculationComponent implements OnInit {
           alert(JSON.stringify(error))
         }        
       );
-    console.log("clicked2");   
+    //console.log("clicked2");   
   }
 
   ngOnInit() {

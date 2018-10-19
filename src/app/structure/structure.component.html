@@ -4,9 +4,21 @@
 <p-toast [style]="{marginTop: '80px'}" position="top-left" styleClass="company" ></p-toast>
 <!-- <p-contextMenu #cm [target]="dttt" [model]="items"></p-contextMenu> -->
 
-
-
 <div #dttt>
+    <p-contextMenu #cmm [model]="items_tree"></p-contextMenu>
+    <p-tree [value]="data1"  layout="horizontal" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)" [contextMenu]="cmm" >
+
+            <!-- <ng-template let-node  pTemplate="default">
+                <span [(ngModel)]="node.label" type="text" style="width:100%"></span>
+            </ng-template> -->
+
+    </p-tree>
+</div>
+
+
+
+
+<!-- <div #dttt>
 <p-organizationChart  [value]="data1" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)" styleClass="company" >
         <ng-template let-node pTemplate="person">
                 <div class="node-header ui-corner-top">{{node.data.head.title}}</div>
@@ -14,7 +26,7 @@
         </ng-template>
         <ng-template let-node pTemplate="department">{{node.label}}</ng-template>
 </p-organizationChart>
-</div>
+</div> -->
 
 
 <div #dtt>
@@ -59,7 +71,7 @@
                     </td>
                     <td *ngFor="let col of columns" [ngSwitch]="col.field"  >
                         <a *ngSwitchCase="'mail'" href={{mailto}}{{rowData[col.field]}} >{{rowData[col.field]}}</a>
-                        <a *ngSwitchCase="'telephoneNumber'" href={{tel}}{{rowData[col.field]}} >{{rowData[col.field]}}</a>
+                        <a *ngSwitchCase="'mobilePhone'" href={{tel}}{{rowData[col.field]}} >{{rowData[col.field]}}</a>
                         <a *ngSwitchDefault >{{rowData[col.field]}}</a>
                     </td>
                 </tr>
@@ -85,7 +97,7 @@
                                         <b>Mail:</b> {{rowData.mail}}
                                     </div>
                                     <div class="ui-g-12">
-                                        <b>Phone:</b> {{rowData.telephoneNumber}}
+                                        <b>Phone:</b> {{rowData.mobilePhone}}
                                     </div>
                                 </div>
                             </div>
@@ -96,7 +108,60 @@
     </p-table>
 </div>
 
-        
+<!-- 
+<table>
+
+    <tr>
+<td>
+    <div>
+         
+        <form #form_azure [action]="form_graph_azure_tmp.url" method="post"  target="my_iframe_azure">            
+            client_id: <input type="text" name="client_id" [value]="form_graph_azure_tmp.client_id" readonly ><br>
+            client_secret: <input type="text" name="client_secret" [value]="form_graph_azure_tmp.client_secret" readonly ><br>
+            grant_type: <input type="text" name="grant_type" [value]="form_graph_azure_tmp.grant_type" readonly ><br>
+            resource: <input type="text" name="resource" [value]="form_graph_azure_tmp.resource" readonly ><br>            
+            
+        </form>
+    </div>
+</td>
+<td>
+    <div>
+
+        <form #form_ms [action]="form_graph_ms_tmp.url" method="POST" target="my_iframe_ms">
+            client_id: <input type="text" name="client_id" [value]="form_graph_ms_tmp.client_id" readonly ><br>
+            client_secret: <input type="text" name="client_secret" [value]="form_graph_ms_tmp.client_secret" readonly ><br>
+            grant_type: <input type="text" name="grant_type" [value]="form_graph_ms_tmp.grant_type" readonly ><br>
+            redirect_uri: <input type="text" name="redirect_uri" [value]="form_graph_ms_tmp.redirect_uri" readonly ><br>
+            scope: <input type="text" name="scope" [value]="form_graph_ms_tmp.scope" readonly ><br>
+            code: <input type="text" name="code" [value]="auth_code" placeholder="input code HERE!" readonly ><br>
+        </form>  
+
+</div>
+</td>
+    </tr>
+
+    <tr>    
+        <td>
+            <iframe #my_iframe_azure name="my_iframe_azure" id="my_iframe_azure" src="assets/html/response.html"></iframe>
+        </td>
+        <td>
+            <iframe #my_iframe_ms name="my_iframe_ms" id="my_iframe_ms" src=""></iframe>
+        </td>
+    </tr>
+    <tr>    
+        <td>
+            <button pButton label="onAgClick" (click)="onAgClick()"></button>
+        </td>
+        <td>
+            <button pButton label="onMsClick" (click)="onMsClick()"></button>
+        </td>
+    </tr>
+
+</table>
+ -->
+
+
+
 
 
 <br/>

@@ -1,3 +1,5 @@
+//import {  MsalConfig  } from '@azure/msal-angular';
+
 export interface form_graph_azure_interface {
   url:string,
   resource:string,
@@ -40,7 +42,41 @@ export const form_graph_ms = {
 }
 
 
+// export const adal_config_msal =
+// {
+//   clientID: '8557d00c-fd93-4abc-b48a-66eea1f08ed7',                                  
+//   redirectUri: "https://corpsite.opticalhouse.com.ua:4200/mainpage",
+//   navigateToLoginRequestUrl: false,
+//   postLogoutRedirectUri: 'https://corpsite.opticalhouse.com.ua:4200/mainpage',
+//   cacheLocation: 'localStorage'
+// }
+
+export const urls =
+{
+  'auth':'https://login.microsoftonline.com/common/oauth2/v2.0/authorize',
+  'token':'https://login.microsoftonline.com/common/oauth2/v2.0/token'
+}
+
+
 export const adal_config =
+{
+  //instance:'https://corpsite.opticalhouse.com.ua:4200/',
+  resource: "https://graph.microsoft.com/",
+  tenant: 'common',
+  clientId: '8557d00c-fd93-4abc-b48a-66eea1f08ed7',                                  
+  redirectUri: "https://corpsite.opticalhouse.com.ua:4200/mainpage",
+  endpoints: {
+              //"graph_azure": "https://graph.windows.net/interoko.onmicrosoft.com/",
+              'https://interoko.sharepoint.com/_api/': 'https://interoko.sharepoint.com',
+              //"sharePointUri": "https://interoko.sharepoint.com/",              
+              "graphApiUri": "https://graph.microsoft.com/",
+              },
+  navigateToLoginRequestUrl: false,
+  postLogoutRedirectUri: 'https://corpsite.opticalhouse.com.ua:4200/mainpage',
+  cacheLocation: 'localStorage' //'<localStorage / sessionStorage>'
+}
+
+export const adal_config_original =
 {
 
   tenant: 'interoko.onmicrosoft.com',
@@ -58,13 +94,7 @@ export const adal_config =
 
 
 export const token_graph_ms = 
-{
-  "token_type": "Bearer",
-  "scope": "User.Read User.ReadBasic.All profile openid email",
-  "expires_in": 3599,
-  "ext_expires_in": 0,
-  "access_token": "eyJ0eXAiOiJKV1QiLCJub25jZSI6IkFRQUJBQUFBQUFEWHpaM2lmci1HUmJEVDQ1ek5TRUZFakdnTnkwaTJHZFYyaktibmthSDNMRGVIMkpLQVBaTFN2eEhoanN0VDQybU5hU0tpd3VpRjZUOHMwRk04NDlKamNXcmpPYUpRaHF1dDZ3UUp0N3F3bFNBQSIsImFsZyI6IlJTMjU2IiwieDV0IjoiaTZsR2szRlp6eFJjVWIyQzNuRVE3c3lISmxZIiwia2lkIjoiaTZsR2szRlp6eFJjVWIyQzNuRVE3c3lISmxZIn0.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC80MzVhNGYwMi1mNmIyLTQyNDgtOWE1Yy0wZjM1NTE3OWMwZGYvIiwiaWF0IjoxNTM5MDkxNzIyLCJuYmYiOjE1MzkwOTE3MjIsImV4cCI6MTUzOTA5NTYyMiwiYWNjdCI6MCwiYWNyIjoiMSIsImFpbyI6IjQyQmdZUGd2K24rbmxjUVQwWVIxMVplc0k0LzA3MytldU05OEphdGwrU2Y1RlBYd1drRUEiLCJhbXIiOlsicHdkIl0sImFwcF9kaXNwbGF5bmFtZSI6IkNvcnBzaXRlIEdyYXBoIGFjY2VzcyBhcHAiLCJhcHBpZCI6Ijg1NTdkMDBjLWZkOTMtNGFiYy1iNDhhLTY2ZWVhMWYwOGVkNyIsImFwcGlkYWNyIjoiMSIsImZhbWlseV9uYW1lIjoi0JzQuNGF0LDQuNC7INCQ0L3QtNGA0LXQtdCy0LjRhyIsImdpdmVuX25hbWUiOiLQndC40LrQvtC90L7QsiIsImlwYWRkciI6IjE5My4xNTAuODguMSIsIm5hbWUiOiLQndC40LrQvtC90L7QsiDQnNC40YXQsNC40Lsg0JDQvdC00YDQtdC10LLQuNGHIiwib2lkIjoiMjE0MDdiM2MtZjIzNi00OWU3LTk1NjktNDRmYTQ5MWE4Y2NiIiwib25wcmVtX3NpZCI6IlMtMS01LTIxLTQyOTA5ODAwMi0yMTI2OTg5NDM1LTQwNDU0ODgwMDEtNDc5MCIsInBsYXRmIjoiMyIsInB1aWQiOiIxMDAzMDAwMEFDNzMwMEQzIiwic2NwIjoiVXNlci5SZWFkIFVzZXIuUmVhZEJhc2ljLkFsbCBwcm9maWxlIG9wZW5pZCBlbWFpbCIsInN1YiI6ImpRNzFmZHdTTTdwR3dCdVIzeWl4Y2xQcGJPaVdEajhBamQ0b1RtY0FsMEEiLCJ0aWQiOiI0MzVhNGYwMi1mNmIyLTQyNDgtOWE1Yy0wZjM1NTE3OWMwZGYiLCJ1bmlxdWVfbmFtZSI6Im5pa29ub3YubUBsdXhvcHRpY2EuY29tLnVhIiwidXBuIjoibmlrb25vdi5tQGx1eG9wdGljYS5jb20udWEiLCJ1dGkiOiJfR0h5UFJTRndrbUFHOGRwaTJlSEFBIiwidmVyIjoiMS4wIiwid2lkcyI6WyJmMjhhMWY1MC1mNmU3LTQ1NzEtODE4Yi02YTEyZjJhZjZiNmMiXSwieG1zX3N0Ijp7InN1YiI6IkIzSXdQZWpaNU1EeFBSdVBlMVNHTWx3cFMtNnVRekFJVjdTbWl6NE56Y1EifSwieG1zX3RjZHQiOjE1MTU1NzYwMDZ9.aqnBuAoQRG7dzYyI5vN7ZESQhIU-iCgRmHiGpDam_MKTnZa5c3-VYSyIQnevrAK-B10D13vc2_9nhM9ndVnbyMyVTUDLbW7OmFpsdgQ7tRCrzBi61aL42xzN_OdccFQxZIHgnW6RTfmcNYva-SVv8wWnieaDBcIPDuX82UeBo45bt1nJaSBfjYzRc6Sn3Cf-1Xoy-lZyIxGS1Z1BexA8-XdQRSDFxoGLSAwfXBWSeOsE9DNxVkJ8LyP22SDKRkPHKiHjon3by23kFr7p0_fL0XOwhn1qHThITB6R_-mP-DSfzJzOpBzbBOfICA24CHEJZ7ylEihRdkDrVjqjezBUAQ"
-}
+{"token_type":"Bearer","scope":"User.Read User.ReadBasic.All profile openid email","expires_in":3600,"ext_expires_in":0,"access_token":"eyJ0eXAiOiJKV1QiLCJub25jZSI6IkFRQUJBQUFBQUFDNXVuYTBFVUZnVElGOEVsYXh0V2pUQVVHVEt4WVlKWGU3Vy1zR3BKQnA4RHJBM08taTZpQmJWNl8zWnBZYl9pN192WHJnSEhlWnBBMmhYaDJYc3pjdC1ub1VZcmFpU2lfdy1pUzVBNF9TbFNBQSIsImFsZyI6IlJTMjU2IiwieDV0IjoiaTZsR2szRlp6eFJjVWIyQzNuRVE3c3lISmxZIiwia2lkIjoiaTZsR2szRlp6eFJjVWIyQzNuRVE3c3lISmxZIn0.eyJhdWQiOiJodHRwczovL2dyYXBoLm1pY3Jvc29mdC5jb20iLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC80MzVhNGYwMi1mNmIyLTQyNDgtOWE1Yy0wZjM1NTE3OWMwZGYvIiwiaWF0IjoxNTM5NjgyMzYwLCJuYmYiOjE1Mzk2ODIzNjAsImV4cCI6MTUzOTY4NjI2MCwiYWNjdCI6MCwiYWNyIjoiMSIsImFpbyI6IkFTUUEyLzhKQUFBQURPMnVGMDRLMlo4enhIU2RkZTVJZjhYUEpvU1dMSFgyRHBZM2oxalcwUE09IiwiYW1yIjpbInB3ZCJdLCJhcHBfZGlzcGxheW5hbWUiOiJDb3Jwc2l0ZSBHcmFwaCBhY2Nlc3MgYXBwIiwiYXBwaWQiOiI4NTU3ZDAwYy1mZDkzLTRhYmMtYjQ4YS02NmVlYTFmMDhlZDciLCJhcHBpZGFjciI6IjEiLCJmYW1pbHlfbmFtZSI6ItCc0LjRhdCw0LjQuyDQkNC90LTRgNC10LXQstC40YciLCJnaXZlbl9uYW1lIjoi0J3QuNC60L7QvdC-0LIiLCJpcGFkZHIiOiIxOTMuMTUwLjg4LjEiLCJuYW1lIjoi0J3QuNC60L7QvdC-0LIg0JzQuNGF0LDQuNC7INCQ0L3QtNGA0LXQtdCy0LjRhyIsIm9pZCI6IjIxNDA3YjNjLWYyMzYtNDllNy05NTY5LTQ0ZmE0OTFhOGNjYiIsIm9ucHJlbV9zaWQiOiJTLTEtNS0yMS00MjkwOTgwMDItMjEyNjk4OTQzNS00MDQ1NDg4MDAxLTQ3OTAiLCJwbGF0ZiI6IjMiLCJwdWlkIjoiMTAwMzAwMDBBQzczMDBEMyIsInNjcCI6IlVzZXIuUmVhZCBVc2VyLlJlYWRCYXNpYy5BbGwgcHJvZmlsZSBvcGVuaWQgZW1haWwiLCJzdWIiOiJqUTcxZmR3U003cEd3QnVSM3lpeGNsUHBiT2lXRGo4QWpkNG9UbWNBbDBBIiwidGlkIjoiNDM1YTRmMDItZjZiMi00MjQ4LTlhNWMtMGYzNTUxNzljMGRmIiwidW5pcXVlX25hbWUiOiJuaWtvbm92Lm1AbHV4b3B0aWNhLmNvbS51YSIsInVwbiI6Im5pa29ub3YubUBsdXhvcHRpY2EuY29tLnVhIiwidXRpIjoiNU1TNEZyUXBjVUtRUGZHVVM1d1JBQSIsInZlciI6IjEuMCIsIndpZHMiOlsiZjI4YTFmNTAtZjZlNy00NTcxLTgxOGItNmExMmYyYWY2YjZjIl0sInhtc19zdCI6eyJzdWIiOiJCM0l3UGVqWjVNRHhQUnVQZTFTR01sd3BTLTZ1UXpBSVY3U21pejROemNRIn0sInhtc190Y2R0IjoxNTE1NTc2MDA2fQ.oAOyq9QUcePM_6SGsh-2BCadWSvRaX8Wz8yM4Qd77QZ6jJNgphTYfUBlLlmShy0P2wXs5X0OToIlQ0e9u8GkyBLFfxNETr22-tUusy7cZm4vTOqvyBukAQiipgEsb0tI_3YymlMViW1uQY9Zg0DoAgTaFffIGtbPsxZhqOkEwQrLwUr9c7AgXqaGHLvIWiYlNDFyB-Em1SFSwZuux1jogOn1FWpTGrbAh3PVROGp9inDpG5u55ZdBNUcKKs27AUvkC6yahsRhc4iNRtUpOISv824KqI52203A366lfUEl8juAShQt1H-v2k_VWZv-APURLK-HfHdUoxko1T6F6uTSQ"}
 
 
 export const globals = {

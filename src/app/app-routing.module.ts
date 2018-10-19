@@ -18,6 +18,7 @@ import { LogoutComponent } from './logout/logout.component';
 
 
 import { AuthenticationGuard } from 'microsoft-adal-angular6'; 
+//import { MsalGuard} from '@azure/msal-angular';
 
 
 
@@ -34,7 +35,7 @@ const routes: Routes = [
   { path: 'detail/:id', component: EmployeeDetailComponent  , canActivate: [AuthenticationGuard] },
   { path: 'login', component: LoginComponent  },
   { path: 'logout', component: LogoutComponent   },
-  { path: 'complain', component: ComplainComponent  , canActivate: [AuthenticationGuard] },
+  { path: 'complain', component: ComplainComponent },
   { path: 'wikipage', component: WikipageComponent },
   { path: 'circulation', component: CirculationComponent }
 ];

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 //import { Util } from "@pnp/common";
 
@@ -35,7 +35,7 @@ interface param {
 export class ComplainComponent implements OnInit {
 
   constructor(  
-              private http: HttpClient,
+              private httpclient: HttpClient,
               private employeeService: EmployeeService   
               ) {  }
  
@@ -110,7 +110,7 @@ onSetLocalCode_ag(){
   localStorage.setItem('code_ag',this.SetLocalCode_ag);
   console.log('Code_ag set -------------------');
   console.log(JSON.parse(localStorage.getItem('code_ag')).access_token);
-  window.location.href =  window.location.toString();
+  //window.location.href =  window.location.toString();
 }
 
 onSetLocalCode_ms(){
@@ -174,7 +174,7 @@ onSendClick(){
 
   console.log('method-' + this.method1 + ', server-' + this.server1 + ', body-' + this.post_body);
   
-  this.http.request(this.method1, this.server1, httpOptions)
+  this.httpclient.request(this.method1, this.server1, httpOptions)
           .subscribe( 
                 data =>{ 
                   console.log(data);
@@ -213,12 +213,45 @@ onSendClick(){
 
   onSpClick(){ }
 
-  getAuthCode(){
-                this.http.get(form_graph_ms.url_auth_code).subscribe( data => console.log(data),
-                                                                      error => console.log(error),
-                                                                      () => console.log('completed!')  )
-  }
+  
+  getAccessToken(){
 
+    let form_graph_ms_tmp1:form_graph_ms_interface = this.form_graph_ms_tmp
+
+    delete form_graph_ms_tmp1['url_auth_code'];
+    delete form_graph_ms_tmp1['url']
+    
+    if(localStorage.getItem('session_code')) {                                                                                               
+      form_graph_ms_tmp1.code = localStorage.getItem('session_code');
+    }   
+
+    let form_data = new FormData();
+
+
+
+    for ( var key in form_graph_ms_tmp1 ) {
+      
+          console.log(key);
+          form_data.append(key, form_graph_ms_tmp1[key]);
+
+      }
+
+    console.log(form_data);
+
+    this.httpclient.post(   form_graph_ms.url,
+                            form_data,
+                          { headers:{
+                                    // 'Authorization':'Bearer ',
+                                    // 'ResponseType':'json'
+                                    }})
+                                      .subscribe( data => console.log(data),
+                                                  //error => console.log(error),
+                                                  //() => console.log('completed!')  
+                                                  )
+    }
+
+  
+  auth_code:string;
   SetLocalCode_spo
   topic1
   event
@@ -227,12 +260,118 @@ onSendClick(){
   form_graph_azure_tmp: form_graph_azure_interface;
   form_graph_ms_tmp: form_graph_ms_interface;
 
-  ngOnInit(){      
-        
-    this.form_graph_azure_tmp = form_graph_azure;
-    this.form_graph_ms_tmp = form_graph_ms;                                                                                                 
-                                                    
 
+    url:string = 'https://graph.windows.net/interoko.onmicrosoft.com/';
+    call:string = 'users?';
+    api_version:string = 'api-version=1.6';
+  
+  
+    filter:string;
+    select:string = '$select=givenName,displayName,jobTitle,city,mail,telephoneNumber,phones,accountEnabled,objectType,id';
+    top:string = '$top=100';
+  
+    full_url:string;
+
+    @ViewChild('form_azure') private form_azure:ElementRef;
+    @ViewChild('form_ms') private form_ms:ElementRef;
+    @ViewChild('my_iframe_azure') private my_iframe_azure:ElementRef;
+    @ViewChild('my_iframe_ms') private my_iframe_ms:ElementRef;
+
+
+    onAgClick(){
+      var x = document.getElementsByTagName("iframe")[1].contentWindow.document.body.innerHTML;
+      console.log(x);
+      //this.my_iframe_azure.nativeElement
+      // var x = document.getElementsByTagName("iframe")[0].contentWindow;
+      // x.document.getElementsByTagName("body")[0].style.backgroundColor = "blue";
+      // console.log(x.document.getElementsByTagName("body")[0].innerText);
+
+    }
+    onMsClick(){
+
+      let payload = {
+                        client_id: 'CLIENT_ID_HERE',
+                        scope: 'https://graph.microsoft.com/',
+                        client_secret: 'CLIENT_SECRET_HERE',
+                        grant_type: 'client_credentials'
+                    };
+
+
+
+        this.employeeService.getJson(form_graph_ms.url, 'ms' ,'post', payload).subscribe(
+                                                                                data=>{
+                                                                                  console.log('data');
+                                                                                  console.log(data);
+                                                                                },
+                                                                                error=>{
+                                                                                  console.log('error');
+                                                                                  console.log(error);
+                                                                                }        
+                                                                                )
+
+
+    }
+
+  ngOnInit(){ 
+    
+    this.form_graph_azure_tmp = form_graph_azure;
+    this.form_graph_ms_tmp = form_graph_ms; 
+    if(localStorage.getItem('session_code')) {                                                                                               
+        this.auth_code = localStorage.getItem('session_code')                                                
+      }
+
+
+    this.full_url = '' + this.url + this.call + this.api_version;
+    let session_timeout: number = parseInt(localStorage.getItem('session_time')) + 3000000;
+
+
+    // console.log('now');
+    // console.log(Date.now());
+    // console.log('session_start');
+    // console.log(session_timeout);
+
+
+
+    if(   session_timeout < Date.now()  ) {
+      window.location.href = form_graph_ms.url_auth_code;  // ok
+    } else {
+    let server2: string = "https://graph.microsoft.com/beta/me";
+    this.employeeService.getJson(server2,'ms').subscribe(
+                                                          data=>{
+                                                            this.my_iframe_ms.nativeElement.src = 'assets/html/response_ok.html';                                                            
+                                                          },
+                                                          error=>{
+
+                                                                if(error.status == 401){
+                                                                  this.form_ms.nativeElement.submit();
+                                                                  console.log('MS GRAPH TOKEN RECIEVED');                                                     
+
+                                                                }
+                                                                
+
+                                                              }
+                                                          )
+                                                          }
+
+    // this.employeeService.getJson(this.full_url, 'ag').subscribe(
+    //                                                           data=> {
+    //                                                                     this.my_iframe_azure.nativeElement.src = 'assets/html/response_ok.html';  
+    //                                                                     //this.my_iframe_azure.nativeElement.html = data;  
+    //                                                                     // console.log('---------data-------------');
+    //                                                                     // if (this.my_iframe_azure.nativeElement.iframe_body){
+    //                                                                     //   localStorage.setItem('code_ag',this.my_iframe_azure.nativeElement.iframe_body);
+    //                                                                     //   console.log(this.my_iframe_azure.nativeElement.iframe_body);
+    //                                                                     // }
+    //                                                                   },
+    //                                                           error=>{                                                                                                    
+    //                                                                     if(error.status == 402){
+                                                                          
+    //                                                                       this.form_azure.nativeElement.submit(); 
+                                                                
+    //                                                                     }
+    //                                                                   }
+    //                                                           )                                                          
+      
    }
 
 }

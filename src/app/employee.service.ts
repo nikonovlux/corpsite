@@ -10,14 +10,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { MsAdalAngular6Service } from 'microsoft-adal-angular6';
 
-import {token_graph_ms, globals, token_adal} from './environments/environment.prod';
+import {adal_config, token_graph_ms, globals, token_adal} from './environments/environment.prod';
 
-const httpOptions_env = {
-                          headers: new HttpHeaders({
-                            //'Accept':'application/json;odata=context',
-                            'Authorization':'Bearer ' + token_graph_ms.access_token      
-                          })
-                        };
 
 
 @Injectable({ providedIn: 'root' })
@@ -43,64 +37,90 @@ export class EmployeeService {
                                                                                             console.log('adalToken------------------------------');
                                                                                             console.log(resToken);
                                                                                           });
+                let res01 = adal_config.endpoints["https://interoko.sharepoint.com/_api/"];
+                this.adalSvc.acquireToken(res01).subscribe(
+                                                            (token: string) => {
+                                                                                    //localStorage.setItem('adalToken', resToken); 
+                                                                                    console.log('adalToken----'+ res01 +'---------');
+                                                                                    console.log(token);
+                                                                                  });
+                let res02 = adal_config.endpoints.graphApiUri;
+                this.adalSvc.acquireToken(res02).subscribe(
+                                                            (token: string) => {
+                                                                                    //localStorage.setItem('adalToken', resToken); 
+                                                                                    console.log('adalToken----'+ res02 +'---------');
+                                                                                    console.log(token);
+                                                                                  });
                 }
 
   getJsonSPO(userUrl) {
-                  let code;
-                  localStorage.getItem('code_spo') ? code = JSON.parse(localStorage.getItem('code_spo'))  : code='';
-                  let  httpOptions = {
-                                      headers: new HttpHeaders({
-                                              'Accept':'application/json;odata=verbose',
-                                              'Content-Type':'application/json:odata=verbose',    
-                                              'Authorization':'Bearer ' + code.access_token  
-                                            })
-                                       };
-                  return this.http.get( userUrl, httpOptions );
-                }
+                        let code;
+                        localStorage.getItem('code_spo') ? code = JSON.parse(localStorage.getItem('code_spo'))  : code='';
+                        let  httpOptions = {
+                                            headers: new HttpHeaders({
+                                                    'Accept':'application/json;odata=verbose',
+                                                    'Content-Type':'application/json:odata=verbose',    
+                                                    'Authorization':'Bearer ' + code.access_token  
+                                                  })
+                                            };
+                        return this.http.get( userUrl, httpOptions );
+                      }
 
-  getJson(userUrl, token='ag', method='get', body='', httpOptions=httpOptions_env  ) {
+  httpOptions_env = {
+                      headers: new HttpHeaders({
+                                                'Content-Type': 'application/x-www-form-urlencoded'
+                                                //'Accept':'application/json;odata=context',
+                                                //'Authorization':'Bearer test123token' //+ token_graph_ms.access_token
+                                                //  'Authorization':'Bearer ' + localStorage.getItem('adal.idtoken') ? localStorage.getItem('adal.idtoken') : ''                       
+                                              })
+                    };              
+
+
+  getJson(userUrl, token='ag', method='get', body:any='', httpOptions=this.httpOptions_env  ) {
                                           
-            let answer;
-                          if(method == 'post'){                                            
-                                answer = this.http.post(userUrl, body, httpOptions );
+                        //let answer;
+                          if(method == 'post'){    
+
+                              return this.http.post(userUrl, body, httpOptions );
+
                           }else if(method == 'get'){
 
-                                if(localStorage.getItem('code_ms') && token === 'ms'){
-                                        httpOptions = {
-                                          headers: new HttpHeaders({                                                
-                                            'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
-                                          })}                                  
-                                }else if (localStorage.getItem('code_ag')){
-                                  httpOptions = {
-                                    headers: new HttpHeaders({                                                
-                                      'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ag')).access_token
-                                    })}
-                          };
-                          answer = this.http.get(userUrl, httpOptions );
+                              if(       localStorage.getItem('code_ms') && token === 'ms'){
+                                      httpOptions = {
+                                        headers: new HttpHeaders({                                                
+                                          'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
+                                        })}                                  
+                              }else if (localStorage.getItem('code_ag') && token === 'ag'){
+                                    try{
+                                      httpOptions = {
+                                        headers: new HttpHeaders({                                                
+                                          'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ag')).access_token
+                                        })}
+
+                                    }
+                                    catch{ console.log('ERROR IN http!!!!!!!-------------')} 
+
+                                    
+                              }
+                              return this.http.get(userUrl, httpOptions );
                           }
-          return answer;
+          //return answer;
 
 
 }
-//: Observable<string>  
-public userPhoto() {
-                    return this.http.get( "https://graph.microsoft.com/v1.0/" + "me/photo/$value", {
-                                                              headers: new HttpHeaders({            
-                                                                'Authorization':'Bearer ' + token_graph_ms.access_token,
-                                                                'responseType': 'blob'      
-                                                              })
-                                                            }
-                    );
-    
-}
+
 
 public httpRequestPhoto(email, elId='photo'){
           var request = new XMLHttpRequest;
           request.open("GET", "https://graph.microsoft.com/beta/users/" + email + "/Photos/48X48/$value");
-          if(JSON.parse(localStorage.getItem('code_ms')).access_token){
+          if(localStorage.getItem('code_ms')){
+          //if(localStorage.getItem('adal.idtoken')){
             request.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('code_ms')).access_token);
+            //request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('adal.idtoken'));
           }else{
-            request.setRequestHeader("Authorization", "Bearer " + token_graph_ms.access_token);
+            if(localStorage.getItem('adal.idtoken')){
+              request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('adal.idtoken'));
+            }
           }
           request.responseType = "blob";
           request.onload = function () {
@@ -161,7 +181,7 @@ public httpRequestPhoto(email, elId='photo'){
                                                             })
                                 }
                               )
-}
+  }
 
   getAvatar_test2(url: string): Observable<String> {
     return new Observable((observer) => {
@@ -184,19 +204,19 @@ public httpRequestPhoto(email, elId='photo'){
             }
         };
     });
-}
+  }
 
-getHeaders(): HttpHeaders {
-    let headers = new HttpHeaders();
+  getHeaders(): HttpHeaders {
+      let headers = new HttpHeaders();
 
-    ////let token = this.authService.getCurrentToken();
-    let token = { access_token: token_graph_ms.access_token }; // Get this from your auth service.
-    if (token) {
-        headers.set('Authorization', 'Bearer ' + token.access_token);
-    }
+      ////let token = this.authService.getCurrentToken();
+      let token = { access_token: token_graph_ms.access_token }; // Get this from your auth service.
+      if (token) {
+          headers.set('Authorization', 'Bearer ' + token.access_token);
+      }
 
-    return headers;
-}
+      return headers;
+  }
 
   getEmployees(): Observable<Employee[]> {
     // TODO: send the message _after_ fetching the employees
@@ -255,3 +275,15 @@ getHeaders(): HttpHeaders {
           //document.getElementById('avatar_img')[0].appendChild(imageElm);
 
 
+
+          //: Observable<string>  
+// public userPhoto() {
+//   return this.http.get( "https://graph.microsoft.com/v1.0/" + "me/photo/$value", {
+//                                             headers: new HttpHeaders({            
+//                                               'Authorization':'Bearer ' + token_graph_ms.access_token,
+//                                               'responseType': 'blob'      
+//                                             })
+//                                           }
+//   );
+
+// }

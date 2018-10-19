@@ -18,14 +18,29 @@ export class MainpageComponent implements OnInit {
   constructor(private employeeService: EmployeeService,              
               //  private spService: SPService,
               private adalSvc: MsAdalAngular6Service              
-  ) {}
+  ) {
+
+    let urlParams = new URLSearchParams(window.location.search);
+
+    let myCode:string = urlParams.get('code');    
+    let mySessionState:string = urlParams.get('session_state');
+    let my_time:string =  Date.now().toString();
+
+      if(myCode && mySessionState){
+        localStorage.setItem('session_code', myCode);
+        localStorage.setItem('session_state', mySessionState);
+        localStorage.setItem('session_time', my_time)
+      }
+  }
   
- 
- 
+   
+
+
+
+
   digests;
   orders;
 
-  tokenn:string;
   title = 'App';
 
   top_menu: MenuItem[];
@@ -44,7 +59,7 @@ export class MainpageComponent implements OnInit {
 
   ngOnInit(){
 
-    this.employeeService.getAdalToken();  
+    //this.employeeService.getAdalToken();  
     
 
     this.files_menu = [
@@ -86,16 +101,6 @@ export class MainpageComponent implements OnInit {
  
   }
 
-
-  checkUser(){
-      this.adalSvc.acquireToken('<RESOURCE>')
-        .subscribe(
-                      (resToken: string) => {
-                                            this.tokenn = resToken
-                                            console.log(this.tokenn)
-                                          }                                                                          
-                                        );
-              }
 }
 
 
