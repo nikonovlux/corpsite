@@ -1,11 +1,14 @@
 <h2 translate>Complain</h2>
 <br/>
+<h3>MS Graph Auth OK!</h3>
 
-<div id='first'>
+
+<div id='first' hidden>
 <!-- ----------------------- -->
 
 <table valign="top">
         <tr>
+                <!-- hidden="hidden" -->
                 <td hidden> 
                     <h3>Get Azure Graph Refresh token</h3>           
                 </td>
@@ -18,8 +21,7 @@
             </tr>
         <tr>
     <td hidden>
-        <div>
-            <!-- hidden="hidden" -->
+        <!-- <div>            
             <form #form_azure [action]="form_graph_azure_tmp.url" method="post"  target="my_iframe_azure">            
                 client_id: <input type="text" name="client_id" [value]="form_graph_azure_tmp.client_id" readonly ><br>
                 client_secret: <input type="text" name="client_secret" [value]="form_graph_azure_tmp.client_secret" readonly ><br>
@@ -27,11 +29,10 @@
                 resource: <input type="text" name="resource" [value]="form_graph_azure_tmp.resource" readonly ><br>            
                 
             </form>
-        </div>
+        </div> -->
     </td>
     <td>
-        <div>
-    
+        <div>            
             <form #form_ms [action]="form_graph_ms_tmp.url" method="POST" target="my_iframe_ms">
                 client_id: <input type="text" name="client_id" [value]="form_graph_ms_tmp.client_id" readonly ><br>
                 client_secret: <input type="text" name="client_secret" [value]="form_graph_ms_tmp.client_secret" readonly ><br>

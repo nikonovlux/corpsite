@@ -77,7 +77,7 @@ import { NgxSoapModule } from 'ngx-soap';
 
 
 
-import {adal_config} from './environments/environment.prod'
+import {adal_config} from 'src/environments/environment.prod'
 
 // import { registerLocaleData } from '@angular/common';
 // import localeRu from '@angular/common/locales/ru';
@@ -149,7 +149,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ButtonModule,
     RadioButtonModule,
     GMapModule,
-    //MsalModule.forRoot(adal_config)
+    //MsalModule.forRoot(adal_config_ms)
     MsAdalAngular6Module.forRoot(adal_config)
   ],
   providers: [
@@ -164,5 +164,5 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
 

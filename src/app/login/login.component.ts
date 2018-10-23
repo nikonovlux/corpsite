@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {graph_params, login_token_url} from 'src/environments/environment.prod'
+
 
 @Component({
   selector: 'app-login',
@@ -8,13 +8,10 @@ import {graph_params, login_token_url} from 'src/environments/environment.prod'
 })
 export class LoginComponent {
   ngOnInit(): void {}
+  
 
-  setLocal:string;
-
-onSetLocal(){
-  localStorage.setItem('code2',this.setLocal);
-  console.log('Code2 set');
-}
+  onSetLocal(){
+  }
 
   onGetTokenClick(){    
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import {EmployeeService } from '../employee.service';
-import {url_graph_ms, base64_img} from 'src/environments/environment.prod';
+
 import {MessageService} from 'primeng/api';
 
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';

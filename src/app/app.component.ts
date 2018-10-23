@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {TranslateService} from '@ngx-translate/core';
 
+// import { Router, NavigationEnd } from '@angular/router';
 
 
 @Component({
@@ -26,24 +27,37 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class AppComponent {
 
-  constructor(translate: TranslateService) {
+  constructor(
+    // router: Router,
+    translate: TranslateService) {
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
 
      // the lang to use, if the lang isn't available, it will use the current loader to get them
     //translate.use('ru');
 
-if(localStorage.getItem("lang")){
-  translate.use(  JSON.parse(localStorage.getItem("lang")).value );
-}else{
-  translate.use('en');
-}
+      if(localStorage.getItem("lang")){
+        translate.use(  JSON.parse(localStorage.getItem("lang")).value );
+      }else{
+        translate.use('en');
+      }
+
+
+      // router.events.subscribe(s => {
+      //   if (s instanceof NavigationEnd) {
+      //     const tree = router.parseUrl(router.url);
+      //     if (tree.fragment) {
+      //       const element = document.querySelector("#" + tree.fragment);
+      //       alert(tree.fragment);
+      //     }
+      //   }
+      // });
 
     
 
   }
 
-  title = 'site';
+  title = 'Corpsite';
 
   menuState:string = 'out';
   spanclass:string = 'menu-icon';

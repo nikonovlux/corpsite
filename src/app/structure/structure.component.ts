@@ -8,7 +8,7 @@ import {EmployeeService} from '../employee.service';
 
 import {SelectItem} from 'primeng/api';
 
-import {form_graph_ms, form_graph_azure, form_graph_azure_interface, form_graph_ms_interface, url_graph_ms} from 'src/environments/environment.prod';
+import {urls, form_graph_azure_interface, form_graph_ms_interface} from 'src/environments/environment.prod';
 
 
 

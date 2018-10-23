@@ -8,15 +8,9 @@ import {TranslateService} from '@ngx-translate/core';
 
 import {EmployeeService} from '../employee.service';
 
-import {url_graph_ms} from 'src/environments/environment.prod';
-
 import {MessageService} from 'primeng/api';
 
-
-
-
-
-
+import {urls} from 'src/environments/environment.prod';
 
 
 @Component({
@@ -54,23 +48,17 @@ export class MenuComponent implements OnInit {
   }
 
   userLogin() {
-
     console.log("Login initiated");
-    window.location.href= "https://login.microsoftonline.com/435a4f02-f6b2-4248-9a5c-0f355179c0df/oauth2/authorize?response_type=id_token&client_id=937a47e8-b6ad-4226-8d28-4940d9662ac9&redirect_uri=http%3A%2F%2Fcorpsite.opticalhouse.com.ua%3A4200%2Fmainpage"
-  
+    window.location.href= ""
   }
 
   userLogout() {
 
     console.log("Logout initiated");
-    
 
+      localStorage.setItem('code_ms','');
       this.adalSvc.logout();
-      //localStorage.clear();
-      //alert(window.location.toString())
-      //window.location.href =  window.location.toString();
-      //window.location.href= "https://login.microsoftonline.com/435a4f02-f6b2-4248-9a5c-0f355179c0df/oauth2/logout?post_logout_redirect_uri=https://corpsite.opticalhouse.com.ua:4200/mainpage"
-  
+      
   }
 
   fname;
@@ -78,16 +66,30 @@ export class MenuComponent implements OnInit {
   is2Loggedin:boolean = false;
 
   user_photo_src  = '../assets/img/logo_ico.png';
-  //user_photo_src  = ms_graph_url + 'me/photo/$value' + '?api-version=1.6';
-
-
-
-
 
   ngOnInit() {
       
+
+
     
     if (this.adalSvc.userInfo){
+
+      let server2: string = "https://graph.microsoft.com/beta/me";
+      this.employeeService.getJson(server2,'ms').subscribe(
+                                                            data=>{},
+                                                            error=>{
+  
+                                                                  if(error.status == 401){                                                              
+                                                                    
+                                                                    window.location.href = urls.url_auth_implicit;  // ok
+  
+                                                                  }else{
+                                                                        alert(error.status)
+                                                                  }
+  
+                                                                }
+                                                            )
+
       this.fname = this.adalSvc.userInfo.profile['family_name'];
       console.log('adalUser-----------------');
       console.log(this.adalSvc.userInfo);
@@ -95,9 +97,9 @@ export class MenuComponent implements OnInit {
       this.employeeService.httpRequestPhoto(this.adalSvc.userInfo.profile.upn, 'photo');  
       document.getElementById('fname').removeAttribute('href');    
     } else {
-      this.fname = "Зарегистрируйтесь"; 
+      this.fname = "Access restricted"; 
       this.is2Loggedin = false;
-      document.getElementById('fname').setAttribute('href','https://corpsite.opticalhouse.com.ua:4200/docs');
+      //document.getElementById('fname').setAttribute('href','https://corpsite.opticalhouse.com.ua:4200/structure');
       
     }
   }

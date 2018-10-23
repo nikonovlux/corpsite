@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpHeaders } from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {token_graph_ms, url_graph_ms} from './environments/environment.prod'
+import {} from 'src/environments/environment.prod'
 
 
 

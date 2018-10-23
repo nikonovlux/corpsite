@@ -1,43 +1,166 @@
 <h2 translate>Main</h2>
-<br/>
+<br />
 
-<p-tabMenu #menuItems [model]="files_menu" [activeItem]="activeItem" (click)="activateMenu()" ></p-tabMenu>
+<p-tabMenu #menuItems [model]="files_menu" [activeItem]="activeItem" (click)="activateMenu()"></p-tabMenu>
 
-
-<div *ngIf="activeItem == files_menu[0]" >
-<table>
-<tr>
-<td>
-  <br/>
-<a href="assets/pdf/digest02.pdf">Digest 2018-08</a>
-</td>
-</tr> 
-</table>
-</div>
-
-<div *ngIf="activeItem == files_menu[1]">
+<!-- digests -->
+<!-- <div *ngIf="activeItem == files_menu[0]">
     <table>
-    <tr>
-    <td>
-    <br/>
-    <a href="">Instruction #1</a>
-    <br/>
-    <a href="">Security #1</a>
-    </td>
-    </tr> 
+        <tr>
+            <td>
+                <br />
+                <a href="assets/pdf/digest02.pdf">Digest 2018-08</a>
+            </td>
+        </tr>
     </table>
+</div> -->
+
+<!-- digests -->
+<div *ngIf="activeItem == files_menu[0]">
+        <br/>
+        <table>           
+            <tr *ngFor="let digest of digests_last">
+                <td>
+                        {{ digest.id }}
+                </td>
+                <td>
+                        {{ digest.name }}
+                </td> 
+                <td>
+                        {{ digest.size }} bytes
+                </td>
+            </tr>
+        </table>
     </div>
 
+<!-- isntructions -->
+<div *ngIf="activeItem == files_menu[1]">
+    <table>
+        <tr>
+            <td>
+                <br />
+                <a href="">Instruction #1</a>
+                <br />
+                <a href="">Security #1</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- orders -->
 <div *ngIf="activeItem == files_menu[2]">
-<table>
-<tr>
-<td>
+    <table>
+        <tr>
+            <td>
+                <br />
+                <a href="http://wp.luxoptica.com.ua/wp-content/uploads/2017/Prykazi/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%20%D0%BE%D0%B1%20%D0%BE%D0%B1%D1%80%D0%B0%D1%89%D0%B5%D0%BD%D0%B8%D1%8F%D1%85%20%D0%B8%20%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D1%85%20%D0%BD%D0%B0%20SD.PDF">Order
+                    #1</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- files -->
+<div *ngIf="activeItem == files_menu[3]">
+        <br/>
+        <table>
+            <td>Modified</td><td>Name</td><td>Size</td>
+            <tr *ngFor="let file of files_last">
+                <td>
+                        {{ file.lastModifiedDateTime }}
+                </td>
+                <td>
+                        {{ file.name }}
+                </td> 
+                <td>
+                        {{ file.size }} bytes
+                </td>
+            </tr>
+        </table>
+    </div>
+<!-- email -->
+<div *ngIf="activeItem == files_menu[4]">
     <br/>
-<a href="http://wp.luxoptica.com.ua/wp-content/uploads/2017/Prykazi/%D0%9F%D1%80%D0%B8%D0%BA%D0%B0%D0%B7%20%D0%BE%D0%B1%20%D0%BE%D0%B1%D1%80%D0%B0%D1%89%D0%B5%D0%BD%D0%B8%D1%8F%D1%85%20%D0%B8%20%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%B0%D1%85%20%D0%BD%D0%B0%20SD.PDF">Order #1</a>
-</td>
-</tr> 
-</table>
+    <table>
+ <tr>
+     <td>Date</td><td>Sender</td><td>Subject</td>
+ </tr>
+
+
+        <tr *ngFor="let email of email_last">
+            <td>
+                {{ email.receivedDateTime }}
+            </td>
+            <td>
+                {{ email.sender.emailAddress.address }}
+            </td> 
+            <td>
+                {{ email.subject }}
+            </td>
+        </tr>
+    </table>
 </div>
 
+<!-- events -->
+<div *ngIf="activeItem == files_menu[5]">
+        <br/>
+        <table>
+     <tr>
+         <td>Date</td><td>Location</td><td>Subject</td>
+     </tr>
+    
+    
+            <tr *ngFor="let event of events_last">
+                <td>
+                    {{ event.start.dateTime }}
+                </td>
+                <td>
+                    {{ event.location.displayName }}
+                </td> 
+                <td>
+                    {{ event.subject }}
+                </td>
+            </tr>
+        </table>
+    </div>
 
+    <!-- lists -->
+<div *ngIf="activeItem == files_menu[6]">
+        <br/>
+        <table>
+     <tr>
+         <td>id</td><td>Title</td><td>Department</td>
+     </tr>
+    
+    
+            <tr *ngFor="let list of lists_last">
+                <td>
+                    {{ list.fields.id }}
+                </td>
+                <td>
+                    {{ list.fields.Title }}
+                </td> 
+                <td>
+                    {{ list.fields.department }}
+                </td>
+            </tr>
+        </table>
+    </div>
 
+    
+    <!-- shared -->
+<div *ngIf="activeItem == files_menu[7]">
+        <br/>
+        <table>
+            <td>Modified</td><td>Name</td><td>Size</td>
+            <tr *ngFor="let share of shared_last">
+                <td>
+                        {{ share.lastModifiedDateTime }}
+                </td>
+                <td>
+                        {{ share.name }}
+                </td> 
+                <td>
+                        {{ share.size }} bytes
+                </td>
+            </tr>
+        </table>
+    </div>

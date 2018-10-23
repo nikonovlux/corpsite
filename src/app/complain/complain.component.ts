@@ -8,7 +8,7 @@ import {EmployeeService } from '../employee.service';
 
 import {SelectItem} from 'primeng/api';
 
-import {form_graph_ms, form_graph_azure, form_graph_azure_interface, form_graph_ms_interface} from 'src/environments/environment.prod'
+import {form_graph_azure_interface, form_graph_ms_interface, form_graph_ms, urls} from 'src/environments/environment.prod';
 
 
 
@@ -217,17 +217,12 @@ onSendClick(){
   getAccessToken(){
 
     let form_graph_ms_tmp1:form_graph_ms_interface = this.form_graph_ms_tmp
-
-    delete form_graph_ms_tmp1['url_auth_code'];
-    delete form_graph_ms_tmp1['url']
     
     if(localStorage.getItem('session_code')) {                                                                                               
       form_graph_ms_tmp1.code = localStorage.getItem('session_code');
     }   
 
     let form_data = new FormData();
-
-
 
     for ( var key in form_graph_ms_tmp1 ) {
       
@@ -238,7 +233,7 @@ onSendClick(){
 
     console.log(form_data);
 
-    this.httpclient.post(   form_graph_ms.url,
+    this.httpclient.post(   urls.url,
                             form_data,
                           { headers:{
                                     // 'Authorization':'Bearer ',
@@ -249,17 +244,14 @@ onSendClick(){
                                                   //() => console.log('completed!')  
                                                   )
     }
-
   
-  auth_code:string;
-  SetLocalCode_spo
-  topic1
-  event
-  
-  
-  form_graph_azure_tmp: form_graph_azure_interface;
-  form_graph_ms_tmp: form_graph_ms_interface;
-
+    auth_code:string;
+    SetLocalCode_spo
+    topic1
+    event
+        
+    form_graph_azure_tmp: form_graph_azure_interface;
+    form_graph_ms_tmp: form_graph_ms_interface;
 
     url:string = 'https://graph.windows.net/interoko.onmicrosoft.com/';
     call:string = 'users?';
@@ -296,9 +288,7 @@ onSendClick(){
                         grant_type: 'client_credentials'
                     };
 
-
-
-        this.employeeService.getJson(form_graph_ms.url, 'ms' ,'post', payload).subscribe(
+        this.employeeService.getJson(urls.url, 'ms' ,'post', payload).subscribe(
                                                                                 data=>{
                                                                                   console.log('data');
                                                                                   console.log(data);
@@ -309,49 +299,46 @@ onSendClick(){
                                                                                 }        
                                                                                 )
 
-
     }
 
-  ngOnInit(){ 
-    
-    this.form_graph_azure_tmp = form_graph_azure;
-    this.form_graph_ms_tmp = form_graph_ms; 
-    if(localStorage.getItem('session_code')) {                                                                                               
-        this.auth_code = localStorage.getItem('session_code')                                                
-      }
+  ngOnInit(){
 
-
-    this.full_url = '' + this.url + this.call + this.api_version;
-    let session_timeout: number = parseInt(localStorage.getItem('session_time')) + 3000000;
-
-
-    // console.log('now');
-    // console.log(Date.now());
-    // console.log('session_start');
-    // console.log(session_timeout);
-
-
-
-    if(   session_timeout < Date.now()  ) {
-      window.location.href = form_graph_ms.url_auth_code;  // ok
-    } else {
     let server2: string = "https://graph.microsoft.com/beta/me";
     this.employeeService.getJson(server2,'ms').subscribe(
                                                           data=>{
-                                                            this.my_iframe_ms.nativeElement.src = 'assets/html/response_ok.html';                                                            
+                                                            //this.my_iframe_ms.nativeElement.src = 'assets/html/response_ok.html';
+                                                            window.location.href = 'https://corpsite.opticalhouse.com.ua:4200/structure';                                                            
                                                           },
                                                           error=>{
 
                                                                 if(error.status == 401){
-                                                                  this.form_ms.nativeElement.submit();
-                                                                  console.log('MS GRAPH TOKEN RECIEVED');                                                     
+                                                                  // this.form_ms.nativeElement.submit();
+                                                                  // console.log('MS GRAPH TOKEN RECIEVED'); 
+                                                                  
+                                                                  window.location.href = urls.url_auth_implicit;  // ok
 
+                                                                }else{
+                                                                      alert(error.status)
                                                                 }
-                                                                
 
                                                               }
                                                           )
-                                                          }
+              
+   }
+
+}
+
+   //this.form_graph_azure_tmp = form_graph_azure;
+    // this.form_graph_ms_tmp = form_graph_ms; 
+    // if(localStorage.getItem('session_code')) {                                                                                               
+    //     this.auth_code = localStorage.getItem('session_code')                                                
+    //   }
+
+
+    // this.full_url = '' + this.url + this.call + this.api_version;
+    // let session_timeout: number = parseInt(localStorage.getItem('session_time')) + 3000000;
+
+
 
     // this.employeeService.getJson(this.full_url, 'ag').subscribe(
     //                                                           data=> {
@@ -370,8 +357,15 @@ onSendClick(){
                                                                 
     //                                                                     }
     //                                                                   }
-    //                                                           )                                                          
-      
-   }
+    //                                                           )   
+    
+        // console.log('now');
+    // console.log(Date.now());
+    // console.log('session_start');
+    // console.log(session_timeout);
 
-}
+    // if(  ( session_timeout < Date.now() ) || !localStorage.getItem('session_code') ) {
+    //   window.location.href = form_graph_ms.url_implicitt;  // ok
+    // } else {
+    //  }
+

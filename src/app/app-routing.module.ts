@@ -17,9 +17,14 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
 
-import { AuthenticationGuard } from 'microsoft-adal-angular6'; 
+import { AuthenticationGuard } from 'microsoft-adal-angular6';
+
+//import { ActivatedRoute } from '@angular/router';
 //import { MsalGuard} from '@azure/msal-angular';
 
+// import { Router, NavigationCancel } from '@angular/router';
+
+// import { URLSearchParams, } from '@angular/http';
 
 
 const routes: Routes = [
@@ -45,9 +50,33 @@ const routes: Routes = [
   imports: [ RouterModule.forRoot(routes) ],
   exports: [ RouterModule ]  
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
+//   constructor(
+//     private route: ActivatedRoute,
+//   ) { 
+//     if(this.route.fragment){
+//     this.route.fragment.subscribe((fragment: string) =>
+//                     {
+//                       console.log(fragment); 
+//                     }
+//   );
+//                   }
+//  }
 
 
+
+  // constructor(public router: Router) {
+  //   router.events.subscribe(s => {
+  //     if (s instanceof NavigationCancel) {
+  //       let params = new URLSearchParams(s.url.split('#')[1]);
+
+  //       localStorage.setitem('hass2', params.get('access_token'));
+        
+  //     }
+  //   });
+  // }
 
 //  import { AppComponent } from './app.component';
-//  { path: '', component: AppComponent, pathMatch:'full'  },
+//  { path: '', component: AppComponent, pathMatch:'full'  }
+//
+

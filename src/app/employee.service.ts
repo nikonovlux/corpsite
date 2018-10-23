@@ -10,7 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { MsAdalAngular6Service } from 'microsoft-adal-angular6';
 
-import {adal_config, token_graph_ms, globals, token_adal} from './environments/environment.prod';
+import {adal_config} from 'src/environments/environment.prod';
 
 
 
@@ -85,9 +85,10 @@ export class EmployeeService {
 
                           }else if(method == 'get'){
 
-                              if(       localStorage.getItem('code_ms') && token === 'ms'){
+                              if(localStorage.getItem('code_ms') && token === 'ms'){    // localStorage.getItem('code_ms') &&
                                       httpOptions = {
                                         headers: new HttpHeaders({                                                
+                                          //'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
                                           'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
                                         })}                                  
                               }else if (localStorage.getItem('code_ag') && token === 'ag'){
@@ -95,6 +96,7 @@ export class EmployeeService {
                                       httpOptions = {
                                         headers: new HttpHeaders({                                                
                                           'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ag')).access_token
+                                          
                                         })}
 
                                     }
@@ -141,7 +143,7 @@ public httpRequestPhoto(email, elId='photo'){
 
     var request = new XMLHttpRequest;
     request.open("GET", "https://graph.microsoft.com/beta/users/" + email + "/Photos/48X48/$value");
-    request.setRequestHeader("Authorization", "Bearer " + token_graph_ms.access_token);
+    request.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('code_ms')).access_token);
     request.responseType = "blob";
     request.onload = function () {
         if (request.readyState === 4 && request.status === 200) {
@@ -166,7 +168,7 @@ public httpRequestPhoto(email, elId='photo'){
   getAvatar(email:string): Observable<Blob> {
                     return this.http.get<Blob>( "https://graph.microsoft.com/beta/users/" + email + "/Photos/48X48/$value",
                                                 { headers: new HttpHeaders({            
-                                                                            'Authorization':'Bearer ' + token_graph_ms.access_token,
+                                                                            'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token,
                                                                             'responseType': 'blob'      
                                                                             })
                                                 }
@@ -176,7 +178,7 @@ public httpRequestPhoto(email, elId='photo'){
   getAvatar_test1(email:string) {
     return this.http.get( "https://graph.microsoft.com/beta/users/" + email + "/Photos/48X48/$value",
                                 { headers: new HttpHeaders({            
-                                                            'Authorization':'Bearer ' + token_graph_ms.access_token,
+                                                            'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token,
                                                             'responseType': 'blob'      
                                                             })
                                 }
@@ -210,7 +212,7 @@ public httpRequestPhoto(email, elId='photo'){
       let headers = new HttpHeaders();
 
       ////let token = this.authService.getCurrentToken();
-      let token = { access_token: token_graph_ms.access_token }; // Get this from your auth service.
+      let token = { access_token: JSON.parse(localStorage.getItem('code_ms')).access_token }; // Get this from your auth service.
       if (token) {
           headers.set('Authorization', 'Bearer ' + token.access_token);
       }
