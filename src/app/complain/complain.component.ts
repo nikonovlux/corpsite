@@ -4,11 +4,11 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import {HttpClient, HttpHeaders } from '@angular/common/http';
 
-import {EmployeeService } from '../employee.service';
+import {EmployeeService} from '../employee.service';
 
 import {SelectItem} from 'primeng/api';
 
-import {form_graph_azure_interface, form_graph_ms_interface, form_graph_ms, urls} from 'src/environments/environment.prod';
+import {form_graph_azure_interface, form_graph_ms_interface, urls} from 'src/environments/environment.prod';
 
 
 
@@ -303,7 +303,7 @@ onSendClick(){
 
   ngOnInit(){
 
-    let server2: string = "https://graph.microsoft.com/beta/me";
+    let server2: string = urls.me;
     this.employeeService.getJson(server2,'ms').subscribe(
                                                           data=>{
                                                             //this.my_iframe_ms.nativeElement.src = 'assets/html/response_ok.html';

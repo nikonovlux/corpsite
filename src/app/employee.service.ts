@@ -6,7 +6,7 @@ import { Employee } from './employee';
 import { EMPLOYEES } from './lst-employees';
 import { MessageService } from './message.service';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 
 import { MsAdalAngular6Service } from 'microsoft-adal-angular6';
 
@@ -17,9 +17,11 @@ import {adal_config} from 'src/environments/environment.prod';
 @Injectable({ providedIn: 'root' })
 export class EmployeeService {
  
-  constructor(private messageService: MessageService,
+  constructor(
+              private messageService: MessageService,
               private adalSvc: MsAdalAngular6Service,
-              private http: HttpClient) { }
+              private http: HttpClient
+              ) { }
 
   getTopDepsData(){
                 this.http.get('./assets/json/top_deps.json').subscribe(
@@ -71,9 +73,38 @@ export class EmployeeService {
                                                 'Content-Type': 'application/x-www-form-urlencoded'
                                                 //'Accept':'application/json;odata=context',
                                                 //'Authorization':'Bearer test123token' //+ token_graph_ms.access_token
-                                                //  'Authorization':'Bearer ' + localStorage.getItem('adal.idtoken') ? localStorage.getItem('adal.idtoken') : ''                       
+                                                //'Authorization':'Bearer ' + localStorage.getItem('adal.idtoken') ? localStorage.getItem('adal.idtoken') : ''                       
                                               })
                     };              
+
+
+
+  //: Observable<Object>
+
+  getJsonCurry = (method) => { 
+    return (httpOptions) => { 
+      if(method == 'Get'){
+        return (url) => { 
+          return this.http.get(url, httpOptions) 
+        }
+      }
+      // else if(method =='Post'){
+      //   return (url,body) => { 
+      //     return this.http.post(url, body, httpOptions) 
+      //   }
+      // }
+    }
+  }
+                                                   
+
+
+
+  curryGetMs  = this.getJsonCurry('Get')({
+                                          headers: new HttpHeaders(localStorage.getItem('code_ms')?{
+                                                                    'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
+                                                                  }:{}),
+                                          responseType: 'json'
+                                        })
 
 
   getJson(userUrl, token='ag', method='get', body:any='', httpOptions=this.httpOptions_env  ) {
@@ -107,7 +138,6 @@ export class EmployeeService {
                               return this.http.get(userUrl, httpOptions );
                           }
           //return answer;
-
 
 }
 

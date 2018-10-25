@@ -1,11 +1,11 @@
-import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
-import {EmployeeService } from '../employee.service';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {EmployeeService} from '../employee.service';
 
 import {MessageService} from 'primeng/api';
 
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
-
+import {urls} from 'src/environments/environment.prod';
 
 
 @Component({
@@ -16,9 +16,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class CirculationComponent implements OnInit {
 
-
-
-  server2: string = "https://graph.microsoft.com/beta/me";
+  server2: string = urls.me;
 
 
   constructor(
@@ -76,11 +74,27 @@ export class CirculationComponent implements OnInit {
           alert(JSON.stringify(error))
         }        
       );
+      
     //console.log("clicked2");   
   }
 
   ngOnInit() {
   
+
+    const isKitten = cat => cat.months > 5
+    
+    const getKittenNames = cats =>
+      cats.filter(isKitten)
+          .map(cat => cat.months*2)
+    const cats = [
+      { name: 'Mojo',    months: 84 },
+      { name: 'Mao-Mao', months: 34 },
+      { name: 'Waffles', months: 4 },
+      { name: 'Pickles', months: 6 }
+    ]
+    const kittens = getKittenNames(cats)
+    console.log(kittens)
+
   
   }
 }

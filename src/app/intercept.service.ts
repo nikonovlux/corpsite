@@ -26,7 +26,7 @@ export class AppIntercept implements HttpInterceptor {
 
         });
     
-    console.log('intercept detected - ' + req.url);
+    //console.log('intercept detected - ' + req.url);
     return next.handle(authReq);
       
     

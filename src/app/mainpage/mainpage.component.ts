@@ -5,6 +5,8 @@ import {MenuItem} from 'primeng/api';
 import {MsAdalAngular6Service} from 'microsoft-adal-angular6';
 import {EmployeeService} from '../employee.service';
 
+
+
 @Component({
   selector: 'app-mainpage',
   templateUrl: './mainpage.component.html',
@@ -24,27 +26,36 @@ export class MainpageComponent implements OnInit {
 
   title = 'App';
 
+  
+
+
   top_menu: MenuItem[];
-  files_menu: MenuItem[];
+  files_menu: MenuItem[] = [
+    {label: 'Дайджесты'},
+    {label: 'Инструкции'},       
+    {label: 'Приказы'},
+    {label: 'Files'},
+    {label: 'Emails'},
+    {label: 'Events'},
+    {label: 'Lists'},
+    {label: 'SharedWithMe'},
+    {label: 'Projects'},
+    {label: 'Itilium'}
+  ];
+
+
   activeItem: MenuItem;
  
-  email_last_value:any
-  email_last:any
+  
+  email_last:any 
+  files_last:any  
+  events_last:any  
+  lists_last:any  
+  shared_last:any  
+  digests_last:any  
+  projects_last:any
 
-  files_last_value:any
-  files_last:any
 
-  events_last_value:any
-  events_last:any
-
-  lists_last_value:any
-  lists_last:any
-
-  shared_last_value:any
-  shared_last:any
-
-  digests_last_value:any
-  digests_last:any
  
   @ViewChild('menuItems') menu: MenuItem[];
   
@@ -54,17 +65,39 @@ export class MainpageComponent implements OnInit {
     // console.log(this.menu['activeItem']);
   }
 
+
+
+  getItilium(){
+  
+    if(this.adal.isAuthenticated){         
+         this.employeeService.curryGetMs('https://graph.microsoft.com/beta/sites/interoko.sharepoint.com/drives').subscribe(data=>{ });         
+    }    
+  }
+
+
+
+  getProjects(){
+  
+    if(this.adal.isAuthenticated){
+      this.employeeService.getJson( 'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com/drives/b!aFuLuUnUzEe5WPgTFmlSwZhUjDmMlABPr47g2vTgGKZrTGtYNiaqQY9n94r2IARu/items/017KN5K5HB33MFTROIRBDZ3OMFPSPHDPK2',
+                                    'ms').subscribe(data =>
+                                                          {                                                            
+                                                            this.projects_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0] 
+                                                          },
+                                                    error=> console.log(error)
+                                                    )      
+    }    
+  }
+
   getDigests(){
 
     //  https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/teams/test:/lists/complains/items?expand=fields(select=id,Title,department)
   
     if(this.adal.isAuthenticated){
-      this.employeeService.getJson( 'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/hr:/drives',
+      this.employeeService.getJson( 'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com/drives/b!1mjONJ3kvky_8BBGX7upYCT6qJM_j_tAnVNx0AV94ZkqYvu5A5SOQYZm2xC0x5yN/items/01QGYUVUC3F2DLXNHX4BB3FOCPOXYQSTXA/children',
                                     'ms').subscribe(data =>
-                                                          {
-                                                            this.digests_last_value = data;
-                                                            this.digests_last = this.digests_last_value.value
-                                                            console.log(this.digests_last);
+                                                          {        
+                                                            this.digests_last = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
                                                           },
                                                     error=> console.log(error)
                                                     )      
@@ -73,17 +106,13 @@ export class MainpageComponent implements OnInit {
 
 
 
-  getShared(){
-
-    
+  getShared(){    
   
     if(this.adal.isAuthenticated){
       this.employeeService.getJson( 'https://graph.microsoft.com/beta/me/drive/sharedWithMe',
                                     'ms').subscribe(data =>
-                                                          {
-                                                            this.shared_last_value = data;
-                                                            this.shared_last = this.shared_last_value.value
-                                                            console.log(this.shared_last);
+                                                          {                                                           
+                                                            this.shared_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]                                                               
                                                           },
                                                     error=> console.log(error)
                                                     )      
@@ -99,10 +128,8 @@ getLists(){
   if(this.adal.isAuthenticated){
     this.employeeService.getJson( 'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/teams/test:/lists/complains/items?expand=fields(select=id,Title,department)',
                                   'ms').subscribe(data =>
-                                                        {
-                                                          this.lists_last_value = data;
-                                                          this.lists_last = this.lists_last_value.value
-                                                          console.log(this.lists_last);
+                                                        {                                                          
+                                                          this.lists_last = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
                                                         },
                                                   error=> console.log(error)
                                                   )    
@@ -113,9 +140,7 @@ getEvents(){
   if(this.adal.isAuthenticated){
     this.employeeService.getJson('https://graph.microsoft.com/beta/me/events?$select=subject,bodyPreview,organizer,attendees,start,end,location','ms').subscribe(data =>
                                                                                                               {
-                                                                                                                this.events_last_value = data;
-                                                                                                                this.events_last = this.events_last_value.value
-                                                                                                                console.log(this.events_last);
+                                                                                                                this.events_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
                                                                                                               },
                                                                                                         error=> console.log(error)
     )    
@@ -125,10 +150,8 @@ getEvents(){
 getOneDrive(){
   if(this.adal.isAuthenticated){
     this.employeeService.getJson('https://graph.microsoft.com/beta/me/drive/root/children?$top=25','ms').subscribe(data =>
-                                                                                                              {
-                                                                                                                this.files_last_value = data;
-                                                                                                                this.files_last = this.files_last_value.value
-                                                                                                                console.log(this.files_last);
+                                                                                                              {                                                                                                                
+                                                                                                                this.files_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
                                                                                                               },
                                                                                                         error=> console.log(error)
     )    
@@ -138,10 +161,8 @@ getOneDrive(){
 getMail(){
   if(this.adal.isAuthenticated){
     this.employeeService.getJson('https://graph.microsoft.com/beta/me/messages?$top=25','ms').subscribe(data =>
-                                                                                                              {
-                                                                                                                this.email_last_value = data;
-                                                                                                                this.email_last = this.email_last_value.value
-                                                                                                                console.log(this.email_last);
+                                                                                                              {                                                                                                               
+                                                                                                                this.email_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
                                                                                                               },
                                                                                                         error=> console.log(error)
     )    
@@ -152,6 +173,8 @@ getMail(){
 
   ngOnInit(){    
 
+    this.getItilium()
+
     this.getDigests()
     this.getShared()
     this.getLists()
@@ -160,16 +183,7 @@ getMail(){
     this.getOneDrive()
 
 
-    this.files_menu = [
-      {label: 'Дайджесты'},
-      {label: 'Инструкции'},       
-      {label: 'Приказы'},
-      {label: 'Files'},
-      {label: 'Emails'},
-      {label: 'Events'},
-      {label: 'Lists'},
-      {label: 'SharedWithMe'}
-    ];
+
 
     this.activeItem = this.files_menu[0];
 

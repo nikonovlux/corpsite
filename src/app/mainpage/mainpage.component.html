@@ -17,12 +17,11 @@
 
 <!-- digests -->
 <div *ngIf="activeItem == files_menu[0]">
-        <br/>
-        <table>           
+        <br/>        
+        <br/>  
+        <table>   
+                
             <tr *ngFor="let digest of digests_last">
-                <td>
-                        {{ digest.id }}
-                </td>
                 <td>
                         {{ digest.name }}
                 </td> 
@@ -160,6 +159,26 @@
                 </td> 
                 <td>
                         {{ share.size }} bytes
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+        <!-- projects -->
+<div *ngIf="activeItem == files_menu[8]">
+        <br/>
+        <table>
+            
+            <tr *ngFor="let project of projects_last">
+                <td>
+                       
+                </td>
+                <td>
+                       
+                </td> 
+                <td>
+                       
                 </td>
             </tr>
         </table>

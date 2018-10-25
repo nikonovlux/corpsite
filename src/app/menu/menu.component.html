@@ -5,7 +5,7 @@
         <a><img id="photo" [src]="user_photo_src" /></a>
     </td>
 <td>
-<a id="fname" > {{fname}} </a>
+<a id="fname" translate>{{fname}}</a>
 </td>
 <td>
 <a ><p-button *ngIf ="is2Loggedin"  class="butOut" (click)="userLogout()" label="{{'LOGOUT' | translate}}" icon="pi pi-sign-out"></p-button></a>
@@ -16,7 +16,7 @@
 </tr>
 </table>
 
-<ul>    
+<ul>
     <li routerLink="/mainpage" routerLinkActive="active" translate>Main</li>
     <li routerLink="/news" routerLinkActive="active" translate>News</li>
     <!-- <li routerLink="/docs" routerLinkActive="active" translate>Documents</li>     -->
@@ -26,19 +26,12 @@
     <li routerLink="/feedback" routerLinkActive="active" translate>Feedback</li>
     <!-- <li routerLink="/complain" routerLinkActive="active" translate>Complain</li> -->
     <li routerLink="/circulation" routerLinkActive="active" translate>Circulation</li>
-</ul> 
-
+</ul>
 
 <table>
 <tr>
-<td>
-<a style="margin-left: 3em;" >
- 
-</a>
-</td>
-<td>
-
-</td>
+<td><a style="margin-left: 3em;" ></a></td>
+<td></td>
 </tr>
 </table>
 

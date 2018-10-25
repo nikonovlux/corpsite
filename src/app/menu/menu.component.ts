@@ -68,14 +68,13 @@ export class MenuComponent implements OnInit {
   user_photo_src  = '../assets/img/logo_ico.png';
 
   ngOnInit() {
-      
-
-
-    
+          
     if (this.adalSvc.userInfo){
 
-      let server2: string = "https://graph.microsoft.com/beta/me";
-      this.employeeService.getJson(server2,'ms').subscribe(
+      console.log('---adalUser---');
+      console.log(this.adalSvc.userInfo);
+      
+      this.employeeService.getJson(urls.me,'ms').subscribe(
                                                             data=>{},
                                                             error=>{
   
@@ -91,15 +90,14 @@ export class MenuComponent implements OnInit {
                                                             )
 
       this.fname = this.adalSvc.userInfo.profile['family_name'];
-      console.log('adalUser-----------------');
-      console.log(this.adalSvc.userInfo);
+
       this.is2Loggedin = true;
       this.employeeService.httpRequestPhoto(this.adalSvc.userInfo.profile.upn, 'photo');  
       document.getElementById('fname').removeAttribute('href');    
     } else {
-      this.fname = "Access restricted"; 
+      this.fname = "LOG IN"; 
       this.is2Loggedin = false;
-      //document.getElementById('fname').setAttribute('href','https://corpsite.opticalhouse.com.ua:4200/structure');
+      document.getElementById('fname').setAttribute('href','https://corpsite.opticalhouse.com.ua:4200/structure');
       
     }
   }

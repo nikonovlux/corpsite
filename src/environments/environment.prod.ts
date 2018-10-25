@@ -27,7 +27,8 @@ export const urls =
   'token':'https://login.microsoftonline.com/common/oauth2/v2.0/token',
   "url_auth_implicit":"https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/v2.0/authorize?client_id=8557d00c-fd93-4abc-b48a-66eea1f08ed7&response_type=token&redirect_uri=https://corpsite.opticalhouse.com.ua:4200/mainpage&scope=openid&response_mode=fragment&state=31254&nonce=135790",
   "url_auth_code":"https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/v2.0/authorize?client_id=8557d00c-fd93-4abc-b48a-66eea1f08ed7&response_mode=fragment&response_type=id_token&redirect_uri=https://corpsite.opticalhouse.com.ua:4200/mainpage&scope=User.Read",
-  "url":"https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/v2.0/token"
+  "url":"https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/v2.0/token",
+  "me":"https://graph.microsoft.com/beta/me"
 }
 
 export const adal_config =
