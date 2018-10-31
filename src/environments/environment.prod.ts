@@ -31,13 +31,30 @@ export const urls =
   "me":"https://graph.microsoft.com/beta/me"
 }
 
+//  https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/teams/test:/lists/complains/items?expand=fields(select=id,Title,department)
+//  https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/teams/test:/lists/complains/items?expand=fields(select=id,Title,department)
+
+export const urls_graph = 
+{
+  'drives':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com/drives',
+  'projects':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com/drives/b!aFuLuUnUzEe5WPgTFmlSwZhUjDmMlABPr47g2vTgGKZrTGtYNiaqQY9n94r2IARu/items/017KN5K5HB33MFTROIRBDZ3OMFPSPHDPK2',
+  'digests': 'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com/drives/b!1mjONJ3kvky_8BBGX7upYCT6qJM_j_tAnVNx0AV94ZkqYvu5A5SOQYZm2xC0x5yN/items/01QGYUVUC3F2DLXNHX4BB3FOCPOXYQSTXA/children',
+  'sharedwithme':'https://graph.microsoft.com/beta/me/drive/sharedWithMe',
+  'getlists':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/teams/test:/lists/complains/items?expand=fields(select=id,Title,department)',
+  'getevents':'https://graph.microsoft.com/beta/me/events?$select=subject,bodyPreview,organizer,attendees,start,end,location',
+  'getonedrive':'https://graph.microsoft.com/beta/me/drive/root/children',
+  'getmail':'https://graph.microsoft.com/beta/me/messages?$top=25',
+  'getonedrivesearch':"https://graph.microsoft.com/v1.0/me/drive/root/search(q='')",
+  'usersearch':"https://graph.microsoft.com/v1.0/users?$filter=startswith(givenName,'ENTER_SURName')"
+}
+
 export const adal_config =
 { 
   scope:  'openid',
   response_mode:  'fragment',
   state:  '31254',
   nonce:  '135790',
-  response_type:  'token', 
+  response_type:  'token',
   resource: 'https://graph.microsoft.com/',
   tenant: 'interoko.onmicrosoft.com',  // common for all ms accounts
   clientId: '8557d00c-fd93-4abc-b48a-66eea1f08ed7',                                  
@@ -57,7 +74,7 @@ export const adal_config_original =
 {  
   resource: "https://graph.microsoft.com/",
   tenant: 'interoko.onmicrosoft.com',  // comon for all ms accounts
-  clientId: '8557d00c-fd93-4abc-b48a-66eea1f08ed7',                                  
+  clientId: '8557d00c-fd93-4abc-b48a-66eea1f08ed7',
   redirectUri: "https://corpsite.opticalhouse.com.ua:4200/mainpage",
   endpoints: {
               //"graph_azure": "https://graph.windows.net/interoko.onmicrosoft.com/",

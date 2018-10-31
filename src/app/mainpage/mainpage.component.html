@@ -1,7 +1,10 @@
 <h2 translate>Main</h2>
 <br />
 
+<p-contextMenu #cm [model]="contextmenu_items"></p-contextMenu>
+
 <p-tabMenu #menuItems [model]="files_menu" [activeItem]="activeItem" (click)="activateMenu()"></p-tabMenu>
+
 
 <!-- digests -->
 <!-- <div *ngIf="activeItem == files_menu[0]">
@@ -16,7 +19,7 @@
 </div> -->
 
 <!-- digests -->
-<div *ngIf="activeItem == files_menu[0]">
+<div *ngIf="activeItem == files_menu[4]">
         <br/>        
         <br/>  
         <table>   
@@ -33,7 +36,7 @@
     </div>
 
 <!-- isntructions -->
-<div *ngIf="activeItem == files_menu[1]">
+<div *ngIf="activeItem == files_menu[3]">
     <table>
         <tr>
             <td>
@@ -58,9 +61,22 @@
     </table>
 </div>
 <!-- files -->
-<div *ngIf="activeItem == files_menu[3]">
+<div *ngIf="activeItem == files_menu[1]">
         <br/>
-        <table>
+        
+        <p-tree [contextMenu]="cm" [value]="onedrivefolders"  selectionMode="single" [(selection)]="selectedFile"  layout="horizontal">
+                <ng-template let-node  pTemplate="folder">
+                        <a title="{{node.id}}"  >{{  node.label  }}</a>
+                        <!-- <a>{{   node.id }}</a> -->
+                    </ng-template>
+                    <ng-template let-node  pTemplate="file">
+                            <a title="{{node.id}}" >{{  node.label  }}</a>
+                            <!-- <a>{{   node.id }}</a> -->
+                    </ng-template>                    
+        </p-tree>
+
+
+        <!-- <table>
             <td>Modified</td><td>Name</td><td>Size</td>
             <tr *ngFor="let file of files_last">
                 <td>
@@ -73,10 +89,10 @@
                         {{ file.size }} bytes
                 </td>
             </tr>
-        </table>
+        </table> -->
     </div>
 <!-- email -->
-<div *ngIf="activeItem == files_menu[4]">
+<!-- <div *ngIf="activeItem == files_menu[4]">
     <br/>
     <table>
  <tr>
@@ -96,6 +112,80 @@
             </td>
         </tr>
     </table>
+</div> -->
+<br/>
+<div *ngIf="activeItem == files_menu[0]">
+<!--   [resizableColumns]="true" columnResizeMode="expand"  -->
+<br/>
+
+
+
+<p-button pbutton label="Obs" (click)="onObsClick()"></p-button><a>{{time  }}</a>    <!--  | date'HH:mm:ss'       | date:'HH:mm:ss'        -->
+
+    <p-table #dttb [columns]="table_email_cols" [value]="email_last"  dataKey="receivedDateTime" [responsive]="true" [paginator]="true" [rows]="20" >    <!--  [globalFilterFields]="['sender.receivedDateTime']['sender.emailAddress.name']"  -->
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th style="width: 3em" pResizableColumn ></th>
+                <th *ngFor="let col of table_email_cols" pResizableColumn >
+                    {{col.header}}
+                </th>            
+            </tr>
+            <tr>
+                <th></th>                           
+                <th *ngFor="let col of table_email_cols" [ngSwitch]="col.field" >                        
+                    <p-calendar *ngSwitchCase="'receivedDateTime'"    [(ngModel)]="calendar_date" dateFormat="dd.mm.yy" (onClearClick)="dttb.filter('', col.field, 'contains' )" showIcon="true" showButtonBar="true" (onSelect)="onDateSelect()" [disabledDates]="invalidDates" [readonlyInput]="true" placeholder="Select date" ></p-calendar>
+                    <!-- <p-dropdown *ngSwitchCase="'sender'" [options]="senders"  [style]="{'width':'100%'}" (onChange)="dttb.filter($event.value, ['sender.emailAddress.name'], 'equals')"></p-dropdown> "dttb.filterGlobal($event.value, 'contains')" -->
+                </th>                
+            </tr>                        
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-expanded="expanded" let-columns="table_email_cols">
+            <tr>
+                <td>
+                    <a href="#" [pRowToggler]="rowData">
+                        <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
+                    </a>
+                </td>
+                <td *ngFor="let col of table_email_cols" [ngSwitch]="col.field" class="ui-resizable-column"  >
+                        <a *ngSwitchCase="'receivedDateTime'" >{{rowData[col.field] | date:'dd.MM.yyyy HH:mm' }}</a>   <!-- | date:'dd.MM.yyyy HH:mm'  -->
+                        <a *ngSwitchCase="'sender'" >{{rowData[col.field].emailAddress.name}}</a>
+                        <a *ngSwitchDefault >{{rowData[col.field]}}</a>                    
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-rowData let-columns="table_email_cols">
+            <tr>
+                <td [attr.colspan]="table_email_cols.length + 1">
+                    <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
+                        <div class="ui-g-12 ui-md-3" style="text-align:center">
+                            <img [attr.alt]="rowData.subject" src="assets/img/logo_ico.png">
+                        </div>
+                        <div class="ui-g-12 ui-md-9">
+                            <div class="ui-g">
+                                <div class="ui-g-12">
+                                        <b>Body:</b> {{rowData.bodyPreview}}
+                                </div>                                 
+                                <div class="ui-g-12">
+                                    <b>Date:</b> {{rowData.receivedDateTime}}
+                                </div>
+                                <div class="ui-g-12">
+                                    <b>Sender:</b> {{rowData.sender.emailAddress.name}}
+                                </div>
+                                <div class="ui-g-12">
+                                    <b>Subject:</b> {{rowData.subject}}
+                                </div> 
+                                <div class="ui-g-12">
+                                        <b>Email:</b>{{rowData.sender.emailAddress.address}}
+                                </div> 
+                                
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+
 </div>
 
 <!-- events -->

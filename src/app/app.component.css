@@ -8,6 +8,17 @@
   .logo {display:none;}
 }
 
+.ui-button {
+  background: #1e961d;
+}
+
+#btn_menu {
+  margin-top: 5em;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  position: fixed;
+}
 
 .hamburger {
     display: block;

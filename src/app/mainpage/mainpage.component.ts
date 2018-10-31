@@ -1,11 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import {MenuItem} from 'primeng/api';
 
 import {MsAdalAngular6Service} from 'microsoft-adal-angular6';
 import {EmployeeService} from '../employee.service';
 
+import {urls_graph} from 'src/environments/environment.prod'
+import { TreeTable } from 'primeng/primeng';
+import {TreeNode} from 'primeng/api';
 
+
+import { Observable } from "rxjs"
+import { delay } from "rxjs/operators";
 
 @Component({
   selector: 'app-mainpage',
@@ -21,21 +27,24 @@ export class MainpageComponent implements OnInit {
 
   }
 
+  @ViewChild('dttb') private dttb:any;
+  
+  title = 'App';
+  
+
+  time
+
   digests;
   orders;
 
-  title = 'App';
-
-  
-
-
   top_menu: MenuItem[];
+
   files_menu: MenuItem[] = [
-    {label: 'Дайджесты'},
-    {label: 'Инструкции'},       
-    {label: 'Приказы'},
-    {label: 'Files'},
     {label: 'Emails'},
+    {label: 'OneDrive'},         
+    {label: 'Приказы'},
+    {label: 'Инструкции'},  
+    {label: 'Дайджесты'},
     {label: 'Events'},
     {label: 'Lists'},
     {label: 'SharedWithMe'},
@@ -55,7 +64,40 @@ export class MainpageComponent implements OnInit {
   digests_last:any  
   projects_last:any
 
+  senders:any =
+  [
+    { label: 'All Users' }
+  ]
 
+  table_email_cols = [
+    { field: 'receivedDateTime', header: 'Date' },
+    { field: 'sender', header: 'Sender' },
+    { field: 'subject', header: 'Subject' }
+];
+
+  calendar_date: Date;
+
+  invalidDates: Array<Date>
+
+  month_now = new Date().getMonth();
+  year_now = new Date().getFullYear();
+
+  onedrivefolders:TreeNode[] = [{label:'MyOneDrive', children:[]}];
+
+  selectedFile: TreeNode;
+
+  contextmenu_items: MenuItem[];
+
+
+  getDaysInMonth(month, year) {
+    var date = new Date(year, month, 1);
+    var days: Array<Date> = [];
+    while (date.getMonth() === month) {
+       days.push(new Date(date));
+       date.setDate(date.getDate() + 1);
+    }
+    return days;
+}
  
   @ViewChild('menuItems') menu: MenuItem[];
   
@@ -70,7 +112,7 @@ export class MainpageComponent implements OnInit {
   getItilium(){
   
     if(this.adal.isAuthenticated){         
-         this.employeeService.curryGetMs('https://graph.microsoft.com/beta/sites/interoko.sharepoint.com/drives').subscribe(data=>{ });         
+         this.employeeService.curryGetMs(urls_graph.drives).subscribe(data=>{ });         
     }    
   }
 
@@ -79,7 +121,7 @@ export class MainpageComponent implements OnInit {
   getProjects(){
   
     if(this.adal.isAuthenticated){
-      this.employeeService.getJson( 'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com/drives/b!aFuLuUnUzEe5WPgTFmlSwZhUjDmMlABPr47g2vTgGKZrTGtYNiaqQY9n94r2IARu/items/017KN5K5HB33MFTROIRBDZ3OMFPSPHDPK2',
+      this.employeeService.getJson( urls_graph.projects,
                                     'ms').subscribe(data =>
                                                           {                                                            
                                                             this.projects_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0] 
@@ -90,11 +132,9 @@ export class MainpageComponent implements OnInit {
   }
 
   getDigests(){
-
-    //  https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/teams/test:/lists/complains/items?expand=fields(select=id,Title,department)
   
     if(this.adal.isAuthenticated){
-      this.employeeService.getJson( 'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com/drives/b!1mjONJ3kvky_8BBGX7upYCT6qJM_j_tAnVNx0AV94ZkqYvu5A5SOQYZm2xC0x5yN/items/01QGYUVUC3F2DLXNHX4BB3FOCPOXYQSTXA/children',
+      this.employeeService.getJson(urls_graph.digests,
                                     'ms').subscribe(data =>
                                                           {        
                                                             this.digests_last = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
@@ -109,7 +149,7 @@ export class MainpageComponent implements OnInit {
   getShared(){    
   
     if(this.adal.isAuthenticated){
-      this.employeeService.getJson( 'https://graph.microsoft.com/beta/me/drive/sharedWithMe',
+      this.employeeService.getJson(urls_graph.sharedwithme,
                                     'ms').subscribe(data =>
                                                           {                                                           
                                                             this.shared_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]                                                               
@@ -123,10 +163,8 @@ export class MainpageComponent implements OnInit {
 
 getLists(){
 
-  //  https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/teams/test:/lists/complains/items?expand=fields(select=id,Title,department)
-
   if(this.adal.isAuthenticated){
-    this.employeeService.getJson( 'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/teams/test:/lists/complains/items?expand=fields(select=id,Title,department)',
+    this.employeeService.getJson( urls_graph.getlists,
                                   'ms').subscribe(data =>
                                                         {                                                          
                                                           this.lists_last = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
@@ -138,42 +176,193 @@ getLists(){
 
 getEvents(){
   if(this.adal.isAuthenticated){
-    this.employeeService.getJson('https://graph.microsoft.com/beta/me/events?$select=subject,bodyPreview,organizer,attendees,start,end,location','ms').subscribe(data =>
-                                                                                                              {
-                                                                                                                this.events_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
-                                                                                                              },
-                                                                                                        error=> console.log(error)
+    this.employeeService.getJson(urls_graph.getevents,
+                                'ms').subscribe(data =>
+                                                      {
+                                                        this.events_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
+                                                      },
+                                                error=> console.log(error)
     )    
   }
 }
 
+
+getNestedChildren(arr, parent) {
+  var out = []
+  for(var i in arr) {
+      if(arr[i].parent == parent) {
+          var children = this.getNestedChildren(arr, arr[i].id)
+
+          if(children.length) {
+              arr[i].children = children
+          }
+          out.push(arr[i])
+      }
+  }
+  return out
+}
+
+
 getOneDrive(){
   if(this.adal.isAuthenticated){
-    this.employeeService.getJson('https://graph.microsoft.com/beta/me/drive/root/children?$top=25','ms').subscribe(data =>
-                                                                                                              {                                                                                                                
-                                                                                                                this.files_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
-                                                                                                              },
-                                                                                                        error=> console.log(error)
-    )    
-  }  
+    this.employeeService.getJson(urls_graph.getonedrivesearch,
+                                'ms').subscribe(data =>
+                                                      {
+                                                        this.files_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]                                                        
+                                                        console.log('--- OneDrive ---')
+                                                        console.log(this.files_last)
+
+
+                                                        let tmp1 = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
+
+                                                        let oddata = tmp1
+                                                                        .map(item => {  return {  label:item.name,
+                                                                                          icon: item.file ? 'pi pi-file'  : 'pi pi-check',
+                                                                                          data:{  id:item.id,
+                                                                                                  parent:item.parentReference.id},
+                                                                                          id:item.id,
+                                                                                          parent:item.parentReference.id,
+                                                                                          type: item.file ? 'file': 'folder'}})
+                                                        
+                                                        oddata = this.getNestedChildren(oddata, '01PDBPZ3F6Y2GOVW7725BZO354PWSELRRZ')
+
+                                                        console.log('---oddata----')
+                                                        console.log(oddata)
+
+                                                        this.onedrivefolders[0].children=oddata
+                                                        console.log(this.onedrivefolders);
+
+                                                      },
+                                                error=> console.log(error)
+    )
+  }
 }
 
 getMail(){
   if(this.adal.isAuthenticated){
-    this.employeeService.getJson('https://graph.microsoft.com/beta/me/messages?$top=25','ms').subscribe(data =>
-                                                                                                              {                                                                                                               
-                                                                                                                this.email_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
-                                                                                                              },
-                                                                                                        error=> console.log(error)
+    this.employeeService.getJson(urls_graph.getmail,
+                                'ms').subscribe(data =>
+                                                      {                                                                                                               
+                                                        const tmp = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0] 
+                                                        this.email_last = tmp                                                                                                                 
+                                                        console.log('-----emails-----')
+                                                        console.log(this.email_last)
+
+                                                        //  let tmp0 = tmp.map(key => new Date(key.receivedDateTime)).map(key=>key.substring(8,10)).filter(this.onlyUnique).sort())
+
+                                                        let valid_days: number[] = tmp.map(item => new Date(item.receivedDateTime)).map(item => item.getDate())
+                                                        this.invalidDates = this.invalidDates.filter( item => !valid_days.includes(item.getDate()) )
+                                                        //console.log(valid_days)    
+
+
+
+                                                        let senders2push = tmp.map(email => {
+                                                                                              return {label: email.sender.emailAddress.name,
+                                                                                                      value: email.sender.emailAddress.name  }})
+                                                                              //.filter(this.onlyUnique) 
+
+                                                        //console.log('---senders2push---')
+                                                        //console.log(senders2push)                     
+                                                        
+                                                        let senders2push1 = this.getUniqueValuesOfKey(senders2push,'label')
+                                                                                                                    .map(item => { return { label:item, value:item} })
+                                                                                                                          .sort((a, b) => {
+                                                                                                                                            return a['value'] - b['value'];
+                                                                                                                                          })
+
+                                                        //console.log('---senders2push1---')
+                                                        //console.log(senders2push1)
+                                                        
+
+                                                        senders2push1.forEach(element => {
+                                                          this.senders.push(element)
+                                                        });
+                                                        //console.log('-----senders-----')
+                                                        //console.log(this.senders)
+                                                      },
+                                                error=> console.log(error)
     )    
   }
 }
 
+onDateSelect(){
+  //"2018-10-29T08:00:34Z"
+  //let date  
+  //date = this.calendar_date.toISOString().substring(0, 10)
+  let date = new Date(this.calendar_date.getTime() - (this.calendar_date.getTimezoneOffset() * 60000)).toISOString().substring(0, 10);
+  console.log(date)
+  this.dttb.filter(date, 'receivedDateTime', 'contains')
+
+}
+
+// .sort()                                                                                                                                      
+// .reduce((a, x) => a.includes(x) ? a : [...a, x], [])
+// .filter((x, i, a) => !i || x != a[i-1])
+getUniqueValuesOfKey(array, key){
+
+  return array.reduce(  function(carry, item){                                            
+                                            if(item[key] && !~carry.indexOf(item[key])) carry.push(item[key]);
+                                            return carry;
+                                            },
+                        []
+                        );
+}
+
+onlyUnique(value, index, self) { 
+    //console.log(value)
+    return self.indexOf(value) === index;
+}
+
+arr = ['obladi','oblada']
+
+onObsClick(){
+
+  this.arr.push('hey')
+  console.log(this.arr)
+  
+}
+
+  ngOnInit(){ 
+
+    let obs = new Observable(  (observer) => {
+     
+      let i = 0
+      setInterval(  () => {
+                            observer.next( this.arr[i] );
+                            i < this.arr.length ? i++ : i=0;  },
+                  2000  )
 
 
-  ngOnInit(){    
+    }
+    );
 
-    this.getItilium()
+    obs.subscribe(
+      element => {
+        this.time = element
+        console.log(element)
+      }
+
+    )
+
+
+
+
+
+    
+    this.contextmenu_items = [
+      { label: 'Send link by email', icon: 'pi pi-cloud', command: (event) => { 
+                                                                        console.log(this.selectedFile);                                                                        
+                                                                        alert(this.selectedFile.label);}
+        },
+      { label: 'Share', icon: 'pi pi-calendar', command: (event) => { 
+                                                                    console.log(this.selectedFile); 
+                                                                    alert(this.selectedFile.label)}
+        }
+    ];
+
+
+    this.invalidDates = this.getDaysInMonth(new Date().getMonth(), new Date().getFullYear())
+
 
     this.getDigests()
     this.getShared()
@@ -183,10 +372,7 @@ getMail(){
     this.getOneDrive()
 
 
-
-
     this.activeItem = this.files_menu[0];
-
     
     this.top_menu = [
       { label: 'Информация',  icon: ' pi pi-bar-chart'},
@@ -263,3 +449,57 @@ getMail(){
     //   }
 
     // }
+
+
+                                                            // let folders = tmp1
+                                                        //           .filter(item => item.folder)
+                                                        //           .map(item => {
+                                                        //                 return {
+                                                        //                   label:item.name,
+                                                        //                   data: {id:item.id, size:item.size },
+                                                        //                   icon: "pi pi-check",
+                                                        //                   expandedIcon: "pi pi-check",
+                                                        //                   collapsedIcon: "pi pi-check",
+                                                        //                   type:'folder',
+                                                        //                   children: []
+                                                        //                 }
+                                                        //               })
+                                                        // //console.log('--- folders ---')
+                                                        // //console.log(folders)
+
+                                                        // folders.forEach(element => {
+                                                        //   //this.onedrivefolders[0].children.push(element)
+                                                        //   this.onedrivefolders.push(element)
+                                                        // });
+
+                                                        // let files = tmp1
+                                                        //           .filter(item => item.file)
+                                                        //           .map(item => {
+                                                        //                 return {
+                                                        //                   label:item.name,
+                                                        //                   data:{id:item.id, size:item.size },
+                                                        //                   icon: "pi pi-file",
+                                                        //                   type:'file'
+                                                        //                 }
+                                                        //               })
+                                                        // //console.log('--- files ---')
+                                                        // //console.log(files)
+
+                                                        // files.forEach(element => {
+                                                        //   //this.onedrivefolders[0].children.push(element)
+                                                        //   this.onedrivefolders.push(element)
+                                                        // });
+
+                                                        
+                                                        // //console.log(this.onedrivefolders)
+
+
+
+                                                            //  setInterval(  () => observer.next(  new Date()), 5000  )   // .toString()   // works!
+    //  observer.complete;  
+
+    // ()=>{
+    //   for(let i = 0; i < arr.length; i++){
+    //     i==3 ? i=0 : i=i   
+    //     return arr[i]
+    //   }} 

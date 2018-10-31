@@ -109,7 +109,7 @@ export class EmployeeService {
 
   getJson(userUrl, token='ag', method='get', body:any='', httpOptions=this.httpOptions_env  ) {
                                           
-                        //let answer;
+                       
                           if(method == 'post'){    
 
                               return this.http.post(userUrl, body, httpOptions );
@@ -137,21 +137,17 @@ export class EmployeeService {
                               }
                               return this.http.get(userUrl, httpOptions );
                           }
-          //return answer;
-
 }
 
 
 public httpRequestPhoto(email, elId='photo'){
           var request = new XMLHttpRequest;
           request.open("GET", "https://graph.microsoft.com/beta/users/" + email + "/Photos/48X48/$value");
-          if(localStorage.getItem('code_ms')){
-          //if(localStorage.getItem('adal.idtoken')){
+          if(localStorage.getItem('code_ms')){          
             request.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('code_ms')).access_token);
-            //request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('adal.idtoken'));
           }else{
             if(localStorage.getItem('adal.idtoken')){
-              request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('adal.idtoken'));
+              request.setRequestHeader("Authorization", "Bearer 123");
             }
           }
           request.responseType = "blob";

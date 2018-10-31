@@ -65,6 +65,8 @@ import {ToastModule} from 'primeng/toast';
 
 import {TableModule} from 'primeng/table';
 
+import {CalendarModule} from 'primeng/calendar';
+
 import {ContextMenuModule} from 'primeng/contextmenu';
 
 import {DialogModule} from 'primeng/dialog';
@@ -72,6 +74,9 @@ import {DialogModule} from 'primeng/dialog';
 import {TabMenuModule} from 'primeng/tabmenu';
 
 import {MegaMenuModule} from 'primeng/megamenu';
+
+import {SidebarModule} from 'primeng/sidebar';
+
 
 import { NgxSoapModule } from 'ngx-soap';
 
@@ -90,6 +95,12 @@ import { SptestComponent } from './sptest/sptest.component';
 import { CirculationComponent } from './circulation/circulation.component';
 
 
+
+import { PipeUkrDateComponent } from './ukrdate'
+import { PowerPipe } from './powerpipe'
+import { UniquePipe } from './uniquepipe'
+
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -100,6 +111,9 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
+    UniquePipe,
+    PowerPipe,
+    PipeUkrDateComponent,
     AppComponent,
     TopmenuComponent,
     FooterComponent,
@@ -129,6 +143,8 @@ export function HttpLoaderFactory(http: HttpClient) {
           deps: [HttpClient]
       }
   }),
+    SidebarModule,
+    CalendarModule,
     MegaMenuModule,
     TabMenuModule,
     DialogModule,

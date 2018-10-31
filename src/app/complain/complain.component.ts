@@ -80,11 +80,11 @@ export class ComplainComponent implements OnInit {
     {label:'grant_type', text:'authorization_code', encode: false },
     {label:'resource', text:'00000003-0000-0ff1-ce00-000000000000/interoko.sharepoint.com@435a4f02-f6b2-4248-9a5c-0f355179c0df', encode: true },
     {label:'client_id', text:'fd315e4f-1c14-4e84-bea3-04425b868ada@435a4f02-f6b2-4248-9a5c-0f355179c0df', encode: false },
-    {label:'client_secret', text:'XHl75+tk0MLOfuwa5akG3Wb5pXsJ99nIftEVnCg7YD4=', encode: false },
+    {label:'client_secret', text:'', encode: false },
     {label:'code', text:'PAQABAAIAAADXzZ3ifr-GRbDT45zNSEFECwl9sSV0ME_DFwo4-sfV_D-iE74MeQtI6ac8mb0TEm2CWWAqm-1EDQjfeVUzlWknUmdRvWnzoXgDtafFfM3ANMelnUgAoi3AOhyFsFtH2S2fHo6mWw54aI5lX6pQUsVJ6fYvRzwiSVklPDzfrQcRyUOa-v6FAkJcp0ZM9IH6aS6w5F9BmXifQ4DP6HUwLAnTeLo_LsHLyyKqfyGuiqnXb6xpzNLqwlTPWhQ8-MlkfTltgh_Cse9EzPsSO_daOcMXqR0KW9OrnKd184hk2NUcA9xUxJ5E9LHWBq9dO7AzrYGRt5XgK2o9T08XbLpLD2aOxUNzyLI3Y8tLKyb920zoCSAA', encode: false },
     //{label:'redirect_uri', text:'http://192.168.220.146:4200', encode: true  },
     //{label:'client_id', text:'8557d00c-fd93-4abc-b48a-66eea1f08ed7@435a4f02-f6b2-4248-9a5c-0f355179c0df', encode: false },
-    //{label:'client_secret', text:'scbyGFBW6489$raxQGQ8][@', encode: false },
+    //{label:'client_secret', text:'', encode: false },
     {label:'redirect_uri', text:'https://corpsite.opticalhouse.com.ua:4200', encode: true  }
 ];
 
@@ -282,9 +282,9 @@ onSendClick(){
     onMsClick(){
 
       let payload = {
-                        client_id: 'CLIENT_ID_HERE',
+                        client_id: 'id',
                         scope: 'https://graph.microsoft.com/',
-                        client_secret: 'CLIENT_SECRET_HERE',
+                        client_secret: 'secret',
                         grant_type: 'client_credentials'
                     };
 

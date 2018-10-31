@@ -1,6 +1,26 @@
 h2{
     margin-left: 25%;
   }
-.maintext{
-    margin-left: 3em; 
-  }
+
+.ui-widget input{
+  max-width: 90px
+
+}
+
+::ng-deep .ui-sidebar-close {
+  float: left;
+}
+
+::ng-deep .ui-calendar {
+  float: left;
+  
+}
+
+::ng-deep .ui-calendar input{
+ 
+  width: 6em;
+}
+
+::ng-deep table {
+  table-layout: auto !important;
+}

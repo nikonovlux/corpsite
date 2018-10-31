@@ -3,9 +3,9 @@ import {EmployeeService} from '../employee.service';
 
 import {MessageService} from 'primeng/api';
 
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+//import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
-import {urls} from 'src/environments/environment.prod';
+import {urls, urls_graph} from 'src/environments/environment.prod';
 
 
 @Component({
@@ -16,12 +16,11 @@ import {urls} from 'src/environments/environment.prod';
 })
 export class CirculationComponent implements OnInit {
 
-  server2: string = urls.me;
-
+  server2: string = urls_graph.usersearch;
 
   constructor(
       //private el: ElementRef,
-      private domSanitizer: DomSanitizer,
+      //private domSanitizer: DomSanitizer,
       private employeeService:  EmployeeService,
       private messageService: MessageService
     ) { }
@@ -78,23 +77,5 @@ export class CirculationComponent implements OnInit {
     //console.log("clicked2");   
   }
 
-  ngOnInit() {
-  
-
-    const isKitten = cat => cat.months > 5
-    
-    const getKittenNames = cats =>
-      cats.filter(isKitten)
-          .map(cat => cat.months*2)
-    const cats = [
-      { name: 'Mojo',    months: 84 },
-      { name: 'Mao-Mao', months: 34 },
-      { name: 'Waffles', months: 4 },
-      { name: 'Pickles', months: 6 }
-    ]
-    const kittens = getKittenNames(cats)
-    console.log(kittens)
-
-  
-  }
+  ngOnInit() {}
 }

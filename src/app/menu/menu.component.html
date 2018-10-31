@@ -1,9 +1,8 @@
 <table>
 <tr>
-    <td>
-            <!-- <a href="https://corpsite.opticalhouse.com.ua:4200/complain"><img id="photo" [src]="user_photo_src" /></a> -->
-        <a><img id="photo" [src]="user_photo_src" /></a>
-    </td>
+<td>
+<a><img id="photo" [src]="user_photo_src" /></a>
+</td>
 <td>
 <a id="fname" translate>{{fname}}</a>
 </td>
@@ -11,10 +10,15 @@
 <a ><p-button *ngIf ="is2Loggedin"  class="butOut" (click)="userLogout()" label="{{'LOGOUT' | translate}}" icon="pi pi-sign-out"></p-button></a>
 </td>
 <td>
-<p-dropdown   [options]="langs" [(ngModel)]="selectedlang" name="langs" (ngModelChange)="onLangChange()"  ></p-dropdown> 
+<p-dropdown [options]="langs" [(ngModel)]="selectedlang" name="langs" (ngModelChange)="onLangChange()"  ></p-dropdown> 
 </td>
 </tr>
+<tr><td></td></tr>
 </table>
+
+
+
+
 
 <ul>
     <li routerLink="/mainpage" routerLinkActive="active" translate>Main</li>
@@ -35,6 +39,6 @@
 </tr>
 </table>
 
-
+<!-- <a href="https://corpsite.opticalhouse.com.ua:4200/complain"><img id="photo" [src]="user_photo_src" /></a> -->
 
 

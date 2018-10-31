@@ -1,13 +1,28 @@
-
 <button class="menubtn" (click)="toggleMenu()" class="hamburger">
   <span class={{spanclass}}>toggle menu</span>
 </button>
+<button id="btn_menu" type="text" (click)="display = true" pButton icon="pi pi-home" label="Menu"></button>
 
-<div >  
-  <a (click)="toggleMenuOut()" class='logo' id='logo' ><img src="assets/img/logo_name.png"/></a>
-  <!-- <app-topmenu></app-topmenu> -->
-  <app-menu [@slideInOut]="menuState"></app-menu>
-  <router-outlet></router-outlet>
-  <app-footer></app-footer>
+
+<!--     slide  start   -->
+<p-sidebar [(visible)]="display">
+
+<a>{{  8 | powerpipe: 7 }}</a>
+
+<ukrdate></ukrdate>
+
+</p-sidebar>
+<!--     slide  end   -->
+
+
+
+<div>
+    <a (click)="toggleMenuOut()" class='logo' id='logo' ><img src="assets/img/logo_name.png"/></a>
+    <!-- <app-topmenu></app-topmenu> -->
+    <app-menu [@slideInOut]="menuState"></app-menu>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+    
 </div>
+
 

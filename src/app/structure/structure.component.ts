@@ -127,7 +127,8 @@ export class StructureComponent implements OnInit {
   onDepClick(indx_l): void {  
     //this.filter = "$filter=accountEnabled eq true";
     this.selecteddep = indx_l;  
-    this.filter =  "$filter=Department eq '" + indx_l + "' and accountEnabled eq true"
+    //this.filter =  "$filter=Department eq '" + indx_l + "' and accountEnabled eq true"
+    this.filter =  "$filter=startswith(Department, '" + indx_l + "')  and accountEnabled eq true"   // Department eq '" + indx_l + "' or 
     //this.filter = "$filter=accountEnabled eq true and startswith(department, '" + indx_l + "')";
     this.full_url = '' + this.url + this.call  + '&' + this.select + '&' + this.filter + '&' + this.top //+ this.api_version;
     console.log(this.full_url);

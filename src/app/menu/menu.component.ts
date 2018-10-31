@@ -13,6 +13,7 @@ import {MessageService} from 'primeng/api';
 import {urls} from 'src/environments/environment.prod';
 
 
+
 @Component({
   providers: [MessageService],
   selector: 'app-menu',
@@ -37,6 +38,7 @@ export class MenuComponent implements OnInit {
 
   selectedlang = JSON.parse(localStorage.getItem("lang"));
 
+  datetime = Date.now();
   
 
   onLangChange(){
