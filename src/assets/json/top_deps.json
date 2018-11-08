@@ -1,24 +1,32 @@
-{"top_deps":[
-			{"label":"Розничный департамент",			
+{"top_deps":[ 
+			{"label":"Розничный департамент", 			
 			"type": "department",
 			"styleClass": "department-cfo",
-			"head":{"title":"Коммерческий директор", "type": "person", "styleClass": "ui-person", "label":"Короленко О.В."},
+			"data":{"head":{"title":"Коммерческий директор", "type": "person", "styleClass": "ui-person", "name":"Короленко О.В."}},
 			"children":[
-				{ "label":"Коммерческий департамент",
+				{ "label":"Коммерческий Департамент",
 					"type": "department",
 					"styleClass": "department-cfo",
-					"head":{"title":"Коммерческий директор", "type": "person", "styleClass": "ui-person", "label":"Масалаб В.Б."},
+					"data":{"head":{"title":"Коммерческий директор", "type": "person", "styleClass": "ui-person", "name":"Масалаб В.Б."}},
 					"children":[
-							{ "label":"Коммерческий отдел", "children":[]	}
+							{ "label":"Комерческий отдел Аналитики"},
+							{ "label":"Комерческий отдел Линза"},
+							{ "label":"Коммерческий отдел"},
+							{ "label":"Коммерческий отдел ККЗ"},
+							{ "label":"Коммерческий отдел Линза"},
+							{ "label":"Коммерческий отдел Солнце"},
+							{ "label":"Коммерческий отдел"},
+							{ "label":"Коммерческий отдел Солнце (Львов)"},
+							{ "label":"Торговый отдел"}
 							]
 						},
-					{ "label":"Отдел учета торговых операций", "children":[]	},
+					{ "label":"Отдел учета торговых операций"	},
 					{ "label":"Департамент развития",
 						"type": "department",
 						"styleClass": "department-cfo",
-						"head":{"title":"Ведущий специалист отдела развития", "type": "person", "styleClass": "ui-person", "label":"Овчаренко Дмитрий Викторович"},
+						"data":{"head":{"title":"Ведущий специалист отдела развития", "type": "person", "styleClass": "ui-person", "name":"Овчаренко Дмитрий Викторович"}},
 						"children":[
-								{ "label":"Отдел Развития", "children":[]	}
+								{ "label":"Отдел Развития"	}
 								]
 							}
 					]
@@ -26,41 +34,137 @@
 			{"label":"Финансовый департамент",
 			"type": "department",
 			"styleClass": "department-cfo",
-			"head":{"title":"Финансовый Директор", "type": "person", "styleClass": "ui-person", "label":"Цымбалюк Яна Павловна"},
+			"data":{"head":{"title":"Финансовый Директор", "type": "person", "styleClass": "ui-person", "name":"Цымбалюк Яна Павловна"}},
 			"children":[
-					{ "label":"Финансово - экономический отдел", "children":[]	},
-					{ "label":"Бухгалтерия", "children":[]	},
-					{ "label":"Планово-экономический отдел", "children":[]	},
-					{ "label":"Отдел методологии и контроля", "children":[]	},
-					{ "label":"Отдел казначейства", "children":[]	}
+					{ "label":"Финансово - экономический отдел"	},
+					{ "label":"Бухгалтерия"	},
+					{ "label":"Планово-экономический отдел"	},
+					{ "label":"Отдел методологии и контроля"	},
+					{ "label":"Отдел казначейства"	},
+					{ "label":"Отдел учета и отчетности"	},
+					{ "label":"ФЕО"	},
+					{ "label":"Финансово - экономический отдел"	},
+					{ "label":"ФЭО"	}
 					]
 				},
 			{"label":"Юридический департамент",
 			"type": "department",
 			"styleClass": "department-cfo",
-			"head":{"title":"Директор юридического департамента", "type": "person", "styleClass": "ui-person", "label":"Олиферчук Сергей Алексеевич"},
+			"data":{"head":{"title":"Директор юридического департамента", "type": "person", "styleClass": "ui-person", "name":"Олиферчук Сергей Алексеевич"}},
 			"children":[
-					{ "label":"Юридический отдел", "children":[]	}
+					{ "label":"Юридический отдел"	}
 					]
 				},
 			{"label":"Департамент управления персоналом",
 			"type": "department",
 			"styleClass": "department-cfo",
-			"head":{"title":"Директор департамента управления персоналом", "type": "person", "styleClass": "ui-person", "label":"Дмитриева Мирослава"},
+			"data":{"head":{"title":"Директор департамента управления персоналом", "type": "person", "styleClass": "ui-person", "name":"Дмитриева М.В."}},
 			"children":[
-					{ "label":"Отдел кадров", "children":[]	}
+					{ "label":"Отдел кадров"	},
+					{ "label":"Отдел Мотивации и Расчетов с Сотрудниками"	},
+					{ "label":"Отдел обучения и развития персонала"	},
+					{ "label":"Отдел по охране труда"	},
+					{ "label":"Отдел по работе с персоналом"	}
 					]
 				},
 			{"label":"Департамент информационных технологий",
 			"type": "department",
 			"styleClass": "department-cfo",
-			"head":{"title":"Директор департамента информационных технологий", "type": "person", "styleClass": "ui-person", "label":"Ещенко Сергей Александрович"},
+			"data":{"head":{"title":"Директор департамента информационных технологий", "type": "person", "styleClass": "ui-person", "name":"Ещенко С."}},
 			"children":[
-					{ "label":"Служба технической поддержки", "children":[]	},
-					{ "label":"Отдел разработки", "children":[]	},
-					{ "label":"Управления проектами", "children":[]	},
-					{ "label":"Отдел системного администрирования", "children":[]	}
+					{ "label":"Служба технической поддержки"	},
+					{ "label":"Отдел разработки"	},
+					{ "label":"Управления проектами"	},
+					{ "label":"Отдел системного администрирования"	},
+					{ "label":"Отдел информационной безопасности"	}
 					]
-				}
-			]
+			},
+			{"label":"Департамент маркетинга",
+			"type": "department",
+			"styleClass": "department-cfo",
+			"data":{"head":{"title":"Стратегический маркетолог", "type": "person", "styleClass": "ui-person", "name":"Шелухин А."}},
+			"children":[
+					{ "label":"Отдел маркетинга","data":{"head":{"name":"Ваньчук В.С.","title":"Директор по маркетингу"}}	},
+					{ "label":"Интернет магазин","data":{"head":{"name":"Куликов В.С.","title":"Директор по E-commerce"}}	},
+					{ "label":"Отдел рекламы","data":{"head":{"name":"","title":""}}	}
+					]
+				},
+			{"label":"Департамент дистрибьюции и опта",
+				"type": "department",
+				"styleClass": "department-cfo",
+				"data":{"head":{"title":"Директор дистрибьюции и опта", "type": "person", "styleClass": "ui-person", "name":"Фишич А."}},
+				"children":[
+						{ "label":"Департамент продаж","data":{"head":{"name":"Ивашко В.","title":"Руководитель продаж Очки"}}	},
+						{ "label":"Департамент продаж ККЗ","data":{"head":{"name":"Ремнев Р.","title":"Руководитель продаж ККЗ"}}	},
+						{ "label":"Закупки"},
+						{ "label":"Отдел ПО и СО"	}	
+						]
+					},
+			{"label":"Департамент логистики, ВЭД и АХО",
+				"type": "department",
+				"styleClass": "department-cfo",
+				"data":{"head":{"title":"Директор дистрибьюции и опта", "type": "person", "styleClass": "ui-person", "name":"Швейкин П."}},
+				"children":[
+						{ "label":"Департамент логистики","data":{"head":{"name":"Лищук О.В.","title":"Руководитель ЛЦ"}}	},
+						{ "label":"Отдел ВЭД","data":{"head":{"name":"Приходченко Г.","title":"Руководитель ВЭД"}}	},
+						{ "label":"АХО","data":{"head":{"name":"Мхитарян К.","title":"Старший специалист АХО"}}	},
+						{ "label":"Склад","data":{"head":{"name":"","title":""}}	},
+						{ "label":"Таможенно-брокерский отдел"	},
+						{ "label":"Таможенно-броккерский отдел"	},
+						{ "label":"Транспортный отдел"	},
+						{ "label":"Упаковочный отдел"	},
+						{ "label":"Административно-хозяйственный отдел"	},
+						{ "label":"Курьерская служба"	}
+						]
+			},	
+			{"label":"Служба безопасности",
+				"type": "department",
+				"styleClass": "department-cfo",
+				"data":{"head":{"title":"Руководитель службы безопасности", "type": "person", "styleClass": "ui-person", "name":"Лиска О.П"}},
+				"children":[
+						{ "label":"Служба охраны","data":{"head":{"name":"Тураев И.","title":"Руководитель службы охраны"}}	}
+						]
+			},
+			{"label":"Контрольно-ревизионная служба",
+				"type": "department",
+				"styleClass": "department-cfo",
+				"data":{"head":{"title":"Руководитель службы", "type": "person", "styleClass": "ui-person", "name":"Кузьмина А."}},
+				"children":[
+					{ "label":"КРО"}
+					]				
+			},
+			{"label":"Филиалы",
+				"type": "department",
+				"styleClass": "department-cfo",
+				"data":{"head":{"title":"Руководитель службы", "type": "person", "styleClass": "ui-person", "name":""}},
+				"children":[
+					{ "label":"Гранд"},
+					{ "label":"ГрандРитейл"},
+					{ "label":"ЛинзЭкспресс"}
+					]			
+			},
+			{"label":"Регионы",
+				"type": "department",
+				"styleClass": "department-cfo",
+				"data":{"head":{"title":"Руководитель службы", "type": "person", "styleClass": "ui-person", "name":""}},
+				"children":[
+					{ "label":"Днепр"},
+					{ "label":"Донецк"},
+					{ "label":"КиРС"},
+					{ "label":"Львов"},
+					{ "label":"Одесса"},
+					{ "label":"Харьков"}
+					]			
+			},
+			{"label":"Служба Глав Врача",
+				"type": "department",
+				"styleClass": "department-cfo",
+				"data":{"head":{"title":"Руководитель службы", "type": "person", "styleClass": "ui-person", "name":""}},
+				"children":[
+					{ "label":"Гранд"}
+					]			
+			}																
+					
+					
+		]
 }

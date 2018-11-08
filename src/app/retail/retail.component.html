@@ -1,2 +1,44 @@
 <h2 translate>Retail</h2>
-<p-gmap [options]="options" [style]="{'width':'100%','height':'720px'}" ></p-gmap>
+
+
+
+<div class="right_block">
+    <p-table #dt [value]="optics" selectionMode="single" [tableStyle]="{'table-layout':'auto'}" [(selection)]="selectedOptic" (onRowSelect)="onRowSelect($event)" dataKey="address" [globalFilterFields]="['address']" class="fixed_header">
+        <ng-template pTemplate="caption">
+            <div style="text-align: justify" class="fixed">
+                <th>
+                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" pInputText size="50" placeholder="{{'SEARCH' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">  <!-- value to children -->
+                </th>     
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" >
+            <tr>
+                <th>City</th>
+                <th>Address</th>
+                <th>Phone</th>  
+                <th>Schedule</th>      
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-optic>
+            <tr [pSelectableRow]="optic">
+                <td>{{optic.city}}</td>
+                <td>{{optic.address}}</td>
+                <td>{{optic.mobile}}</td>
+                <td>{{optic.schedule}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div style="text-align: left">
+                Selected Optic: {{  selectedOptic ? selectedOptic.address + ' - ' + selectedOptic.mobile + ' - ' + selectedOptic.schedule : 'none' }}
+            </div>
+        </ng-template>
+
+    </p-table>
+</div>
+
+<div class="gmap">
+    <p-gmap [options]="options" [overlays]="overlays" [style]="{'width':'100%','height':'720px'}" (onMapReady)="mapReady($event)" ></p-gmap>
+    <!-- <button (click)="onParseClick()" pButton type="button">Parse</button> -->
+</div>
+

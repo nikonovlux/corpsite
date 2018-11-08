@@ -1,23 +1,50 @@
-<button class="menubtn" (click)="toggleMenu()" class="hamburger">
-  <span class={{spanclass}}>toggle menu</span>
+<button (click)="display = true" class="hamburger leftm" >    <!--  class="menubtn"  -->
+  <span class={{spanclass}}>toggle lmenu</span>
 </button>
-<button id="btn_menu" type="text" (click)="display = true" pButton icon="pi pi-home" label="Menu"></button>
+
+<button (click)="toggleMenu()" class="hamburger rightm">
+    <span class={{spanclass}}>toggle rmenu</span>
+  </button>
+
+<!-- <button id="btn_menu" type="text" (click)="display = true" pButton icon="pi pi-home" label="Menu"></button> -->
 
 
 <!--     slide  start   -->
 <p-sidebar [(visible)]="display">
+    <br/>
+  <h3 class="lmenu">Menu</h3>  
+  
+  <!-- <table>
+    <tr><ukrdate></ukrdate></tr>
+    <tr><a>{{  8 | powerpipe: 7 }}</a></tr> | date'HH:mm:ss'       | date:'HH:mm:ss'  
+    <tr><p-button pbutton label="Obs" (click)="onObsClick()"></p-button></tr>
+    <tr></tr>
+    <tr><a>{{  time  }}</a></tr>
+  </table> -->
 
-<a>{{  8 | powerpipe: 7 }}</a>
+  <div class="list">
+      <ul>
+          <li routerLink="/mainpage" routerLinkActive="active" translate>Main</li>
+          <li routerLink="/news" routerLinkActive="active" translate>News</li>
+          <!-- <li routerLink="/docs" routerLinkActive="active" translate>Documents</li>     -->
+          <li routerLink="/retail" routerLinkActive="active" translate>Retail</li>
+          <li routerLink="/structure" routerLinkActive="active" translate>Structure</li>
+          <!-- <li routerLink="/employees" routerLinkActive="active" translate>Employees</li> -->
+          <li routerLink="/feedback" routerLinkActive="active" translate>Feedback</li>
+          <!-- <li routerLink="/complain" routerLinkActive="active" translate>Complain</li> -->
+          <li routerLink="/circulation" routerLinkActive="active" translate>Circulation</li>
+      </ul>
+      </div>
 
-<ukrdate></ukrdate>
 
+  
 </p-sidebar>
 <!--     slide  end   -->
 
 
 
 <div>
-    <a (click)="toggleMenuOut()" class='logo' id='logo' ><img src="assets/img/logo_name.png"/></a>
+    <a id='logo' (click)="toggleMenuOut()" class='logo' ><img src="assets/img/logo_name.png"/></a>
     <!-- <app-topmenu></app-topmenu> -->
     <app-menu [@slideInOut]="menuState"></app-menu>
     <router-outlet></router-outlet>

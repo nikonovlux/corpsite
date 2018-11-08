@@ -3,12 +3,24 @@ h2{
   }
 
 p-dropdown, button{
-    margin-left: 5%;  
-  }
 
-#textb {
-    margin-left: 5%;
-    width: 450px;
-    height: 150px;
-  }
+  margin-left: 5%;  
+  margin-right: 5%;
+  
+}
+
+.dep{  
+  max-width: 50%;
+}
+
+.topic{  
+  min-width: calc(50%-5px);
+}
+
+.textb {  
+  margin-left: 5%;
+  width: 90%;
+  height: 8em;
+  max-width: 1200px;
+}
 

@@ -27,11 +27,18 @@ export class StructureComponent implements OnInit {
     private messageService: MessageService) { }
 
     data1: TreeNode[] = [{"label":"Люксоптика",
-                          "type": 'person',
+                          "type": 'department',                       
                           "styleClass": 'ui-person',
                           "expanded": true,
-                          "children":[{"label":"Административный департамент"}],
-                          "data":{"head":{"title":"Генеральный директор", "label":"Свистун Алексей Николаевич"}}
+                          "children":[{"label":"Административный департамент","type": "department",
+                          "data":{"head":{"title":"Секретарь", "type": "person", "styleClass": "ui-person", "name":""}},
+                          "children":[
+                                      {"label":"Администрация"},
+                                      {"label":"Административно отдел"},
+                                      {"label":"Административный отдел"},
+                                      {"label":"Административный отдел Холдинга ОД"}                                      
+                                    ]}],
+                          "data":{"head":{"title":"Генеральный директор", "name":"Свистун Алексей Николаевич"}}
                           }];
     
     
@@ -113,7 +120,7 @@ export class StructureComponent implements OnInit {
 
       if(typeof event.node.data !== 'undefined'){
           this.messageService.clear();    
-          this.messageService.add({severity: 'success', summary: event.node.data.head.title, detail: event.node.data.head.label || '' + ' ' + event.node.head.name || '' + ' ' + event.node.head.email || ''});
+          this.messageService.add({severity: 'success', summary: event.node.data.head.title, detail: event.node.data.head.name || '' + ' ' + event.node.data.head.name || '' + ' ' + event.node.data.head.email || ''});
           //console.log(event.node.label);
       }
       this.onDepClick(event.node.label);

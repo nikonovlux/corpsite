@@ -5,16 +5,16 @@
 <table>
 <tr>
 <td>
-  <div id='second'>
-    <input [(ngModel)]="server2" name="server_input" id='server_input' placeholder='server2' style='width:800px;' />
+  <div class="circ_area">
+    <textarea pInputTextarea class="address" id='server_input' name="server_input" placeholder="input address" [(ngModel)]="server2" ></textarea>
     <br/>
-    <p-dropdown hidden [options]="topics" [(ngModel)]="topic1" name="ctopic" (ngModelChange)="onTopicChange()" placeholder='Responce' ></p-dropdown>
+    <p-dropdown id="resp" hidden [options]="topics" [(ngModel)]="topic1" name="ctopic" (ngModelChange)="onTopicChange()" placeholder='Responce' ></p-dropdown>
     <br/>
     <button pButton type="button" label="SendQ" class="ui-button-Send" (click)="SendQ()"></button>
     <!-- <button pButton type="button" label="GetUser" class="ui-button-Send" (click)="getUser()"></button> -->
     <br/>
     <br/>
-    <textarea pInputTextarea [(ngModel)]="respo_area" name="respo_area" id="respo_area"></textarea>
+    <textarea pInputTextarea class="respo"  id="respo_area" name="respo_area" [(ngModel)]="respo_area" ></textarea>
   </div>
 </td>
 <td>

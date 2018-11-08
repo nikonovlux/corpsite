@@ -2,18 +2,24 @@ h2{
     margin-left: 25%;
   }
 
-p-dropdown, button{
-    margin-left: 5%;  
-  }
+.circ_area{
+  margin-left: 5%;
+}
 
-#respo_area {
-    margin-left: 5%;
-    width: 1200px;
-    height: 400px;
-  }
+.address {    
+  position: absolute;
+  width:calc(90% - 10px);
+  max-width:1200px;
+  
+  min-height: 2em;
+}
 
-  #server_input {
+.respo {
+  position: absolute;
+  width:calc(90% - 10px);
+  
+  min-height: 10em;
+  max-width:1200px;
+}
 
-    margin-left: 5%;
 
-  }

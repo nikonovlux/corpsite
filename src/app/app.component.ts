@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate} from '@angular/animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {TranslateService} from '@ngx-translate/core';
 
 // import { Router, NavigationEnd } from '@angular/router';
+
+import { Observable } from "rxjs"
 
 
 @Component({
@@ -76,6 +78,37 @@ export class AppComponent {
     this.menuState = 'out';
   }
 
+  arr = ['obladi','oblada']
+  onObsClick(){
+  
+    this.arr.push('hey')
+    console.log(this.arr)
+    
+  }
+
+  time
+  
+ngOnInit(){
+  let obs = new Observable(  (observer) => {
+     
+    let i = 0
+    setInterval(  () => {
+                          observer.next( this.arr[i] );
+                          i < this.arr.length ? i++ : i=0;  },
+                2000  )
+
+
+  }
+  );
+
+  obs.subscribe(
+    element => {
+      this.time = element
+      //console.log(element)
+    }
+
+  )
+}
 
 
 }

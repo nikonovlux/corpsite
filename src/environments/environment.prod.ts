@@ -43,7 +43,7 @@ export const urls_graph =
   'getlists':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/teams/test:/lists/complains/items?expand=fields(select=id,Title,department)',
   'getevents':'https://graph.microsoft.com/beta/me/events?$select=subject,bodyPreview,organizer,attendees,start,end,location',
   'getonedrive':'https://graph.microsoft.com/beta/me/drive/root/children',
-  'getmail':'https://graph.microsoft.com/beta/me/messages?$top=25',
+  'getmail':'https://graph.microsoft.com/beta/me/messages?$top=18',
   'getonedrivesearch':"https://graph.microsoft.com/v1.0/me/drive/root/search(q='')",
   'usersearch':"https://graph.microsoft.com/v1.0/users?$filter=startswith(givenName,'ENTER_SURName')"
 }

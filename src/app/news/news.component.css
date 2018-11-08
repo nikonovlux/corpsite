@@ -1,14 +1,44 @@
 h2{
     margin-left: 25%;
-  }
+}
 
+@media (orientation: portrait) {
   #embedded-feed{
+    position: relative;
     margin-left: 2%;
-    width: auto;
-    max-width: 50%;
-    height: 800px;
-    min-width: 400px;
+      
+    
+    min-width: 330px;
+    max-width: calc(95% - 10px);
+
+    
+    min-height: 450px;
+    height:calc(100vh*0.8);
+    
   }
+} 
+  
+@media (orientation: landscape) {
+  #embedded-feed{
+    position: relative;
+    margin-left: 1%;
+  
+    
+    min-width: 350px;      
+    max-width: 1200px;
+    width: calc(100vw*0.95);
+
+    
+    min-height: 300px;
+    max-height: 800px;
+    height:calc(100vh*0.8);
+
+  }
+}
+
+
+
+
 
 
   

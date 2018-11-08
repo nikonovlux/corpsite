@@ -4,16 +4,7 @@
 <p-toast [style]="{marginTop: '80px'}" position="top-left" styleClass="company" ></p-toast>
 <!-- <p-contextMenu #cm [target]="dttt" [model]="items"></p-contextMenu> -->
 
-<div #dttt>
-    <p-contextMenu #cmm [model]="items_tree"></p-contextMenu>
-    <p-tree [value]="data1"  layout="horizontal" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)" [contextMenu]="cmm" >
 
-            <!-- <ng-template let-node  pTemplate="default">
-                <span [(ngModel)]="node.label" type="text" style="width:100%"></span>
-            </ng-template> -->
-
-    </p-tree>
-</div>
 
 
 
@@ -29,9 +20,9 @@
 </div> -->
 
 
-<div #dtt>
+<div #dtt id="main">
     <p-contextMenu #cm [model]="items"></p-contextMenu>
-    <p-table [(ngClass)]="depclass" #dt [columns]="cols" [value]="users1" [paginator]="true" [rows]="13" [tableStyle]="{'table-layout':'auto'}" [(contextMenuSelection)]="selectedUser" [contextMenu]="cm" dataKey="displayName" >   <!--  [tableStyle]="{'table-layout':'auto', 'max-width':'90%'}" -->
+    <p-table [(ngClass)]="depclass" #dt [columns]="cols" [value]="users1" [paginator]="true" [rows]="10" [tableStyle]="{'table-layout':'auto'}" [(contextMenuSelection)]="selectedUser" [contextMenu]="cm" dataKey="displayName" >   <!--  [tableStyle]="{'table-layout':'auto', 'max-width':'90%'}" -->
             <ng-template pTemplate="caption">
                 <div style="text-align: justify">
                     <td>
@@ -106,6 +97,26 @@
                 </tr>
             </ng-template>
     </p-table>
+</div>
+
+
+
+<div #dttt id="structure">
+    <p-contextMenu #cmm [model]="items_tree"></p-contextMenu>
+    <p-tree [value]="data1"  layout="horizontal" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)" [contextMenu]="cmm" >
+        <ng-template let-node  pTemplate="department">
+            <span class="node-label" type="text" style="width:100%">{{node.label}}</span>
+            <br/>
+            <span type="text" style="width:100%">{{node.data.head.title}}</span>
+            <br/>
+            <span type="text" style="width:100%">{{node.data.head.name}}</span>
+        </ng-template>            
+        
+        <ng-template let-node  pTemplate="default">
+            <span class="node-label" type="text" style="width:100%">{{node.label}}</span>
+        </ng-template>
+        
+    </p-tree>
 </div>
 
 <!-- 

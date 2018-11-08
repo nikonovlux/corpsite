@@ -13,7 +13,7 @@
 }
 
 #btn_menu {
-  margin-top: 5em;
+  margin-top: 1em;
   display: block;
   position: relative;
   overflow: hidden;
@@ -21,8 +21,7 @@
 }
 
 .hamburger {
-    display: block;
-    position: relative;
+    display: block;    
     overflow: hidden;
     margin: 0;
     padding: 0;
@@ -34,9 +33,16 @@
     outline: none;
     background: none;
     border: 0;
-
     position: fixed;
-    top: 0;
+    top: 0px;
+  }
+
+  .hamburger.leftm {
+    left: 0px;
+  }
+
+  .hamburger.rightm {
+    right: 0px;
   }
       
   .hamburger span {
@@ -77,4 +83,11 @@
     100%{ transform: rotate(360deg); }  
   }
 
+  ::ng-deep .ui-sidebar-left{
+  background: #089910;
+  color: #ffffff;
+  }
 
+  ::ng-deep .ui-sidebar-left .pi{
+    font-size: 2em;
+  }

@@ -1,6 +1,13 @@
+body { font-size: 62.5%; }
+
 h2{
     margin-left: 25%;
   }
+
+#main {
+
+  max-width: 1200px;
+}  
 
 .ui-widget input{
   max-width: 90px

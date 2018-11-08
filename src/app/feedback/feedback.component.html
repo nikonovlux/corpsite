@@ -2,14 +2,14 @@
 <h2 translate>Feedback</h2>
 <br/>
 <div>
-<p-dropdown [options]="dep1" [(ngModel)]="selectedDep1" name="dep1" (ngModelChange)="onDepChange()" ></p-dropdown>
+<p-dropdown class="dep" name="dep1" [options]="dep1" [(ngModel)]="selectedDep1" (ngModelChange)="onDepChange()" ></p-dropdown>
 <br/>
-<p-dropdown [options]="topic1" [(ngModel)]="selectedTopic1" name="topic" (ngModelChange)="onTopicChange()" ></p-dropdown>
+<p-dropdown class="topic" name="topic" [options]="topic1" [(ngModel)]="selectedTopic1" (ngModelChange)="onTopicChange()" ></p-dropdown>
 <br/>
-<textarea pInputTextarea [(ngModel)]="writtenText1" name="theme2" id="textb"></textarea>
+<textarea class="textb" name="theme2" pInputTextarea [(ngModel)]="writtenText1" ></textarea>
 <br/>
 <a href="mailto:nikonov.m@luxoptica.com.ua?subject={{selectedTopic1.label}}&body={{writtenText1}}" >
-    <button name="sendbutton" pButton type="button" label="Создать заявку по электронной почте" class="ui-button-success"></button>
+<button name="sendbutton" pButton type="button" label="Отправить созданную заявку по электронной почте" class="ui-button-success"></button>
 </a>
 </div>
 </div>

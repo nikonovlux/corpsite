@@ -10,8 +10,10 @@ import { TreeTable } from 'primeng/primeng';
 import {TreeNode} from 'primeng/api';
 
 
-import { Observable } from "rxjs"
-import { delay } from "rxjs/operators";
+
+
+
+
 
 @Component({
   selector: 'app-mainpage',
@@ -32,23 +34,21 @@ export class MainpageComponent implements OnInit {
   title = 'App';
   
 
-  time
-
   digests;
   orders;
 
   top_menu: MenuItem[];
 
   files_menu: MenuItem[] = [
-    {label: 'Emails'},
-    {label: 'OneDrive'},         
+    {label: 'Инструкция SD'},
     {label: 'Приказы'},
-    {label: 'Инструкции'},  
     {label: 'Дайджесты'},
+    {label: 'Emails'},
     {label: 'Events'},
-    {label: 'Lists'},
+    {label: 'Lists'},      // 5
+    {label: 'OneDrive'}, 
     {label: 'SharedWithMe'},
-    {label: 'Projects'},
+    {label: 'Проекты'},
     {label: 'Itilium'}
   ];
 
@@ -217,12 +217,13 @@ getOneDrive(){
 
                                                         let oddata = tmp1
                                                                         .map(item => {  return {  label:item.name,
-                                                                                          icon: item.file ? 'pi pi-file'  : 'pi pi-check',
-                                                                                          data:{  id:item.id,
-                                                                                                  parent:item.parentReference.id},
-                                                                                          id:item.id,
-                                                                                          parent:item.parentReference.id,
-                                                                                          type: item.file ? 'file': 'folder'}})
+                                                                                                  icon: item.file ? 'pi pi-file'  : 'pi pi-check',
+                                                                                                  data:{  id:item.id,
+                                                                                                          parent:item.parentReference.id},
+                                                                                                  id:item.id,
+                                                                                                  parent:item.parentReference.id,
+                                                                                                  size:item.size,
+                                                                                                  type: item.file ? 'file': 'folder'}})
                                                         
                                                         oddata = this.getNestedChildren(oddata, '01PDBPZ3F6Y2GOVW7725BZO354PWSELRRZ')
 
@@ -313,40 +314,9 @@ onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
 
-arr = ['obladi','oblada']
 
-onObsClick(){
-
-  this.arr.push('hey')
-  console.log(this.arr)
-  
-}
 
   ngOnInit(){ 
-
-    let obs = new Observable(  (observer) => {
-     
-      let i = 0
-      setInterval(  () => {
-                            observer.next( this.arr[i] );
-                            i < this.arr.length ? i++ : i=0;  },
-                  2000  )
-
-
-    }
-    );
-
-    obs.subscribe(
-      element => {
-        this.time = element
-        console.log(element)
-      }
-
-    )
-
-
-
-
 
     
     this.contextmenu_items = [

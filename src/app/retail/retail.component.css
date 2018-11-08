@@ -1,3 +1,30 @@
 h2{
     margin-left: 25%;
   }
+
+.gmap{
+    position: relative;
+    max-width:  1000px;
+    max-height: 800px;
+  }
+
+.right_block {
+    display: none;
+  }
+
+@media(min-width: 1040px) {
+  .right_block {
+    display: initial;
+    max-height: 700px;
+      max-width: 800px;
+      position:absolute;
+      left: 1020px;
+      overflow: auto;
+  }
+
+  .fixed_header th, .fixed{
+    position: sticky;
+    border-top: 3px;
+    top: 0;
+  }
+}

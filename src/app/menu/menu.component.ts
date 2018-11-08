@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {MsAdalAngular6Service} from 'microsoft-adal-angular6';
 
@@ -12,7 +12,7 @@ import {MessageService} from 'primeng/api';
 
 import {urls} from 'src/environments/environment.prod';
 
-
+import {AppComponent} from '../app.component'
 
 @Component({
   providers: [MessageService],
@@ -23,6 +23,7 @@ import {urls} from 'src/environments/environment.prod';
 export class MenuComponent implements OnInit {
 
   constructor(
+    private appcomp: AppComponent,
     private messageService: MessageService,
     private employeeService: EmployeeService,
     private adalSvc: MsAdalAngular6Service,
@@ -40,6 +41,9 @@ export class MenuComponent implements OnInit {
 
   datetime = Date.now();
   
+  toggleMenuOut(){
+    this.appcomp.toggleMenuOut();
+  }
 
   onLangChange(){
 
@@ -91,7 +95,7 @@ export class MenuComponent implements OnInit {
                                                                 }
                                                             )
 
-      this.fname = this.adalSvc.userInfo.profile['family_name'];
+      this.fname = this.adalSvc.userInfo.profile['family_name'] + ' ' + this.adalSvc.userInfo.profile['given_name'];
 
       this.is2Loggedin = true;
       this.employeeService.httpRequestPhoto(this.adalSvc.userInfo.profile.upn, 'photo');  

@@ -1,13 +1,50 @@
 h2{
     margin-left: 25%;
   }
+
+#structure{
+    position:relative;
+    max-width: 1000px;
+    max-height: 800px;
+    overflow: auto;
+    }
+
+#main{
+    max-width: 1000px;
+    max-height: 800px;
+    overflow: auto;
+    }
+
+@media(min-width: 1040px) {
+    #main{
+            display: initial;
+            max-height: 800px;
+            max-width: 800px;
+            position:absolute;
+            left: 1020px;
+            overflow: auto;
+            }
+        }
+
+::ng-deep .ui-tree {
+    max-width: 1000px;
+}
+
+::ng-deep .ui-tree .ui-treenode {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 .company.ui-organizationchart .ui-organizationchart-node-content.ui-person {
     padding: 0;
     border: 0 none;
-    max-width: 90%;
-    
+    max-width: 90%;    
 }
 
+.node-label {
+    background-color: #298a0b;
+    color: #ffffff;
+}
 .node-header,.node-content {
     padding: .5em .7em;
 }
