@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import {EmployeeService} from '../employee.service';
 
 import {MessageService} from 'primeng/api';
@@ -6,6 +6,10 @@ import {MessageService} from 'primeng/api';
 //import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 import {urls, urls_graph} from 'src/environments/environment.prod';
+
+import { fromEvent, Observable, Subscription} from 'rxjs'
+
+
 
 
 @Component({
@@ -32,9 +36,11 @@ export class CirculationComponent implements OnInit {
   //data:image/png;base64,
   topics
   topic1
+
+
+
   onTopicChange(){}
   
-
   getPhoto_fail(photo_url){
     //let photo_url = ms_graph_url + 'me/photo/$value';
     this.employeeService.getJson(photo_url)
@@ -77,5 +83,16 @@ export class CirculationComponent implements OnInit {
     //console.log("clicked2");   
   }
 
-  ngOnInit() {}
+  //observable : Observable<Event>;
+  subs: Subscription;
+
+  ngOnInit() {
+    
+    const observable = fromEvent(document, 'click')    
+    this.subs = observable.subscribe(console.log,console.log,alert);
+    
+  }
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
 }

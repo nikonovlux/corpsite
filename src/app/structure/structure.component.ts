@@ -27,9 +27,9 @@ export class StructureComponent implements OnInit {
     private messageService: MessageService) { }
 
     data1: TreeNode[] = [{"label":"Люксоптика",
-                          "type": 'department',                       
-                          "styleClass": 'ui-person',
-                          "expanded": true,
+                          "type": 'department',
+                          "styleClass": 'no-display',
+                          "expanded": true,                          
                           "children":[{"label":"Административный департамент","type": "department",
                           "data":{"head":{"title":"Секретарь", "type": "person", "styleClass": "ui-person", "name":""}},
                           "children":[
@@ -107,11 +107,11 @@ export class StructureComponent implements OnInit {
 
 
     unExpandNode(node:TreeNode){
-      
+      if(node.children){
       node.expanded != true && node.type=='department' ? node.expanded = true : node.expanded = false;
 
       //this.selectedNode_pre.expanded = false;
-  
+      }
     }
 
     onNodeSelect(event) {
@@ -130,6 +130,24 @@ export class StructureComponent implements OnInit {
     }
 
 // beta 2 go   --------   https://graph.microsoft.com/beta/users?$select=givenName,displayName,jobTitle,city,mail,telephoneNumber,phones,accountEnabled,objectType,id&$top=100&$filter=accountEnabled eq true and startswith(department, 'Коммерческий')"
+
+  onChildrenSearch(node: TreeNode[], dep_name = "", arr_all = []){
+  
+        node.forEach( elem => {
+            if(elem.label == dep_name){
+                arr_all = elem.children
+            }
+        })
+
+    return arr_all
+
+  }
+
+  carryFunc(){
+
+    
+  }
+
 
   onDepClick(indx_l): void {  
     //this.filter = "$filter=accountEnabled eq true";
@@ -229,15 +247,23 @@ getAvatar(email){
     if((localStorage.getItem("top_deps"))){ 
 
       //this.data2 = JSON.parse( localStorage.getItem("top_deps")).top_deps;
-      this.data2  = JSON.parse(localStorage.getItem("top_deps")).top_deps;           
+      this.data2  = JSON.parse(localStorage.getItem("top_deps")).top_deps;
+
+      //this.data1 = this.data2;
+
+      // this.data2.forEach(element => {
+      //         this.data1.push(  element );
+      // });
+
       this.data2.forEach(element => {
         this.data1[0].children.push(    element );
       });
-          //console.log(this.data2);
+
+    //  console.log(this.data1);
                      
     }
     
-    console.log(this.data1);
+    //console.log(this.data1);
 
     this.items_tree = [
       { label: 'Send complain', icon: 'pi pi-cloud', command: (event) => { 

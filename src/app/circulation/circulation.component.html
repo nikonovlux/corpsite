@@ -10,7 +10,7 @@
     <br/>
     <p-dropdown id="resp" hidden [options]="topics" [(ngModel)]="topic1" name="ctopic" (ngModelChange)="onTopicChange()" placeholder='Responce' ></p-dropdown>
     <br/>
-    <button pButton type="button" label="SendQ" class="ui-button-Send" (click)="SendQ()"></button>
+    <button #but pButton type="button" label="SendQ" class="ui-button-Send" (click)="SendQ()"></button>
     <!-- <button pButton type="button" label="GetUser" class="ui-button-Send" (click)="getUser()"></button> -->
     <br/>
     <br/>

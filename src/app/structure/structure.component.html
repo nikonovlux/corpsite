@@ -1,7 +1,7 @@
 
 <h2 translate>Structure</h2>
 <br/>
-<p-toast [style]="{marginTop: '80px'}" position="top-left" styleClass="company" ></p-toast>
+<p-toast [style]="{marginTop: '80px'}" position="bottom-right" styleClass="company" ></p-toast>
 <!-- <p-contextMenu #cm [target]="dttt" [model]="items"></p-contextMenu> -->
 
 
@@ -22,7 +22,7 @@
 
 <div #dtt id="main">
     <p-contextMenu #cm [model]="items"></p-contextMenu>
-    <p-table [(ngClass)]="depclass" #dt [columns]="cols" [value]="users1" [paginator]="true" [rows]="10" [tableStyle]="{'table-layout':'auto'}" [(contextMenuSelection)]="selectedUser" [contextMenu]="cm" dataKey="displayName" >   <!--  [tableStyle]="{'table-layout':'auto', 'max-width':'90%'}" -->
+    <p-table [(ngClass)]="depclass" #dt [columns]="cols" [value]="users1" [paginator]="true" [rows]="10" [tableStyle]="{'table-layout':'auto'}" [(contextMenuSelection)]="selectedUser"  dataKey="displayName" >   <!--  [tableStyle]="{'table-layout':'auto', 'max-width':'90%'}"   [contextMenu]="cm" -->
             <ng-template pTemplate="caption">
                 <div style="text-align: justify">
                     <td>
@@ -46,11 +46,11 @@
                     </th>
                 </tr>
                 <tr>
-                    <th *ngFor="let col of columns" [ngSwitch]="col.field">
+                    <!-- <th *ngFor="let col of columns" [ngSwitch]="col.field"> -->
                         <!-- <input *ngSwitchCase="'employee'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, col.filterMatchMode)"> -->
                         <!-- <p-dropdown *ngSwitchCase="'department'" [options]="deps" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value, col.field, 'equals')"></p-dropdown>                 -->
                         <!-- <p-multiSelect *ngSwitchCase="'color'" [options]="colors" defaultLabel="All Colors" (onChange)="dt.filter($event.value, col.field, 'in')"></p-multiSelect> -->
-                    </th>
+                    <!-- </th> -->
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-columns="columns" let-expanded="expanded" >
@@ -99,18 +99,18 @@
     </p-table>
 </div>
 
-
+<!--    [contextMenu]="cmm"   -->
 
 <div #dttt id="structure">
     <p-contextMenu #cmm [model]="items_tree"></p-contextMenu>
-    <p-tree [value]="data1"  layout="horizontal" selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)" [contextMenu]="cmm" >
-        <ng-template let-node  pTemplate="department">
+    <p-tree [value]="data1"  layout="horizontal"  selectionMode="single" [(selection)]="selectedNode" (onNodeSelect)="onNodeSelect($event)"  >
+        <!-- <ng-template let-node  pTemplate="department">
             <span class="node-label" type="text" style="width:100%">{{node.label}}</span>
             <br/>
             <span type="text" style="width:100%">{{node.data.head.title}}</span>
             <br/>
             <span type="text" style="width:100%">{{node.data.head.name}}</span>
-        </ng-template>            
+        </ng-template>             -->
         
         <ng-template let-node  pTemplate="default">
             <span class="node-label" type="text" style="width:100%">{{node.label}}</span>
@@ -119,7 +119,7 @@
     </p-tree>
 </div>
 
-<!-- 
+<!--                    layout="horizontal"
 <table>
 
     <tr>

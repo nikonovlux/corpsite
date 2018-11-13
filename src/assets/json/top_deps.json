@@ -120,10 +120,7 @@
 			{"label":"Служба безопасности",
 				"type": "department",
 				"styleClass": "department-cfo",
-				"data":{"head":{"title":"Руководитель службы безопасности", "type": "person", "styleClass": "ui-person", "name":"Лиска О.П"}},
-				"children":[
-						{ "label":"Служба охраны","data":{"head":{"name":"Тураев И.","title":"Руководитель службы охраны"}}	}
-						]
+				"data":{"head":{"title":"Руководитель службы безопасности", "type": "person", "styleClass": "ui-person", "name":"Лиска О.П"}}
 			},
 			{"label":"Контрольно-ревизионная служба",
 				"type": "department",
@@ -159,10 +156,7 @@
 			{"label":"Служба Глав Врача",
 				"type": "department",
 				"styleClass": "department-cfo",
-				"data":{"head":{"title":"Руководитель службы", "type": "person", "styleClass": "ui-person", "name":""}},
-				"children":[
-					{ "label":"Гранд"}
-					]			
+				"data":{"head":{"title":"Руководитель службы", "type": "person", "styleClass": "ui-person", "name":""}}		
 			}																
 					
 					

@@ -2,6 +2,8 @@ import {Component, OnInit } from '@angular/core';
 
 import {EmployeeService} from '../employee.service';
 
+import { LazyLoadingScriptService } from '../gmap2.directive';
+
 import {} from 'google-maps';
 
 interface Optic {
@@ -29,8 +31,8 @@ protected gmap: any;
 
 protected mapReady(map) {
     this.gmap = map;
-    console.log('---map---')
-    console.log(this.gmap)
+  //  console.log('---map---')
+  //  console.log(this.gmap)
   }
 
 geted
@@ -41,7 +43,8 @@ optics: Optic[];
 selectedOptic: Optic;
 
   constructor( 
-    private http: EmployeeService
+    private http: EmployeeService,
+    private lazyLoadService: LazyLoadingScriptService
   ) { }
 
 onRowSelect(event) { 
@@ -50,38 +53,51 @@ onRowSelect(event) {
   
 }
 
+dataAvailable = false;
+
+
+
 onParseClick(){
-    this.http.getJson("/assets/html/optics.html").subscribe(item => {
-                                                                    this.geted = item;                                                                  
-                                                                    console.log(this.geted)
-                                                                  },
-                                                            error=>{  
-                                                                      this.geted= error.error.text;
-                                                                      let parser=new DOMParser();
-                                                                      let htmlDoc=parser.parseFromString(this.geted, "text/html");  
-                                                                      this.parsed = Array.from(htmlDoc.getElementsByTagName('li'));                                                                                                                                    
-                                                                      this.optics = this.parsed.map(item => {
-                                                                          let info = item.dataset;
-                                                                          info["city"]  = item.dataset.address.indexOf(",") ? item.dataset.address.substring(0, item.dataset.address.indexOf(",") ) : 'None';                                                                                                                                                
-                                                                          return info;
-                                                                      });
-                                                                      //
-                                                                      //       item.dataset.address.substring(0, item.dataset.address.indexOf(",") )
-                                                                      //
-                                                                      console.log(this.optics);
-                                                                      this.optics.forEach(element=>{
-                                                                                                        try{                          
-                                                                                                            this.overlays.push (  new google.maps.Marker({position: { lat: parseFloat(element.gmapsS.toString()),
-                                                                                                                                                                      lng: parseFloat(element.gmapsN.toString())},
-                                                                                                                                                                      icon:"https://corpsite.opticalhouse.com.ua:4200/assets/img/optic_ico_48.png",
-                                                                                                                                                                      title:element.address.toString()})   )    
-                                                                                                        } catch {}
-                                                                                                    });
-                                                            })
+    //let server = 'https://192.168.131.146:4200'
+    this.http.getJson("/assets/html/optics.html")
+                    .subscribe(item => {
+                                      this.geted = item;                                                                  
+                                      console.log(this.geted)
+                                    },
+                              error=>{  
+                                        this.geted= error.error.text;
+                                        let parser=new DOMParser();
+                                        let htmlDoc=parser.parseFromString(this.geted, "text/html");  
+                                        this.parsed = Array.from(htmlDoc.getElementsByTagName('li'));                                                                                                                                    
+                                        this.optics = this.parsed.map(item => {
+                                            let info = item.dataset;
+                                            info["city"]  = item.dataset.address.indexOf(",") ? item.dataset.address.substring(0, item.dataset.address.indexOf(",") ) : 'None';                                                                                                                                                
+                                            return info;
+                                        });
+                                        //
+                                        //       item.dataset.address.substring(0, item.dataset.address.indexOf(",") )
+                                        //
+                                        //console.log(this.optics);
+                                        this.optics.forEach(element=>{
+                                                                    try{                          
+                                                                        this.overlays.push (  new google.maps.Marker({position: { lat: parseFloat(element.gmapsS.toString()),
+                                                                                                                                  lng: parseFloat(element.gmapsN.toString())},
+                                                                                                                                  icon: "/assets/img/optic_ico_48.png",
+                                                                                                                                  title:element.address.toString()})   )    
+                                                                    } catch {}
+                                                                    this.dataAvailable=true;
+                                                                });
+                              })
 }
 
 
 ngOnInit() {
+
+      this.lazyLoadService.loadScript('https://maps.googleapis.com/maps/api/js').subscribe(() => {
+            
+            this.onParseClick();
+
+          });
 
     this.options = {
                     center: {lat: 50.491838, lng: 30.495094},
@@ -110,7 +126,7 @@ ngOnInit() {
   //   this.map.fitBounds(bounds); // Map object used directly
   // }, 1000);
 
-  this.onParseClick();
+  //this.onParseClick();
 
   }
 

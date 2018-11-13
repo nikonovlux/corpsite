@@ -103,6 +103,11 @@ import { PowerPipe } from './powerpipe'
 import { UniquePipe } from './uniquepipe'
 
 
+
+import { LazyLoadingScriptService } from './gmap2.directive';
+
+
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -172,6 +177,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     //MsalGuard,
+    LazyLoadingScriptService,
     AuthenticationGuard,    
     {
       provide: HTTP_INTERCEPTORS,

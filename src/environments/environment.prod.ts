@@ -57,7 +57,7 @@ export const adal_config =
   response_type:  'token',
   resource: 'https://graph.microsoft.com/',
   tenant: 'interoko.onmicrosoft.com',  // common for all ms accounts
-  clientId: '8557d00c-fd93-4abc-b48a-66eea1f08ed7',                                  
+  clientId: '8557d00c-fd93-4abc-b48a-66eea1f08ed7',
   redirectUri: 'https://corpsite.opticalhouse.com.ua:4200/mainpage',
   endpoints: {
               //"graph_azure": "https://graph.windows.net/interoko.onmicrosoft.com/",
@@ -66,7 +66,7 @@ export const adal_config =
               'graphApiUri': 'https://graph.microsoft.com/',
               },
   navigateToLoginRequestUrl: false,
-  postLogoutRedirectUri: 'https://corpsite.opticalhouse.com.ua:4200/mainpage',
+  postLogoutRedirectUri: 'https://corpsite.opticalhouse.com.ua:4200/mainpage', // 'https://192.168.131.146:4200/mainpage',  //
   cacheLocation: 'localStorage' //    '<localStorage / sessionStorage>'
 }
 

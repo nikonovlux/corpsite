@@ -4,26 +4,38 @@ h2{
 
 #structure{
     position:relative;
-    max-width: 1000px;
+    max-width: 800px;
     max-height: 800px;
     overflow: auto;
     }
 
 #main{
-    max-width: 1000px;
+    max-width: 1200px;
     max-height: 800px;
     overflow: auto;
     }
 
-@media(min-width: 1040px) {
+@media(min-width: 840px) {
     #main{
             display: initial;
             max-height: 800px;
-            max-width: 800px;
+            max-width: 1200px;
             position:absolute;
-            left: 1020px;
+            left: 820px;
             overflow: auto;
             }
+        }
+
+::ng-deep .no-display  td.ui-treenode:first {
+    display: none !important;
+}
+
+.noDisplay td[data-rowkey="Люксоптика"]{
+    display: none ! important;
+}
+
+::ng-deep an:first-of-type{
+            width: 1px !important;
         }
 
 ::ng-deep .ui-tree {
