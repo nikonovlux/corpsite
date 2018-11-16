@@ -102,9 +102,12 @@ import { PipeUkrDateComponent } from './ukrdate'
 import { PowerPipe } from './powerpipe'
 import { UniquePipe } from './uniquepipe'
 
-
-
 import { LazyLoadingScriptService } from './gmap2.directive';
+
+
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { InstructionsComponent } from './instructions/instructions.component';
+
 
 
 
@@ -139,7 +142,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ComplainComponent,
     WikipageComponent,
     SptestComponent,
-    CirculationComponent    
+    CirculationComponent,
+    InstructionsComponent    
   ],
   imports: [
     NgxSoapModule,
@@ -150,6 +154,7 @@ export function HttpLoaderFactory(http: HttpClient) {
           deps: [HttpClient]
       }
   }),
+  PdfViewerModule,
     SidebarModule,
     CalendarModule,
     MegaMenuModule,

@@ -4,11 +4,12 @@
 <p-contextMenu #cm [model]="contextmenu_items"></p-contextMenu>
 
 
-<div id="main">
+
 
 
 <p-tabMenu #menuItems [model]="files_menu" [activeItem]="activeItem" (click)="activateMenu()"></p-tabMenu>
 
+<div id="main">
 
 <!-- digests -->
 <!-- <div *ngIf="activeItem == files_menu[0]">
@@ -23,31 +24,45 @@
 </div> -->
 
 <!-- digests -->
-<div *ngIf="activeItem == files_menu[2]">
-        <br/>        
-        <br/>  
-        <table>   
-                
-            <tr *ngFor="let digest of digests_last">
-                <td>
-                        {{ digest.name }}
-                </td> 
-                <td>
-                        {{ digest.size }} bytes
-                </td>
-            </tr>
-        </table>
+<div *ngIf="activeItem == files_menu[2]" id="digests">
+        <br/> 
+        
+        <p-tree [contextMenu]="cm" [value]="digests_last"  selectionMode="single" [(selection)]="selectedDigest"  layout="horizontal">
+                <ng-template let-node  pTemplate="folder">
+                        <a title="{{node.id}}"  >{{  node.name  }}</a>
+                        <!-- <a>{{   node.id }}</a> -->
+                </ng-template>
+                <ng-template let-node  pTemplate="file">
+                            <a title="{{node.id}}" >{{  node.label  }}</a><br/>
+                            <a title="{{node.size}}" >{{  node.size  }} kb</a>
+                            <!-- <a>{{   node.id }}</a> -->
+                </ng-template>                    
+        </p-tree>
+        
 
-        <table>
-            <tr>
-                <td>
-                    <br />
-                    <a href="assets/pdf/digest02.pdf">Digest02</a>
-                    <br />
-                    <a href="assets/pdf/digest03.pdf">Digest03</a>
-                </td>
-            </tr>
-        </table>
+        <br/>
+        
+    <!-- <table>                
+        <tr *ngFor="let digest of digests_last">
+            <td>
+            {{ digest.name }}
+            </td> 
+            <td>
+            {{ digest.size }} bytes
+            </td>
+        </tr>
+    </table> -->
+
+    <table>
+        <tr>
+            <td>
+                <br />
+                <a href="assets/pdf/digest02.pdf">Digest02</a>
+                <br />
+                <a href="assets/pdf/digest03.pdf">Digest03</a>
+            </td>
+        </tr>
+    </table>
 
 </div>
 
@@ -261,7 +276,7 @@
                 </td>
             </tr>
         </table> -->
-    </div>
+</div>
 <!-- email -->
 <!-- <div *ngIf="activeItem == files_menu[4]">
     <br/>
@@ -292,9 +307,6 @@
 <div *ngIf="activeItem == files_menu[3]">
 <!--   [resizableColumns]="true" columnResizeMode="expand"  -->
 <br/>
-
-
-
 
 
     <p-table #dttb [columns]="table_email_cols" [value]="email_last"  dataKey="receivedDateTime" [responsive]="true" [paginator]="true" [rows]="20" [globalFilterFields]="['sender.emailAddress.name']" >    <!--  [globalFilterFields]="['sender.receivedDateTime']['sender.emailAddress.name']"  -->
@@ -359,7 +371,6 @@
             </tr>
         </ng-template>
     </p-table>
-
 
 </div>
 
@@ -450,5 +461,33 @@
     </div>
 
 
+        <!-- infsecurity -->
+        <div id="infsecurity" *ngIf="activeItem == files_menu[10]">
+            <!-- <span>Инструкции по информационной безопасности</span> -->
+            <br/>
+            <!-- layout="horizontal" -->
+            <p-tree [value]="instructions"   selectionMode="single" [(selection)]="selectedFile"  layout="horizontal"  (onNodeSelect)="onPdfClick($event)" >
+                    <ng-template let-node  pTemplate="folder">
+                            <a title="{{node.id}}"  >{{  node.label  }}</a>
+                            <!-- <a>{{   node.id }}</a> -->
+                        </ng-template>
+                        <ng-template let-node  pTemplate="file" >
+                                <a title="{{node.id}}" >{{  node.label  }}</a><br/>                                
+                                <!-- <a>{{   node.id }}</a> -->
+                        </ng-template>                    
+            </p-tree>
+        </div> 
+
+
 </div>  
+
+<div id="side" *ngIf = "iframeview && activeItem == files_menu[10]">
+    <!-- <a href={{purl}}><p>Download PDF</p></a> -->
+    <!-- <img [src]="imgsrc"> -->
+    <!-- <pdf-viewer [src]="pdfsrc" [zoom]="0.4"></pdf-viewer> -->
+    <iframe style="height:750px" width="100%" [src]= "iframesrc" ></iframe>
+    
+</div>
+
+
 

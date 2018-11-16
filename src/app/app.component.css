@@ -3,6 +3,7 @@
    
 }
 
+
 @media (max-width : 1550px) {
   .logo {display:block;}
   .logo {display:none;}
@@ -11,6 +12,11 @@
 .ui-button {
   background: #1e961d;
 }
+
+li {
+  cursor: pointer;
+}
+
 
 #btn_menu {
   margin-top: 1em;

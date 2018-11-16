@@ -4,9 +4,10 @@ h2{
 
 #structure{
     position:relative;
-    max-width: 800px;
+    max-width: 850px;
     max-height: 800px;
     overflow: auto;
+    display: flex;
     }
 
 #main{
@@ -21,7 +22,7 @@ h2{
             max-height: 800px;
             max-width: 1200px;
             position:absolute;
-            left: 820px;
+            left: 900px;
             overflow: auto;
             }
         }

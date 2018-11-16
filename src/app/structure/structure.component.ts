@@ -150,42 +150,42 @@ export class StructureComponent implements OnInit {
 
 
   onDepClick(indx_l): void {  
-    //this.filter = "$filter=accountEnabled eq true";
-    this.selecteddep = indx_l;  
-    //this.filter =  "$filter=Department eq '" + indx_l + "' and accountEnabled eq true"
-    this.filter =  "$filter=startswith(Department, '" + indx_l + "')  and accountEnabled eq true"   // Department eq '" + indx_l + "' or 
-    //this.filter = "$filter=accountEnabled eq true and startswith(department, '" + indx_l + "')";
-    this.full_url = '' + this.url + this.call  + '&' + this.select + '&' + this.filter + '&' + this.top //+ this.api_version;
-    console.log(this.full_url);
-    this.employeeService.getJson(this.full_url, 'ms')
-        .subscribe( users => 
-                            {
-                            console.log('--------------start-users1------structure.comp.ts-----');                          
-                            this.users = users;
-                            console.log(this.users);
-                            this.users1 = this.users.value;
-                            //this.users1 = this.users.d.results;
-                            console.log(this.users1);
-                            this.users1.length > 0 ? this.depclass = 'dep active' : this.depclass = 'dep hidden';
-                            this.messageService.add({severity: 'Ok', summary: 'MS Grath connection ok', detail: 'Query startswith "' + indx_l  + '"'});
+            //this.filter = "$filter=accountEnabled eq true";
+            this.selecteddep = indx_l;  
+            //this.filter =  "$filter=Department eq '" + indx_l + "' and accountEnabled eq true"
+            this.filter =  "$filter=startswith(Department, '" + indx_l + "')  and accountEnabled eq true"   // Department eq '" + indx_l + "' or 
+            //this.filter = "$filter=accountEnabled eq true and startswith(department, '" + indx_l + "')";
+            this.full_url = '' + this.url + this.call  + '&' + this.select + '&' + this.filter + '&' + this.top //+ this.api_version;
+            console.log(this.full_url);
+            this.employeeService.getJson(this.full_url, 'ms')
+                .subscribe( users => 
+                                    {
+                                    console.log('--------------start-users1------structure.comp.ts-----');                          
+                                    this.users = users;
+                                    console.log(this.users);
+                                    this.users1 = this.users.value;
+                                    //this.users1 = this.users.d.results;
+                                    console.log(this.users1);
+                                    this.users1.length > 0 ? this.depclass = 'dep active' : this.depclass = 'dep hidden';
+                                    this.messageService.add({severity: 'Ok', summary: 'MS Grath connection ok', detail: 'Query startswith "' + indx_l  + '"'});
 
 
-                            // this.users1.forEach(element => {
-                            //   console.log('user mail - ')
-                            //   console.log(element.mail);
-                            //   this.employeeService.httpRequestPhoto(element.mail, element.givenName);
-                            // }); 
+                                    // this.users1.forEach(element => {
+                                    //   console.log('user mail - ')
+                                    //   console.log(element.mail);
+                                    //   this.employeeService.httpRequestPhoto(element.mail, element.givenName);
+                                    // }); 
 
-                            },
-                    error=> {
-                            this.messageService.add({severity: 'Error', summary: 'MS Grath connection failed', detail: 'status: '+ error.status});
+                                    },
+                            error=> {
+                                    this.messageService.add({severity: 'Error', summary: 'MS Grath connection failed', detail: 'status: '+ error.status});
 
-                            if(error.status == 401){
-                              localStorage.removeItem('code_ag');
-                            } 
-                            }
-                    );
-  }
+                                    if(error.status == 401){
+                                      localStorage.removeItem('code_ag');
+                                    } 
+                                    }
+                            );
+          }
 
 count = 1;
 

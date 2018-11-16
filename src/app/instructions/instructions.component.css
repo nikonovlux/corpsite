@@ -14,13 +14,14 @@ h2{
   max-width: 1200px;  
   display: inline-block;
   vertical-align:top;
+  max-height: 700px;
 }
 
 @media(min-width: 1201px){
   #side {   
     margin-top: 32px;
     margin-left: 32px;
-    max-height: 800px;
+    max-height: 700px;
     width: 600px;
     display: inline-block;
     vertical-align:top;
@@ -30,33 +31,11 @@ h2{
 @media(max-width: 1200px){
   #side {
     
-    max-height: 800px;
+    max-height: 700px;
     max-width: 1200px;        
     }  
 }
 
 ::ng-deep div.ui-widget-content{
   padding-right: 10px;
-}
-
-.ui-widget input{
-  max-width: 90px;
-}
-
-::ng-deep .ui-sidebar-close {
-  float: left;
-}
-
-::ng-deep .ui-calendar {
-  float: left;
-  
-}
-
-::ng-deep .ui-calendar input{
- 
-  width: 6em;
-}
-
-::ng-deep table {
-  table-layout: auto !important;
 }

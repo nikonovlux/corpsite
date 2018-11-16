@@ -1,15 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-
+import { Component, OnInit, ViewChild} from '@angular/core';
 import {MenuItem} from 'primeng/api';
-
 import {MsAdalAngular6Service} from 'microsoft-adal-angular6';
 import {EmployeeService} from '../employee.service';
-
-import {urls_graph} from 'src/environments/environment.prod'
-import { TreeTable } from 'primeng/primeng';
+import {urls_departments,urls_graph} from 'src/environments/environment.prod';
 import {TreeNode} from 'primeng/api';
-
-
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser'; 
 
 
 
@@ -24,10 +19,9 @@ export class MainpageComponent implements OnInit {
 
   constructor(
     private adal: MsAdalAngular6Service,
-    private employeeService: EmployeeService
-  ){
-
-  }
+    private employeeService: EmployeeService,
+    private domSanitizer: DomSanitizer
+  ){}
 
   @ViewChild('dttb') private dttb:any;
   
@@ -61,7 +55,7 @@ export class MainpageComponent implements OnInit {
   events_last:any  
   lists_last:any  
   shared_last:any  
-  digests_last:any  
+  //digests_last:any  
   projects_last:any
 
   senders:any =
@@ -88,6 +82,8 @@ export class MainpageComponent implements OnInit {
 
   contextmenu_items: MenuItem[];
 
+  pdfsrc
+  //pdfsrc = "/assets/pdf/digest02.pdf"
 
   getDaysInMonth(month, year) {
     var date = new Date(year, month, 1);
@@ -131,13 +127,27 @@ export class MainpageComponent implements OnInit {
     }    
   }
 
+  selectedDigest 
+  digests_last:TreeNode[] = [{label:'Дайджесты', children:[]}]; 
+
   getDigests(){
   
     if(this.adal.isAuthenticated){
       this.employeeService.getJson(urls_graph.digests,
                                     'ms').subscribe(data =>
                                                           {        
-                                                            this.digests_last = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
+                                                            this.digests_last[0].children = Object.keys(data).filter(key => key == "value" )
+                                                                                                                        .map(key => data[key])[0]
+                                                                                                                        .map(item => {  return {  label:item.name,
+                                                                                                                          icon: item.file ? 'pi pi-file'  : 'pi pi-check',
+                                                                                                                          data:{  id:item.id,
+                                                                                                                                  parent:item.parentReference.id},
+                                                                                                                          id:item.id,
+                                                                                                                          parent:item.parentReference.id,
+                                                                                                                          size:item.size,
+                                                                                                                          type: item.file ? 'file': 'folder'}})
+                                                            
+                                                            console.log(this.digests_last)
                                                           },
                                                     error=> console.log(error)
                                                     )      
@@ -199,7 +209,106 @@ getNestedChildren(arr, parent) {
           out.push(arr[i])
       }
   }
-  return out
+  return out 
+}
+
+imgsrc = '/assets/img/logo_ico.png'
+iframesrc
+iframeview = false
+purl
+
+onPdfClick(e){
+  if(e.node.type == "file"){
+                            // let url = urls_graph.drives + '/' + urls_departments.InformationSecurity.drive_id + '/items/' + e.node.id + '/thumbnails?'
+                            // this.employeeService.getJson( url,
+                            //                             'ms').subscribe(data => {
+                            //                                                         console.log(data)
+                            //                                                         let tmp = data;
+                            //                                                         this.imgsrc = tmp['value'][0].large.url;
+                            //                                                     })
+                            let url2 = urls_graph.drives + '/' + urls_departments.InformationSecurity.drive_id + '/items/' + e.node.id                                                                                
+                            this.employeeService.getJson( url2,
+                                                        'ms').subscribe(data => {
+                                                                                    console.log(data);
+                                                                                    
+                                                                                    //this.purl = this.domSanitizer.bypassSecurityTrustResourceUrl(data['webUrl'])
+                                                                                    this.purl = data['webUrl']
+                                                                                    
+                                                                                })
+
+                            let url3 = urls_graph.drives + '/' + urls_departments.InformationSecurity.drive_id + '/items/' + e.node.id + '/preview'
+                            let body =
+                            {
+                              "type": "embed"
+                            }
+                            this.employeeService.getJson( url3,
+                                                        'ms',
+                                                        'post',
+                                                        body
+                                                        ).subscribe(data => {
+                                                                                    console.log(data);                                                                                    
+                                                                                    this.iframeview = true                                                                                                                                                                        
+                                                                                    this.iframesrc = this.domSanitizer.bypassSecurityTrustResourceUrl(data['getUrl'])
+                                                                                    
+                                                                                })                                                                                
+
+                            }
+                          }
+
+
+
+instructions_last
+instructions:TreeNode[] = [{label:'Информационная безопасность', children:[]}];
+
+getInstructions(){
+  if(this.adal.isAuthenticated){
+    this.employeeService.getJson(urls_graph.getonedrivesecurity,
+                                'ms').subscribe(data =>
+                                                      {
+                                                        console.log('---  data ---')
+                                                        console.log(data)
+
+                                                        // this.instructions_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]                                                        
+                                                        // console.log('---  Instructions ---')
+                                                        // console.log(this.instructions_last)
+
+                                                        let tmp1 = Object.keys(data)
+                                                                              .filter(key => key == "value" )
+                                                                              .map(key => data[key])[0]
+
+                                                                              tmp1.forEach(element => {
+                                                                                console.log(element.label)
+                                                                              });
+                                                                              "01RUGPFPDCB5NAKI4TYZCI3HPWMB3F6PJR"
+                                                                              "01RUGPFPDCB5NAKI4TYZCI3HPWMB3F6PJR"
+
+                                                        let oddata = tmp1
+                                                                        .map(item => {  return {  label:item.name,
+                                                                                                  icon: item.file ? 'pi pi-file'  : 'pi pi-check',
+                                                                                                  data:{  id:item.id,
+                                                                                                          parent:item.parentReference.id},
+                                                                                                  id:item.id,
+                                                                                                  parent:item.parentReference.id,
+                                                                                                  size:item.size,
+                                                                                                  type: item.file ? 'file': 'folder'}})
+
+                                                      oddata.forEach(element => {
+                                                        console.log(element.label)
+                                                      });
+                                                                                                                                                                                                
+                                                        
+                                                        oddata = this.getNestedChildren(oddata, "01RUGPFPAUYULGSQX2FRFYCICBX4AAWROS")  // "01RUGPFPAUYULGSQX2FRFYCICBX4AAWROS" // '01RUGPFPF6Y2GOVW7725BZO354PWSELRRZ' // "01RUGPFPAUYULGSQX2FRFYCICBX4AAWROS"
+
+                                                        console.log('---  oddata  ----')
+                                                        console.log(oddata) 
+
+                                                        this.instructions[0].children=oddata
+                                                        //console.log(this.instructions);
+
+                                                      },
+                                                error=> console.log(error)
+    )
+  }
 }
 
 
@@ -209,8 +318,8 @@ getOneDrive(){
                                 'ms').subscribe(data =>
                                                       {
                                                         this.files_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]                                                        
-                                                        console.log('--- OneDrive ---')
-                                                        console.log(this.files_last)
+                                                        // console.log('--- OneDrive ---')
+                                                        // console.log(this.files_last)
 
 
                                                         let tmp1 = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
@@ -224,14 +333,15 @@ getOneDrive(){
                                                                                                   parent:item.parentReference.id,
                                                                                                   size:item.size,
                                                                                                   type: item.file ? 'file': 'folder'}})
+                                                       
                                                         
                                                         oddata = this.getNestedChildren(oddata, '01PDBPZ3F6Y2GOVW7725BZO354PWSELRRZ')
 
-                                                        console.log('---oddata----')
-                                                        console.log(oddata)
+                                                        //  console.log('---oddata----')
+                                                        //  console.log(oddata)
 
                                                         this.onedrivefolders[0].children=oddata
-                                                        console.log(this.onedrivefolders);
+                                                        // console.log(this.onedrivefolders);
 
                                                       },
                                                 error=> console.log(error)
@@ -246,8 +356,8 @@ getMail(){
                                                       {                                                                                                               
                                                         const tmp = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0] 
                                                         this.email_last = tmp                                                                                                                 
-                                                        console.log('-----emails-----')
-                                                        console.log(this.email_last)
+                                                        // console.log('-----emails-----')
+                                                        // console.log(this.email_last)
 
                                                         //  let tmp0 = tmp.map(key => new Date(key.receivedDateTime)).map(key=>key.substring(8,10)).filter(this.onlyUnique).sort())
 

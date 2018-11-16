@@ -45,7 +45,23 @@ export const urls_graph =
   'getonedrive':'https://graph.microsoft.com/beta/me/drive/root/children',
   'getmail':'https://graph.microsoft.com/beta/me/messages?$top=18',
   'getonedrivesearch':"https://graph.microsoft.com/v1.0/me/drive/root/search(q='')",
+  'getonedrivesecurity':"https://graph.microsoft.com/beta/sites/interoko.sharepoint.com/drives/b!PzA2vC1hh0ueQ3zmhy0aksfSpZ56MWxHveJBstzv5NBfXRvbBez_QJdtGPUUBILH/root/search(q='')",  
   'usersearch':"https://graph.microsoft.com/v1.0/users?$filter=startswith(givenName,'ENTER_SURName')"
+}
+
+export const urls_departments = 
+{
+  'InformationSecurity':{
+    'url':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/InformationSecurity',
+    'drive_id':'b!PzA2vC1hh0ueQ3zmhy0aksfSpZ56MWxHveJBstzv5NBfXRvbBez_QJdtGPUUBILH'},
+  'hr':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/hr',
+  'it':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/it'
+}
+
+export const urls_instructions = 
+{
+  'drive_me':"01PDBPZ3F6Y2GOVW7725BZO354PWSELRRZ",
+
 }
 
 export const adal_config =

@@ -14,13 +14,13 @@ h2{
 
 @media(min-width: 1040px) {
   .right_block {
-    display: initial;
-    max-height: 700px;
-      max-width: 800px;
-      position:absolute;
-      left: 1020px;
-      overflow: auto;
-  }
+                display: initial;
+                max-height: 700px;
+                max-width: 800px;
+                position:absolute;
+                left: 1020px;
+                overflow: auto;
+              }
 
   .fixed_header th, .fixed{
     position: sticky;

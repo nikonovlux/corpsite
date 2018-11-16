@@ -111,8 +111,11 @@ export class EmployeeService {
                                           
                        
                           if(method == 'post'){    
-
-                              return this.http.post(userUrl, body, httpOptions );
+                            let post_options = {
+                              headers: new HttpHeaders({                                
+                                'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
+                              })} 
+                              return this.http.post(userUrl, body, post_options );
 
                           }else if(method == 'get'){
 

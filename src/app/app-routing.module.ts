@@ -12,6 +12,7 @@ import { EmployeeDetailComponent }  from './employee-detail/employee-detail.comp
 import { ComplainComponent } from './complain/complain.component';
 import { WikipageComponent } from './wikipage/wikipage.component';
 import { CirculationComponent} from './circulation/circulation.component';
+import { InstructionsComponent} from './instructions/instructions.component';
 
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -30,18 +31,19 @@ import { AuthenticationGuard } from 'microsoft-adal-angular6';
 const routes: Routes = [
 
   { path: '', redirectTo: '/mainpage', pathMatch: 'full'},
-  { path: 'mainpage', component: MainpageComponent },
-  { path: 'employees', component: EmployeesComponent , canActivate: [AuthenticationGuard] },
+  { path: 'mainpage', component: MainpageComponent , canActivate: [AuthenticationGuard]  },
+  // { path: 'employees', component: EmployeesComponent , canActivate: [AuthenticationGuard] },
   { path: 'structure', component: StructureComponent  , canActivate: [AuthenticationGuard] },
   { path: 'feedback', component: FeedbackComponent , canActivate: [AuthenticationGuard] },
   { path: 'retail', component: RetailComponent  },
-  { path: 'docs', component: DocsComponent , canActivate: [AuthenticationGuard]  },
+  // { path: 'docs', component: DocsComponent , canActivate: [AuthenticationGuard]  },
   { path: 'news', component: NewsComponent  , canActivate: [AuthenticationGuard] },
-  { path: 'detail/:id', component: EmployeeDetailComponent  , canActivate: [AuthenticationGuard] },
-  { path: 'login', component: LoginComponent  },
-  { path: 'logout', component: LogoutComponent   },
-  { path: 'complain', component: ComplainComponent },
-  { path: 'wikipage', component: WikipageComponent },
+  // { path: 'detail/:id', component: EmployeeDetailComponent  , canActivate: [AuthenticationGuard] },
+  { path: 'instructions', component: InstructionsComponent  , canActivate: [AuthenticationGuard] },
+  // { path: 'login', component: LoginComponent  },
+  // { path: 'logout', component: LogoutComponent   },
+  // { path: 'complain', component: ComplainComponent },
+  // { path: 'wikipage', component: WikipageComponent },
   { path: 'circulation', component: CirculationComponent }
 ];
 

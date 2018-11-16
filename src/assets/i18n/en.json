@@ -2,5 +2,6 @@
     "HELLO": "Hello {{value}}",
     "MAIN": "Main",
     "SEARCH": "Search",
-    "LOG IN": "Log in"
+    "LOG IN": "Log in",
+    "Instructions": "Instructions"
 }
