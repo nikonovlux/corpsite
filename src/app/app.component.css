@@ -97,3 +97,10 @@ li {
   ::ng-deep .ui-sidebar-left .pi{
     font-size: 2em;
   }
+
+  ::ng-deep .ui-sidebar-right{
+    background: #089910;
+    color: #ffffff;
+    }
+
+

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, transition, animate} from '@angular/animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -29,66 +29,52 @@ import { Observable } from "rxjs"
 })
 export class AppComponent {
 
+
+
   constructor(
-    // router: Router,
-    translate: TranslateService) {
-    // this language will be used as a fallback when a translation isn't found in the current language
-    translate.setDefaultLang('en');
-
-     // the lang to use, if the lang isn't available, it will use the current loader to get them
-    //translate.use('ru');
-
-      if(localStorage.getItem("lang")){
-        translate.use(  JSON.parse(localStorage.getItem("lang")).value );
-      }else{
-        translate.use('en');
+      
+      translate: TranslateService) {      
+          translate.setDefaultLang('en');
+          if(localStorage.getItem("lang")){
+            translate.use(  JSON.parse(localStorage.getItem("lang")).value );
+          }else{
+            translate.use('en');
+          }
       }
 
-
-      // router.events.subscribe(s => {
-      //   if (s instanceof NavigationEnd) {
-      //     const tree = router.parseUrl(router.url);
-      //     if (tree.fragment) {
-      //       const element = document.querySelector("#" + tree.fragment);
-      //       alert(tree.fragment);
-      //     }
-      //   }
-      // });
-
-    
-
-  }
+  @ViewChild('rbar')  public rbar: ElementRef;      
+  
+  sidebar_r_display
+ 
 
   title = 'Corpsite';
-
   menuState:string = 'out';
   spanclass:string = 'menu-icon';
+  
 
-
-
+  time
 
   toggleMenu() {
       //alert('hited');
       this.menuState = this.menuState === 'out' ? 'in' : 'out';
       this.spanclass = this.spanclass === 'menu-icon' ? 'menu-icon is-active': 'menu-icon';
-
   }
+
   toggleMenuOut() {
     this.spanclass = 'menu-icon';
     this.menuState = 'out';
   }
 
   arr = ['obladi','oblada']
-  onObsClick(){
-  
+  onObsClick(){  
     this.arr.push('hey')
-    console.log(this.arr)
-    
+    console.log(this.arr)    
   }
-
-  time
+ 
   
 ngOnInit(){
+  this.sidebar_r_display = false
+
   let obs = new Observable(  (observer) => {
      
     let i = 0
@@ -96,8 +82,6 @@ ngOnInit(){
                           observer.next( this.arr[i] );
                           i < this.arr.length ? i++ : i=0;  },
                 2000  )
-
-
   }
   );
 
@@ -112,3 +96,15 @@ ngOnInit(){
 
 
 }
+
+
+
+      // router.events.subscribe(s => {
+      //   if (s instanceof NavigationEnd) {
+      //     const tree = router.parseUrl(router.url);
+      //     if (tree.fragment) {
+      //       const element = document.querySelector("#" + tree.fragment);
+      //       alert(tree.fragment);
+      //     }
+      //   }
+      // });

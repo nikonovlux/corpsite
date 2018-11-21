@@ -4,38 +4,44 @@ h2{
     margin-left: 25%;
   }
 
-#infsecurity .ui-tree
-{
-  padding-right: 10px;
+::ng-deep .ui-tree{
+    display: flex;
+    padding: 10px;
+ 
+  }  
+
+@media(min-width: 375px){
+  ::ng-deep .ui-tree{ 
+    width: 370px;
+  }  
 }
 
-
-#main {
-  max-width: 1200px;  
-  display: inline-block;
-  vertical-align:top;
-  max-height: 700px;
+@media(min-width: 401px){
+  ::ng-deep .ui-tree{ 
+    width: 400px;
+  }  
 }
 
-@media(min-width: 1201px){
-  #side {   
-    margin-top: 32px;
-    margin-left: 32px;
-    max-height: 700px;
+@media(min-width: 501px){
+  ::ng-deep .ui-tree{ 
+    width: 500px;
+  }  
+}
+
+@media(min-width: 601px){
+  ::ng-deep .ui-tree{ 
     width: 600px;
-    display: inline-block;
-    vertical-align:top;
-    }  
+  }  
 }
 
-@media(max-width: 1200px){
-  #side {
-    
-    max-height: 700px;
-    max-width: 1200px;        
-    }  
+@media(min-width: 701px){
+  ::ng-deep .ui-tree{ 
+    width: 700px;
+  }  
 }
 
-::ng-deep div.ui-widget-content{
-  padding-right: 10px;
+@media(min-width: 801px){
+  ::ng-deep .ui-tree{ 
+    width: 800px;
+  }  
 }

@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import {Component,OnInit} from '@angular/core';
+import {DomSanitizer,SafeUrl} from '@angular/platform-browser';
 import {TreeNode} from 'primeng/api';
-
 import {MsAdalAngular6Service} from 'microsoft-adal-angular6';
-
 import {EmployeeService} from '../employee.service';
-
 import {urls_departments,urls_graph} from 'src/environments/environment.prod';
+import {AppComponent} from '../app.component'
+
+
 
 @Component({
   selector: 'app-instructions',
@@ -16,14 +16,11 @@ import {urls_departments,urls_graph} from 'src/environments/environment.prod';
 export class InstructionsComponent implements OnInit {
 
   constructor(
+    private appComponent: AppComponent,
     private adal: MsAdalAngular6Service,
     private employeeService: EmployeeService,
     private domSanitizer: DomSanitizer
   ){}
-
-
-
-
 
 
 
@@ -77,16 +74,19 @@ export class InstructionsComponent implements OnInit {
                                                           body
                                                           ).subscribe(data => {
                                                                                       console.log(data);                                                                                    
-                                                                                      this.iframeview = true                                                                                                                                                                        
-                                                                                      this.iframesrc = this.domSanitizer.bypassSecurityTrustResourceUrl(data['getUrl'])
-                                                                                      
+                                                                                      //this.iframeview = true                                                                                                                                                                        
+                                                                                      //this.iframesrc = this.domSanitizer.bypassSecurityTrustResourceUrl(data['getUrl'])
+                                                                                      this.appComponent.sidebar_r_display = true
+                                                                                      this.appComponent.rbar.nativeElement.innerHTML = `<iframe id="iframe_hook" style="height: calc(100vh*0.95);" width="100%" src= "${data['getUrl']}" ></iframe>`
                                                                                   })                                                                                
   
+                              } else {
+                                this.appComponent.sidebar_r_display = false
                               }
                             }
 
   instructions_last
-  instructions:TreeNode[] = [{label:'Информационная безопасность', children:[]}];
+  instructions:TreeNode[] = [{label:'Информационная безопасность', expanded:true,icon:"pi-folder",expandedIcon:"pi-folder-open",collapsedIcon:"pi-folder",children:[]}];
   
   getInstructions(){
     if(this.adal.isAuthenticated){
@@ -106,13 +106,16 @@ export class InstructionsComponent implements OnInit {
   
                                                           let oddata = tmp1
                                                                           .map(item => {  return {  label:item.name,
-                                                                                                    icon: item.file ? 'pi pi-file'  : '', // 'pi pi-check'
+                                                                                                    icon: item.file ? 'pi pi-file' : 'pi pi-folder', // 'pi pi-check'
                                                                                                     data:{  id:item.id,
                                                                                                             parent:item.parentReference.id},
+                                                                                                    expandedIcon: item.file ? "" : "pi pi-folder-open",
+                                                                                                    collapsedIcon: item.file ? "" : "pi pi-folder",
                                                                                                     id:item.id,
                                                                                                     parent:item.parentReference.id,
                                                                                                     size:item.size,
-                                                                                                    type: item.file ? 'file': 'folder'}})                                                         
+                                                                                                    type: item.file ? 'file': 'folder'}})
+                                                                                                                                   
                                                           
                                                           oddata = this.getNestedChildren(oddata, "01RUGPFPAUYULGSQX2FRFYCICBX4AAWROS")  // "01RUGPFPAUYULGSQX2FRFYCICBX4AAWROS" // '01RUGPFPF6Y2GOVW7725BZO354PWSELRRZ' // "01RUGPFPAUYULGSQX2FRFYCICBX4AAWROS"
   

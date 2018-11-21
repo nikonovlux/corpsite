@@ -19,7 +19,7 @@ import { MenuComponent } from './menu/menu.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { MessagesComponent } from './messages/messages.component';
-import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
+//import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
 import { NewsComponent } from './news/news.component';
 import { ComplainComponent } from './complain/complain.component';
 
@@ -30,6 +30,8 @@ import { PanelModule } from 'primeng/primeng';
 import { ButtonModule } from 'primeng/primeng';
 import { RadioButtonModule } from 'primeng/primeng';
 import { GMapModule} from 'primeng/gmap';
+
+
 
 
 
@@ -108,6 +110,8 @@ import { LazyLoadingScriptService } from './gmap2.directive';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { InstructionsComponent } from './instructions/instructions.component';
 
+import {LoaderComponent} from './loader'
+
 
 
 
@@ -121,6 +125,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
+    LoaderComponent, 
     UniquePipe,
     PowerPipe,
     PipeUkrDateComponent,
@@ -135,7 +140,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DocsComponent,
     MenuComponent,
     MessagesComponent,
-    EmployeeDetailComponent,
+  //  EmployeeDetailComponent,
     NewsComponent,
     LoginComponent,
     LogoutComponent,
@@ -153,8 +158,8 @@ export function HttpLoaderFactory(http: HttpClient) {
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
       }
-  }),
-  PdfViewerModule,
+  }),     
+    PdfViewerModule,
     SidebarModule,
     CalendarModule,
     MegaMenuModule,

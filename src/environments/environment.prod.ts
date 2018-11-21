@@ -49,13 +49,19 @@ export const urls_graph =
   'usersearch':"https://graph.microsoft.com/v1.0/users?$filter=startswith(givenName,'ENTER_SURName')"
 }
 
+// https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/it:/drive // find drive
+
 export const urls_departments = 
 {
   'InformationSecurity':{
     'url':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/InformationSecurity',
     'drive_id':'b!PzA2vC1hh0ueQ3zmhy0aksfSpZ56MWxHveJBstzv5NBfXRvbBez_QJdtGPUUBILH'},
-  'hr':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/hr',
-  'it':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/it'
+  'hr':{
+    'url':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/hr',
+    'drive_id':'b!1mjONJ3kvky_8BBGX7upYCT6qJM_j_tAnVNx0AV94ZkqYvu5A5SOQYZm2xC0x5yN'},  
+  'it':{
+    'url':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/it',
+    'drive_id':'b!GOQpC4hrQ0SWFEJcIulxGNR3hDraLRpImouGb7JKyhvBuxUkGj4XQ6e3FavhZUKB'}
 }
 
 export const urls_instructions = 

@@ -10,7 +10,7 @@ import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 
 import { MsAdalAngular6Service } from 'microsoft-adal-angular6';
 
-import {adal_config} from 'src/environments/environment.prod';
+import {  adal_config} from 'src/environments/environment.prod';
 
 
 

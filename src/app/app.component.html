@@ -4,24 +4,24 @@
 
 <button (click)="toggleMenu()" class="hamburger rightm">
     <span class={{spanclass}}>toggle rmenu</span>
-  </button>
+</button>
 
 <!-- <button id="btn_menu" type="text" (click)="display = true" pButton icon="pi pi-home" label="Menu"></button> -->
 
 
-<!--     slide  start   -->
+
+
+<!--     slides  start   -->
 <p-sidebar [(visible)]="display">
-    <br/>
-  <h3 class="lmenu">Menu</h3>  
-  
+  <br/>
+  <h3 class="lmenu">Menu</h3>
   <!-- <table>
     <tr><ukrdate></ukrdate></tr>
-    <tr><a>{{  8 | powerpipe: 7 }}</a></tr> | date'HH:mm:ss'       | date:'HH:mm:ss'  
+    <tr><a>{{  8 | powerpipe: 7 }}</a></tr> | date'HH:mm:ss'       | date:'HH:mm:ss'
     <tr><p-button pbutton label="Obs" (click)="onObsClick()"></p-button></tr>
     <tr></tr>
     <tr><a>{{  time  }}</a></tr>
   </table> -->
-
   <div class="list">
       <ul>
           <li routerLink="/mainpage" routerLinkActive="active" translate>Main</li>
@@ -35,12 +35,14 @@
           <!-- <li routerLink="/complain" routerLinkActive="active" translate>Complain</li> -->
           <li routerLink="/circulation" routerLinkActive="active" translate>Circulation</li>
       </ul>
-      </div>
-
-
-  
+  </div>  
 </p-sidebar>
-<!--     slide  end   -->
+
+<p-sidebar [(visible)]="sidebar_r_display" position="right" id="sidebar_right" class="sidebar_right" styleClass="ui-sidebar-lg">  
+  <!-- <h3 class="rmenu">PreView</h3>   -->
+  <div #rbar id="sidebar_r_content" ></div>
+</p-sidebar>
+<!--     slides  end   -->
 
 
 

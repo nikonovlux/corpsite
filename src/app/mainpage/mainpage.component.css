@@ -11,28 +11,34 @@ h2{
 
 
 #main {
-  max-width: 1200px;  
-  display: inline-block;
-  vertical-align:top;
-}
+      max-width: 1200px;  
+      display: inline-block;
+      vertical-align:top;
+      }
+
+#side{  
+      display:  flex;
+      align-items:  center;
+      justify-content:center;
+      }
+
 
 @media(min-width: 1201px){
   #side {   
-    margin-top: 32px;
-    margin-left: 32px;
-    max-height: 800px;
-    width: 600px;
-    display: inline-block;
-    vertical-align:top;
-    }  
+        margin-top: 16px;
+        margin-left: 16px;
+        max-height: 800px;
+        width: 600px;
+        display: inline-block;
+        vertical-align:top;
+        }  
 }
 
 @media(max-width: 1200px){
   #side {
-    
-    max-height: 800px;
-    max-width: 1200px;        
-    }  
+        max-height: 800px;
+        max-width: 1200px;        
+        }  
 }
 
 ::ng-deep div.ui-widget-content{
@@ -60,3 +66,6 @@ h2{
 ::ng-deep table {
   table-layout: auto !important;
 }
+
+
+

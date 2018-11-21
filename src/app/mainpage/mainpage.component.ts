@@ -5,9 +5,7 @@ import {EmployeeService} from '../employee.service';
 import {urls_departments,urls_graph} from 'src/environments/environment.prod';
 import {TreeNode} from 'primeng/api';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser'; 
-
-
-
+import {AppComponent} from '../app.component'
 
 
 @Component({
@@ -15,18 +13,21 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   templateUrl: './mainpage.component.html',
   styleUrls: ['./mainpage.component.css']
 })
+ 
+
 export class MainpageComponent implements OnInit {
 
   constructor(
+    private appComponent: AppComponent,
     private adal: MsAdalAngular6Service,
     private employeeService: EmployeeService,
     private domSanitizer: DomSanitizer
   ){}
 
   @ViewChild('dttb') private dttb:any;
-  
-  title = 'App';
-  
+  @ViewChild('menuItems') menu: MenuItem[];
+ 
+
 
   digests;
   orders;
@@ -46,9 +47,7 @@ export class MainpageComponent implements OnInit {
     {label: 'Itilium'}
   ];
 
-
   activeItem: MenuItem;
- 
   
   email_last:any 
   files_last:any  
@@ -57,6 +56,9 @@ export class MainpageComponent implements OnInit {
   shared_last:any  
   //digests_last:any  
   projects_last:any
+
+  selectedDigest 
+  digests_last:TreeNode[] = [{label:'Дайджесты', children:[]}]; 
 
   senders:any =
   [
@@ -84,6 +86,27 @@ export class MainpageComponent implements OnInit {
 
   pdfsrc
   //pdfsrc = "/assets/pdf/digest02.pdf"
+  
+  imgsrc = '/assets/img/logo_ico.png'
+  iframesrc
+  purl
+  
+  
+  iframeview = false
+  iframeview_d = false
+  iframe_not_loaded = true
+
+  instructions_last
+  instructions:TreeNode[] = [{label:'Информационная безопасность', children:[]}];
+
+
+  onClickShowRTAB(){
+    
+    this.appComponent.sidebar_r_display == true ? this.appComponent.sidebar_r_display = false : this.appComponent.sidebar_r_display = true
+    // let displ = this.appComponent.sidebar_r_display
+    // displ == true ? displ = false : displ = true
+    console.log(this.appComponent)
+  }
 
   getDaysInMonth(month, year) {
     var date = new Date(year, month, 1);
@@ -95,7 +118,6 @@ export class MainpageComponent implements OnInit {
     return days;
 }
  
-  @ViewChild('menuItems') menu: MenuItem[];
   
   activateMenu(){
     this.activeItem = this.menu['activeItem'];
@@ -103,20 +125,15 @@ export class MainpageComponent implements OnInit {
     // console.log(this.menu['activeItem']);
   }
 
-
-
   getItilium(){
-  
-    if(this.adal.isAuthenticated){         
-         this.employeeService.curryGetMs(urls_graph.drives).subscribe(data=>{ });         
-    }    
+           
+    //  this.employeeService.curryGetMs(urls_graph.drives).subscribe(data=>{ });         
+      
   }
 
 
 
-  getProjects(){
-  
-    if(this.adal.isAuthenticated){
+  getProjects(){ 
       this.employeeService.getJson( urls_graph.projects,
                                     'ms').subscribe(data =>
                                                           {                                                            
@@ -124,15 +141,10 @@ export class MainpageComponent implements OnInit {
                                                           },
                                                     error=> console.log(error)
                                                     )      
-    }    
+     
   }
 
-  selectedDigest 
-  digests_last:TreeNode[] = [{label:'Дайджесты', children:[]}]; 
-
-  getDigests(){
-  
-    if(this.adal.isAuthenticated){
+  getDigests(){ 
       this.employeeService.getJson(urls_graph.digests,
                                     'ms').subscribe(data =>
                                                           {        
@@ -150,52 +162,38 @@ export class MainpageComponent implements OnInit {
                                                             console.log(this.digests_last)
                                                           },
                                                     error=> console.log(error)
-                                                    )      
-    }    
+                                                    )
   }
 
-
-
   getShared(){    
-  
-    if(this.adal.isAuthenticated){
       this.employeeService.getJson(urls_graph.sharedwithme,
                                     'ms').subscribe(data =>
                                                           {                                                           
                                                             this.shared_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]                                                               
                                                           },
                                                     error=> console.log(error)
-                                                    )      
-    }    
+                                                    )
   }
   
-
-
 getLists(){
-
-  if(this.adal.isAuthenticated){
     this.employeeService.getJson( urls_graph.getlists,
                                   'ms').subscribe(data =>
                                                         {                                                          
                                                           this.lists_last = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
                                                         },
                                                   error=> console.log(error)
-                                                  )    
-  }
+                                                  )
 }
 
 getEvents(){
-  if(this.adal.isAuthenticated){
-    this.employeeService.getJson(urls_graph.getevents,
+      this.employeeService.getJson(urls_graph.getevents,
                                 'ms').subscribe(data =>
                                                       {
                                                         this.events_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
                                                       },
                                                 error=> console.log(error)
     )    
-  }
 }
-
 
 getNestedChildren(arr, parent) {
   var out = []
@@ -212,29 +210,41 @@ getNestedChildren(arr, parent) {
   return out 
 }
 
-imgsrc = '/assets/img/logo_ico.png'
-iframesrc
-iframeview = false
-purl
+
+
+onDigestClick(e){
+          if(e.node.type == "file"){
+
+                let url = urls_graph.drives + '/' + urls_departments.hr.drive_id + '/items/' + e.node.id + '/preview'
+                let body =
+                {
+                  "type": "embed"
+                }
+                this.employeeService.getJson( url,
+                                            'ms',
+                                            'post',
+                                            body
+                                            ).subscribe(data => {
+                                                                  console.log(data);                                                                                    
+                                                                  //this.iframeview_d = true                                                                                                                                                                        
+                                                                  //this.iframesrc = this.domSanitizer.bypassSecurityTrustResourceUrl(data['getUrl'])
+                                                                  //let iframe_src = this.domSanitizer.bypassSecurityTrustResourceUrl(data['getUrl']) 
+                                                                  this.appComponent.sidebar_r_display = true
+                                                                  let iframe_src = data['getUrl']
+                                                                  let iframe_tag = `<iframe id="iframe_hook" style="height: calc(100vh*0.88);" width="100%" src= "${iframe_src}" ></iframe>`
+                                                                  this.appComponent.rbar.nativeElement.innerHTML = iframe_tag
+                                                                })
+   
+    }else{
+      this.iframeview_d = false 
+      this.appComponent.sidebar_r_display = false
+    }
+}
 
 onPdfClick(e){
   if(e.node.type == "file"){
-                            // let url = urls_graph.drives + '/' + urls_departments.InformationSecurity.drive_id + '/items/' + e.node.id + '/thumbnails?'
-                            // this.employeeService.getJson( url,
-                            //                             'ms').subscribe(data => {
-                            //                                                         console.log(data)
-                            //                                                         let tmp = data;
-                            //                                                         this.imgsrc = tmp['value'][0].large.url;
-                            //                                                     })
-                            let url2 = urls_graph.drives + '/' + urls_departments.InformationSecurity.drive_id + '/items/' + e.node.id                                                                                
-                            this.employeeService.getJson( url2,
-                                                        'ms').subscribe(data => {
-                                                                                    console.log(data);
-                                                                                    
-                                                                                    //this.purl = this.domSanitizer.bypassSecurityTrustResourceUrl(data['webUrl'])
-                                                                                    this.purl = data['webUrl']
-                                                                                    
-                                                                                })
+
+                            this.appComponent.sidebar_r_display = true
 
                             let url3 = urls_graph.drives + '/' + urls_departments.InformationSecurity.drive_id + '/items/' + e.node.id + '/preview'
                             let body =
@@ -246,22 +256,19 @@ onPdfClick(e){
                                                         'post',
                                                         body
                                                         ).subscribe(data => {
-                                                                                    console.log(data);                                                                                    
-                                                                                    this.iframeview = true                                                                                                                                                                        
-                                                                                    this.iframesrc = this.domSanitizer.bypassSecurityTrustResourceUrl(data['getUrl'])
-                                                                                    
-                                                                                })                                                                                
-
+                                                                              console.log(data);                                                                                    
+                                                                              this.iframeview = true                                                                                                                                                                        
+                                                                              this.iframesrc = this.domSanitizer.bypassSecurityTrustResourceUrl(data['getUrl'])
+                                                                              
+                                                                              
+                                                                          })
+                            }else {
+                              this.iframeview = false
                             }
                           }
 
 
-
-instructions_last
-instructions:TreeNode[] = [{label:'Информационная безопасность', children:[]}];
-
 getInstructions(){
-  if(this.adal.isAuthenticated){
     this.employeeService.getJson(urls_graph.getonedrivesecurity,
                                 'ms').subscribe(data =>
                                                       {
@@ -307,13 +314,11 @@ getInstructions(){
 
                                                       },
                                                 error=> console.log(error)
-    )
-  }
+    )  
 }
 
 
-getOneDrive(){
-  if(this.adal.isAuthenticated){
+getOneDrive(){  
     this.employeeService.getJson(urls_graph.getonedrivesearch,
                                 'ms').subscribe(data =>
                                                       {
@@ -345,12 +350,10 @@ getOneDrive(){
 
                                                       },
                                                 error=> console.log(error)
-    )
-  }
+    )  
 }
 
-getMail(){
-  if(this.adal.isAuthenticated){
+getMail(){ 
     this.employeeService.getJson(urls_graph.getmail,
                                 'ms').subscribe(data =>
                                                       {                                                                                                               
@@ -392,25 +395,22 @@ getMail(){
                                                         //console.log(this.senders)
                                                       },
                                                 error=> console.log(error)
-    )    
-  }
+    ) 
 }
 
 onDateSelect(){
-  //"2018-10-29T08:00:34Z"
-  //let date  
-  //date = this.calendar_date.toISOString().substring(0, 10)
-  let date = new Date(this.calendar_date.getTime() - (this.calendar_date.getTimezoneOffset() * 60000)).toISOString().substring(0, 10);
-  console.log(date)
-  this.dttb.filter(date, 'receivedDateTime', 'contains')
-
-}
+              //"2018-10-29T08:00:34Z"
+              //let date  
+              //date = this.calendar_date.toISOString().substring(0, 10)
+              let date = new Date(this.calendar_date.getTime() - (this.calendar_date.getTimezoneOffset() * 60000)).toISOString().substring(0, 10);
+              console.log(date)
+              this.dttb.filter(date, 'receivedDateTime', 'contains')
+            }
 
 // .sort()                                                                                                                                      
 // .reduce((a, x) => a.includes(x) ? a : [...a, x], [])
 // .filter((x, i, a) => !i || x != a[i-1])
 getUniqueValuesOfKey(array, key){
-
   return array.reduce(  function(carry, item){                                            
                                             if(item[key] && !~carry.indexOf(item[key])) carry.push(item[key]);
                                             return carry;
@@ -424,11 +424,11 @@ onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
 
-
-
-  ngOnInit(){ 
-
+ngOnInit(){ 
     
+    console.log('--- rbar ---')
+    //console.log(this.rbar);
+
     this.contextmenu_items = [
       { label: 'Send link by email', icon: 'pi pi-cloud', command: (event) => { 
                                                                         console.log(this.selectedFile);                                                                        
@@ -443,17 +443,8 @@ onlyUnique(value, index, self) {
 
     this.invalidDates = this.getDaysInMonth(new Date().getMonth(), new Date().getFullYear())
 
-
-    this.getDigests()
-    this.getShared()
-    this.getLists()
-    this.getEvents()
-    this.getMail()
-    this.getOneDrive()
-
-
     this.activeItem = this.files_menu[0];
-    
+
     this.top_menu = [
       { label: 'Информация',  icon: ' pi pi-bar-chart'},
       { label: 'Инструкции', command: event => console.log(event), icon: 'pi pi-calendar', items: [
@@ -479,10 +470,17 @@ onlyUnique(value, index, self) {
       },
       {label: 'Приказы', icon: 'pi pi-book'},
       {label: 'Поддержка', icon: 'pi pi-support'}
-    ];
- 
-  }
+    ]    
 
+    if(this.adal.isAuthenticated){
+                                  this.getDigests()
+                                  this.getShared()
+                                  this.getLists()
+                                  this.getEvents()
+                                  this.getMail()
+                                  this.getOneDrive()
+                                  }     
+  }
 }
 
 
@@ -583,3 +581,20 @@ onlyUnique(value, index, self) {
     //     i==3 ? i=0 : i=i   
     //     return arr[i]
     //   }} 
+
+                                // let url = urls_graph.drives + '/' + urls_departments.InformationSecurity.drive_id + '/items/' + e.node.id + '/thumbnails?'
+                            // this.employeeService.getJson( url,
+                            //                             'ms').subscribe(data => {
+                            //                                                         console.log(data)
+                            //                                                         let tmp = data;
+                            //                                                         this.imgsrc = tmp['value'][0].large.url;
+                            //                                                     })
+                            // let url2 = urls_graph.drives + '/' + urls_departments.InformationSecurity.drive_id + '/items/' + e.node.id                                                                                
+                            // this.employeeService.getJson( url2,
+                            //                             'ms').subscribe(data => {
+                            //                                                         console.log(data);
+                                                                                    
+                            //                                                         //this.purl = this.domSanitizer.bypassSecurityTrustResourceUrl(data['webUrl'])
+                            //                                                         this.purl = data['webUrl']
+                                                                                    
+                            //                                                     })
