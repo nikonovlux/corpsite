@@ -2,24 +2,54 @@
 <br />
 <p-contextMenu #cm [model]="contextmenu_items"></p-contextMenu>
 
+<table>
+<tr>
+<td>
+<div id="folders" >
+<p-tree [value]="instructions"
+        selectionMode="single"
+        [(selection)]="selectedFolder"
+        layout="vertical"
+        (onNodeSelect)="onPdfClick($event)"
+        scrollable="true"
+        >
+        <ng-template let-node  pTemplate="folder" >
+                <a title="{{node.id}}"  >{{  node.label  }}</a>                                         
+        </ng-template>
 
+        <ng-template let-node  pTemplate="file"  >
+                <a  title="{{node.id}} - {{node.size | powerpipe}}" >{{ node.label }} - {{node.size | powerpipe}}"</a>
+        </ng-template>
 
-<div id="infsecurity" >
-        <p-tree [value]="instructions"
-                selectionMode="single"
-                [(selection)]="selectedFile"
-                layout="vertical" 
-                (onNodeSelect)="onPdfClick($event)"
-                scrollable="true"
-                >                        
-                <ng-template let-node  pTemplate="folder" >
-                        <a title="{{node.id}}"  >{{  node.label  }}</a>                                         
-                </ng-template>
-                <ng-template let-node  pTemplate="file" >
-                        <a title="{{node.id}} - {{node.size}} kb" >{{  node.label  }}</a>
-                </ng-template>
-        </p-tree>
+        <ng-template let-node  pTemplate="default" >  
+                <a></a>                      
+        </ng-template>
+
+</p-tree>
 </div>
+</td>
+</tr><tr>
+<td>
+<div id="files" >
+<p-tree [value]="instructions_files"
+        selectionMode="single"
+        [(selection)]="selectedFile"
+        layout="vertical" 
+        (onNodeSelect)="onPdfClick($event)"
+        scrollable="true"
+        >                               
+        <ng-template let-node  pTemplate="file" >
+                <a title="{{node.id}}" >{{  node.label  }} - {{node.size | powerpipe}}"</a>
+        </ng-template>
+</p-tree>
+</div>
+</td>
+</tr>
+</table>
+
+
+
+
 
 
 

@@ -10,6 +10,10 @@ h2{
  
   }  
 
+table{
+  display:flex;
+}
+
 @media(min-width: 375px){
   ::ng-deep .ui-tree{ 
     width: 370px;

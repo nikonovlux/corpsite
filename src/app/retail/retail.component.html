@@ -4,17 +4,17 @@
 
 <div class="right_block">
     <p-table #dt [value]="optics" selectionMode="single" [tableStyle]="{'table-layout':'auto'}" [(selection)]="selectedOptic" (onRowSelect)="onRowSelect($event)" dataKey="address" [globalFilterFields]="['address']" class="fixed_header">
-        <ng-template pTemplate="caption">
+        <!-- <ng-template pTemplate="caption">
             <div style="text-align: justify" class="fixed">
                 <th>
                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-                    <input type="text" pInputText size="50" placeholder="{{'SEARCH' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">  <!-- value to children -->
+                    <input type="text" pInputText size="50" placeholder="{{'SEARCH' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">  value to children
                 </th>     
             </div>
-        </ng-template>
+        </ng-template> -->
         <ng-template pTemplate="header" >
             <tr>
-                <th>City</th>
+                <th>City<input type="text" pInputText placeholder="{{'SEARCH' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto"></th>
                 <th>Address</th>
                 <th>Phone</th>  
                 <th>Schedule</th>      
@@ -36,8 +36,9 @@
 
     </p-table>
 </div>
-
+<br/>
 <div id="gmapblock" class="gmap" *ngIf="dataAvailable">
     <p-gmap [options]="options" [overlays]="overlays" [style]="{'width':'100%','height':'720px'}" (onMapReady)="mapReady($event)" ></p-gmap>    
 </div>
+<div id="down"></div>
 

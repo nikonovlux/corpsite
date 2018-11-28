@@ -1,14 +1,26 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild,ElementRef} from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import {MsAdalAngular6Service} from 'microsoft-adal-angular6';
 import {EmployeeService} from '../employee.service';
 import {urls_departments,urls_graph} from 'src/environments/environment.prod';
 import {TreeNode} from 'primeng/api';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser'; 
+import {DomSanitizer,SafeUrl} from '@angular/platform-browser'; 
 import {AppComponent} from '../app.component'
+
+//import {ViewEncapsulation } from '@angular/core';
+
+interface Card{
+  header;
+  content;
+  subheader?;
+  style?;
+  styleClass?;
+  color?;  
+}
 
 
 @Component({
+  //encapsulation: ViewEncapsulation.None,
   selector: 'app-mainpage',
   templateUrl: './mainpage.component.html',
   styleUrls: ['./mainpage.component.css']
@@ -26,8 +38,11 @@ export class MainpageComponent implements OnInit {
 
   @ViewChild('dttb') private dttb:any;
   @ViewChild('menuItems') menu: MenuItem[];
- 
+  @ViewChild('controlpan') controlpan: ElementRef;
+  
 
+  cycling_onCardFunc = 0
+  cards: Card[]
 
   digests;
   orders;
@@ -44,7 +59,8 @@ export class MainpageComponent implements OnInit {
     {label: 'OneDrive'}, 
     {label: 'SharedWithMe'},
     {label: 'Проекты'},
-    {label: 'Itilium'}
+    {label: 'Itilium'},
+    {label: 'Cards'}
   ];
 
   activeItem: MenuItem;
@@ -354,9 +370,7 @@ getOneDrive(){
 }
 
 getMail(){ 
-    this.employeeService.getJson(urls_graph.getmail,
-                                'ms').subscribe(data =>
-                                                      {                                                                                                               
+    this.employeeService.getJson(urls_graph.getmail,'ms').subscribe(data => {                                                                                                               
                                                         const tmp = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0] 
                                                         this.email_last = tmp                                                                                                                 
                                                         // console.log('-----emails-----')
@@ -371,28 +385,32 @@ getMail(){
 
 
                                                         let senders2push = tmp.map(email => {
-                                                                                              return {label: email.sender.emailAddress.name,
-                                                                                                      value: email.sender.emailAddress.name  }})
-                                                                              //.filter(this.onlyUnique) 
+                                                                                      if(email.sender){
+                                                                                              return {  label: email.sender.emailAddress.name,
+                                                                                                        value: email.sender.emailAddress.name}  }})
+
+                                                                            //.filter(this.onlyUnique) 
 
                                                         //console.log('---senders2push---')
                                                         //console.log(senders2push)                     
-                                                        
-                                                        let senders2push1 = this.getUniqueValuesOfKey(senders2push,'label')
+                                                        let senders2push1
+                                                        if( this.getUniqueValuesOfKey(senders2push,'label') != undefined){
+                                                        senders2push1 = this.getUniqueValuesOfKey(senders2push,'label')
                                                                                                                     .map(item => { return { label:item, value:item} })
                                                                                                                           .sort((a, b) => {
                                                                                                                                             return a['value'] - b['value'];
                                                                                                                                           })
+                                                                                                                                            
+                                                            //console.log('---senders2push1---')
+                                                            //console.log(senders2push1)
+                                                            
 
-                                                        //console.log('---senders2push1---')
-                                                        //console.log(senders2push1)
-                                                        
-
-                                                        senders2push1.forEach(element => {
-                                                          this.senders.push(element)
-                                                        });
-                                                        //console.log('-----senders-----')
-                                                        //console.log(this.senders)
+                                                            senders2push1.forEach(element => {
+                                                              this.senders.push(element)
+                                                            });
+                                                            //console.log('-----senders-----')
+                                                            //console.log(this.senders)
+                                                        }
                                                       },
                                                 error=> console.log(error)
     ) 
@@ -411,10 +429,10 @@ onDateSelect(){
 // .reduce((a, x) => a.includes(x) ? a : [...a, x], [])
 // .filter((x, i, a) => !i || x != a[i-1])
 getUniqueValuesOfKey(array, key){
-  return array.reduce(  function(carry, item){                                            
+  return array.reduce(  function(carry, item){ if(item != undefined && carry != undefined ){                                            
                                             if(item[key] && !~carry.indexOf(item[key])) carry.push(item[key]);
                                             return carry;
-                                            },
+                                            }},
                         []
                         );
 }
@@ -424,10 +442,29 @@ onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
 }
 
+
+
+onCardFunc(){
+  if(this.cycling_onCardFunc == 0){
+    this.controlpan.nativeElement.style="width:500px;height:100px;border:1px solid #000;"
+    this.cycling_onCardFunc = 1
+  }else{
+    this.controlpan.nativeElement.style="width:400px;height:80px;border:1px solid #000;"
+    this.cycling_onCardFunc = 0
+  }
+}
+
+
+
+
 ngOnInit(){ 
     
-    console.log('--- rbar ---')
-    //console.log(this.rbar);
+    this.cards = [
+                    {header:"HR", content:"Департамент ХР",subheader:"Luxoptica",color:"yellow",style:"{width: '360px'}"},
+                    {header:"IT", content:"Департамент IT",subheader:"Luxoptica",color:"green",style:"{width: '360px'}"},
+                    {header:"InfoSecurity", content:"Отдел InfoSecurity",subheader:"Luxoptica",color:"red",style:"{width: '360px'}"},
+                    {header:"Reception", content:"Reception",subheader:"Luxoptica",color:"blue",style:"{width: '360px'}"}
+                  ]
 
     this.contextmenu_items = [
       { label: 'Send link by email', icon: 'pi pi-cloud', command: (event) => { 
@@ -443,7 +480,7 @@ ngOnInit(){
 
     this.invalidDates = this.getDaysInMonth(new Date().getMonth(), new Date().getFullYear())
 
-    this.activeItem = this.files_menu[0];
+    this.activeItem = this.files_menu[10];    
 
     this.top_menu = [
       { label: 'Информация',  icon: ' pi pi-bar-chart'},
@@ -479,10 +516,13 @@ ngOnInit(){
                                   this.getEvents()
                                   this.getMail()
                                   this.getOneDrive()
-                                  }     
+                                  } else { alert('Not Auth')}
+                                  
+    
+                                  
+
   }
 }
-
 
 
 

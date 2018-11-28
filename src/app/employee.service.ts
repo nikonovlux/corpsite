@@ -1,16 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
  
-import { Observable, of, Subscriber } from 'rxjs';
+import {Observable} from 'rxjs';
  
-import { Employee } from './employee';
-import { EMPLOYEES } from './lst-employees';
-import { MessageService } from './message.service';
+import {MessageService} from './message.service';
 
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import {HttpClient,HttpHeaders} from '@angular/common/http';
 
-import { MsAdalAngular6Service } from 'microsoft-adal-angular6';
+import {MsAdalAngular6Service} from 'microsoft-adal-angular6';
 
-import {  adal_config} from 'src/environments/environment.prod';
+import {adal_config} from 'src/environments/environment.prod';
 
 
 
@@ -95,8 +93,6 @@ export class EmployeeService {
       // }
     }
   }
-                                                   
-
 
 
   curryGetMs  = this.getJsonCurry('Get')({
@@ -249,19 +245,25 @@ public httpRequestPhoto(email, elId='photo'){
       return headers;
   }
 
-  getEmployees(): Observable<Employee[]> {
-    // TODO: send the message _after_ fetching the employees
-    this.messageService.add('EmployeeService: fetched employees');
-    return of(EMPLOYEES);
-  }
- 
-  getEmployee(id: number): Observable<Employee> {
-    // TODO: send the message _after_ fetching the employee
-    this.messageService.add(`EmployeeService: fetched employee id=${id}`);
-    return of(EMPLOYEES.find(employee => employee.id === id));
-  }
+
 
 }
+
+
+// import { Employee } from './employee';
+// import { EMPLOYEES } from './lst-employees';
+
+  // getEmployees(): Observable<Employee[]> {
+  //   // TODO: send the message _after_ fetching the employees
+  //   this.messageService.add('EmployeeService: fetched employees');
+  //   return of(EMPLOYEES);
+  // }
+ 
+  // getEmployee(id: number): Observable<Employee> {
+  //   // TODO: send the message _after_ fetching the employee
+  //   this.messageService.add(`EmployeeService: fetched employee id=${id}`);
+  //   return of(EMPLOYEES.find(employee => employee.id === id));
+  // }
 
 
 

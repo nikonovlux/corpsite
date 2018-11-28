@@ -4,6 +4,19 @@ h2{
     margin-left: 25%;
   }
 
+.cards{
+max-width:1200px;
+max-height:750px;
+display: inline-block;
+}
+
+.card{
+  min-width: 360px;
+  min-height: 250px;
+}
+
+
+
 #infsecurity .ui-tree
 {
   padding-right: 10px;
@@ -66,6 +79,4 @@ h2{
 ::ng-deep table {
   table-layout: auto !important;
 }
-
-
 

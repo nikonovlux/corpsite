@@ -47,12 +47,14 @@
 
 
 <div>
-    <a id='logo' (click)="toggleMenuOut()" class='logo' ><img src="assets/img/logo_name.png"/></a>
+    <div (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')">
+        <a id='logo' (click)="toggleMenuOut()" class='logo' ><img src="assets/img/logo_name.png"/></a>
+    
     <!-- <app-topmenu></app-topmenu> -->
     <app-menu [@slideInOut]="menuState"></app-menu>
     <router-outlet></router-outlet>
     <!-- <app-footer></app-footer> -->
-    
+  </div>    
 </div>
 
 

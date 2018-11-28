@@ -1,11 +1,8 @@
 .logo{
   margin-left: 10%; 
-   
 }
 
-
 @media (max-width : 1550px) {
-  .logo {display:block;}
   .logo {display:none;}
 }
 
@@ -16,7 +13,6 @@
 li {
   cursor: pointer;
 }
-
 
 #btn_menu {
   margin-top: 1em;
@@ -96,11 +92,25 @@ li {
 
   ::ng-deep .ui-sidebar-left .pi{
     font-size: 2em;
+    color: white;       
   }
+
+  ::ng-deep .ui-sidebar-right .pi{
+    font-size: 2em;
+    color: white;
+  }
+
+  ::ng-deep .ui-sidebar-right  .pi:hover{      
+      color: #089910;
+      background: #ffff;
+    }   
 
   ::ng-deep .ui-sidebar-right{
     background: #089910;
     color: #ffffff;
     }
+
+
+
 
 

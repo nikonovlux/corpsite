@@ -1,8 +1,6 @@
 <h2 translate>Main</h2>
 <br />
-
 <p-contextMenu #cm [model]="contextmenu_items"></p-contextMenu>
-
 
 
 
@@ -25,8 +23,7 @@
 
 <!-- digests -->
 <div *ngIf="activeItem == files_menu[2]" id="digests">
-        <br/> 
-        
+        <br/>
         <p-tree  [value]="digests_last"  selectionMode="single" [(selection)]="selectedDigest" (onNodeSelect)="onDigestClick($event)" layout="horizontal">
                 <ng-template let-node  pTemplate="folder">
                         <a title="{{node.id}}"  >{{  node.name  }}</a>
@@ -465,27 +462,57 @@
     </div>
 
 
-        <!-- infsecurity -->
-        <div id="infsecurity" *ngIf="activeItem == files_menu[10]">
-            <!-- <span>Инструкции по информационной безопасности</span> -->
-            <br/>
-            <!-- layout="horizontal" -->
-            <p-tree [value]="instructions"   selectionMode="single" [(selection)]="selectedFile"  layout="horizontal"  (onNodeSelect)="onPdfClick($event)" >
-                    <ng-template let-node  pTemplate="folder">
-                            <a title="{{node.id}}"  >{{  node.label  }}</a>
-                            <!-- <a>{{   node.id }}</a> -->
-                        </ng-template>
-                        <ng-template let-node  pTemplate="file" >
-                                <a title="{{node.id}}" >{{  node.label  }}</a><br/>                                
-                                <!-- <a>{{   node.id }}</a> -->
-                        </ng-template>                    
-            </p-tree>
-        </div> 
+<!-- infsecurity -->
+<div id="infsecurity" *ngIf="activeItem == files_menu[15]">
+    <!-- <span>Инструкции по информационной безопасности</span> -->
+    <br/>
+    <!-- layout="horizontal" -->
+    <p-tree [value]="instructions"   selectionMode="single" [(selection)]="selectedFile"  layout="horizontal"  (onNodeSelect)="onPdfClick($event)" >
+            <ng-template let-node  pTemplate="folder">
+                    <a title="{{node.id}}"  >{{  node.label  }}</a>
+                    <!-- <a>{{   node.id }}</a> -->
+                </ng-template>
+                <ng-template let-node  pTemplate="file" >
+                        <a title="{{node.id}}" >{{  node.label  }}</a><br/>                                
+                        <!-- <a>{{   node.id }}</a> -->
+                </ng-template>                    
+    </p-tree>
+</div> 
+
+
+
+
+
+<!-- cards -->
+<div id="cards" *ngIf="activeItem == files_menu[10]">
+    <br/> 
+    
+    <button pbutton (click)="onCardFunc()" >eAtMe</button>
+    <div #controlpan >Options</div>  
+    <br/> 
+
+    <div class = "cards">
+        <div *ngFor="let card of cards; index as i;"  >                
+            <p-card header={{card.header}}>  
+                <div>{{card.content}}</div>                
+            </p-card>
+        </div>  
+    </div>  
+
+
+
+    <!-- <div class="ui-g">
+    </div>   header="{{card.header}}" subheader="{{card.subheader}}"
+        <div class="ui-g-4">Col2</div>
+        <div class="ui-g-4">Col3</div>
+    </div> -->
+
+</div> 
 
 
 </div>  
 
-<div id="side" *ngIf = "(iframeview_d || iframeview) && (activeItem == files_menu[10] || activeItem == files_menu[2] )">
+<div id="side" *ngIf = "(iframeview_d || iframeview) && (activeItem == files_menu[15] || activeItem == files_menu[2] )">
     <app-loader *ngIf = "iframe_not_loaded" id="loader_circle"></app-loader>
     <iframe id="iframe_hook" style="height:750px" width="100%" [src]= "iframesrc" (load)=" iframe_not_loaded = false; "  ></iframe>
 </div>
@@ -495,6 +522,14 @@
     <!-- <a href={{purl}}><p>Download PDF</p></a> -->
     <!-- <img [src]="imgsrc"> -->
     <!-- <pdf-viewer [src]="pdfsrc" [zoom]="0.4"></pdf-viewer> -->
+
+<!-- ------------------------------------------------------------ -->
+
+
+
+
+
+
 
 
 

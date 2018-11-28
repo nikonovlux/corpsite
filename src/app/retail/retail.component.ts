@@ -50,6 +50,7 @@ selectedOptic: Optic;
 onRowSelect(event) { 
 
   this.gmap.map.panTo({lat: parseFloat(event.data.gmapsS), lng: parseFloat(event.data.gmapsN)});
+  window.scrollTo(0,document.body.scrollHeight);
   
 }
 

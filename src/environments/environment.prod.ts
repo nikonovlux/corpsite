@@ -21,6 +21,8 @@ export interface form_graph_ms_interface {
 };
 
 
+
+
 export const urls =
 {
   'auth':'https://login.microsoftonline.com/common/oauth2/v2.0/authorize',
@@ -36,14 +38,15 @@ export const urls =
 
 export const urls_graph = 
 {
-  'drives':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com/drives',
+  'rootsearch':"/root/search(q='')",
+  'drives':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com/drives/',
   'projects':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com/drives/b!aFuLuUnUzEe5WPgTFmlSwZhUjDmMlABPr47g2vTgGKZrTGtYNiaqQY9n94r2IARu/items/017KN5K5HB33MFTROIRBDZ3OMFPSPHDPK2',
   'digests': 'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com/drives/b!1mjONJ3kvky_8BBGX7upYCT6qJM_j_tAnVNx0AV94ZkqYvu5A5SOQYZm2xC0x5yN/items/01QGYUVUC3F2DLXNHX4BB3FOCPOXYQSTXA/children',
   'sharedwithme':'https://graph.microsoft.com/beta/me/drive/sharedWithMe',
   'getlists':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/teams/test:/lists/complains/items?expand=fields(select=id,Title,department)',
   'getevents':'https://graph.microsoft.com/beta/me/events?$select=subject,bodyPreview,organizer,attendees,start,end,location',
   'getonedrive':'https://graph.microsoft.com/beta/me/drive/root/children',
-  'getmail':'https://graph.microsoft.com/beta/me/messages?$top=18',
+  'getmail':'https://graph.microsoft.com/beta/me/messages?$top=15',
   'getonedrivesearch':"https://graph.microsoft.com/v1.0/me/drive/root/search(q='')",
   'getonedrivesecurity':"https://graph.microsoft.com/beta/sites/interoko.sharepoint.com/drives/b!PzA2vC1hh0ueQ3zmhy0aksfSpZ56MWxHveJBstzv5NBfXRvbBez_QJdtGPUUBILH/root/search(q='')",  
   'usersearch':"https://graph.microsoft.com/v1.0/users?$filter=startswith(givenName,'ENTER_SURName')"
@@ -51,17 +54,25 @@ export const urls_graph =
 
 // https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/it:/drive // find drive
 
+
+
 export const urls_departments = 
 {
   'InformationSecurity':{
     'url':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/InformationSecurity',
+    'public_folder':'01RUGPFPAUYULGSQX2FRFYCICBX4AAWROS',
     'drive_id':'b!PzA2vC1hh0ueQ3zmhy0aksfSpZ56MWxHveJBstzv5NBfXRvbBez_QJdtGPUUBILH'},
   'hr':{
     'url':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/hr',
-    'drive_id':'b!1mjONJ3kvky_8BBGX7upYCT6qJM_j_tAnVNx0AV94ZkqYvu5A5SOQYZm2xC0x5yN'},  
+    'drive_id':'b!1mjONJ3kvky_8BBGX7upYCT6qJM_j_tAnVNx0AV94ZkqYvu5A5SOQYZm2xC0x5yN',
+    'public_folder':'01QGYUVUC3F2DLXNHX4BB3FOCPOXYQSTXA'},  // "01QGYUVUF6Y2GOVW7725BZO354PWSELRRZ"
   'it':{
     'url':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/it',
-    'drive_id':'b!GOQpC4hrQ0SWFEJcIulxGNR3hDraLRpImouGb7JKyhvBuxUkGj4XQ6e3FavhZUKB'}
+    'drive_id':'b!GOQpC4hrQ0SWFEJcIulxGNR3hDraLRpImouGb7JKyhvBuxUkGj4XQ6e3FavhZUKB'},  
+  'reception':{
+      'url':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/reception',
+      'public_folder':'01ZG5MZ4G7CL4EAEDR3ZFLDLPCGMBVJLED',
+      'drive_id':'b!IWREt0TEHUyf1OooW2OX0l39tkUTSBBPvxnxsCDBls_kzV36EwgxTrikw1Ect_6L'}
 }
 
 export const urls_instructions = 

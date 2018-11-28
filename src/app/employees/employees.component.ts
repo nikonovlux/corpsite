@@ -195,13 +195,15 @@ export class EmployeesComponent implements OnInit {
                                                 this.groups = groups;
                                             });
   }
-  GetEmployees(): void {  this.employeeService
-                  .getEmployees()
-                            .subscribe(employees => {
-                                              console.log(employees);
-                                              this.employees = employees;
-                                            });
-  }
+
+  // GetEmployees(): void {  this.employeeService
+  //                 .getEmployees()
+  //                           .subscribe(employees => {
+  //                                             console.log(employees);
+  //                                             this.employees = employees;
+  //                                           });
+  // }
+  
 }
 
 

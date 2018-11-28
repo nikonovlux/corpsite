@@ -112,6 +112,7 @@ import { InstructionsComponent } from './instructions/instructions.component';
 
 import {LoaderComponent} from './loader'
 
+import {CardModule} from 'primeng/card';
 
 
 
@@ -158,7 +159,8 @@ export function HttpLoaderFactory(http: HttpClient) {
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
       }
-  }),     
+  }),
+    CardModule,       
     PdfViewerModule,
     SidebarModule,
     CalendarModule,
