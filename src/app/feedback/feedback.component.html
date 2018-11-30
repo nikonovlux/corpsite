@@ -8,6 +8,9 @@
 <br/>
 <textarea class="textb" name="theme2" pInputTextarea [(ngModel)]="writtenText1" ></textarea>
 <br/>
+<p-fileUpload name="myfile[]" customUpload="true" accept="image/*" maxFileSize="1000000" (onSelect)="onSelectFile($event)" (uploadHandler)="myUploader($event)" ></p-fileUpload>
+
+<br/>
 <a href="mailto:nikonov.m@luxoptica.com.ua?subject={{selectedTopic1.label}}&body={{writtenText1}}" >
 <button name="sendbutton" pButton type="button" label="Отправить созданную заявку по электронной почте" class="ui-button-success"></button>
 </a>

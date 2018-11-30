@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NgxSoapService, Client, ISoapMethodResponse } from 'ngx-soap';
+//import { NgxSoapService, Client, ISoapMethodResponse } from 'ngx-soap';
 
 import {Http} from '@angular/http';
 
@@ -14,7 +14,7 @@ import {Http} from '@angular/http';
 
 export class LogoutComponent implements OnInit {
 
-  client: Client; 
+  //client: Client; 
 
   body = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:mob="http://www.mobile.itilium.org">'+
   '<soapenv:Header/>'+
@@ -25,7 +25,9 @@ export class LogoutComponent implements OnInit {
   '</soapenv:Body>'+
 '</soapenv:Envelope>'
  
-  constructor(private soap: NgxSoapService) {}
+  constructor(
+    //private soap: NgxSoapService
+    ) {}
 
     soap2(){
 

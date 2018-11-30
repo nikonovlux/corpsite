@@ -23,9 +23,15 @@ interface Card{
   //encapsulation: ViewEncapsulation.None,
   selector: 'app-mainpage',
   templateUrl: './mainpage.component.html',
-  styleUrls: ['./mainpage.component.css']
+  styleUrls: [
+              './mainpage.component.css'
+             ]
 })
  
+
+
+
+// <base href="/">
 
 export class MainpageComponent implements OnInit {
 
@@ -44,10 +50,10 @@ export class MainpageComponent implements OnInit {
   cycling_onCardFunc = 0
   cards: Card[]
 
-  digests;
-  orders;
+  digests
+  orders
 
-  top_menu: MenuItem[];
+  top_menu: MenuItem[]
 
   files_menu: MenuItem[] = [
     {label: 'Инструкция SD'},
@@ -57,11 +63,11 @@ export class MainpageComponent implements OnInit {
     {label: 'Events'},
     {label: 'Lists'},      // 5
     {label: 'OneDrive'}, 
-    {label: 'SharedWithMe'},
-    {label: 'Проекты'},
-    {label: 'Itilium'},
+    {label: 'Shared'},
+  //  {label: 'Проекты'},
+  //  {label: 'Itilium'},
     {label: 'Cards'}
-  ];
+  ]
 
   activeItem: MenuItem;
   
@@ -70,7 +76,7 @@ export class MainpageComponent implements OnInit {
   events_last:any  
   lists_last:any  
   shared_last:any  
-  //digests_last:any  
+   
   projects_last:any
 
   selectedDigest 
@@ -448,9 +454,19 @@ onCardFunc(){
   if(this.cycling_onCardFunc == 0){
     this.controlpan.nativeElement.style="width:500px;height:100px;border:1px solid #000;"
     this.cycling_onCardFunc = 1
+    this.cards = this.cards.map(card => {
+                                        let obj: Card = card                                        
+                                        obj['color'] = "blue"
+                                        return obj
+                                            })
   }else{
     this.controlpan.nativeElement.style="width:400px;height:80px;border:1px solid #000;"
     this.cycling_onCardFunc = 0
+    this.cards = this.cards.map(card => {
+                                          let obj: Card = card
+                                          obj['color'] = "green"
+                                          return obj
+                                              })
   }
 }
 
@@ -462,10 +478,11 @@ ngOnInit(){
     this.cards = [
                     {header:"HR", content:"Департамент ХР",subheader:"Luxoptica",color:"yellow",style:"{width: '360px'}"},
                     {header:"IT", content:"Департамент IT",subheader:"Luxoptica",color:"green",style:"{width: '360px'}"},
-                    {header:"InfoSecurity", content:"Отдел InfoSecurity",subheader:"Luxoptica",color:"red",style:"{width: '360px'}"},
+                    {header:"InfoSecurity", content:" InfoSecurity",subheader:"Luxoptica",color:"red",style:"{width: '360px'}"},
                     {header:"Reception", content:"Reception",subheader:"Luxoptica",color:"blue",style:"{width: '360px'}"}
                   ]
 
+  
     this.contextmenu_items = [
       { label: 'Send link by email', icon: 'pi pi-cloud', command: (event) => { 
                                                                         console.log(this.selectedFile);                                                                        
@@ -480,7 +497,7 @@ ngOnInit(){
 
     this.invalidDates = this.getDaysInMonth(new Date().getMonth(), new Date().getFullYear())
 
-    this.activeItem = this.files_menu[10];    
+    this.activeItem = this.files_menu[0];    
 
     this.top_menu = [
       { label: 'Информация',  icon: ' pi pi-bar-chart'},
@@ -516,11 +533,8 @@ ngOnInit(){
                                   this.getEvents()
                                   this.getMail()
                                   this.getOneDrive()
-                                  } else { alert('Not Auth')}
-                                  
-    
-                                  
-
+                                  } else {
+                                  alert('Not Auth')}
   }
 }
 

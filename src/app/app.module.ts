@@ -41,20 +41,12 @@ import { DropdownModule} from 'primeng/dropdown';
 
 import { MsAdalAngular6Module, AuthenticationGuard } from 'microsoft-adal-angular6';
 
-//import {MsalModule, MsalGuard, MsalInterceptor} from '@azure/msal-angular';
-
-// import * as MicrosoftGraph from '@microsoft/microsoft-graph-client'
-// const MicrosoftGraph = require("@microsoft/microsoft-graph-client");
-// MicrosoftGraph.Client.init();
-
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 
-
-//import { SPService } from './mainpage/sp.service';
 import { WikipageComponent } from './wikipage/wikipage.component';
 
 
@@ -82,7 +74,7 @@ import {MegaMenuModule} from 'primeng/megamenu';
 import {SidebarModule} from 'primeng/sidebar';
 
 
-import { NgxSoapModule } from 'ngx-soap';
+//import { NgxSoapModule } from 'ngx-soap';
 
 
 
@@ -107,14 +99,14 @@ import { UniquePipe } from './uniquepipe'
 import { LazyLoadingScriptService } from './gmap2.directive';
 
 
-import { PdfViewerModule } from 'ng2-pdf-viewer';
+//import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { InstructionsComponent } from './instructions/instructions.component';
 
 import {LoaderComponent} from './loader'
 
-import {CardModule} from 'primeng/card';
+import {CardModule} from 'primeng/components/card/card';
 
-
+import {FileUploadModule} from 'primeng/fileupload';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -141,7 +133,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     DocsComponent,
     MenuComponent,
     MessagesComponent,
-  //  EmployeeDetailComponent,
     NewsComponent,
     LoginComponent,
     LogoutComponent,
@@ -152,7 +143,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     InstructionsComponent    
   ],
   imports: [
-    NgxSoapModule,
+    //NgxSoapModule,
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -161,7 +152,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
   }),
     CardModule,       
-    PdfViewerModule,
+    //PdfViewerModule,
+    FileUploadModule,
     SidebarModule,
     CalendarModule,
     MegaMenuModule,
@@ -183,18 +175,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     PanelModule,
     ButtonModule,
     RadioButtonModule,
-    GMapModule,
-    //MsalModule.forRoot(adal_config_ms)
+    GMapModule,  
     MsAdalAngular6Module.forRoot(adal_config)
   ],
-  providers: [
-    //MsalGuard,
+  providers: [  
     LazyLoadingScriptService,
     AuthenticationGuard,    
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AppIntercept,
-      //useClass: MsalInterceptor,
       multi: true,
     }
   ],

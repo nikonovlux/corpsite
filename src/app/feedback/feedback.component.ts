@@ -59,6 +59,21 @@ export class FeedbackComponent implements OnInit {
   
   writtenText1 = "Текст обращения";
 
+  attachment: Blob
+
+  onSelectFile(event){
+    console.log(event);
+    this.attachment = event.files[0].objectURL.changingThisBreaksApplicationSecurity
+
+
+  }
+
+  myUploader(event) {
+    console.log(event);
+    this.attachment = event.files[0].objectURL.changingThisBreaksApplicationSecurity
+}
+
+
   onDepChange(){
     console.log('dep changed');
     console.log(this.selectedDep1);

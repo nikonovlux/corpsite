@@ -40,7 +40,7 @@ const routes: Routes = [
   { path: 'news', component: NewsComponent  , canActivate: [AuthenticationGuard] },
   // { path: 'detail/:id', component: EmployeeDetailComponent  , canActivate: [AuthenticationGuard] },
   { path: 'instructions', component: InstructionsComponent  , canActivate: [AuthenticationGuard] },
-  // { path: 'login', component: LoginComponent  },
+  { path: 'login', component: LoginComponent  },
   // { path: 'logout', component: LogoutComponent   },
   // { path: 'complain', component: ComplainComponent },
   // { path: 'wikipage', component: WikipageComponent },

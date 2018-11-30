@@ -2,23 +2,27 @@ h2{
     margin-left: 25%;
   }
 
-p-dropdown, button{
+p-dropdown,button,textarea{
 
-  margin-left: 5%;  
-  margin-right: 5%;
+ 
+  margin-right: 2%;
+  margin-left: 2%;
+  width: 90%;
+
+  max-width: 1200px;
   
 }
 
 .dep{  
-  max-width: 50%;
+  max-width: 40%;
 }
 
 .topic{  
-  min-width: calc(50%-5px);
+  min-width: calc(40%-25px);
 }
 
 .textb {  
-  margin-left: 5%;
+  margin-left: 2%;
   width: 90%;
   height: 8em;
   max-width: 1200px;
