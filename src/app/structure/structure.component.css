@@ -54,10 +54,10 @@ h2{
     max-width: 90%;    
 }
 
-.node-label {
+/* .node-label {
     background-color: #298a0b;
     color: #ffffff;
-}
+} */
 .node-header,.node-content {
     padding: .5em .7em;
 }

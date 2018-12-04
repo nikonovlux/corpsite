@@ -103,36 +103,25 @@ export class EmployeeService {
                                         })
 
 
-  getJson(userUrl, token='ag', method='get', body:any='', httpOptions=this.httpOptions_env  ) {
+  getJson(userUrl, token='ms', method='get', body:any='', httpOptions=this.httpOptions_env  ) {
                                           
                        
-                          if(method == 'post'){    
-                            let post_options = {
-                              headers: new HttpHeaders({                                
-                                'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
-                              })} 
-                              return this.http.post(userUrl, body, post_options );
+                          if(method == 'post' && token === 'ms'){    
+                            if(localStorage.getItem('code_ms') ){                            
+                              httpOptions = {
+                                headers: new HttpHeaders({                                
+                                  'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
+                                })} 
+                              }
+                              return this.http.post(userUrl, body, httpOptions );
 
-                          }else if(method == 'get'){
-
-                              if(localStorage.getItem('code_ms') && token === 'ms'){    // localStorage.getItem('code_ms') &&
+                    }else if(method == 'get' && token === 'ms'){
+                            if(localStorage.getItem('code_ms') ){    
                                       httpOptions = {
                                         headers: new HttpHeaders({                                                
                                           //'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
                                           'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
                                         })}                                  
-                              }else if (localStorage.getItem('code_ag') && token === 'ag'){
-                                    try{
-                                      httpOptions = {
-                                        headers: new HttpHeaders({                                                
-                                          'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ag')).access_token
-                                          
-                                        })}
-
-                                    }
-                                    catch{ console.log('ERROR IN http!!!!!!!-------------')} 
-
-                                    
                               }
                               return this.http.get(userUrl, httpOptions );
                           }
@@ -248,6 +237,22 @@ public httpRequestPhoto(email, elId='photo'){
 
 
 }
+
+
+
+// else if (localStorage.getItem('code_ag') && token === 'ag'){
+//   try{
+//     httpOptions = {
+//       headers: new HttpHeaders({                                                
+//         'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ag')).access_token
+        
+//       })}
+
+//   }
+//   catch{ console.log('ERROR IN http!!!!!!!-------------')} 
+
+  
+// }
 
 
 // import { Employee } from './employee';

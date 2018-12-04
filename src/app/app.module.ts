@@ -108,6 +108,11 @@ import {CardModule} from 'primeng/components/card/card';
 
 import {FileUploadModule} from 'primeng/fileupload';
 
+
+
+
+
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -142,8 +147,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CirculationComponent,
     InstructionsComponent    
   ],
-  imports: [
-    //NgxSoapModule,
+  imports: [   
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -151,8 +155,7 @@ export function HttpLoaderFactory(http: HttpClient) {
           deps: [HttpClient]
       }
   }),
-    CardModule,       
-    //PdfViewerModule,
+    CardModule,
     FileUploadModule,
     SidebarModule,
     CalendarModule,
@@ -180,7 +183,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [  
     LazyLoadingScriptService,
-    AuthenticationGuard,    
+    AuthenticationGuard,      
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AppIntercept,

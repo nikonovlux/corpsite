@@ -1,21 +1,40 @@
-<div>
+
 <h2 translate>Feedback</h2>
 <br/>
-<div>
+
+
+<div id="form">
+
+
 <p-dropdown class="dep" name="dep1" [options]="dep1" [(ngModel)]="selectedDep1" (ngModelChange)="onDepChange()" ></p-dropdown>
 <br/>
+
 <p-dropdown class="topic" name="topic" [options]="topic1" [(ngModel)]="selectedTopic1" (ngModelChange)="onTopicChange()" ></p-dropdown>
-<br/>
-<textarea class="textb" name="theme2" pInputTextarea [(ngModel)]="writtenText1" ></textarea>
-<br/>
-<p-fileUpload name="myfile[]" customUpload="true" accept="image/*" maxFileSize="1000000" (onSelect)="onSelectFile($event)" (uploadHandler)="myUploader($event)" ></p-fileUpload>
+</div>
 
 <br/>
+
+<textarea class="textb" name="theme2" pInputTextarea [(ngModel)]="writtenText1" ></textarea>
+<br/>
+
+<div class="fileUpload">
+<p-fileUpload name="myfile[]" customUpload="true" accept="image/*" maxFileSize="1000000" (onSelect)="onSelectFile($event)" (uploadHandler)="myUploader($event)" ></p-fileUpload>
+</div>
+
+<br/>
+
+
+
 <a href="mailto:nikonov.m@luxoptica.com.ua?subject={{selectedTopic1.label}}&body={{writtenText1}}" >
 <button name="sendbutton" pButton type="button" label="Отправить созданную заявку по электронной почте" class="ui-button-success"></button>
 </a>
+
+<br/>
+
+<div id="fird" width="100px">
+    <button pButton (click)="onSpListPost()" label="Post2List"></button>
 </div>
-</div>
+
 
 
 <!-- <button hidden pButton type="button" type="submit" label="Submit" class="ui-button-success" (click)="onSubmitClick()" ></button> -->

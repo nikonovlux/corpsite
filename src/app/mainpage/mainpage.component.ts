@@ -56,16 +56,13 @@ export class MainpageComponent implements OnInit {
   top_menu: MenuItem[]
 
   files_menu: MenuItem[] = [
-    {label: 'Инструкция SD'},
-    {label: 'Приказы'},
+    {label: 'Инструкция SD'},    
     {label: 'Дайджесты'},
     {label: 'Emails'},
     {label: 'Events'},
-    {label: 'Lists'},      // 5
-    {label: 'OneDrive'}, 
+    {label: 'OneDrive'},
     {label: 'Shared'},
-  //  {label: 'Проекты'},
-  //  {label: 'Itilium'},
+    {label: 'Lists'},      // 5   //  {label: 'Проекты'},{label: 'Itilium'}, {label: 'Приказы'},
     {label: 'Cards'}
   ]
 

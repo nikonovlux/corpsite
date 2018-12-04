@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import {DropdownModule} from 'primeng/dropdown';
 import {SelectItem} from 'primeng/api';
 
-
-
+import {EmployeeService} from '../employee.service';
+import {graph_resourses,urls_departments,form_graph_azure_interface,form_graph_ms_interface,urls,SP_Fields,SP_List_post} from 'src/environments/environment.prod';
 
 interface Dep {
   name: string;
@@ -86,8 +86,12 @@ export class FeedbackComponent implements OnInit {
   };
 
   
-  constructor() {
+  constructor(
+    private employeeService: EmployeeService  
+  ) {
   
+
+
   this.topic1 = [{ label:'Выбор', text:'Выбор'}];
 
   this.dep1 = [
@@ -199,8 +203,57 @@ export class FeedbackComponent implements OnInit {
 
 
   }
+  i = 0
+  onSpListPost(){
+    this.i = this.i + 1
+    let server2: string = urls_departments.corportal.url + graph_resourses.list + 'results/items'   //?expand=fields(select=Column1,Column2)
+    let sp_body: SP_Fields = {
+      Title: this.writtenText1,
+      employee_surname:'First',
+      employee_name:'Second',
+      employee_position:'Third', // selectedTopic1.label writtenText1 this.selectedDep1.name
+      department: this.selectedDep1.name,
+      subject:  this.selectedTopic1.label
+
+    }
+    let sp_post: SP_List_post = {
+      fields: sp_body
+    }
+
+    // let body = 
+    //   {
+    //     "fields": {
+    //       "Title": "1second",
+    //       "employee_surname": "Petrov",
+    //       "employee_name": "Petro",
+    //       "employee_position": "salesman"}
+    //     }
+
+    console.log(server2)
+    console.log(sp_post)
+
+// get
+  //  this.employeeService.getJson(server2,'ms').subscribe(data => {
+  //                                                                                   console.log(data);                                                                                    
+  //                                                                                   })  
+// post
+    this.employeeService.getJson(server2,'ms','post',sp_post).subscribe(data => {
+                                                                                    console.log(data);                                                                                    
+                                                                                    })  
+
+
+    // this.employeeService.getJson({
+    //                               userUrl: server2,
+    //                               body: sp_post,
+    //                               token:'ms',
+    //                               method: 'post'
+    //                                               }).subscribe(
+    //                                                       res => console.log(res)                                                              
+    //                                                       )
+  }
 
   ngOnInit() {
+   
   }
 
 }

@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
-  apiHost: ''  
+  apiHost: '' ,
+  web: 'https://interoko.sharepoint.com/sites/corportal' 
 }
 
 export interface form_graph_azure_interface {
@@ -9,6 +10,19 @@ export interface form_graph_azure_interface {
   client_secret:string,  
   redirect_uri:string,
   grant_type:string 
+};
+
+export interface SP_Fields {
+                          Title:string,
+                          employee_surname:string,
+                          employee_name:string,
+                          employee_position:string,
+                          department:string,
+                          subject:string
+                        };
+
+export interface SP_List_post {  
+  fields:SP_Fields
 };
 
 export interface form_graph_ms_interface {
@@ -21,20 +35,39 @@ export interface form_graph_ms_interface {
 };
 
 
-
+// https://graph.microsoft.com%2F   - space permission
 
 export const urls =
 {
-  'auth':'https://login.microsoftonline.com/common/oauth2/v2.0/authorize',
-  'token':'https://login.microsoftonline.com/common/oauth2/v2.0/token',
-  "url_auth_implicit":"https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/v2.0/authorize?client_id=8557d00c-fd93-4abc-b48a-66eea1f08ed7&response_type=token&redirect_uri=https://corpsite.opticalhouse.com.ua:4200/mainpage&scope=openid&response_mode=fragment&state=31254&nonce=135790",
-  "url_auth_code":"https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/v2.0/authorize?client_id=8557d00c-fd93-4abc-b48a-66eea1f08ed7&response_mode=fragment&response_type=id_token&redirect_uri=https://corpsite.opticalhouse.com.ua:4200/mainpage&scope=User.Read",
-  "url":"https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/v2.0/token",
-  "me":"https://graph.microsoft.com/beta/me"
+  auth:'https://login.microsoftonline.com/common/oauth2/v2.0/authorize',
+  token:'https://login.microsoftonline.com/common/oauth2/v2.0/token',
+  url_auth_implicit:"https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/v2.0/authorize?client_id=8557d00c-fd93-4abc-b48a-66eea1f08ed7&response_type=token&redirect_uri=https://corpsite.opticalhouse.com.ua:4200/mainpage&scope=openid%20https://graph.microsoft.com/Sites.ReadWrite.All&response_mode=fragment&state=31254&nonce=135790",
+  url_auth_code:"https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/v2.0/authorize?client_id=8557d00c-fd93-4abc-b48a-66eea1f08ed7&response_mode=fragment&response_type=id_token&redirect_uri=https://corpsite.opticalhouse.com.ua:4200/mainpage&scope=User.Read",
+  url:"https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/v2.0/token",
+  me:"https://graph.microsoft.com/beta/me"
 }
 
+export const implicit_auth =
+{
+url_auth_implicit:"&response_mode=fragment&state=31254&nonce=135790",
+url:'https://login.microsoftonline.com/interoko.onmicrosoft.com/oauth2/v2.0/',
+auth_command:'authorize?',
+client_id:'8557d00c-fd93-4abc-b48a-66eea1f08ed7',
+response_type:'token',
+redirect_uri:'https://corpsite.opticalhouse.com.ua:4200/mainpage',
+scope_permissions: {  'openid':'openid',
+                      'Sites.ReadWrite.All':'https://graph.microsoft.com/Sites.ReadWrite.All', // 
+                      space:'%20',
+                      slash:'%2F'
+                    }
+}
+
+
 //  https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/teams/test:/lists/complains/items?expand=fields(select=id,Title,department)
-//  https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/teams/test:/lists/complains/items?expand=fields(select=id,Title,department)
+//  https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/corportal:/lists/results
+
+
+
 
 export const urls_graph = 
 {
@@ -54,10 +87,15 @@ export const urls_graph =
 
 // https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/it:/drive // find drive
 
-
+export const graph_resourses = {
+  'list':':/lists/',
+  'drive':':/drive/'
+}
 
 export const urls_departments = 
 {
+  'corportal':{
+    'url':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/corportal'},
   'InformationSecurity':{
     'url':'https://graph.microsoft.com/beta/sites/interoko.sharepoint.com:/sites/InformationSecurity',
     'public_folder':'01RUGPFPAUYULGSQX2FRFYCICBX4AAWROS',

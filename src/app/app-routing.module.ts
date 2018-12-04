@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'instructions', component: InstructionsComponent  , canActivate: [AuthenticationGuard] },
   { path: 'login', component: LoginComponent  },
   // { path: 'logout', component: LogoutComponent   },
-  // { path: 'complain', component: ComplainComponent },
+  //{ path: 'complain', component: ComplainComponent },
   // { path: 'wikipage', component: WikipageComponent },
   { path: 'circulation', component: CirculationComponent }
 ];
