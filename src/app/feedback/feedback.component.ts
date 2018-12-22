@@ -1,10 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
-import {DropdownModule} from 'primeng/dropdown';
-import {SelectItem} from 'primeng/api';
+import {DropdownModule} from 'primeng/dropdown'
 
-import {EmployeeService} from '../employee.service';
-import {graph_resourses,urls_departments,form_graph_azure_interface,form_graph_ms_interface,urls,SP_Fields,SP_List_post} from 'src/environments/environment.prod';
+import {SelectItem} from 'primeng/api'
+
+import {EmployeeService} from '../employee.service'
+
+import {graph_resourses,urls_departments,SP_Fields,SP_List_post,survey} from 'src/environments/environment.prod'
+
+import {MessageService} from 'primeng/api'
+
 
 interface Dep {
   name: string;
@@ -23,7 +28,8 @@ interface Topic {
 @Component({
   selector: 'app-feedback',
   templateUrl: './feedback.component.html',
-  styleUrls: ['./feedback.component.css']
+  styleUrls: ['./feedback.component.css'],
+  providers: [MessageService]
 })
 export class FeedbackComponent implements OnInit {
 
@@ -87,135 +93,31 @@ export class FeedbackComponent implements OnInit {
 
   
   constructor(
-    private employeeService: EmployeeService  
-  ) {
-  
-
-
-  this.topic1 = [{ label:'Выбор', text:'Выбор'}];
-
-  this.dep1 = [
-    {   label:'Выбор обращения', value:null},
-    {   label:'Сообщить о ошибке/баге (Corpsite)', value:{
-      id:1,
-      name: "ошибки",
-      code: '1',
-      topics: [
-                { label:'Выбор типа ошибки', value:{ id:11, text:null}},
-                { label:'Грамматическая ошибка', value:{ id:12, label:'Грамматическая ошибка', text:'Грамматическая ошибка - укажите раздел сайте где обнаружена ошибка'}},
-                { label:'Орфографическая ошибка', value:{ id:13, label:'Орфографическая ошибка', text:'Орфографическая ошибка - укажите раздел сайте где обнаружена ошибка'}},
-                { label:'Пунктуационная ошибка', value:{ id:14, label:'Пунктуационная ошибка', text:'Пунктуационная ошибка - укажите раздел сайте где обнаружена ошибка'}},
-                { label:'Программный баг', value:{ id:14, label:'Программный баг', text:'Программный баг - укажите раздел сайте где обнаружен баг'}}
-              ]
-     }},
-    {   label:'Обращение на sd@luxoptica.ua для ИТ', value:{
-      id:1,
-      name: "ошибки",
-      code: '1',
-      topics: [
-                { label:'Выбор Департамента для обращения', value:{ id:11, text:null}},
-                { label:'Техническая поддержка', value:{ id:12, label:'Техническая поддержка', text:'Техническая поддержка - опишите проблему'}},
-                { label:'Програмное администрирование', value:{ id:13, label:'Програмное администрирование', text:'Програмное администрирование - опишите проблему'}},
-                { label:'Разработка и внедрение', value:{ id:14, label:'Разработка и внедрение', text:'Разработка и внедрение - опишите проблему'}}
-              ]      
-    }},
-    {   label:'Оформить жалобу', value:{ 
-      id:1,
-      name: "Жалоба",
-      code: '1',
-      topics: [
-                { label:'Выбор темы жалобы', value:{ id:11, text:null}},
-                { label:'Розница', value:{ id:12, label:'Розница', text:'Розница - опишите проблему'}},
-                { label:'Склад', value:{ id:13, label:'Склад', text:'Склад - опишите проблему'}},
-                { label:'ИТ', value:{ id:14, label:'ИТ', text:'ИТ - опишите проблему'}},
-                { label:'Логистика', value:{ id:14, label:'Логистика', text:'Логистика - опишите проблему'}}
-              ] 
-    }},
-    {   label:'Отправить идею', value:{ 
-      id:1,
-      name: "Идея",
-      code: '1',
-      topics: [
-                { label:'Выбор темы идеи', value:{ id:11, text:null}},
-                { label:'Розница', value:{ id:12, label:'Розница', text:'Розница - опишите идею'}},
-                { label:'Склад', value:{ id:13, label:'Склад', text:'Склад - опишите идею'}},
-                { label:'ИТ', value:{ id:14, label:'ИТ', text:'ИТ - опишите идею'}},
-                { label:'Логистика', value:{ id:14, label:'Логистика', text:'Логистика - опишите идею'}}
-              ] 
-    }},
-    {   label:'Сообщить о проблеме с безопасностью', value:{ 
-      id:1,
-      name: "безопасностью",
-      code: '1',
-      topics: [
-                { label:'Выбор темы безопасности', value:{ id:11, text:null}},
-                { label:'ИТ безопасность', value:{ id:12, label:'Розница', text:'Безопасность - опишите идею'}},
-                { label:'Охрана', value:{ id:13, label:'Склад', text:'Безопасность - опишите идею'}},
-                { label:'Службы слежения', value:{ id:14, label:'ИТ', text:'Безопасность - опишите идею'}},
-                { label:'другое', value:{ id:14, label:'Логистика', text:'Безопасность - опишите идею'}}
-              ]
-    }}
-  ];
-
-  this.dep2 = [
-                {   label:'Select Department', value:null},
-                {   label:'Бухгалтерия', value:{  id:1,
-                                                  name: 'Бухгалтерия',
-                                                  code: '1',
-                                                  topics: [
-                                                            { label:'Select Topic', value:{ id:11, text:null}},
-                                                            { label:'Бухгалтерия не загружается', value:{ id:12, label:'Бухгалтерия не загружается', text:'Бухгалтерия всё плохо'}},
-                                                            { label:'Бухгалтерия не работает', value:{ id:13, label:'Бухгалтерия не загружается', text:'Бухгалтерия всё плохо'}},
-                                                            { label:'Бухгалтерия накосячила', value:{ id:14, label:'Бухгалтерия не загружается', text:'Бухгалтерия всё плохо'}},
-                                                            { label:'Бухгалтерия не отгружает', value:{ id:15, label:'Бухгалтерия не загружается', text:'Бухгалтерия всё плохо'}},
-                                                            { label:'Бухгалтерия глючит', value:{ id:16, label:'Бухгалтерия не загружается', text:'Бухгалтерия всё плохо'}}
-                                                          ]
-                                                  }
-                },
-                {   label:'МТО', value:{  id:2,
-                                          name: 'МТО',
-                                          code: '2',
-                                          topics: [
-                                                    { label:'Select Topic', value:{ id:21, text:null}},
-                                                    { label:'МТО не загружается', value:{ id:22, text:'МТО всё плохо'}},
-                                                    { label:'МТО не работает', value:{ id:23, text:'МТО всё плохо'}},
-                                                    { label:'МТО накосячила', value:{ id:24, text:'МТО всё плохо'}},
-                                                    { label:'МТО не отгружает', value:{ id:25, text:'МТО всё плохо'}},
-                                                    { label:'МТО глючит', value:{ id:26, text:'МТО всё плохо'}}
-                                                  ]
-                                          }
-                },
-                {   label:'ИТ', value:{ id:3,
-                                        name: 'ИТ',
-                                        code: '3',
-                                        topics: [
-                                                  { label:'Select Topic', value:{ id:31, text:null}},
-                                                  { label:'ИТ не загружается', value:{ id:32, text:'ИТ всё плохо'}},
-                                                  { label:'ИТ не работает', value:{ id:33, text:'ИТ всё плохо'}},
-                                                  { label:'ИТ накосячила', value:{ id:34, text:'ИТ всё плохо'}},
-                                                  { label:'ИТ не отгружает', value:{ id:35, text:'ИТ всё плохо'}},
-                                                  { label:'ИТ глючит', value:{ id:36, text:'ИТ всё плохо'}}
-                                                ]
-                                        }
-                      }
-                ];
+    private employeeService: EmployeeService,
+    private messageService: MessageService  
+  ) {}
 
 
 
-  }
   i = 0
   onSpListPost(){
+
+if(this.selectedDep1 && this.selectedTopic1 && this.writtenText1){
+
     this.i = this.i + 1
     let server2: string = urls_departments.corportal.url + graph_resourses.list + 'results/items'   //?expand=fields(select=Column1,Column2)
     let sp_body: SP_Fields = {
       Title: this.writtenText1,
-      employee_surname:'First',
-      employee_name:'Second',
-      employee_position:'Third', // selectedTopic1.label writtenText1 this.selectedDep1.name
       department: this.selectedDep1.name,
       subject:  this.selectedTopic1.label
-
     }
+
+    // employee_surname:'First',
+    // employee_name:'Second',
+    // employee_position:'Third', // selectedTopic1.label writtenText1 this.selectedDep1.name
+
+
+
     let sp_post: SP_List_post = {
       fields: sp_body
     }
@@ -238,6 +140,9 @@ export class FeedbackComponent implements OnInit {
   //                                                                                   })  
 // post
     this.employeeService.getJson(server2,'ms','post',sp_post).subscribe(data => {
+                                                                                    this.messageService.clear();    
+                                                                                    this.messageService.add({severity: 'success', summary: 'Post item - OK', detail: JSON.stringify(data['fields']) });
+                                                                                 
                                                                                     console.log(data);                                                                                    
                                                                                     })  
 
@@ -251,9 +156,12 @@ export class FeedbackComponent implements OnInit {
     //                                                       res => console.log(res)                                                              
     //                                                       )
   }
+}
 
-  ngOnInit() {
-   
-  }
+  ngOnInit(){
+              this.dep1 = survey.dep1
+              this.dep2 = survey.dep2
+              this.topic1 = survey.topic1
+            }
 
 }

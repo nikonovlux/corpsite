@@ -1,4 +1,4 @@
-import {Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import {Component,OnInit,ElementRef,ViewChild } from '@angular/core';
 
 import {TreeNode, MenuItem} from 'primeng/api';
 
@@ -8,7 +8,7 @@ import {EmployeeService} from '../employee.service';
 
 import {SelectItem} from 'primeng/api';
 
-import {urls, form_graph_azure_interface, form_graph_ms_interface} from 'src/environments/environment.prod';
+import {urls,form_graph_azure_interface,form_graph_ms_interface} from 'src/environments/environment.prod';
 
 
 
@@ -24,7 +24,8 @@ export class StructureComponent implements OnInit {
 
   constructor(    
     private employeeService: EmployeeService,
-    private messageService: MessageService) { }
+    private messageService: MessageService
+    ) { }
 
     data1: TreeNode[] = [{"label":"Люксоптика",
                           "type": 'department',

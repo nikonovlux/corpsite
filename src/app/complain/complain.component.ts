@@ -301,25 +301,7 @@ onSendClick(){
 
     }
 
-  onSpListPost(){
-    let i = 0
-    let server2: string = urls_departments.corportal.url + graph_resourses.list + 'results/items'
-    let sp_body: SP_Fields = {
-      Title: `Note ${i}`,
-      employee_surname:'First',
-      employee_name:'Second',
-      employee_position:'Third'
-    }
-    let sp_post: SP_List_post = {
-      fields: sp_body
-    }
-    this.employeeService.getJson({
-                                  'userUrl': server2,
-                                  'body': sp_post,
-                                  'method': "post"}).subscribe(
-                                                          res => console.log(res)                                                              
-                                                          )
-  }
+
 
   ngOnInit(){
 

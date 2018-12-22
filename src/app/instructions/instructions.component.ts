@@ -26,6 +26,8 @@ export class InstructionsComponent implements OnInit {
   selectedFile
   selectedFolder
 
+  contextmenu_items
+
   getNestedChildren(arr, parent) {
     var out = []
     for(var i in arr) {
@@ -57,6 +59,7 @@ export class InstructionsComponent implements OnInit {
                               }
                               this.employeeService.getJson(url3,'ms','post',body)
                                                                 .subscribe(data => {
+                                                                                      console.log('---response---')
                                                                                       console.log(data);                                                                                    
                                                                                       //this.iframeview = true                                                                                                                                                                        
                                                                                       //this.iframesrc = this.domSanitizer.bypassSecurityTrustResourceUrl(data['getUrl'])
@@ -86,8 +89,8 @@ export class InstructionsComponent implements OnInit {
                                                                         .filter(key => key == "value" )
                                                                         .map(key => data[key])[0]
 
-                                                  // console.log('---  tmp1  ----')
-                                                  // console.log(tmp1)                                                                         
+                                                  //console.log('---  tmp1  ----')
+                                                  //console.log(tmp1)                                                                         
 
                                                   let oddata = tmp1.map(item => { return {  label:item.name,
                                                                                             icon: item.folder ? 'pi pi-folder' : 'pi pi-file',
@@ -207,6 +210,7 @@ export class InstructionsComponent implements OnInit {
   //   }
   // }  
 
+  
                                 // let url = urls_graph.drives + '/' + urls_departments.InformationSecurity.drive_id + '/items/' + e.node.id + '/thumbnails?'
                               // this.employeeService.getJson( url,
                               //                             'ms').subscribe(data => {

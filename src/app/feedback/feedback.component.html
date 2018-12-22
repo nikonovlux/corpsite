@@ -1,7 +1,9 @@
 
 <h2 translate>Feedback</h2>
+
 <br/>
 
+<p-toast [style]="{marginTop: '80px'}" position="bottom-right" styleClass="company" ></p-toast>
 
 <div id="form">
 
@@ -24,16 +26,30 @@
 <br/>
 
 
+<table id="sending">
+
+<tr>
+<td>
+        
 
 <a href="mailto:nikonov.m@luxoptica.com.ua?subject={{selectedTopic1.label}}&body={{writtenText1}}" >
 <button name="sendbutton" pButton type="button" label="Отправить созданную заявку по электронной почте" class="ui-button-success"></button>
 </a>
 
-<br/>
+</td>
+<td>
 
 <div id="fird" width="100px">
     <button pButton (click)="onSpListPost()" label="Post2List"></button>
 </div>
+
+
+
+</td>
+</tr>
+
+
+</table>
 
 
 

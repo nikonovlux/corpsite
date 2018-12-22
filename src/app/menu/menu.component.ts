@@ -67,6 +67,8 @@ export class MenuComponent implements OnInit {
       
   }
 
+  spanclass = "sp_class"
+
   fname;
 
   is2Loggedin:boolean = false;

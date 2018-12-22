@@ -2,7 +2,8 @@ import {Component, OnInit } from '@angular/core';
 
 import {EmployeeService} from '../employee.service';
 
-import { LazyLoadingScriptService } from '../gmap2.directive';
+import {LazyLoadingScriptService} from '../gmap2.directive';
+
 
 import {} from 'google-maps';
 
