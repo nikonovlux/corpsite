@@ -8,44 +8,41 @@
 
 <table valign="top">
         <tr>
-                <!-- hidden="hidden" -->
-                <td hidden> 
-                    <h3>Get Azure Graph Refresh token</h3>           
-                </td>
-                <td>                 
-                    <!-- <a [href]="form_graph_ms_tmp.url_auth_code"><h3>Get MS Graph Auth code1</h3></a> -->
-                </td>
-                <td hidden> 
-                    <h3>Get Azure Graph Refresh token</h3>           
-                </td>        
-            </tr>
-        <tr>
-    <td hidden>
-        <!-- <div>            
-            <form #form_azure [action]="form_graph_azure_tmp.url" method="post"  target="my_iframe_azure">            
-                client_id: <input type="text" name="client_id" [value]="form_graph_azure_tmp.client_id" readonly ><br>
-                client_secret: <input type="text" name="client_secret" [value]="form_graph_azure_tmp.client_secret" readonly ><br>
-                grant_type: <input type="text" name="grant_type" [value]="form_graph_azure_tmp.grant_type" readonly ><br>
-                resource: <input type="text" name="resource" [value]="form_graph_azure_tmp.resource" readonly ><br>            
-                
-            </form>
-        </div> -->
-    </td>
-    <td>
-        <div>            
-            <!-- <form #form_ms [action]="form_graph_ms_tmp.url" method="POST" target="my_iframe_ms">
-                client_id: <input type="text" name="client_id" [value]="form_graph_ms_tmp.client_id" readonly ><br>
-                client_secret: <input type="text" name="client_secret" [value]="form_graph_ms_tmp.client_secret" readonly ><br>
-                grant_type: <input type="text" name="grant_type" [value]="form_graph_ms_tmp.grant_type" readonly ><br>
-                redirect_uri: <input type="text" name="redirect_uri" [value]="form_graph_ms_tmp.redirect_uri" readonly ><br>
-                scope: <input type="text" name="scope" [value]="form_graph_ms_tmp.scope" readonly ><br>
-                code: <input type="text" name="code" [value]="auth_code" placeholder="input code HERE!" readonly ><br>
-            </form>   -->
-    
-    </div>
-    </td>
+            <!-- hidden="hidden" -->
+            <td hidden> 
+                <h3>Get Azure Graph Refresh token</h3>           
+            </td>
+            <td>                 
+                <!-- <a [href]="form_graph_ms_tmp.url_auth_code"><h3>Get MS Graph Auth code1</h3></a> -->
+            </td>
+            <td hidden> 
+                <h3>Get Azure Graph Refresh token</h3>           
+            </td>        
         </tr>
-    
+        <tr>
+            <td hidden>
+            <!--    <div>            
+                        <form #form_azure [action]="form_graph_azure_tmp.url" method="post"  target="my_iframe_azure">            
+                            client_id: <input type="text" name="client_id" [value]="form_graph_azure_tmp.client_id" readonly ><br>
+                            client_secret: <input type="text" name="client_secret" [value]="form_graph_azure_tmp.client_secret" readonly ><br>
+                            grant_type: <input type="text" name="grant_type" [value]="form_graph_azure_tmp.grant_type" readonly ><br>
+                            resource: <input type="text" name="resource" [value]="form_graph_azure_tmp.resource" readonly ><br>
+                        </form>
+                    </div>  -->
+            </td>
+            <td>
+            <!--    <div>            
+                        <form #form_ms [action]="form_graph_ms_tmp.url" method="POST" target="my_iframe_ms">
+                            client_id: <input type="text" name="client_id" [value]="form_graph_ms_tmp.client_id" readonly ><br>
+                            client_secret: <input type="text" name="client_secret" [value]="form_graph_ms_tmp.client_secret" readonly ><br>
+                            grant_type: <input type="text" name="grant_type" [value]="form_graph_ms_tmp.grant_type" readonly ><br>
+                            redirect_uri: <input type="text" name="redirect_uri" [value]="form_graph_ms_tmp.redirect_uri" readonly ><br>
+                            scope: <input type="text" name="scope" [value]="form_graph_ms_tmp.scope" readonly ><br>
+                            code: <input type="text" name="code" [value]="auth_code" placeholder="input code HERE!" readonly ><br>
+                        </form>   
+                    </div>  -->
+            </td>
+        </tr>    
         <tr>    
             <td hidden>
                 <iframe #my_iframe_azure name="my_iframe_azure" id="my_iframe_azure" src="assets/html/response.html"></iframe>
@@ -54,37 +51,35 @@
                 <iframe #my_iframe_ms name="my_iframe_ms" id="my_iframe_ms" src="assets/html/response.html"></iframe>
             </td>
         </tr>
-
         <tr>
-                <td hidden>
-                    <button pButton type="button" label="SetLocalCode_ag" class="ui-button-success" (click)="onSetLocalCode_ag()" ></button>
-                    <textarea pInputTextarea [(ngModel)]="SetLocalCode_ag" name="code_ag" id="code_ag"></textarea>
-                </td>
-                <td>
-                    <button pButton type="button" label="SetLocalCode_ms" class="ui-button-success" (click)="onSetLocalCode_ms()" ></button>
-                    <textarea pInputTextarea [(ngModel)]="SetLocalCode_ms" name="code_ms" id="code_ms"></textarea>
-                </td>  
-                <td hidden>
-                    <button pButton type="button" label="SetLocalCode_spo" class="ui-button-success" (click)="onSetLocalCode_spo()" ></button>
-                    <textarea pInputTextarea [(ngModel)]="SetLocalCode_spo" name="code_ms" id="code_spo"></textarea>
-                </td>         
-                </tr>
-                <br/>
-                <tr>    
-                        <td hidden>
-                            
-                        </td>
-                        <td>
-                            <button pButton label="onAgClick" (click)="onAgClick()"></button>
-                            <button pButton label="onMsClick" (click)="onMsClick()"></button>
-                        </td>
-                    </tr>
-    
+            <td hidden>
+                <button pButton type="button" label="SetLocalCode_ag" class="ui-button-success" (click)="onSetLocalCode_ag()" ></button>
+                <textarea pInputTextarea [(ngModel)]="SetLocalCode_ag" name="code_ag" id="code_ag"></textarea>
+            </td>
+            <td>
+                <button pButton type="button" label="SetLocalCode_ms" class="ui-button-success" (click)="onSetLocalCode_ms()" ></button>
+                <textarea pInputTextarea [(ngModel)]="SetLocalCode_ms" name="code_ms" id="code_ms"></textarea>
+            </td>  
+            <td hidden>
+                <button pButton type="button" label="SetLocalCode_spo" class="ui-button-success" (click)="onSetLocalCode_spo()" ></button>
+                <textarea pInputTextarea [(ngModel)]="SetLocalCode_spo" name="code_ms" id="code_spo"></textarea>
+            </td>         
+        </tr>
+        <br/>
+        <tr>    
+            <td hidden>
+                
+            </td>
+            <td>
+                <button pButton label="onAgClick" (click)="onAgClick()"></button>
+                <button pButton label="onMsClick" (click)="onMsClick()"></button>
+            </td>
+        </tr>    
     </table>
 
 <!-- -------------------- -->
 <!-- 
-<table valign="top" 	>
+<table valign="top"	>
     <tr>
         <td> 
             <a>Get Azure Graph Refresh token</a>           
