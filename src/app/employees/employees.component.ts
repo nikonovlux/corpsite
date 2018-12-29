@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component,OnInit} from '@angular/core';
 
-import { Employee } from '../employee';
+import {Employee } from '../employee';
 
-import { EmployeeService } from '../employee.service';
+import {HttpService } from '../http.service';
 
 import {SelectItem} from 'primeng/api';
 
@@ -62,7 +62,7 @@ export class EmployeesComponent implements OnInit {
 
   display: boolean = false;
 
-  constructor(private employeeService: EmployeeService,
+  constructor(private HttpService: HttpService,
               private messageService: MessageService) { }
 
   ngOnInit() {
@@ -126,7 +126,7 @@ export class EmployeesComponent implements OnInit {
     this.filter = "$filter=accountEnabled eq true and startswith(department, '" + this.selected_top_deps[0].label + "')";
     this.full_url = '' + this.url + this.call + this.api_version + '&' + this.select + '&' + this.filter + '&' + this.top;
     console.log(this.full_url);
-    this.employeeService.getJson(this.full_url)
+    this.HttpService.getJson(this.full_url)
       .subscribe(users => 
                           {
                           console.log('--------------start-users1-----------');                          
@@ -144,7 +144,7 @@ export class EmployeesComponent implements OnInit {
     this.filter = "$filter=accountEnabled eq true and startswith(department, '" + this.selected_top_deps[indx].label + "')";
     this.full_url = '' + this.url + this.call + this.api_version + '&' + this.select + '&' + this.filter + '&' + this.top;
     console.log(this.full_url);
-    this.employeeService.getJson(this.full_url)
+    this.HttpService.getJson(this.full_url)
       .subscribe(users => 
                           {
                           console.log('--------------start-users1-----------');                          
@@ -161,7 +161,7 @@ export class EmployeesComponent implements OnInit {
     this.filter = "$filter=accountEnabled eq true and startswith(department, '" + this.selectedTopDepar + "')";
     this.full_url = '' + this.url + this.call + this.api_version + '&' + this.select + '&' + this.filter + '&' + this.top;
     console.log(this.full_url);
-    this.employeeService.getJson(this.full_url)
+    this.HttpService.getJson(this.full_url)
       .subscribe(users => 
                           {
                           console.log('--------------start-users1-----------');                          
@@ -174,7 +174,7 @@ export class EmployeesComponent implements OnInit {
                           });
   }
   GetUsers(): void {
-    this.employeeService.getJson(this.full_url)
+    this.HttpService.getJson(this.full_url)
       .subscribe(users => 
                           {
                           console.log('--------------start-users1-----------');                          
@@ -188,7 +188,7 @@ export class EmployeesComponent implements OnInit {
   }
 
   // old
-  GetGroups(): void {this.employeeService
+  GetGroups(): void {this.HttpService
                 .getJson('https://graph.windows.net/interoko.onmicrosoft.com/groups?api-version=1.6')   // /users?$select=displayName,givenName,postalCode
                             .subscribe(groups => { 
                                                 console.log(groups);
@@ -196,7 +196,7 @@ export class EmployeesComponent implements OnInit {
                                             });
   }
 
-  // GetEmployees(): void {  this.employeeService
+  // GetEmployees(): void {  this.HttpService
   //                 .getEmployees()
   //                           .subscribe(employees => {
   //                                             console.log(employees);

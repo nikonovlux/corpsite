@@ -6,7 +6,7 @@ import {SelectItem} from 'primeng/api';
 
 import {TranslateService} from '@ngx-translate/core';
 
-import {EmployeeService} from '../employee.service';
+import {HttpService} from '../http.service';
 
 import {MessageService} from 'primeng/api';
 
@@ -25,7 +25,7 @@ export class MenuComponent implements OnInit {
   constructor(
     private appcomp: AppComponent,
     private messageService: MessageService,
-    private employeeService: EmployeeService,
+    private HttpService: HttpService,
     private adalSvc: MsAdalAngular6Service,
     public translate: TranslateService
     ) {  }
@@ -82,7 +82,8 @@ export class MenuComponent implements OnInit {
       console.log('---adalUser---');
       console.log(this.adalSvc.userInfo);
       
-      this.employeeService.getJson(urls.me,'ms').subscribe(
+      this.HttpService.connectUrl(urls.me)('get')()
+                                                  .subscribe(
                                                             data=>{},
                                                             error=>{
   
@@ -100,7 +101,7 @@ export class MenuComponent implements OnInit {
       this.fname = this.adalSvc.userInfo.profile['family_name'] + ' ' + this.adalSvc.userInfo.profile['given_name'];
 
       this.is2Loggedin = true;
-      this.employeeService.httpRequestPhoto(this.adalSvc.userInfo.profile.upn, 'photo');  
+      this.HttpService.httpRequestPhoto(this.adalSvc.userInfo.profile.upn, 'photo');  
       document.getElementById('fname').removeAttribute('href');    
     } else {
       this.fname = "LOG IN"; 

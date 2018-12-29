@@ -4,7 +4,7 @@ import {TreeNode, MenuItem} from 'primeng/api';
 
 import {MessageService} from 'primeng/api';
 
-import {EmployeeService} from '../employee.service';
+import {HttpService} from '../http.service';
 
 import {SelectItem} from 'primeng/api';
 
@@ -23,7 +23,7 @@ import {urls,form_graph_azure_interface,form_graph_ms_interface} from 'src/envir
 export class StructureComponent implements OnInit {
 
   constructor(    
-    private employeeService: EmployeeService,
+    private HttpService: HttpService,
     private messageService: MessageService
     ) { }
 
@@ -158,7 +158,7 @@ export class StructureComponent implements OnInit {
             //this.filter = "$filter=accountEnabled eq true and startswith(department, '" + indx_l + "')";
             this.full_url = '' + this.url + this.call  + '&' + this.select + '&' + this.filter + '&' + this.top //+ this.api_version;
             console.log(this.full_url);
-            this.employeeService.getJson(this.full_url, 'ms')
+            this.HttpService.connectUrl(this.full_url)('get')()
                 .subscribe( users => 
                                     {
                                     console.log('--------------start-users1------structure.comp.ts-----');                          
@@ -174,7 +174,7 @@ export class StructureComponent implements OnInit {
                                     // this.users1.forEach(element => {
                                     //   console.log('user mail - ')
                                     //   console.log(element.mail);
-                                    //   this.employeeService.httpRequestPhoto(element.mail, element.givenName);
+                                    //   this.HttpService.httpRequestPhoto(element.mail, element.givenName);
                                     // }); 
 
                                     },
@@ -199,7 +199,7 @@ getAvatar(email){
 
         if(this.count < 2){
               this.count = this.count + 1;          
-              answer = this.employeeService.httpRequestPhotoBlob(email);
+              answer = this.HttpService.httpRequestPhotoBlob(email);
               console.log('if email - ' + answer)
         }
 
@@ -213,7 +213,7 @@ getAvatar(email){
 }
 
   getImage(email){
-    return this.employeeService.getAvatar(email).subscribe(photo => {return photo});
+    return this.HttpService.getAvatar(email).subscribe(photo => {return photo});
   }
 
   sendEmail(user_info) {
@@ -242,7 +242,7 @@ getAvatar(email){
 
 
 
-    this.employeeService.getTopDepsData();
+    this.HttpService.getTopDepsData();
     
 
     if((localStorage.getItem("top_deps"))){ 

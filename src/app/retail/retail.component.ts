@@ -1,6 +1,6 @@
 import {Component, OnInit } from '@angular/core';
 
-import {EmployeeService} from '../employee.service';
+import {HttpService} from '../http.service';
 
 import {LazyLoadingScriptService} from '../gmap2.directive';
 
@@ -44,7 +44,7 @@ optics: Optic[];
 selectedOptic: Optic;
 
   constructor( 
-    private http: EmployeeService,
+    private http: HttpService,
     private lazyLoadService: LazyLoadingScriptService
   ) { }
 
@@ -61,7 +61,7 @@ dataAvailable = false;
 
 onParseClick(){
     //let server = 'https://192.168.131.146:4200'
-    this.http.getJson("/assets/html/optics.html")
+    this.http.connectUrl("/assets/html/optics.html")('get')()
                     .subscribe(item => {
                                       this.geted = item;                                                                  
                                       console.log(this.geted)

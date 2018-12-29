@@ -1,16 +1,14 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
-//import { Util } from "@pnp/common";
-
 import {HttpClient, HttpHeaders } from '@angular/common/http';
 
-import {EmployeeService} from '../employee.service';
+import {HttpService} from '../http.service';
 
 import {SelectItem} from 'primeng/api';
 
 import {graph_resourses,urls_departments,form_graph_azure_interface,form_graph_ms_interface,urls,SP_Fields,SP_List_post} from 'src/environments/environment.prod';
 
-
+//import { Util } from "@pnp/common";
 
 
 
@@ -36,14 +34,14 @@ export class ComplainComponent implements OnInit {
 
   constructor(  
               private httpclient: HttpClient,
-              private employeeService: EmployeeService   
+              private HttpService: HttpService   
               ) {  }
  
   SendComplain() {
 
     console.log("clicked1");  
 
-    this.employeeService.getJsonSPO(this.server2)
+    this.HttpService.getJsonSPO(this.server2)
       .subscribe(
         response => {
           console.log("recieved");
@@ -154,7 +152,7 @@ onFormBodyClick(){
 }
 
 // onEmpClick(){
-//   this.employeeService.getEmployees().subscribe(
+//   this.HttpService.getEmployees().subscribe(
 //                                                 response => { console.log(response)  }
 //                                               )                                              
 // }
@@ -288,7 +286,7 @@ onSendClick(){
                         grant_type: 'client_credentials'
                     };
 
-        this.employeeService.getJson(urls.url, 'ms' ,'post', payload).subscribe(
+        this.HttpService.connectUrl(urls.url)('post')(payload).subscribe(
                                                                                 data=>{
                                                                                   console.log('data');
                                                                                   console.log(data);
@@ -306,7 +304,7 @@ onSendClick(){
   ngOnInit(){
 
     let server2: string = urls.me;
-    this.employeeService.getJson(server2,'ms').subscribe(
+    this.HttpService.connectUrl(server2)('get')().subscribe(
                                                           data=>{
                                                             //this.my_iframe_ms.nativeElement.src = 'assets/html/response_ok.html';
                                                             window.location.href = 'https://corpsite.opticalhouse.com.ua:4200/structure';                                                            
@@ -342,7 +340,7 @@ onSendClick(){
 
 
 
-    // this.employeeService.getJson(this.full_url, 'ag').subscribe(
+    // this.HttpService.getJson(this.full_url, 'ag').subscribe(
     //                                                           data=> {
     //                                                                     this.my_iframe_azure.nativeElement.src = 'assets/html/response_ok.html';  
     //                                                                     //this.my_iframe_azure.nativeElement.html = data;  

@@ -2,7 +2,7 @@ import {Component,OnInit} from '@angular/core'
 import {DomSanitizer,SafeUrl} from '@angular/platform-browser'
 import {TreeNode} from 'primeng/api'
 import {MsAdalAngular6Service} from 'microsoft-adal-angular6'
-import {EmployeeService} from '../employee.service'
+import {HttpService} from '../http.service'
 import {urls_departments,urls_graph} from 'src/environments/environment.prod'
 import {AppComponent} from '../app.component'
 import {Observable} from 'rxjs'
@@ -19,7 +19,7 @@ export class InstructionsComponent implements OnInit {
   constructor(
     private appComponent: AppComponent,
     private adal: MsAdalAngular6Service,
-    private employeeService: EmployeeService,
+    private HttpService: HttpService,
     private domSanitizer: DomSanitizer
   ){}
 
@@ -53,11 +53,10 @@ export class InstructionsComponent implements OnInit {
   onPdfClick(e){
     if(e.node.type == "file"){  
                               let url3 = urls_graph.drives + e.node.data.drive + '/items/' + e.node.id + '/preview'
-                              let body =
-                              {
-                                "type": "embed"
-                              }
-                              this.employeeService.getJson(url3,'ms','post',body)
+                              let body =  {
+                                            "type": "embed"
+                                          }
+                              this.HttpService.connectUrl(url3)('post')(body)
                                                                 .subscribe(data => {
                                                                                       console.log('---response---')
                                                                                       console.log(data);                                                                                    
@@ -82,7 +81,7 @@ export class InstructionsComponent implements OnInit {
 
   getOneDriveFolder(department,i){
    
-        this.employeeService.getJson(urls_graph.drives + department.drive_id + urls_graph.rootsearch,'ms')
+        this.HttpService.connectUrl(urls_graph.drives + department.drive_id + urls_graph.rootsearch)('get')()
                             .subscribe(data =>
                                                 {
                                                   let tmp1 = Object.keys(data)
@@ -145,7 +144,7 @@ export class InstructionsComponent implements OnInit {
   //  getInstructions(){
 
   //   if(this.adal.isAuthenticated){
-  //     this.employeeService.getJson(urls_graph.drives + urls_departments.InformationSecurity.drive_id + urls_graph.rootsearch,'ms')
+  //     this.HttpService.getJson(urls_graph.drives + urls_departments.InformationSecurity.drive_id + urls_graph.rootsearch,'ms')
   //                                       .subscribe(data =>
   //                                                       {  
   //                                                         let tmp1 = Object.keys(data)
@@ -175,7 +174,7 @@ export class InstructionsComponent implements OnInit {
   //                                                       },
   //                                                 error=> console.log(error)
   //     )
-  //     this.employeeService.getJson(urls_graph.drives + urls_departments.reception.drive_id + urls_graph.rootsearch,
+  //     this.HttpService.getJson(urls_graph.drives + urls_departments.reception.drive_id + urls_graph.rootsearch,
   //       'ms').subscribe(data =>
   //                             {
   //                               let tmp1 = Object.keys(data)
@@ -212,14 +211,14 @@ export class InstructionsComponent implements OnInit {
 
   
                                 // let url = urls_graph.drives + '/' + urls_departments.InformationSecurity.drive_id + '/items/' + e.node.id + '/thumbnails?'
-                              // this.employeeService.getJson( url,
+                              // this.HttpService.getJson( url,
                               //                             'ms').subscribe(data => {
                               //                                                         console.log(data)
                               //                                                         let tmp = data;
                               //                                                         this.imgsrc = tmp['value'][0].large.url;
                               //                                                     })
                               // let url2 = urls_graph.drives + e.node.data.drive + '/items/' + e.node.id                                                                                
-                              // this.employeeService.getJson( url2,
+                              // this.HttpService.getJson( url2,
                               //                             'ms').subscribe(data => {
                               //                                                         console.log(data);
                                                                                       

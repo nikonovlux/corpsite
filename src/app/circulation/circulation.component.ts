@@ -1,13 +1,13 @@
-import { Component, OnInit  } from '@angular/core';
-import {EmployeeService} from '../employee.service';
+import {Component,OnInit} from '@angular/core';
+import {HttpService} from '../http.service';
 
 import {MessageService} from 'primeng/api';
 
 //import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
-import {urls, urls_graph} from 'src/environments/environment.prod';
+import {urls,urls_graph} from 'src/environments/environment.prod';
 
-import { fromEvent, Observable, Subscription} from 'rxjs'
+import {fromEvent,Observable,Subscription} from 'rxjs'
 
 
 
@@ -26,7 +26,7 @@ export class CirculationComponent implements OnInit {
   constructor(
       //private el: ElementRef,
       //private domSanitizer: DomSanitizer,
-      private employeeService:  EmployeeService,
+      private HttpService:  HttpService,
       private messageService: MessageService
     ) { }
 
@@ -44,8 +44,8 @@ export class CirculationComponent implements OnInit {
   
   getPhoto_fail(photo_url){
     //let photo_url = ms_graph_url + 'me/photo/$value';
-    this.employeeService.getJson(photo_url)
-        .subscribe( photo => {
+    this.HttpService.connectUrl(photo_url)('get')()
+                .subscribe( photo => {
                               this.messageService.add({severity: 'success', summary: 'MS Grath connection ok'});                    
                               //localStorage.setItem('img_avatar', photo);
                               console.log('getPhoto func Photo ------------------') ;
@@ -65,11 +65,30 @@ export class CirculationComponent implements OnInit {
                             });
   }
 
+  testCurry(){
+    console.log("clicked_testCurry");  
+
+    this.HttpService.connectUrl(this.server2)('get')()
+                                                            .subscribe(
+                                                                  response => {
+                                                                    console.log("recieved------------testCurry--------------");
+                                                                    console.log(response);
+                                                                    this.respo_area = JSON.stringify(response);
+                                                                  },
+                                                                  error => {
+                                                                    alert(JSON.stringify(error))
+                                                                  }        
+                                                                );
+    
+    console.log("clicked2");  
+  }
+
+
   SendQ() {
 
     console.log("clicked_SendQ");  
 
-    this.employeeService.getJson(this.server2, 'ms')   //  + '&api-version=1.6'
+    this.HttpService.connectUrl(this.server2)('get')()   //  + '&api-version=1.6'
       .subscribe(
         response => {
           console.log("recieved--------------------------");

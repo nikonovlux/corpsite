@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild,ElementRef} from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import {MsAdalAngular6Service} from 'microsoft-adal-angular6';
-import {EmployeeService} from '../employee.service';
+import {HttpService} from '../http.service';
 import {urls_departments,urls_graph} from 'src/environments/environment.prod';
 import {TreeNode} from 'primeng/api';
 import {DomSanitizer,SafeUrl} from '@angular/platform-browser'; 
@@ -38,7 +38,7 @@ export class MainpageComponent implements OnInit {
   constructor(
     private appComponent: AppComponent,
     private adal: MsAdalAngular6Service,
-    private employeeService: EmployeeService,
+    private HttpService: HttpService,
     private domSanitizer: DomSanitizer
   ){}
 
@@ -146,15 +146,15 @@ export class MainpageComponent implements OnInit {
 
   getItilium(){
            
-    //  this.employeeService.curryGetMs(urls_graph.drives).subscribe(data=>{ });         
+    //  this.HttpService.curryGetMs(urls_graph.drives).subscribe(data=>{ });         
       
   }
 
 
 
   getProjects(){ 
-      this.employeeService.getJson( urls_graph.projects,
-                                    'ms').subscribe(data =>
+      this.HttpService.connectUrl( urls_graph.projects)('get')()
+                                                .subscribe(data =>
                                                           {                                                            
                                                             this.projects_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0] 
                                                           },
@@ -164,8 +164,8 @@ export class MainpageComponent implements OnInit {
   }
 
   getDigests(){ 
-      this.employeeService.getJson(urls_graph.digests,
-                                    'ms').subscribe(data =>
+      this.HttpService.connectUrl(urls_graph.digests)('get')()
+                                              .subscribe(data =>
                                                           {        
                                                             this.digests_last[0].children = Object.keys(data).filter(key => key == "value" )
                                                                                                                         .map(key => data[key])[0]
@@ -185,8 +185,8 @@ export class MainpageComponent implements OnInit {
   }
 
   getShared(){    
-      this.employeeService.getJson(urls_graph.sharedwithme,
-                                    'ms').subscribe(data =>
+      this.HttpService.connectUrl(urls_graph.sharedwithme)('get')()
+                                              .subscribe(data =>
                                                           {                                                           
                                                             this.shared_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]                                                               
                                                           },
@@ -195,8 +195,8 @@ export class MainpageComponent implements OnInit {
   }
   
 getLists(){
-    this.employeeService.getJson( urls_graph.getlists,
-                                  'ms').subscribe(data =>
+    this.HttpService.connectUrl( urls_graph.getlists)('get')()
+                                  .subscribe(data =>
                                                         {                                                          
                                                           this.lists_last = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
                                                         },
@@ -205,8 +205,8 @@ getLists(){
 }
 
 getEvents(){
-      this.employeeService.getJson(urls_graph.getevents,
-                                'ms').subscribe(data =>
+      this.HttpService.connectUrl(urls_graph.getevents)('get')()
+                                .subscribe(data =>
                                                       {
                                                         this.events_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
                                                       },
@@ -215,35 +215,29 @@ getEvents(){
 }
 
 getNestedChildren(arr, parent) {
-  var out = []
-  for(var i in arr) {
-      if(arr[i].parent == parent) {
-          var children = this.getNestedChildren(arr, arr[i].id)
-
-          if(children.length) {
-              arr[i].children = children
-          }
-          out.push(arr[i])
-      }
-  }
-  return out 
+        var out = []
+        for(var i in arr) {
+            if(arr[i].parent == parent) {
+                var children = this.getNestedChildren(arr, arr[i].id)
+                if(children.length) {
+                    arr[i].children = children
+                }
+                out.push(arr[i])
+            }
+        }
+        return out
 }
-
-
 
 onDigestClick(e){
           if(e.node.type == "file"){
 
-                let url = urls_graph.drives + '/' + urls_departments.hr.drive_id + '/items/' + e.node.id + '/preview'
+                let url = urls_graph.drives  + urls_departments.hr.drive_id + '/items/' + e.node.id + '/preview'
                 let body =
                 {
                   "type": "embed"
                 }
-                this.employeeService.getJson( url,
-                                            'ms',
-                                            'post',
-                                            body
-                                            ).subscribe(data => {
+                this.HttpService.connectUrl(url)('post')(body)
+                                                          .subscribe(data => {
                                                                   console.log(data);                                                                                    
                                                                   //this.iframeview_d = true                                                                                                                                                                        
                                                                   //this.iframesrc = this.domSanitizer.bypassSecurityTrustResourceUrl(data['getUrl'])
@@ -252,8 +246,7 @@ onDigestClick(e){
                                                                   let iframe_src = data['getUrl']
                                                                   let iframe_tag = `<iframe id="iframe_hook" style="height: calc(100vh*0.88);" width="100%" src= "${iframe_src}" ></iframe>`
                                                                   this.appComponent.rbar.nativeElement.innerHTML = iframe_tag
-                                                                })
-   
+                                                                })   
     }else{
       this.iframeview_d = false 
       this.appComponent.sidebar_r_display = false
@@ -270,17 +263,12 @@ onPdfClick(e){
                             {
                               "type": "embed"
                             }
-                            this.employeeService.getJson( url3,
-                                                        'ms',
-                                                        'post',
-                                                        body
-                                                        ).subscribe(data => {
-                                                                              console.log(data);                                                                                    
-                                                                              this.iframeview = true                                                                                                                                                                        
-                                                                              this.iframesrc = this.domSanitizer.bypassSecurityTrustResourceUrl(data['getUrl'])
-                                                                              
-                                                                              
-                                                                          })
+                            this.HttpService.connectUrl( url3)('post')(body)
+                                                                        .subscribe(data => {
+                                                                                                console.log(data);                                                                                    
+                                                                                                this.iframeview = true                                                                                                                                                                        
+                                                                                                this.iframesrc = this.domSanitizer.bypassSecurityTrustResourceUrl(data['getUrl'])                                                                                                                                                            
+                                                                                            })
                             }else {
                               this.iframeview = false
                             }
@@ -288,58 +276,57 @@ onPdfClick(e){
 
 
 getInstructions(){
-    this.employeeService.getJson(urls_graph.getonedrivesecurity,
-                                'ms').subscribe(data =>
-                                                      {
-                                                        console.log('---  data ---')
-                                                        console.log(data)
+    this.HttpService.connectUrl(urls_graph.getonedrivesecurity)('get')()
+                                                  .subscribe(data =>
+                                                                    {
+                                                                      console.log('---  data ---')
+                                                                      console.log(data)
 
-                                                        // this.instructions_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]                                                        
-                                                        // console.log('---  Instructions ---')
-                                                        // console.log(this.instructions_last)
+                                                                      // this.instructions_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
+                                                                      // console.log('---  Instructions ---')
+                                                                      // console.log(this.instructions_last)
 
-                                                        let tmp1 = Object.keys(data)
-                                                                              .filter(key => key == "value" )
-                                                                              .map(key => data[key])[0]
+                                                                      let tmp1 = Object.keys(data)
+                                                                                            .filter(key => key == "value" )
+                                                                                            .map(key => data[key])[0]
 
-                                                                              tmp1.forEach(element => {
-                                                                                console.log(element.label)
-                                                                              });
-                                                                              "01RUGPFPDCB5NAKI4TYZCI3HPWMB3F6PJR"
-                                                                              "01RUGPFPDCB5NAKI4TYZCI3HPWMB3F6PJR"
+                                                                                            tmp1.forEach(element => {
+                                                                                              console.log(element.label)
+                                                                                            });
+                                                                                            // "01RUGPFPDCB5NAKI4TYZCI3HPWMB3F6PJR"
+                                                                                            // "01RUGPFPDCB5NAKI4TYZCI3HPWMB3F6PJR"
 
-                                                        let oddata = tmp1
-                                                                        .map(item => {  return {  label:item.name,
-                                                                                                  icon: item.file ? 'pi pi-file'  : 'pi pi-check',
-                                                                                                  data:{  id:item.id,
-                                                                                                          parent:item.parentReference.id},
-                                                                                                  id:item.id,
-                                                                                                  parent:item.parentReference.id,
-                                                                                                  size:item.size,
-                                                                                                  type: item.file ? 'file': 'folder'}})
+                                                                      let oddata = tmp1
+                                                                                      .map(item => {  return {  label:item.name,
+                                                                                                                icon: item.file ? 'pi pi-file'  : 'pi pi-check',
+                                                                                                                data:{  id:item.id,
+                                                                                                                        parent:item.parentReference.id},
+                                                                                                                id:item.id,
+                                                                                                                parent:item.parentReference.id,
+                                                                                                                size:item.size,
+                                                                                                                type: item.file ? 'file': 'folder'}})
 
-                                                      oddata.forEach(element => {
-                                                        console.log(element.label)
-                                                      });
-                                                                                                                                                                                                
-                                                        
-                                                        oddata = this.getNestedChildren(oddata, "01RUGPFPAUYULGSQX2FRFYCICBX4AAWROS")  // "01RUGPFPAUYULGSQX2FRFYCICBX4AAWROS" // '01RUGPFPF6Y2GOVW7725BZO354PWSELRRZ' // "01RUGPFPAUYULGSQX2FRFYCICBX4AAWROS"
+                                                                    oddata.forEach(element => {
+                                                                      console.log(element.label)
+                                                                    });
+                                                                                                                                                                                                              
+                                                                      
+                                                                      oddata = this.getNestedChildren(oddata, "01RUGPFPAUYULGSQX2FRFYCICBX4AAWROS")  // "01RUGPFPAUYULGSQX2FRFYCICBX4AAWROS" // '01RUGPFPF6Y2GOVW7725BZO354PWSELRRZ' // "01RUGPFPAUYULGSQX2FRFYCICBX4AAWROS"
 
-                                                        console.log('---  oddata  ----')
-                                                        console.log(oddata) 
+                                                                      console.log('---  oddata  ----')
+                                                                      console.log(oddata) 
 
-                                                        this.instructions[0].children=oddata
-                                                        //console.log(this.instructions);
+                                                                      this.instructions[0].children=oddata
+                                                                      //console.log(this.instructions);
 
-                                                      },
-                                                error=> console.log(error)
-    )  
-}
+                                                                    },
+                                                              error=> console.log(error)
+                                                              )}
 
 
 getOneDrive(){  
-    this.employeeService.getJson(urls_graph.getonedrivesearch,
-                                'ms').subscribe(data =>
+    this.HttpService.connectUrl(urls_graph.getonedrivesearch)('get')()
+                                                  .subscribe(data =>
                                                       {
                                                         this.files_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]                                                        
                                                         // console.log('--- OneDrive ---')
@@ -373,7 +360,8 @@ getOneDrive(){
 }
 
 getMail(){ 
-    this.employeeService.getJson(urls_graph.getmail,'ms').subscribe(data => {                                                                                                               
+    this.HttpService.connectUrl(urls_graph.getmail)('get')()
+                                                    .subscribe(data => {                                                                                                               
                                                         const tmp = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0] 
                                                         this.email_last = tmp                                                                                                                 
                                                         // console.log('-----emails-----')
@@ -634,14 +622,14 @@ ngOnInit(){
     //   }} 
 
                                 // let url = urls_graph.drives + '/' + urls_departments.InformationSecurity.drive_id + '/items/' + e.node.id + '/thumbnails?'
-                            // this.employeeService.getJson( url,
+                            // this.HttpService.getJson( url,
                             //                             'ms').subscribe(data => {
                             //                                                         console.log(data)
                             //                                                         let tmp = data;
                             //                                                         this.imgsrc = tmp['value'][0].large.url;
                             //                                                     })
                             // let url2 = urls_graph.drives + '/' + urls_departments.InformationSecurity.drive_id + '/items/' + e.node.id                                                                                
-                            // this.employeeService.getJson( url2,
+                            // this.HttpService.getJson( url2,
                             //                             'ms').subscribe(data => {
                             //                                                         console.log(data);
                                                                                     

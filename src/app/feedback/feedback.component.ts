@@ -4,7 +4,7 @@ import {DropdownModule} from 'primeng/dropdown'
 
 import {SelectItem} from 'primeng/api'
 
-import {EmployeeService} from '../employee.service'
+import {HttpService} from '../http.service'
 
 import {graph_resourses,urls_departments,SP_Fields,SP_List_post,survey} from 'src/environments/environment.prod'
 
@@ -93,7 +93,7 @@ export class FeedbackComponent implements OnInit {
 
   
   constructor(
-    private employeeService: EmployeeService,
+    private HttpService: HttpService,
     private messageService: MessageService  
   ) {}
 
@@ -135,11 +135,11 @@ if(this.selectedDep1 && this.selectedTopic1 && this.writtenText1){
     console.log(sp_post)
 
 // get
-  //  this.employeeService.getJson(server2,'ms').subscribe(data => {
+  //  this.HttpService.getJson(server2,'ms').subscribe(data => {
   //                                                                                   console.log(data);                                                                                    
   //                                                                                   })  
 // post
-    this.employeeService.getJson(server2,'ms','post',sp_post).subscribe(data => {
+    this.HttpService.connectUrl(server2)('get')().subscribe(data => {
                                                                                     this.messageService.clear();    
                                                                                     this.messageService.add({severity: 'success', summary: 'Post item - OK', detail: JSON.stringify(data['fields']) });
                                                                                  
@@ -147,7 +147,7 @@ if(this.selectedDep1 && this.selectedTopic1 && this.writtenText1){
                                                                                     })  
 
 
-    // this.employeeService.getJson({
+    // this.HttpService.getJson({
     //                               userUrl: server2,
     //                               body: sp_post,
     //                               token:'ms',

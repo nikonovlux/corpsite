@@ -13,7 +13,7 @@ import {adal_config} from 'src/environments/environment.prod';
 
 
 @Injectable({ providedIn: 'root' })
-export class EmployeeService {
+export class HttpService {
  
   constructor(
               private messageService: MessageService,
@@ -55,37 +55,30 @@ export class EmployeeService {
 
   getJsonSPO(userUrl) {
                         let code;
-                        localStorage.getItem('code_spo') ? code = JSON.parse(localStorage.getItem('code_spo'))  : code='';
+                        localStorage.getItem('code_spo') ? code = JSON.parse(localStorage.getItem('code_spo'))  : code = ''
                         let  httpOptions = {
                                             headers: new HttpHeaders({
                                                     'Accept':'application/json;odata=verbose',
                                                     'Content-Type':'application/json:odata=verbose',    
                                                     'Authorization':'Bearer ' + code.access_token  
                                                   })
-                                            };
-                        return this.http.get( userUrl, httpOptions );
+                                            }
+                        return this.http.get( userUrl, httpOptions )
                       }
 
-  httpOptions_env = {
-                      headers: new HttpHeaders({
-                                                'Content-Type': 'application/x-www-form-urlencoded'
-                                                //'Accept':'application/json;odata=context',
-                                                //'Authorization':'Bearer test123token' //+ token_graph_ms.access_token
-                                                //'Authorization':'Bearer ' + localStorage.getItem('adal.idtoken') ? localStorage.getItem('adal.idtoken') : ''                       
-                                              })
-                    };              
+
 
 
 
   //: Observable<Object>
 
   getJsonCurry = (method) => { 
-    return (httpOptions) => { 
-      if(method == 'Get'){
-        return (url) => { 
-          return this.http.get(url, httpOptions) 
-        }
-      }
+                              return (httpOptions) => { 
+                                        if(method == 'Get'){
+                                          return (url) => { 
+                                            return this.http.get(url, httpOptions) 
+                                          }
+                                        }
       // else if(method =='Post'){
       //   return (url,body) => { 
       //     return this.http.post(url, body, httpOptions) 
@@ -95,17 +88,59 @@ export class EmployeeService {
   }
 
 
-  curryGetMs  = this.getJsonCurry('Get')({
-                                          headers: new HttpHeaders(localStorage.getItem('code_ms')?{
-                                                                    'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
-                                                                  }:{}),
-                                          responseType: 'json'
-                                        })
+  // curryGetMs  = this.getJsonCurry('Get')({
+  //                                         headers: new HttpHeaders(localStorage.getItem('code_ms')?{
+  //                                                                   'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
+  //                                                                 }:{}),
+  //                                         responseType: 'json'
+  //                                       })
+
+
+  httpOptions_env = {
+                      headers: new HttpHeaders({
+                                                'Content-Type': 'application/x-www-form-urlencoded'                     
+                                              })
+                    }                                        
+
+  connectUrl = (userUrl:string) => {
+                                    return (method:string) => {                                                          
+                                                                return (body = {}) => {
+                                                                                          if(method =='get'){
+                                                                                            return this.getHttp(userUrl)
+                                                                                          }else if(method =='post'){
+                                                                                            return this.postHttp(userUrl,body)
+                                                                                          }
+                                                                                        }                                                                
+                                  }}
+  
+  getHttp(userUrl:string) {      
+                            if(localStorage.getItem('code_ms') ){    
+                                let httpOptions = {
+                                                headers: new HttpHeaders({
+                                                                          //'Content-Type': 'application/x-www-form-urlencoded',                                                
+                                                                          'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
+                                                                        })}                                  
+                              return this.http.get(userUrl, httpOptions );
+                            }else{
+                              console.log('error')
+                            }
+                          }
+
+  postHttp(userUrl:string,body:{}){
+                                    if(localStorage.getItem('code_ms') ){                            
+                                      let httpOptions = {
+                                                      headers: new HttpHeaders({                                                                                                             
+                                                                                'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
+                                                                              })}
+                                      return this.http.post(userUrl, body, httpOptions );
+                                    }else{
+                                      console.log('error')
+                                    }
+                                  }                    
+
 
 
   getJson(userUrl, token='ms', method='get', body:any='', httpOptions=this.httpOptions_env  ) {
-                                          
-                       
                           if(method == 'post' && token === 'ms'){    
                             if(localStorage.getItem('code_ms') ){                            
                               httpOptions = {
@@ -240,6 +275,14 @@ public httpRequestPhoto(email, elId='photo'){
 
 
 
+
+
+
+//'Accept':'application/json;odata=context',
+//'Authorization':'Bearer test123token' //+ token_graph_ms.access_token
+//'Authorization':'Bearer ' + localStorage.getItem('adal.idtoken') ? localStorage.getItem('adal.idtoken') : ''  
+
+
 // else if (localStorage.getItem('code_ag') && token === 'ag'){
 //   try{
 //     httpOptions = {
@@ -260,13 +303,13 @@ public httpRequestPhoto(email, elId='photo'){
 
   // getEmployees(): Observable<Employee[]> {
   //   // TODO: send the message _after_ fetching the employees
-  //   this.messageService.add('EmployeeService: fetched employees');
+  //   this.messageService.add('HttpService: fetched employees');
   //   return of(EMPLOYEES);
   // }
  
   // getEmployee(id: number): Observable<Employee> {
   //   // TODO: send the message _after_ fetching the employee
-  //   this.messageService.add(`EmployeeService: fetched employee id=${id}`);
+  //   this.messageService.add(`HttpService: fetched employee id=${id}`);
   //   return of(EMPLOYEES.find(employee => employee.id === id));
   // }
 
@@ -288,19 +331,19 @@ public httpRequestPhoto(email, elId='photo'){
 
 
 // @Injectable({ providedIn: 'root' })
-// export class EmployeeService {
+// export class HttpService {
  
 //   constructor(private messageService: MessageService) { }
  
 //   getEmployees(): Observable<Employee[]> {
 //     // TODO: send the message _after_ fetching the employees
-//     this.messageService.add('EmployeeService: fetched employees');
+//     this.messageService.add('HttpService: fetched employees');
 //     return of(EMPLOYEES);
 //   }
  
 //   getEmployee(id: number): Observable<Employee> {
 //     // TODO: send the message _after_ fetching the employee
-//     this.messageService.add(`EmployeeService: fetched employee id=${id}`);
+//     this.messageService.add(`HttpService: fetched employee id=${id}`);
 //     return of(EMPLOYEES.find(employee => employee.id === id));
 //   }
 // }
