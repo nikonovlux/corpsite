@@ -9,6 +9,7 @@ import {HttpClient,HttpHeaders} from '@angular/common/http';
 import {MsAdalAngular6Service} from 'microsoft-adal-angular6';
 
 import {adal_config} from 'src/environments/environment.prod';
+import { ResponseType } from '@angular/http';
 
 
 
@@ -53,55 +54,6 @@ export class HttpService {
                                                                                   });
                 }
 
-  getJsonSPO(userUrl) {
-                        let code;
-                        localStorage.getItem('code_spo') ? code = JSON.parse(localStorage.getItem('code_spo'))  : code = ''
-                        let  httpOptions = {
-                                            headers: new HttpHeaders({
-                                                    'Accept':'application/json;odata=verbose',
-                                                    'Content-Type':'application/json:odata=verbose',    
-                                                    'Authorization':'Bearer ' + code.access_token  
-                                                  })
-                                            }
-                        return this.http.get( userUrl, httpOptions )
-                      }
-
-
-
-
-
-  //: Observable<Object>
-
-  getJsonCurry = (method) => { 
-                              return (httpOptions) => { 
-                                        if(method == 'Get'){
-                                          return (url) => { 
-                                            return this.http.get(url, httpOptions) 
-                                          }
-                                        }
-      // else if(method =='Post'){
-      //   return (url,body) => { 
-      //     return this.http.post(url, body, httpOptions) 
-      //   }
-      // }
-    }
-  }
-
-
-  // curryGetMs  = this.getJsonCurry('Get')({
-  //                                         headers: new HttpHeaders(localStorage.getItem('code_ms')?{
-  //                                                                   'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
-  //                                                                 }:{}),
-  //                                         responseType: 'json'
-  //                                       })
-
-
-  httpOptions_env = {
-                      headers: new HttpHeaders({
-                                                'Content-Type': 'application/x-www-form-urlencoded'                     
-                                              })
-                    }                                        
-
   connectUrl = (userUrl:string) => {
                                     return (method:string) => {                                                          
                                                                 return (body = {}) => {
@@ -112,12 +64,30 @@ export class HttpService {
                                                                                           }
                                                                                         }                                                                
                                   }}
-  
+  //  : Observable<Blob>
+
+
+  getBlobThumbnail(userUrl:string): Observable<Blob> {  
+                                                        const headers = new HttpHeaders({
+                                                                                'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token,
+                                                                                'Content-Type': 'application/json',
+                                                                                'Accept': 'application/json'
+                                                                              });
+                                                        return this.http.get<Blob>(userUrl,
+                                                                                  {headers: headers, responseType: 'blob' as 'json' });
+                                                      }
+
+
+  getBlob =  (userUrl:string) => {
+                                  if(localStorage.getItem('code_ms') ){                       
+                                    return this.getHttp(userUrl)
+                                }
+                              }
+
   getHttp(userUrl:string) {      
                             if(localStorage.getItem('code_ms') ){    
                                 let httpOptions = {
-                                                headers: new HttpHeaders({
-                                                                          //'Content-Type': 'application/x-www-form-urlencoded',                                                
+                                                headers: new HttpHeaders({                                                                                                                        
                                                                           'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
                                                                         })}                                  
                               return this.http.get(userUrl, httpOptions );
@@ -138,7 +108,46 @@ export class HttpService {
                                     }
                                   }                    
 
+  getJsonSPO(userUrl) {
+                                    let code;
+                                    localStorage.getItem('code_spo') ? code = JSON.parse(localStorage.getItem('code_spo'))  : code = ''
+                                    let  httpOptions = {
+                                                        headers: new HttpHeaders({
+                                                                'Accept':'application/json;odata=verbose',
+                                                                'Content-Type':'application/json:odata=verbose',    
+                                                                'Authorization':'Bearer ' + code.access_token  
+                                                              })
+                                                        }
+                                    return this.http.get( userUrl, httpOptions )
+                                  }
+  
+  getJsonCurry = (method) => { 
+                              return (httpOptions) => { 
+                                                        if(method == 'Get'){
+                                                                            return (url) => { 
+                                                                                              return this.http.get(url, httpOptions) 
+                                                                                              }}
+                                                                                          // else if(method =='Post'){
+                                                                                          //   return (url,body) => { 
+                                                                                          //     return this.http.post(url, body, httpOptions) 
+                                                                                          //   }
+                                                                                          // }
+                                                                                        }
+                                }
 
+
+// curryGetMs  = this.getJsonCurry('Get')({
+//                                         headers: new HttpHeaders(localStorage.getItem('code_ms')?{
+//                                                                   'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token
+//                                                                 }:{}),
+//                                         responseType: 'json'
+//                                       })
+
+  httpOptions_env = {
+                      headers: new HttpHeaders({
+                                                'Content-Type': 'application/x-www-form-urlencoded'                     
+                                              })
+                    }         
 
   getJson(userUrl, token='ms', method='get', body:any='', httpOptions=this.httpOptions_env  ) {
                           if(method == 'post' && token === 'ms'){    
@@ -159,19 +168,54 @@ export class HttpService {
                                         })}                                  
                               }
                               return this.http.get(userUrl, httpOptions );
-                          }
-}
+                          }}
+public httpRequestPhoto(userUrl:string):string{
+                                              let result:string
+                                                                                           
+                                                                        
+                                              let httpOptions = {
+                                                  headers: new HttpHeaders({                                
+                                                    'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token                                                     
+                                                  })} 
+                                                                                             
+
+                                              return result
+                                            }
 
 
-public httpRequestPhoto(email, elId='photo'){
+
+public httpRequestPhoto_or2 = (email:string) => {try {
+                                                  let request = new XMLHttpRequest
+                                                  let result:string
+                                                  request.open("GET", "https://graph.microsoft.com/beta/users/" + email + "/Photos/48X48/$value");
+                                                  if(localStorage.getItem('code_ms')){          
+                                                    request.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('code_ms')).access_token);
+                                                  }else{            
+                                                    console.log('NO Bearer !!!')           
+                                                  }
+                                                  request.responseType = "blob";
+                                                  request.onload =  function () {
+                                                      if (request.readyState === 4 && request.status === 200) {
+                                                          var url = window.URL;
+                                                          var blobUrl:string = url.createObjectURL(request.response);
+                                                          result = blobUrl;
+                                                                                                
+                                                      }
+                                                  };
+
+                                                  request.send(null);
+
+                                                  return result;
+                                                                                              
+                                                }catch(e){}} 
+
+public httpRequestPhoto_original(email, elId='photo'){
           var request = new XMLHttpRequest;
-          request.open("GET", "https://graph.microsoft.com/beta/users/" + email + "/Photos/48X48/$value");
+          request.open("GET", "https://graph.microsoft.com/beta/users/" + email + "/Photos/120x120/$value");
           if(localStorage.getItem('code_ms')){          
             request.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('code_ms')).access_token);
-          }else{
-            if(localStorage.getItem('adal.idtoken')){
-              request.setRequestHeader("Authorization", "Bearer 123");
-            }
+          }else{            
+              request.setRequestHeader("Authorization", "Bearer 123");            
           }
           request.responseType = "blob";
           request.onload = function () {
@@ -274,9 +318,9 @@ public httpRequestPhoto(email, elId='photo'){
 }
 
 
+//: Observable<Object>
 
-
-
+//'Content-Type': 'application/x-www-form-urlencoded',  
 
 //'Accept':'application/json;odata=context',
 //'Authorization':'Bearer test123token' //+ token_graph_ms.access_token

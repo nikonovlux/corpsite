@@ -101,8 +101,11 @@ export class MenuComponent implements OnInit {
       this.fname = this.adalSvc.userInfo.profile['family_name'] + ' ' + this.adalSvc.userInfo.profile['given_name'];
 
       this.is2Loggedin = true;
-      this.HttpService.httpRequestPhoto(this.adalSvc.userInfo.profile.upn, 'photo');  
-      document.getElementById('fname').removeAttribute('href');    
+
+      this.HttpService.httpRequestPhoto_original(this.adalSvc.userInfo.profile.upn, 'photo');  
+
+      document.getElementById('fname').removeAttribute('href');
+
     } else {
       this.fname = "LOG IN"; 
       this.is2Loggedin = false;

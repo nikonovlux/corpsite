@@ -1,12 +1,7 @@
-
 <h2 translate>Structure</h2>
 <br/>
 <p-toast [style]="{marginTop: '80px'}" position="bottom-right" styleClass="company" ></p-toast>
 <!-- <p-contextMenu #cm [target]="dttt" [model]="items"></p-contextMenu> -->
-
-
-
-
 
 
 <!-- <div #dttt>
@@ -19,10 +14,11 @@
 </p-organizationChart>
 </div> -->
 
+<!--  [tableStyle]="{'table-layout':'auto', 'max-width':'90%'}"   [contextMenu]="cm" [(contextMenuSelection)]="selectedUser" -->
 
 <div #dtt id="main">
     <p-contextMenu #cm [model]="items"></p-contextMenu>
-    <p-table [(ngClass)]="depclass" #dt [columns]="cols" [value]="users1" [paginator]="true" [rows]="10" [tableStyle]="{'table-layout':'auto'}" [(contextMenuSelection)]="selectedUser"  dataKey="displayName" >   <!--  [tableStyle]="{'table-layout':'auto', 'max-width':'90%'}"   [contextMenu]="cm" -->
+    <p-table [(ngClass)]="depclass" #dt [columns]="cols" [value]="users1" [paginator]="true" [rows]="10" [tableStyle]="{'table-layout':'auto'}"   dataKey="displayName" rowExpandMode="single"  selectionMode="single" [(selection)]="selectedRow" (onRowExpand)="getAvatar($event)" >
             <ng-template pTemplate="caption">
                 <div style="text-align: justify">
                     <td>
@@ -53,7 +49,7 @@
                     <!-- </th> -->
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-columns="columns" let-expanded="expanded" >
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-expanded="expanded"  >
                 <tr  [pContextMenuRow]="rowData">   <!--  [pSelectableRow]="rowData"   -->
                     <td>
                         <a href="#" [pRowToggler]="rowData">
@@ -67,14 +63,15 @@
                     </td>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns">
+            <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns"  >
                 <tr>
                     <td [attr.colspan]="columns.length + 1">
                         <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
                             <div class="ui-g-12 ui-md-3" style="text-align:center">
                                     <!-- <img [attr.alt]="rowData.mail" src="https://graph.microsoft.com/beta/users/{{rowData.mail}}/Photos/48X48/$value"   > -->
                                     <!-- <img [attr.alt]="rowData.mail" src="../assets/img/logo_ico.png"  > -->
-                                <img [attr.alt]="rowData.mail" [src]="getAvatar(rowData.mail)"  >
+                                    <!-- <img [attr.alt]="rowData.mail" [src]="getAvatar(rowData.mail)"  > -->
+                                    <img [id]="rowData.mail" [attr.alt]="rowData.mail" src="../assets/img/logo_ico.png"  >
                             </div>
                             <div class="ui-g-12 ui-md-9">
                                 <div class="ui-g">

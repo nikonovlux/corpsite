@@ -93,7 +93,10 @@ import { CirculationComponent } from './circulation/circulation.component';
 
 
 import { PipeUkrDateComponent } from './ukrdate'
+import { PipeUserPhotoComponent } from './userphoto'
+
 import { PowerPipe } from './powerpipe'
+import { PhotoPipe } from './photopipe'
 import { UniquePipe } from './uniquepipe'
 
 import { LazyLoadingScriptService } from './gmap2.directive';
@@ -126,7 +129,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoaderComponent, 
     UniquePipe,
     PowerPipe,
+    PhotoPipe,
     PipeUkrDateComponent,
+    PipeUserPhotoComponent,
     AppComponent,
     TopmenuComponent,
     FooterComponent,

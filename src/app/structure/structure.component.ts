@@ -46,6 +46,7 @@ export class StructureComponent implements OnInit {
     data2
 
     selectedNode: TreeNode;
+    selectedRow: TreeNode;
     selectedNode_pre: TreeNode;
     
 
@@ -144,11 +145,6 @@ export class StructureComponent implements OnInit {
 
   }
 
-  carryFunc(){
-
-    
-  }
-
 
   onDepClick(indx_l): void {  
             //this.filter = "$filter=accountEnabled eq true";
@@ -188,28 +184,50 @@ export class StructureComponent implements OnInit {
                             );
           }
 
-count = 1;
+avatarShown = false;
 
-getAvatar(email){
+wurl = window.URL 
+
+count = 0
+
+createImageFromBlob(image: Blob) {
+  //  this.wurl.createObjectURL(data)
+  //  console.log('---getava---')
+  return this.wurl.createObjectURL(image)
+  }
+
+getAvatar(event:Event){
+  
+   this.HttpService.httpRequestPhoto_original(event['data'].mail, event['data'].mail)
+
+  }   
+
+
+getAvatar1(email){
+
   console.log('getAvatar email - ' + email);
 
   let answer
 
   if(email == 'polyakov.s@opticalhouse.com.ua'){
 
-        if(this.count < 2){
-              this.count = this.count + 1;          
-              answer = this.HttpService.httpRequestPhotoBlob(email);
-              console.log('if email - ' + answer)
-        }
+    alert(email)
+    
 
-    //answer = 'https://graph.microsoft.com/beta/users/polyakov.s@opticalhouse.com.ua/Photos/48X48/$value'
+    // if(this.avatarShown == "false"){
+    //       this.avatarShown = true;          
+    //       answer = this.HttpService.httpRequestPhotoBlob(email);
+    //       console.log('if email - ' + answer)
+    // }
+
+    //  answer = 'https://graph.microsoft.com/beta/users/polyakov.s@opticalhouse.com.ua/Photos/48X48/$value'
 
   }
 
   if(answer == null){  answer = '../assets/img/logo_ico.png' }
   
   return answer;
+
 }
 
   getImage(email){
@@ -238,16 +256,12 @@ getAvatar(email){
 
   ngOnInit() {
     
- 
-
-
-
     this.HttpService.getTopDepsData();
     
-
     if((localStorage.getItem("top_deps"))){ 
 
       //this.data2 = JSON.parse( localStorage.getItem("top_deps")).top_deps;
+
       this.data2  = JSON.parse(localStorage.getItem("top_deps")).top_deps;
 
       //this.data1 = this.data2;
@@ -300,36 +314,51 @@ getAvatar(email){
       { field: 'mobilePhone', header: 'Phone' }      
     ];
     
+    // test this.getAvatarr('nikonov.m@luxoptica.com.ua')
+
 
     }
 }
 
 
+  //alert(this.selectedRow)
+  //console.log(this.selectedRow)
+  //console.log(event['data'].mail)
+
+  //  alert(mail)  
+  //  let mail
+  //  if(this.count < 3){
+  //   this.count = this.count +1
+  //   return this.HttpService.getBlobThumbnail(`https://graph.microsoft.com/beta/users/${event['data'].mail}/Photos/48X48/$value`).subscribe(
+  //                                                                                                                           image => {                                                                                                                                        
+  //                                                                                                                                       return this.createImageFromBlob(image)
+  //                                                                                                                                     })}
 
 
-                                                      //  window.location.href = form_graph_ms.url_auth_code;  // ok
+
+        //  window.location.href = form_graph_ms.url_auth_code;  // ok
 
 
-                                                                    //   window.iframeLoad = function(){
-                                                                    //     if (! _this.submitted) {
-                                                                    //         document.getElementById('aForm').submit();
-                                                                    //     }
-                                                                    //     _this.submitted = true;
-                                                                    //  };
+                      //   window.iframeLoad = function(){
+                      //     if (! _this.submitted) {
+                      //         document.getElementById('aForm').submit();
+                      //     }
+                      //     _this.submitted = true;
+                      //  };
 
-                                                                    //   <iframe id="iFrame" name="iFrame" src="iframeUrl" height="500" width="400" border=0 onload="iframeLoad()">
-                                                                    //   <p>Your browser does not support iframes.</p>
-                                                                    //    </iframe>
+                      //   <iframe id="iFrame" name="iFrame" src="iframeUrl" height="500" width="400" border=0 onload="iframeLoad()">
+                      //   <p>Your browser does not support iframes.</p>
+                      //    </iframe>
 
 
-                                                                    //     <form target="frame" action="<Your URL to POST>" #form method="POST" hidden="hidden">
-                                                                    //     <input name="token" value={{token}}>
-                                                                    // </form>
+                      //     <form target="frame" action="<Your URL to POST>" #form method="POST" hidden="hidden">
+                      //     <input name="token" value={{token}}>
+                      // </form>
 
-                                                                    // And call nativeElement.submit() from nginint() in your component.
+                      // And call nativeElement.submit() from nginint() in your component.
 
-                                                                    // if(this.form_azure.nativeElement.submit()){
-                                                                    //   alert('ok');
-                                                                    // }
+                      // if(this.form_azure.nativeElement.submit()){
+                      //   alert('ok');
+                      // }
 
 
