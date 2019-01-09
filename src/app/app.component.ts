@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 import { trigger, state, style, transition, animate} from '@angular/animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -7,6 +7,7 @@ import {TranslateService} from '@ngx-translate/core';
 // import { Router, NavigationEnd } from '@angular/router';
 
 import { Observable } from "rxjs"
+import { EventEmitter } from 'events';
 
 
 @Component({
@@ -42,7 +43,9 @@ export class AppComponent {
           }
       }
 
-  @ViewChild('rbar')  public rbar: ElementRef;      
+  @ViewChild('rbar')  public rbar: ElementRef;
+  @Input() private sig:EventEmitter;
+  
   
   sidebar_r_display
   display

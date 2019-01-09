@@ -60,6 +60,7 @@
     "primeng": "^6.1.7",
     "rich-filemanager": "^2.7.6",
     "rxjs": "^6.3.3",
+    "rxjs-compat": "^6.3.3",
     "sax": "^1.2.4",
     "soap": "^0.25.0",
     "sp-pnp-js": "^3.0.10",

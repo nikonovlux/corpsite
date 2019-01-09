@@ -61,28 +61,43 @@ export class HttpService {
                                                                                             return this.getHttp(userUrl)
                                                                                           }else if(method =='post'){
                                                                                             return this.postHttp(userUrl,body)
+                                                                                          }else if(method == 'blob'){
+                                                                                            return this.getBlob(userUrl)
                                                                                           }
                                                                                         }                                                                
                                   }}
   //  : Observable<Blob>
 
-
-  getBlobThumbnail(userUrl:string): Observable<Blob> {  
-                                                        const headers = new HttpHeaders({
-                                                                                'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token,
-                                                                                'Content-Type': 'application/json',
-                                                                                'Accept': 'application/json'
-                                                                              });
-                                                        return this.http.get<Blob>(userUrl,
-                                                                                  {headers: headers, responseType: 'blob' as 'json' });
-                                                      }
+  public async downloadResource(userUrl:string): Promise<Blob> {
+    let options = { headers: new HttpHeaders({'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token }),
+                    responseType: 'blob' as 'json'  }
+    const file =  await this.http.get<Blob>(
+      userUrl,
+      options).toPromise();
+    return file;
+  }
 
 
-  getBlob =  (userUrl:string) => {
-                                  if(localStorage.getItem('code_ms') ){                       
-                                    return this.getHttp(userUrl)
+  getBlobThumbnail(userUrl:string):Observable<Blob>{  
+                                                      const headers = new HttpHeaders({
+                                                                              'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token,
+                                                                              'Content-Type': 'application/json',
+                                                                              'Accept': 'application/json'
+                                                                            });
+                                                      return this.http.get<Blob>(userUrl,
+                                                                                {headers: headers, responseType: 'blob' as 'json' });
+                                                    }
+
+
+  getBlob = (userUrl:string):Observable<Blob> => {      
+                                  try{
+                                    let options = { headers: new HttpHeaders({'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token }),
+                                                    responseType: 'blob' as 'json'  }                               
+                                    return this.http.get<Blob>( userUrl, options  );
+                                  }catch(e){
+                                    console.log(e)
+                                  }
                                 }
-                              }
 
   getHttp(userUrl:string) {      
                             if(localStorage.getItem('code_ms') ){    
@@ -209,28 +224,56 @@ public httpRequestPhoto_or2 = (email:string) => {try {
                                                                                               
                                                 }catch(e){}} 
 
-public httpRequestPhoto_original(email, elId='photo'){
-          var request = new XMLHttpRequest;
-          request.open("GET", "https://graph.microsoft.com/beta/users/" + email + "/Photos/120x120/$value");
-          if(localStorage.getItem('code_ms')){          
-            request.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('code_ms')).access_token);
-          }else{            
-              request.setRequestHeader("Authorization", "Bearer 123");            
+
+
+
+public httpRequestPhoto_original(email:string, elId:string='photo', size:number=0){
+
+          let size_arr =  ['48x48', '64x64', '96x96', '120x120', '240x240', '360x360','432x432', '504x504','648x648']
+          let url = `https://graph.microsoft.com/beta/users/${email}/Photos/${size_arr[size]}/$value`
+          var request = new XMLHttpRequest
+          request.open("GET", url)          
+          try{          
+            request.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('code_ms')).access_token)
+          }catch(e){            
+              return (e)       
           }
-          request.responseType = "blob";
-          request.onload = function () {
-              if (request.readyState === 4 && request.status === 200) {
-
-                  var url = window.URL;
-                  var blobUrl = url.createObjectURL(request.response);
-                  document.getElementById(elId).setAttribute('src', blobUrl)
-
-              }
-          };
-          request.send(null);
+          request.responseType = "blob"
+          request.onload = () => {
+                                    if (request.readyState === 4 && request.status === 200) {
+                                        var url = window.URL
+                                        var blobUrl = url.createObjectURL(request.response)
+                                        document.getElementById(elId).setAttribute('src', blobUrl)
+                                    }
+                                  }
+          request.send(null)
   }
 
-  avatarUrl:string;
+
+
+
+  public httpRequestPhoto_original2(email, elId='photo', size:number=0){
+
+      let size_arr =  ['48x48', '64x64', '96x96', '120x120', '240x240', '360x360','432x432', '504x504','648x648']
+
+      var request = new XMLHttpRequest
+      request.open("GET", `https://graph.microsoft.com/beta/users/${email}/Photos/${size_arr[size]}/$value`)
+      if(localStorage.getItem('code_ms')){          
+        request.setRequestHeader("Authorization", "Bearer " + JSON.parse(localStorage.getItem('code_ms')).access_token)
+      }else{            
+          request.setRequestHeader("Authorization", "Bearer 123")          
+      }
+      request.responseType = "blob"
+      request.onload = function () {
+          if (request.readyState === 4 && request.status === 200) {
+              var url = window.URL;
+              var blobUrl = url.createObjectURL(request.response)
+              document.getElementById(elId).setAttribute('src', blobUrl)
+          }
+      };
+      request.send(null)
+  }  
+ 
 
   public httpRequestPhotoBlob(email){
 

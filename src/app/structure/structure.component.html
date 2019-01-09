@@ -14,24 +14,30 @@
 </p-organizationChart>
 </div> -->
 
-<!--  [tableStyle]="{'table-layout':'auto', 'max-width':'90%'}"   [contextMenu]="cm" [(contextMenuSelection)]="selectedUser" -->
+<!--  [tableStyle]="{'table-layout':'auto', 'max-width':'90%'}"   [contextMenu]="cm" [(contextMenuSelection)]="selectedUser" selectionMode="single" [(selection)]="selectedRow" -->
 
-<div #dtt id="main">
-    <p-contextMenu #cm [model]="items"></p-contextMenu>
-    <p-table [(ngClass)]="depclass" #dt [columns]="cols" [value]="users1" [paginator]="true" [rows]="10" [tableStyle]="{'table-layout':'auto'}"   dataKey="displayName" rowExpandMode="single"  selectionMode="single" [(selection)]="selectedRow" (onRowExpand)="getAvatar($event)" >
+<!--  selectionMode="single" [(selection)]="selectedRow" (onRowSelect)="onRowSelect($event)" -->
+
+
+<span #dtt id="main">
+    <!-- <p-contextMenu #cm [model]="items"></p-contextMenu> -->
+    <p-table [(ngClass)]="depclass" #dt [columns]="cols" [value]="users1" [paginator]="true" [rows]="10" [tableStyle]="{'table-layout':'auto'}"
+        dataKey="displayName" rowExpandMode="single" (onRowExpand)="getAvatar($event)" selectionMode="single" [(selection)]="selectedRow" >
             <ng-template pTemplate="caption">
-                <div style="text-align: justify">
+                <tr >
                     <td>
-                        <a style="margin: 5px;" >{{selecteddep}}</a>                
+                        <a  >{{selecteddep}}</a>                
                     </td>
                     <td>
-                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                        <i class="fa fa-search" style="margin: 0 5px 0 5px"></i> <!-- <i class="fa fa-search" style="margin:4px 4px 0 0"></i>   style="margin: 5px;"   style="text-align: justify" style="margin: 5px; float:right;" -->
                         <input type="text" pInputText size="50" placeholder="{{'SEARCH' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">  <!-- value to children -->
                     </td>
-                    <td style="float:right">
-                        <button type="button" pButton icon="pi pi-file" iconPos="right" label="Export to CSV" (click)="dt.exportCSV()" style="margin: 5px;" ></button>
+                </tr>
+                <tr>
+                    <td style="float:left" >
+                            <button type="button" pButton icon="pi pi-file" iconPos="right" label="Export to CSV" (click)="dt.exportCSV()" ></button>
                     </td>
-                </div>
+                </tr>
             </ng-template>
             <ng-template pTemplate="header" let-columns >
                 <tr>
@@ -49,8 +55,8 @@
                     <!-- </th> -->
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-columns="columns" let-expanded="expanded"  >
-                <tr  [pContextMenuRow]="rowData">   <!--  [pSelectableRow]="rowData"   -->
+            <ng-template id="tablebody" pTemplate="body" let-rowData let-columns="columns" let-expanded="expanded"   >
+                <tr (click)="onRowSelect($event)" >   <!--  [pSelectableRow]="rowData"   [pContextMenuRow]="rowData"  -->
                     <td>
                         <a href="#" [pRowToggler]="rowData">
                             <i [ngClass]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></i>
@@ -66,35 +72,37 @@
             <ng-template pTemplate="rowexpansion" let-rowData let-columns="columns"  >
                 <tr>
                     <td [attr.colspan]="columns.length + 1">
-                        <div class="ui-g ui-fluid" style="font-size:16px;padding:20px">
-                            <div class="ui-g-12 ui-md-3" style="text-align:center">
+                        <span class="ui-g ui-fluid" style="font-size:16px;padding:20px">
+                            <span class="ui-g-12 ui-md-3" style="text-align:center">
                                     <!-- <img [attr.alt]="rowData.mail" src="https://graph.microsoft.com/beta/users/{{rowData.mail}}/Photos/48X48/$value"   > -->
                                     <!-- <img [attr.alt]="rowData.mail" src="../assets/img/logo_ico.png"  > -->
-                                    <!-- <img [attr.alt]="rowData.mail" [src]="getAvatar(rowData.mail)"  > -->
+                                    <!-- <img [attr.alt]="rowData.mail" [src]="getAvatarr(rowData.mail,0) | async"  > -->
+                                    <!-- <img [attr.alt]="rowData.mail" [src]="photo_urls[rowData.mail]"  > -->                                    
+                                    
                                     <img [id]="rowData.mail" [attr.alt]="rowData.mail" src="../assets/img/logo_ico.png"  >
-                            </div>
-                            <div class="ui-g-12 ui-md-9">
-                                <div class="ui-g">
-                                    <div class="ui-g-12">
+                            </span>
+                            <span class="ui-g-12 ui-md-9" >
+                                <span class="ui-g">
+                                    <span class="ui-g-12">
                                         <b>Name:</b> {{rowData.displayName}}
-                                    </div>
-                                    <div class="ui-g-12">
+                                    </span>
+                                    <span class="ui-g-12">
                                         <b>Title:</b> {{rowData.jobTitle}}
-                                    </div>
-                                    <div class="ui-g-12">
+                                    </span>
+                                    <span class="ui-g-12">
                                         <b>Mail:</b> {{rowData.mail}}
-                                    </div>
-                                    <div class="ui-g-12">
+                                    </span>                                                        
+                                    <span *ngIf="rowData.mobilePhone" class="ui-g-12" >
                                         <b>Phone:</b> {{rowData.mobilePhone}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                    </span>
+                                </span>
+                            </span>
+                        </span>
                     </td>
                 </tr>
             </ng-template>
     </p-table>
-</div>
+</span>
 
 <!--    [contextMenu]="cmm"   -->
 

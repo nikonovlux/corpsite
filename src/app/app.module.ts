@@ -115,7 +115,6 @@ import {FileUploadModule} from 'primeng/fileupload';
 
 
 
-
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
