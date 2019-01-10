@@ -5,6 +5,10 @@
 /tmp
 /out-tsc
 
+
+#ssl
+/ssl
+
 # dependencies
 /node_modules
 

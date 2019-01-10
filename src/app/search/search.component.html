@@ -1,0 +1,32 @@
+
+<!-- <div *ngIf="employee$ | async as employee">  {{ employee.phone }}-->
+  <!-- <div *ngIf="employees">
+  <h3>{{ employees.displayName }}</h3>
+  <div>
+      <label>Title: </label> {{ employees.jobTitle }}
+    </div>
+  <div>
+    <label>Phone: </label> {{ employees.mobilePhone }}
+  </div>
+  <div>
+    <label>email: </label>   {{ employees.userPrincipalName }}
+  </div>  
+</div> -->
+
+
+
+<h2>Employees</h2>
+<ul class="employees">
+  <li *ngFor="let employee of employees">
+  <h3>{{ employee.displayName }}</h3>
+    <div>
+        <label>Title: </label>{{ employee.jobTitle }}
+    </div>
+    <div>
+      <label>Phone: </label>{{ employee.mobilePhone }}
+    </div>
+    <div>
+      <label>email: </label>{{ employee.userPrincipalName }}
+    </div> 
+  </li>
+</ul>

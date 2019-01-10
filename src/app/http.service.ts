@@ -10,6 +10,17 @@ import {MsAdalAngular6Service} from 'microsoft-adal-angular6';
 
 import {adal_config} from 'src/environments/environment.prod';
 import { ResponseType } from '@angular/http';
+import { map } from 'rxjs/operators';
+import { resetComponentState } from '@angular/core/src/render3/state';
+
+
+interface Employee{
+  id:string,
+  name:string,
+  position:string,
+  phone:string,
+  mail:string
+}
 
 
 
@@ -77,6 +88,17 @@ export class HttpService {
     return file;
   }
 
+  getEmployee(search:string){
+    let base_url = `https://graph.microsoft.com/v1.0/users?$filter=startswith(givenName,'${search}')`
+    
+    let headers = new HttpHeaders({
+                                  'Authorization':'Bearer ' + JSON.parse(localStorage.getItem('code_ms')).access_token,
+                                  'Content-Type': 'application/json',
+                                  'Accept': 'application/json'
+                                });
+                            //  .pipe(map((emp:Employee)=> {return emp}));
+    return this.http.get(base_url, {headers: headers, responseType:'json' })
+  }
 
   getBlobThumbnail(userUrl:string):Observable<Blob>{  
                                                       const headers = new HttpHeaders({

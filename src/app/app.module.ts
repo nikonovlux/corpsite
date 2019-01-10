@@ -15,6 +15,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { DocsComponent } from './docs/docs.component';
 import { MenuComponent } from './menu/menu.component';
+import { SearchComponent } from './search/search.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -110,6 +111,8 @@ import {LoaderComponent} from './loader'
 import {CardModule} from 'primeng/components/card/card';
 
 import {FileUploadModule} from 'primeng/fileupload';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 
@@ -125,6 +128,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 @NgModule({
   declarations: [
+    SearchComponent,
     LoaderComponent, 
     UniquePipe,
     PowerPipe,
@@ -149,7 +153,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     WikipageComponent,
     SptestComponent,
     CirculationComponent,
-    InstructionsComponent    
+    InstructionsComponent
   ],
   imports: [   
     TranslateModule.forRoot({
@@ -183,7 +187,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ButtonModule,
     RadioButtonModule,
     GMapModule,  
-    MsAdalAngular6Module.forRoot(adal_config)
+    MsAdalAngular6Module.forRoot(adal_config), ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [  
     LazyLoadingScriptService,

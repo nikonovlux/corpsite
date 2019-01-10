@@ -13,6 +13,7 @@ import { CirculationComponent} from './circulation/circulation.component';
 import { InstructionsComponent} from './instructions/instructions.component';
 
 import { LoginComponent } from './login/login.component';
+import { SearchComponent } from './search/search.component';
 // import { LogoutComponent } from './logout/logout.component';
 // import { DocsComponent } from './docs/docs.component';
 // import { ComplainComponent } from './complain/complain.component';
@@ -38,7 +39,8 @@ const routes: Routes = [
   // { path: 'logout', component: LogoutComponent },
   // { path: 'complain', component: ComplainComponent },
   // { path: 'wikipage', component: WikipageComponent },
-  { path: 'circulation', component: CirculationComponent }
+  { path: 'circulation', component: CirculationComponent },
+  { path: 'search/:query',      component: SearchComponent }
 ];
 
 

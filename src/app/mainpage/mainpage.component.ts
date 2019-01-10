@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild,ElementRef} from '@angular/core';
+import {Component,OnInit,ViewChild,ElementRef} from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import {MsAdalAngular6Service} from 'microsoft-adal-angular6';
 import {HttpService} from '../http.service';
@@ -120,7 +120,6 @@ export class MainpageComponent implements OnInit {
 
 
   onClickShowRTAB(){
-    
     this.appComponent.sidebar_r_display == true ? this.appComponent.sidebar_r_display = false : this.appComponent.sidebar_r_display = true
     // let displ = this.appComponent.sidebar_r_display
     // displ == true ? displ = false : displ = true
@@ -194,42 +193,42 @@ export class MainpageComponent implements OnInit {
                                                     )
   }
   
-getLists(){
-    this.HttpService.connectUrl( urls_graph.getlists)('get')()
+  getLists(){
+      this.HttpService.connectUrl( urls_graph.getlists)('get')()
                                   .subscribe(data =>
                                                         {                                                          
                                                           this.lists_last = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
                                                         },
                                                   error=> console.log(error)
                                                   )
-}
+  }
 
-getEvents(){
-      this.HttpService.connectUrl(urls_graph.getevents)('get')()
-                                .subscribe(data =>
-                                                      {
-                                                        this.events_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
-                                                      },
-                                                error=> console.log(error)
-    )    
-}
+  getEvents(){
+        this.HttpService.connectUrl(urls_graph.getevents)('get')()
+                                  .subscribe(data =>
+                                                        {
+                                                          this.events_last  = Object.keys(data).filter(key => key == "value" ).map(key => data[key])[0]
+                                                        },
+                                                  error=> console.log(error)
+      )    
+  }
 
-getNestedChildren(arr, parent) {
-        var out = []
-        for(var i in arr) {
-            if(arr[i].parent == parent) {
-                var children = this.getNestedChildren(arr, arr[i].id)
-                if(children.length) {
-                    arr[i].children = children
-                }
-                out.push(arr[i])
-            }
-        }
-        return out
-}
+  getNestedChildren(arr, parent) {
+          var out = []
+          for(var i in arr) {
+              if(arr[i].parent == parent) {
+                  var children = this.getNestedChildren(arr, arr[i].id)
+                  if(children.length) {
+                      arr[i].children = children
+                  }
+                  out.push(arr[i])
+              }
+          }
+          return out
+  }
 
-onDigestClick(e){
-          if(e.node.type == "file"){
+  onDigestClick(e){
+            if(e.node.type == "file"){
 
                 let url = urls_graph.drives  + urls_departments.hr.drive_id + '/items/' + e.node.id + '/preview'
                 let body =
@@ -246,12 +245,12 @@ onDigestClick(e){
                                                                   let iframe_src = data['getUrl']
                                                                   let iframe_tag = `<iframe id="iframe_hook" style="height: calc(100vh*0.88);" width="100%" src= "${iframe_src}" ></iframe>`
                                                                   this.appComponent.rbar.nativeElement.innerHTML = iframe_tag
-                                                                })   
-    }else{
-      this.iframeview_d = false 
-      this.appComponent.sidebar_r_display = false
-    }
-}
+                                                                  })   
+      }else{
+        this.iframeview_d = false 
+        this.appComponent.sidebar_r_display = false
+      }
+  }
 
 onPdfClick(e){
   if(e.node.type == "file"){
