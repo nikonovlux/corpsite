@@ -9,6 +9,5 @@ export class Employee {
     email: string;
     dep:string;
     depar:string;
-    color: string;
 
   }

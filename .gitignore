@@ -24,6 +24,10 @@
 #ssl
 /ssl
 
+#employee list
+/src/app/lst-employees.ts
+
+
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json
