@@ -1,13 +1,20 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
+/[Dd]ist
 /tmp
 /out-tsc
 
-
-#ssl
+# ssl
 /ssl
+
+# e2e
+/e2e
+
+
+#   assets
+/src/assets/json
+/src/assets/pdf
 
 # dependencies
 /node_modules
@@ -20,12 +27,6 @@
 *.launch
 .settings/
 *.sublime-workspace
-
-#ssl
-/ssl
-
-#employee list
-/src/app/lst-employees.ts
 
 
 # IDE - VSCode
