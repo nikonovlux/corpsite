@@ -21,6 +21,9 @@
 .settings/
 *.sublime-workspace
 
+#ssl
+/ssl
+
 # IDE - VSCode
 .vscode/*
 !.vscode/settings.json
