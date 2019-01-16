@@ -1,4 +1,4 @@
-import {Component,OnInit} from '@angular/core';
+import {Component,OnInit,Directive,HostListener,Input,ContentChildren,ContentChild,HostBinding,ElementRef,Renderer} from '@angular/core';
 import {HttpService} from '../http.service';
 
 import {MessageService} from 'primeng/api';
@@ -12,6 +12,27 @@ import {fromEvent,Observable,Subscription} from 'rxjs'
 
 
 
+@Directive({
+  selector: '[inputRef]' 
+})
+export class InputRefDirective {
+  constructor(private el: ElementRef, private renderer: Renderer) {}
+
+  arr = ['yellow','grey','black']
+  num = 1
+
+  ChangeBgColor(color: string) {
+      this.renderer.setElementStyle(this.el.nativeElement, 'color', color);
+  }
+
+  @HostListener('click')
+  onClick = () => {    
+    this.ChangeBgColor(this.arr[this.num % 3]);
+    this.num = this.num + 1
+  }
+
+}
+
 
 @Component({
   providers: [MessageService],
@@ -20,16 +41,19 @@ import {fromEvent,Observable,Subscription} from 'rxjs'
   styleUrls: ['./circulation.component.css']
 })
 export class CirculationComponent implements OnInit {
+  
 
-  server2: string = urls_graph.usersearch;
 
-  constructor(
+  constructor(      
       //private el: ElementRef,
       //private domSanitizer: DomSanitizer,
       private HttpService:  HttpService,
       private messageService: MessageService
     ) { }
 
+
+
+  server2: string = urls_graph.usersearch;
   respo_area = 'response...';
   avatar_src = '../assets/img/logo_ico.png';
   base64;
@@ -37,7 +61,6 @@ export class CirculationComponent implements OnInit {
   //data:image/png;base64,
   topics
   topic1
-
 
 
   onTopicChange(){}
@@ -103,16 +126,26 @@ export class CirculationComponent implements OnInit {
     //console.log("clicked2");   
   }
 
-  //observable : Observable<Event>;
-  subs: Subscription;
+
+
+
+  onClicked(){
+    console.log('1')
+  }
 
   ngOnInit() {
-    
-    const observable = fromEvent(document, 'click')    
-    this.subs = observable.subscribe(console.log,console.log,alert);
+
+    console.log('---')
+     
+    //  const observable = fromEvent(document, 'click')    
+    //  this.subs = observable.subscribe(console.log,console.log,alert);
     
   }
-  ngOnDestroy() {
-    this.subs.unsubscribe();
-  }
+
+  //  observable : Observable<Event>;
+  //  subs: Subscription;
+  // ngOnDestroy() {
+  //   this.subs.unsubscribe();
+  // }
+
 }

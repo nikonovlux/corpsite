@@ -114,6 +114,9 @@ import {FileUploadModule} from 'primeng/fileupload';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
+import { AuthComponent } from './circulation/auth.component';  //InputRef
+
+import { InputRefDirective } from './circulation/circulation.component';  //InputRef
 
 
 
@@ -127,7 +130,9 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 
 @NgModule({
-  declarations: [
+  declarations: [ 
+    InputRefDirective,
+    AuthComponent,
     SearchComponent,
     LoaderComponent, 
     UniquePipe,
